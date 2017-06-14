@@ -45,6 +45,7 @@
       <properties>
         <env>prod</env>
       </properties>
+
     </profile>
   </profiles>
 
