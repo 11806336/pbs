@@ -29,7 +29,7 @@
 	</style>
 </head>
 <body>
-<header id="header">
+<header id="header" style="background-color: #8b0000;">
 	<ul id="menu">
 		<li id="guide" class="line-trigger">
 			<div class="line-wrap">
@@ -165,7 +165,7 @@
 	</aside>
 	<!-- /左侧导航区 -->
 	<section id="content">
-		<div class="content_tab">
+		<div class="content_tab" style="background-color: #8b0000;">
 			<div class="tab_left">
 				<a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-left"></i></a>
 			</div>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>股票持仓</title>
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/css/public.css" rel="stylesheet"/>
+    <!--该页面 单独的css-->
+    <link href="../../../../resources/pbs-admin/css/create_broker.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="content">
+    <div class="control-group">
+        <label for="queryDate" class="control-label">查询日期：</label>
+        <input type="text" name="queryDate" id="queryDate" readonly="readonly" onfocus="" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+        <span for="day_startDate" class="error" style="display: none;"></span>
+        <a class="btn icon-plus addstockcom btn-primary" href="#">查询</a>
+        <a class="btn icon-plus addstockcom btn-primary" href="#">上一日</a>
+        <a class="btn icon-plus addstockcom btn-primary" href="#">下一日</a>
+        <a class="btn icon-plus addstockcom btn-primary" href="#">导出数据</a>
+    </div>
+
+    <table id="stockHoldingTable"></table>
+</div>
+<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
+
+<script>
+    var $table = $('#stockHoldingTable');
+    var url_json = "../../../../resources/pbs-admin/data/product_stock_holding.json";
+    var dataColumns =  [
+        {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
+        {field: 'broker', title: '证券公司'},
+        {field: 'account', title: '资金账号'},
+        {field: 'accountName', title: '账号名称'},
+        {field: 'accountType', title: '账号类型'},
+        {field: 'marketCode', title: '市场代码'},
+        {field: 'marketName', title: '市场名称'},
+        {field: 'stockCode', title: '证券代码'},
+        {field: 'stockName', title: '证券名称'},
+        {field: 'currentStockHolding', title: '当前拥股'},
+        {field: 'positionDate', title: '持仓日期'},
+        {field: 'positionCost', title: '持仓成本'},
+        {field: 'costValue', title: '成本价'},
+        {field: 'breakEven', title: '盈亏'},
+        {field: 'marketValue', title: '市值'},
+        {field: 'stockholderAccount', title: '股东账号'},
+        {field: 'frozenAmount', title: '冻结数量'},
+        {field: 'remaining', title: '可用余额'},
+        {field: 'transitShares', title: '在途股份'},
+        {field: 'shareRemaining', title: '股份余额'},
+        {field: 'latestPrice', title: '最新价'},
+        {field: 'profitRate', title: '盈亏比例'},
+        {field: 'operator', title: '操作'}
+    ];
+
+    // 设置分页
+    var sidePagination = 'client';
+
+    // 指定主键列
+    var idField = 'otherId';
+
+    $(function() {
+        // bootstrap table初始化
+        $table.bootstrapTable({
+            url: url_json,
+            datatype: 'json',
+            height: getHeight(),
+            striped: true,
+            search: false,
+            showRefresh: false,
+            showColumns: false,
+            minimumCountColumns: 2,
+            clickToSelect: true,
+            detailView: false,
+            detailFormatter: 'detailFormatter',
+            pagination: true,
+            paginationLoop: false,
+            sidePagination: sidePagination,
+            silentSort: false,
+            smartDisplay: false,
+            escape: true,
+            searchOnEnterKey: true,
+            idField: idField,
+            maintainSelected: true,
+            toolbar: '#toolbar',
+            columns: dataColumns
+        });
+    });
+
+    function getHeight() {
+        return $(window).height() - 20;
+    }
+</script>
+</body>
+</html>

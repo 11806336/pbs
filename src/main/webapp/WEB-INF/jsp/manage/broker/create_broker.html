@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经纪公司</title>
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
+
+    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/create_broker.css">
+</head>
+<body>
+<div id="content">
+    <div>
+        <div class="control-group">
+            <label for="platform_add" class="control-label"><em class="rqd">*</em>交易平台：</label>
+            <div class="controls">
+                <select name="platform_add" id="platform_add">
+                    <option value="">---请选择---</option>
+                    <option value="20001" text="CTP实盘">CTP实盘</option>
+                    <option value="20002" text="恒生期货实盘">恒生期货实盘</option>
+                    <option value="21001" text="CTP模拟">CTP模拟</option>
+                    <option value="21002" text="恒生期货模拟">恒生期货模拟</option>
+                </select>
+                <span for="platform_add" class="hint">请选择平台</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="name" class="control-label"><em class="rqd">*</em>期货公司：</label>
+            <div class="controls">
+                <input type="text" id="name" name="name" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <span class="tipsError">请输入名称</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="brokerId" class="control-label"><em class="rqd">*</em>公司代码：</label>
+            <div class="controls">
+                <input type="text" maxlength="8" id="brokerId" name="brokerId" onfocus="importName1(this)" onblur="importName2(this)"  value="">
+                <span class="tipsError">请输入代码</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="verificationCode" class="control-label">客户端认证码：</label>
+            <div class="controls">
+                <input type="text" maxlength="20" id="verificationCode" name="verification" value="">
+                <span class="tipsError" style="display: none; padding-left: 10px">请输入长度不超过20位的数字串</span>
+            </div>
+        </div>
+
+        <div class="control-group ">
+            <label for="" class="control-label">日盘启动时间：</label>
+            <input type="text" name="day_startDate" id="day_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+            <span style="display: inline-block;margin:0 10px;">至</span>
+            <input type="text" name="day_endDate" id="day_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
+            <span for="day_endDate" class="error" style="display: none;"></span>
+        </div>
+
+        <div class="control-group">
+            <label for="" class="control-label">夜盘启动时间：</label>
+            <input type="text" name="night_startDate" id="night_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="20:00:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+            <span style="display: inline-block;margin:0 10px;">至</span>
+            <input type="text" name="night_endDate" id="night_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="01:00:00" style="background-color: #fff;cursor:pointer">
+            <span for="night_endDate" class="error" style="display: none;"></span>
+        </div>
+
+        <div class="row-fluid">
+            <div class="block" style="width:300px;float:left;margin-left:40px;margin-right: 20px;">
+                <a href="javascript:void(0);" class="block-heading"><em class="rqd" style="float: left;margin-left: -23px;">*</em>交易线路信息</a>
+
+                <div class="block-body">
+                    <input type="text" placeholder="请输入线路名称" id="tradeIdcText" maxlength="25" style="width: 180px">
+                    <a class="btn" href="javascript:void(0);" id="tradeIdcBtn" data-id="#tradeServerDiv" data-text="#tradeIdcText" data-tbody="#tradeIdcTbody">
+                        <i class="icon-plus"></i> 添加
+                    </a>
+                    <table class="table font12 table-bordered alignCenter table-condensed" id="tradeIdcTable">
+                        <thead class="table-heading">
+                            <tr>
+                                <th width="200">线路名称</th>
+                                <th width="100">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradeIdcTbody">
+                       <!-- <tr>
+                            <td>luyunchua</td>
+                            <td>
+                                <a href='javascript:void(0);' onclick=''>删除</a>
+                            </td>
+                        </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="block" id="tradeServerDiv" style="width: 500px;float: left;display: none;">
+                <a href="javascript:void(0);" class="block-heading">交易服务器信息</a>
+
+                <div class="block-body">
+                    <input type="text" placeholder="请输入服务器地址" maxlength="100" id="tradeIdcIp" style="width: 270px">
+                    <input type="text" maxlength="6" placeholder="请输入端口" id="tradeIdcPort" style="width: 80px">
+                    <a class="btn" href="javascript:void(0);" id="tradeServerBtn" data-ip="#tradeIdcIp"
+                       data-port="#tradeIdcPort"  data-tbody="#tradeServerTbody">
+                        <i class="icon-plus"></i> 添加
+                    </a>
+                    <table class="table font12 table-bordered alignCenter table-condensed" id="tradeServerTable">
+                        <thead class="table-heading">
+                            <tr>
+                                <th width="200">服务器地址</th>
+                                <th width="80">端口</th>
+                                <th width="80">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradeServerTbody">
+                            <!--<tr>
+                                <td>luyunchua</td>
+                                <td>9999</td>
+                                <td>
+                                    <a href='javascript:void(0);' onclick=''>删除</a>
+                                </td>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="block" style="width:300px;float:left;margin-left:40px;margin-right: 20px;">
+                <a href="javascript:void(0);" class="block-heading"><em class="rqd" style="float: left;margin-left: -23px;">*</em>行情线路信息</a>
+
+                <div class="block-body">
+                    <input type="text" placeholder="请输入线路名称" id="quoterIdcText" maxlength="25" style="width: 180px">
+                    <a class="btn" href="javascript:void(0);" id="quoterIdcBtn" data-id="#quoterServerDiv"  data-text="#quoterIdcText" data-tbody="#quoterIdcTbody">
+                        <i class="icon-plus"></i> 添加
+                    </a>
+                    <table class="table font12 table-bordered alignCenter table-condensed" id="quoterIdcTable">
+                        <thead class="table-heading">
+                            <tr>
+                                <th width="200">线路名称</th>
+                                <th width="100">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quoterIdcTbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="block" id="quoterServerDiv" style="width: 500px; float: left;display: none;">
+                <a href="javascript:void(0);" class="block-heading">行情服务器信息</a>
+
+                <div class="block-body">
+                    <input type="text" placeholder="请输入服务器地址" maxlength="100" id="quoterIdcIp" style="width: 270px">
+                    <input type="text" maxlength="6" placeholder="请输入端口" id="quoterIdcPort" style="width: 80px">
+                    <a class="btn" href="javascript:void(0);" id="quoterServerBtn"  data-ip="#quoterIdcIp"
+                       data-port="#quoterIdcPort" data-tbody="#quoterServerTbody">
+                        <i class="icon-plus"></i> 添加
+                    </a>
+                    <table class="table font12 table-bordered alignCenter table-condensed" id="quoterServerTable">
+                        <thead class="table-heading">
+                            <tr>
+                                <th width="200">服务器地址</th>
+                                <th width="80">端口</th>
+                                <th width="80">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quoterServerTbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
+    </div>
+</div>
+<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
+<script>
+        //下拉框选择
+        $("#platform_add").select2({
+            minimumResultsForSearch: -1
+        });
+        //选择交易平台，提示
+        $(document).on("change","#platform_add",function () {
+            if($(this).val()){
+                $(".hint").hide();
+            }else{
+                $(".hint").show();
+            }
+        });
+        $(document).on("click","#select2-platform_add-container",function () {
+            if(!$("#platform_add").val()) {
+                $(".hint").show();
+            }
+        });
+        function importName1(obj) {
+            if(!$(obj).val()){
+                $(obj).next().show();
+            }
+        }
+        function importName2(obj) {
+            if($(obj).val()){
+                $(obj).next().hide();
+            }
+        }
+        //实时监控input框
+        $(document).on("input","#name,#brokerId",function () {
+            if($(this).val()){
+                $(this).next().hide();
+            }else {
+                $(this).next().show();
+            }
+        });
+
+        //添加交易路线信息
+        $(document).on("click","#tradeIdcBtn,#quoterIdcBtn",function () {
+            var showId=$(this).attr("data-id");
+            var roadText=$($(this).attr("data-text")).val();
+            var appendTbody=$($(this).attr("data-tbody"));
+            if(roadText){
+                if(roadText.length<3 || roadText.indexOf(" ") != -1){
+                    alert("请输入3到25位中英文、数字或下划线");
+                    return false;
+                }
+                for (var i=0 ;i<$(".roadInfo").length; i++){
+                    if($(".roadInfo").eq(i).html() === roadText){
+                        alert("您输入的线路已经存在，请重新输入");
+                        return false;
+                    }
+                }
+                var html="<tr>" +
+                            "<td class='roadInfo'>"+roadText+"</td>" +
+                            "<td><a href='javascript:void(0);' onclick='deleteRoad(this)' data-hide='"+showId+"'>删除</a></td>" +
+                        "</tr>";
+                appendTbody.append(html);
+                $(showId).show();
+            }else{
+                alert("请输入交易线路名称");
+            }
+        });
+        //服务器信息
+        $(document).on("click","#tradeServerBtn,#quoterServerBtn",function () {
+            var ip=$($(this).attr("data-ip")).val();
+            var port=$($(this).attr("data-port")).val();
+            var tbody=$($(this).attr("data-tbody"));
+            var reg=/^([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/;
+            if(ip && port){
+                if(reg.test(ip)){
+                    var html="<tr>" +
+                        "<td>"+ip+"</td>" +
+                        "<td>"+port+"</td>" +
+                        "<td><a href='javascript:void(0);' onclick='deleteRoad(this)'>删除</a></td>" +
+                        "</tr>";
+                    tbody.append(html);
+                }else {
+                    alert("请输入有效的服务器地址 !");
+                }
+
+            }else {
+                alert("请输入有效的服务器地址和端口号 !");
+            }
+
+        });
+        //删除路线
+        function deleteRoad(obj) {
+            var hideDiv=$($(obj).attr("data-hide"));
+            if($(obj).parent().parent().parent().find("tr").length === 1){
+                hideDiv.hide();
+                hideDiv.find("tbody").find("tr").remove();
+            }
+            $(obj).parent().parent().remove();
+        }
+</script>
+</body>
+</html>
