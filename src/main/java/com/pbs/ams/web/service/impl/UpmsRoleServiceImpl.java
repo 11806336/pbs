@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
 * UpmsRoleService实现
-* Created by ipb on 2017/3/20.
+* Created by ams on 2017/3/20.
 */
 @Service
 @Transactional

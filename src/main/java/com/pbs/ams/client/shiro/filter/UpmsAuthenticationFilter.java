@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * 重写authc过滤器
- * Created by ipb on 2017/3/11.
+ * Created by ams on 2017/3/11.
  */
 public class UpmsAuthenticationFilter extends AuthenticationFilter {
 

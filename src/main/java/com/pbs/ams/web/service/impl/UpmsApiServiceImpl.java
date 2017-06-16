@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * 用户service实现
- * Created by ipb on 2016/01/19.
+ * Created by ams on 2016/01/19.
  */
 @Service
 @Transactional

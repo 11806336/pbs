@@ -24,10 +24,6 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>pbs-ams-management.root</param-value>
-    </context-param>
 
     <!-- Spring配置 -->
     <listener>

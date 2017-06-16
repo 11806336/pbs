@@ -21,14 +21,12 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <context:component-scan base-package="com.pbs.ams.web" />
 
 
-
-
     <!-- 拦截器 -->
     <mvc:interceptors>
         <!-- 获取登录信息 -->
         <mvc:interceptor>
             <mvc:mapping path="/manage/**"/>
-            <bean class="com.pbs.ams.web.interceptor.UpmsInterceptor"></bean>
+            <bean class="com.pbs.ams.web.interceptor.UpmsInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -49,12 +47,6 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-<!--    <aop:config>
-        <aop:aspect id="cacheProcess" ref="cacheCheck">
-            <aop:pointcut id="target" expression="execution(* com.pbs.ams.web.service.impl..*.*(..))"/>
-            <aop:after  method="processCache"  pointcut-ref="target"/>
-        </aop:aspect>
-    </aop:config>-->
 
         <!-- 日志记录AOP实现 -->
     <bean class="com.pbs.ams.client.interceptor.LogAspect"/>

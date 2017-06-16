@@ -30,7 +30,7 @@ import java.util.*;
 
 /**
  * 用户controller
- * Created by ipb on 2017/2/6.
+ * Created by ams on 2017/2/6.
  */
 @Controller
 @Api(value = "用户管理", description = "用户管理")

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by ipb on 2017/2/12.
+ * Created by ams on 2017/2/12.
  */
 public class UpmsSessionListener implements SessionListener {
 

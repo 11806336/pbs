@@ -22,7 +22,7 @@ import java.util.Set;
 
 /**
  * 用户认证和授权
- * Created by ipb on 2017/1/20.
+ * Created by ams on 2017/1/20.
  */
 
 public class UpmsRealm extends AuthorizingRealm {

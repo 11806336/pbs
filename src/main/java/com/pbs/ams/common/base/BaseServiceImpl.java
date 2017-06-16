@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 实现BaseService抽象类
- * Created by ipb on 2017/01/07.
+ * Created by ams on 2017/01/07.
  */
 public abstract class BaseServiceImpl< Record, Example> implements BaseService<Record, Example> {
 	

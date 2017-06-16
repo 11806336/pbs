@@ -7,7 +7,7 @@ import com.pbs.ams.web.model.UpmsPermissionExample;
 
 /**
 * UpmsPermissionService接口
-* Created by ipb on 2017/3/20.
+* Created by ams on 2017/3/20.
 */
 
 public interface UpmsPermissionService extends BaseService<UpmsPermission, UpmsPermissionExample> {

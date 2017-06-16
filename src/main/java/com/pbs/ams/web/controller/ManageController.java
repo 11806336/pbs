@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * 后台controller
- * Created by ipb on 2017/01/19.
+ * Created by ams on 2017/01/19.
  */
 @Controller
 @RequestMapping("/manage")

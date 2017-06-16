@@ -2,7 +2,7 @@ package com.pbs.ams.common.constant;
 
 /**
  * upms系统接口结果常量枚举类
- * Created by ipb on 2017/2/18.
+ * Created by ams on 2017/2/18.
  */
 public enum UpmsResultConstant {
 

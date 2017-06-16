@@ -2,7 +2,7 @@ package com.pbs.ams.common.base;
 
 /**
  * 统一返回结果类
- * Created by ipb on 2017/2/18.
+ * Created by ams on 2017/2/18.
  */
 public class BaseResult {
 

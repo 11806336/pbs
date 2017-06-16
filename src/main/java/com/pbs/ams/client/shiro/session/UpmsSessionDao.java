@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * 基于redis的sessionDao，缓存共享session
- * Created by ipb on 2017/2/23.
+ * Created by ams on 2017/2/23.
  */
 
 

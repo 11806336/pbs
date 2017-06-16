@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * upms系统接口
- * Created by ipb on 2017/2/11.
+ * Created by ams on 2017/2/11.
  */
 public interface UpmsApiService {
 
