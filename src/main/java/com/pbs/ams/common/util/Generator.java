@@ -16,8 +16,6 @@ public class Generator {
 	private static String JDBC_PASSWORD = PropertiesFileUtil.getInstance("dev").get("jdbc.password");
 	//包前缀
 	private static String PACKAGE_NAME = "com.pbs.ams.web";
-	//包后缀
-	private static String BUSINESS = "broker";
 	//表
 	private static List<Map<String, String>> LIST_TABLES = Lists.newArrayList();
 
@@ -36,7 +34,7 @@ public class Generator {
 	 * 走你
 	 */
 	public static void main(String[] args) throws Exception {
-		MybatisGeneratorUtil.generator(JDBC_PASSWORD, PACKAGE_NAME,LIST_TABLES,BUSINESS);
+		MybatisGeneratorUtil.generator(JDBC_PASSWORD, PACKAGE_NAME, LIST_TABLES);
 	}
 
 }
