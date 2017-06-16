@@ -21,7 +21,7 @@
 
     <!-- [公共Appender] 这个class表示输入到文件，并且按日期生成新文件-->
     <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${webapp.root}/logs/common-default.log" />  <!-- ${webapp.root}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
+        <param name="File" value="../logs/common-default.log" />  <!-- ..项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
         <param name="Append" value="true" />  <!-- 是否项目重启继续保存之前日志 -->
         <param name="encoding" value="UTF-8" />
         <param name="threshold" value="all" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->
@@ -33,7 +33,7 @@
 
     <!-- [debug日志APPENDER] -->
     <appender name="DEBUG-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${webapp.root}/logs/controller/debug-log.log" />
+        <param name="File" value="../logs/controller/debug-log.log" />
         <param name="Append" value="true" />
         <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
@@ -45,7 +45,7 @@
     <!-- [info日志APPENDER] -->
     <appender name="INFO-APPENDER"
               class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${webapp.root}/logs/controller/info-log.log" />
+        <param name="File" value="../logs/controller/info-log.log" />
         <param name="Append" value="false" />
         <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
@@ -62,7 +62,7 @@
     <!-- [组件日志APPENDER] -->
     <appender name="COMPONENT-APPENDER"
               class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${webapp.root}/logs/logistics-component.log" />
+        <param name="File" value="../logs/logistics-component.log" />
         <param name="Append" value="true" />
         <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />

@@ -49,7 +49,14 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <!-- 日志记录AOP实现 -->
+<!--    <aop:config>
+        <aop:aspect id="cacheProcess" ref="cacheCheck">
+            <aop:pointcut id="target" expression="execution(* com.pbs.ams.web.service.impl..*.*(..))"/>
+            <aop:after  method="processCache"  pointcut-ref="target"/>
+        </aop:aspect>
+    </aop:config>-->
+
+        <!-- 日志记录AOP实现 -->
     <bean class="com.pbs.ams.client.interceptor.LogAspect"/>
 
     <!-- 对静态资源文件的访问  方案二 （二选一）-->

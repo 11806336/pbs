@@ -15,7 +15,7 @@ public class Generator {
 
 	private static String JDBC_PASSWORD = PropertiesFileUtil.getInstance("dev").get("jdbc.password");
 	//包前缀
-	private static String PACKAGE_NAME = "com.pbs.ams";
+	private static String PACKAGE_NAME = "com.pbs.ams.web";
 	//包后缀
 	private static String BUSINESS = "broker";
 	//表
