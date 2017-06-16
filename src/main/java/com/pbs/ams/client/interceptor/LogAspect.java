@@ -39,7 +39,7 @@ public class LogAspect {
 	private long endTime = 0L;
 
 	@Autowired
-	UpmsApiService upmsApiService;
+	private UpmsApiService upmsApiService;
 
 	@Before("execution(* *..controller..*.*(..))")
 	public void doBeforeInServiceLayer(JoinPoint joinPoint) {

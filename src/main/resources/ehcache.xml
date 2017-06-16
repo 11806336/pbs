@@ -12,7 +12,7 @@
         <persistence strategy="localTempSwap"/>
     </defaultCache>
     <cache
-            name="pbs-ams-management-ehcache"
+            name="managementEhcache"
             eternal="false"
             timeToIdleSeconds="120"
             timeToLiveSeconds="300"
