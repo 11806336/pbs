@@ -1,0 +1,32 @@
+package ${package_name}.service.impl;
+
+import com.pbs.ams.common.annotation.BaseService;
+import com.pbs.ams.common.base.BaseServiceImpl;
+import ${package_name}.mappers.${model}Mapper;
+import ${package_name}.model.${model};
+import ${package_name}.model.${model}Example;
+import ${package_name}.service.${model}Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+* ${model}Service实现
+* Created by ams on ${ctime}.
+*/
+@Service
+@Transactional
+@BaseService
+public class ${model}ServiceImpl extends BaseServiceImpl<${model}, ${model}Example> implements ${model}Service {
+
+    private static Logger _log = LoggerFactory.getLogger(${model}ServiceImpl.class);
+
+    @Autowired
+    private ${model}Mapper ${mapper}Mapper;
+
+    @Override
+    public Object getMapper() { return ${mapper}Mapper; }
+
+}

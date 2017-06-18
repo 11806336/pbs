@@ -3,6 +3,10 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+
 
     <!-- log4j配置，文件路径，因为是跟随项目启动 -->
     <context-param>
@@ -21,7 +25,8 @@
     </context-param>
     <!-- 加载log4j配置文件 -->
     <listener>
-        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+        <listener-class>org.springframework.web.util.Log4jConfigListener
+        </listener-class>
     </listener>
 
 
