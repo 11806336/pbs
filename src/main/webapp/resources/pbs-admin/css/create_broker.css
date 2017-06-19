@@ -1,5 +1,5 @@
 
-#content {width:100%;margin:0 auto;height:500px;}
+#content {width:100%;margin:0 auto;/*height:500px;*/}
 #content>div {padding:20px 0;/*border:1px solid red;*/}
 .control-label {float: left;margin-right: 10px;width:100px;text-align: right;padding-top: 5px;}
 .rqd {
