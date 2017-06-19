@@ -10,4 +10,6 @@ public class UpmsConstant extends BaseConstants {
 
     public static final String UPMS_TYPE = "upms.type";
 
+    public static final String FORCE_LOGOUT = "FORCE_LOGOUT";
+
 }

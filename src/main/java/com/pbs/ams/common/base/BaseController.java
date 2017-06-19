@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseController {
 
-	private final static Logger _log = LoggerFactory.getLogger(BaseController.class);
+	protected Logger _log = LoggerFactory.getLogger(this.getClass());
+
+	protected static String prefix = "/manage";
 
 	/**
 	 * 统一异常处理
@@ -48,7 +50,7 @@ public abstract class BaseController {
 	 * @return
 	 */
 	public static String jsp(String path) {
-		return path.concat(".jsp");
+		return prefix+path.concat(".jsp");
 	}
 
 	/**

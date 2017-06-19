@@ -1,5 +1,6 @@
 package com.pbs.ams.client.shiro.realm;
 
+import com.pbs.ams.common.constant.UpmsEnum;
 import com.pbs.ams.common.util.MD5Util;
 import com.pbs.ams.common.util.PropertiesFileUtil;
 import com.pbs.ams.web.model.UpmsPermission;
@@ -77,8 +78,7 @@ public class UpmsRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
         // client无密认证
-        String upmsType = PropertiesFileUtil.getInstance("pbs-ams-management-client").get("upms.type");
-        if ("client".equals(upmsType)) {
+        if ("client".equals(UpmsEnum.UPMSTYPE.getString())) {
             return new SimpleAuthenticationInfo(username, password, getName());
         }
 

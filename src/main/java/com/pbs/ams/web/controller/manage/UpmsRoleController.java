@@ -40,8 +40,6 @@ import java.util.Map;
 @RequestMapping("/manage/role")
 public class UpmsRoleController extends BaseController {
 
-    private static Logger _log = LoggerFactory.getLogger(UpmsRoleController.class);
-
     @Autowired
     private UpmsRoleService upmsRoleService;
 

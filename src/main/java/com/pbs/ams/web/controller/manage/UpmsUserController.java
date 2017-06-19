@@ -37,8 +37,6 @@ import java.util.*;
 @RequestMapping("/manage/user")
 public class UpmsUserController extends BaseController {
 
-    private static Logger _log = LoggerFactory.getLogger(UpmsUserController.class);
-
     @Autowired
     private UpmsUserService upmsUserService;
 

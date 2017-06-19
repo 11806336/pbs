@@ -1,5 +1,6 @@
 package com.pbs.ams.client.shiro.session;
 
+import com.pbs.ams.common.constant.UpmsEnum;
 import com.pbs.ams.common.util.RedisUtil;
 import com.pbs.ams.client.util.SerializableUtil;
 import com.pbs.ams.common.constant.UpmsConstant;
@@ -23,31 +24,19 @@ import java.util.*;
 public class UpmsSessionDao extends CachingSessionDAO {
 
     private static Logger _log = LoggerFactory.getLogger(UpmsSessionDao.class);
-    // 会话key
-    private final static String ams_UPMS_SHIRO_SESSION_ID = "pbs-ams-management-shiro-session-id";
-    // 全局会话key
-    private final static String ams_UPMS_SERVER_SESSION_ID = "pbs-ams-management-server-session-id";
-    // 全局会话列表key
-    private final static String ams_UPMS_SERVER_SESSION_IDS = "pbs-ams-management-server-session-ids";
-    // code key
-    private final static String ams_UPMS_SERVER_CODE = "pbs-ams-management-server-code";
-    // 局部会话key
-    private final static String ams_UPMS_CLIENT_SESSION_ID = "pbs-ams-management-client-session-id";
-    // 单点同一个code所有局部会话key
-    private final static String ams_UPMS_CLIENT_SESSION_IDS = "pbs-ams-management-client-session-ids";
 
     @Override
     protected Serializable doCreate(Session session) {
         Serializable sessionId = generateSessionId(session);
         assignSessionId(session, sessionId);
-        RedisUtil.set(ams_UPMS_SHIRO_SESSION_ID + "_" + sessionId, SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
+        RedisUtil.set(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + sessionId, SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
         _log.debug("doCreate >>>>> sessionId={}", sessionId);
         return sessionId;
     }
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        String session = RedisUtil.get(ams_UPMS_SHIRO_SESSION_ID + "_" + sessionId);
+        String session = RedisUtil.get(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + sessionId);
         _log.debug("doReadSession >>>>> sessionId={}", sessionId);
         return SerializableUtil.deserialize(session);
     }
@@ -63,10 +52,10 @@ public class UpmsSessionDao extends CachingSessionDAO {
         UpmsSession cacheUpmsSession = (UpmsSession) doReadSession(session.getId());
         if (null != cacheUpmsSession) {
             upmsSession.setStatus(cacheUpmsSession.getStatus());
-            upmsSession.setAttribute("FORCE_LOGOUT", cacheUpmsSession.getAttribute("FORCE_LOGOUT"));
+            upmsSession.setAttribute(UpmsConstant.FORCE_LOGOUT, cacheUpmsSession.getAttribute(UpmsConstant.FORCE_LOGOUT));
         }
-        RedisUtil.set(ams_UPMS_SHIRO_SESSION_ID + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
-        // 更新ams_UPMS_SERVER_SESSION_ID、ams_UPMS_SERVER_CODE过期时间 TODO
+        RedisUtil.set(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
+        // 更新ams_UPMS_SERVER_SESSION_ID、ams_UPMS_SERVER_CODE过期时间
         _log.debug("doUpdate >>>>> sessionId={}", session.getId());
     }
 
@@ -76,33 +65,33 @@ public class UpmsSessionDao extends CachingSessionDAO {
         String upmsType = ObjectUtils.toString(session.getAttribute(UpmsConstant.UPMS_TYPE));
         if ("client".equals(upmsType)) {
             // 删除局部会话和同一code注册的局部会话
-            String code = RedisUtil.get(ams_UPMS_CLIENT_SESSION_ID + "_" + sessionId);
+            String code = RedisUtil.get(UpmsEnum.AMS_UPMS_CLIENT_SESSION_ID.getString() + "_" + sessionId);
             Jedis jedis = RedisUtil.getJedis();
-            jedis.del(ams_UPMS_CLIENT_SESSION_ID + "_" + sessionId);
-            jedis.srem(ams_UPMS_CLIENT_SESSION_IDS + "_" + code, sessionId);
+            jedis.del(UpmsEnum.AMS_UPMS_CLIENT_SESSION_ID.getString() + "_" + sessionId);
+            jedis.srem(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + code, sessionId);
             jedis.close();
         }
         if ("server".equals(upmsType)) {
             // 当前全局会话code
-            String code = RedisUtil.get(ams_UPMS_SERVER_SESSION_ID + "_" + sessionId);
+            String code = RedisUtil.get(UpmsEnum.AMS_UPMS_SERVER_SESSION_ID.getString() + "_" + sessionId);
             // 清除全局会话
-            RedisUtil.remove(ams_UPMS_SERVER_SESSION_ID + "_" + sessionId);
+            RedisUtil.remove(UpmsEnum.AMS_UPMS_SERVER_SESSION_ID.getString() + "_" + sessionId);
             // 清除code校验值
-            RedisUtil.remove(ams_UPMS_SERVER_CODE + "_" + code);
+            RedisUtil.remove(UpmsEnum.AMS_UPMS_SERVER_CODE.getString() + "_" + code);
             // 清除所有局部会话
             Jedis jedis = RedisUtil.getJedis();
-            Set<String> clientSessionIds = jedis.smembers(ams_UPMS_CLIENT_SESSION_IDS + "_" + code);
+            Set<String> clientSessionIds = jedis.smembers(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + code);
             for (String clientSessionId : clientSessionIds) {
-                jedis.del(ams_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId);
-                jedis.srem(ams_UPMS_CLIENT_SESSION_IDS + "_" + code, clientSessionId);
+                jedis.del(UpmsEnum.AMS_UPMS_CLIENT_SESSION_ID.getString() + "_" + clientSessionId);
+                jedis.srem(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + code, clientSessionId);
             }
-            _log.debug("当前code={}，对应的注册系统个数：{}个", code, jedis.scard(ams_UPMS_CLIENT_SESSION_IDS + "_" + code));
+            _log.debug("当前code={}，对应的注册系统个数：{}个", code, jedis.scard(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + code));
             jedis.close();
             // 维护会话id列表，提供会话分页管理
-            RedisUtil.lrem(ams_UPMS_SERVER_SESSION_IDS, 1, sessionId);
+            RedisUtil.lrem(UpmsEnum.AMS_UPMS_SERVER_SESSION_IDS.getString(), 1, sessionId);
         }
         // 删除session
-        RedisUtil.remove(ams_UPMS_SHIRO_SESSION_ID + "_" + sessionId);
+        RedisUtil.remove(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + sessionId);
         _log.debug("doUpdate >>>>> sessionId={}", sessionId);
     }
 
@@ -116,15 +105,15 @@ public class UpmsSessionDao extends CachingSessionDAO {
         Map sessions = new HashMap();
         Jedis jedis = RedisUtil.getJedis();
         // 获取在线会话总数
-        long total = jedis.llen(ams_UPMS_SERVER_SESSION_IDS);
+        long total = jedis.llen(UpmsEnum.AMS_UPMS_SERVER_SESSION_IDS.getString());
         // 获取当前页会话详情
-        List<String> ids = jedis.lrange(ams_UPMS_SERVER_SESSION_IDS, offset, (offset + limit - 1));
+        List<String> ids = jedis.lrange(UpmsEnum.AMS_UPMS_SERVER_SESSION_IDS.getString(), offset, (offset + limit - 1));
         List<Session> rows = new ArrayList<>();
         for (String id : ids) {
-            String session = RedisUtil.get(ams_UPMS_SHIRO_SESSION_ID + "_" + id);
+            String session = RedisUtil.get(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + id);
             // 过滤redis过期session
             if (null == session) {
-                RedisUtil.lrem(ams_UPMS_SERVER_SESSION_IDS, 1, id);
+                RedisUtil.lrem(UpmsEnum.AMS_UPMS_SERVER_SESSION_IDS.getString(), 1, id);
                 total = total - 1;
                 continue;
             }
@@ -145,11 +134,11 @@ public class UpmsSessionDao extends CachingSessionDAO {
         String[] sessionIds = ids.split(",");
         for (String sessionId : sessionIds) {
             // 会话增加强制退出属性标识，当此会话访问系统时，判断有该标识，则退出登录
-            String session = RedisUtil.get(ams_UPMS_SHIRO_SESSION_ID + "_" + sessionId);
+            String session = RedisUtil.get(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + sessionId);
             UpmsSession upmsSession = (UpmsSession) SerializableUtil.deserialize(session);
             upmsSession.setStatus(UpmsSession.OnlineStatus.force_logout);
-            upmsSession.setAttribute("FORCE_LOGOUT", "FORCE_LOGOUT");
-            RedisUtil.set(ams_UPMS_SHIRO_SESSION_ID + "_" + sessionId, SerializableUtil.serialize(upmsSession), (int) upmsSession.getTimeout() / 1000);
+            upmsSession.setAttribute(UpmsConstant.FORCE_LOGOUT, UpmsConstant.FORCE_LOGOUT);
+            RedisUtil.set(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + sessionId, SerializableUtil.serialize(upmsSession), (int) upmsSession.getTimeout() / 1000);
         }
         return sessionIds.length;
     }
@@ -166,7 +155,7 @@ public class UpmsSessionDao extends CachingSessionDAO {
             return;
         }
         session.setStatus(onlineStatus);
-        RedisUtil.set(ams_UPMS_SHIRO_SESSION_ID + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
+        RedisUtil.set(UpmsEnum.AMS_UPMS_SHIRO_SESSION_ID.getString() + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
     }
 
 }

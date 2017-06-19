@@ -1,6 +1,7 @@
 package com.pbs.ams.web.controller;
 
 import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.common.constant.UpmsEnum;
 import com.pbs.ams.common.util.RedisUtil;
 import com.pbs.ams.client.shiro.session.UpmsSession;
 import com.pbs.ams.client.shiro.session.UpmsSessionDao;
@@ -42,22 +43,14 @@ import java.util.UUID;
 @Api(value = "单点登录管理", description = "单点登录管理")
 public class SSOController extends BaseController {
 
-    private final static Logger _log = LoggerFactory.getLogger(SSOController.class);
-    // 全局会话key
-    private final static String ams_UPMS_SERVER_SESSION_ID = "pbs-ams-management-server-session-id";
-    // 全局会话key列表
-    private final static String ams_UPMS_SERVER_SESSION_IDS = "pbs-ams-management-server-session-ids";
-    // code key
-    private final static String ams_UPMS_SERVER_CODE = "pbs-ams-management-server-code";
+    @Autowired
+    private UpmsSystemService upmsSystemService;
 
     @Autowired
-    UpmsSystemService upmsSystemService;
+    private UpmsUserService upmsUserService;
 
     @Autowired
-    UpmsUserService upmsUserService;
-
-    @Autowired
-    UpmsSessionDao upmsSessionDao ;
+    private UpmsSessionDao upmsSessionDao ;
 
     @ApiOperation(value = "认证中心首页")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -85,7 +78,7 @@ public class SSOController extends BaseController {
         Session session = subject.getSession();
         String serverSessionId = session.getId().toString();
         // 判断是否已登录，如果已登录，则回跳
-        String code = RedisUtil.get(ams_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
+        String code = RedisUtil.get(UpmsEnum.AMS_UPMS_SERVER_SESSION_ID.getString() + "_" + serverSessionId);
         // code校验值
         if (StringUtils.isNotBlank(code)) {
             // 回跳
@@ -123,7 +116,7 @@ public class SSOController extends BaseController {
         Session session = subject.getSession();
         String sessionId = session.getId().toString();
         // 判断是否已登录，如果已登录，则回跳，防止重复登录
-        String hasCode = RedisUtil.get(ams_UPMS_SERVER_SESSION_ID + "_" + sessionId);
+        String hasCode = RedisUtil.get(UpmsEnum.AMS_UPMS_SERVER_SESSION_ID.getString() + "_" + sessionId);
         // code校验值
         if (StringUtils.isBlank(hasCode)) {
             // 使用shiro认证
@@ -145,13 +138,13 @@ public class SSOController extends BaseController {
             // 更新session状态
             upmsSessionDao.updateStatus(sessionId, UpmsSession.OnlineStatus.on_line);
             // 全局会话sessionId列表，供会话管理
-            RedisUtil.lpush(ams_UPMS_SERVER_SESSION_IDS, sessionId.toString());
+            RedisUtil.lpush(UpmsEnum.AMS_UPMS_SERVER_SESSION_ID.getString(), sessionId);
             // 默认验证帐号密码正确，创建code
             String code = UUID.randomUUID().toString();
             // 全局会话的code
-            RedisUtil.set(ams_UPMS_SERVER_SESSION_ID + "_" + sessionId, code, (int) subject.getSession().getTimeout() / 1000);
+            RedisUtil.set(UpmsEnum.AMS_UPMS_SERVER_SESSION_ID.getString() + "_" + sessionId, code, (int) subject.getSession().getTimeout() / 1000);
             // code校验值
-            RedisUtil.set(ams_UPMS_SERVER_CODE + "_" + code, code, (int) subject.getSession().getTimeout() / 1000);
+            RedisUtil.set(UpmsEnum.AMS_UPMS_SERVER_CODE.getString() + "_" + code, code, (int) subject.getSession().getTimeout() / 1000);
         }
         // 回跳登录前地址
         String backurl = request.getParameter("backurl");
@@ -167,7 +160,7 @@ public class SSOController extends BaseController {
     @ResponseBody
     public Object code(HttpServletRequest request) {
         String codeParam = request.getParameter("code");
-        String code = RedisUtil.get(ams_UPMS_SERVER_CODE + "_" + codeParam);
+        String code = RedisUtil.get(UpmsEnum.AMS_UPMS_SERVER_CODE.getString() + "_" + codeParam);
         if (StringUtils.isBlank(codeParam) || !codeParam.equals(code)) {
             new UpmsResult(UpmsResultConstant.FAILED, "无效code");
         }

@@ -35,8 +35,6 @@ import java.util.Map;
 @RequestMapping("/manage/permission")
 public class UpmsPermissionController extends BaseController {
 
-    private static Logger _log = LoggerFactory.getLogger(UpmsPermissionController.class);
-
     @Autowired
     private UpmsPermissionService upmsPermissionService;
 

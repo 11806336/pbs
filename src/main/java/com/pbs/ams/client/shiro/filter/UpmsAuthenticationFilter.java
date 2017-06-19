@@ -1,6 +1,7 @@
 package com.pbs.ams.client.shiro.filter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pbs.ams.common.constant.UpmsEnum;
 import com.pbs.ams.common.util.PropertiesFileUtil;
 import com.pbs.ams.common.util.RedisUtil;
 import com.pbs.ams.client.shiro.session.UpmsSessionDao;
@@ -44,40 +45,28 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
 
     private final static Logger _log = LoggerFactory.getLogger(UpmsAuthenticationFilter.class);
 
-    // 局部会话key
-    private final static String ams_UPMS_CLIENT_SESSION_ID = "pbs-ams-management-client-session-id";
-    // 单点同一个code所有局部会话key
-    private final static String ams_UPMS_CLIENT_SESSION_IDS = "pbs-ams-management-client-session-ids";
 
     @Autowired
-    UpmsSessionDao upmsSessionDao;
+    private UpmsSessionDao upmsSessionDao;
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         Subject subject = getSubject(request, response);
         Session session = subject.getSession();
         // 判断请求类型
-        String upmsType = PropertiesFileUtil.getInstance("pbs-ams-management-client").get("upms.type");
-        session.setAttribute(UpmsConstant.UPMS_TYPE, upmsType);
-        if ("client".equals(upmsType)) {
-            return validateClient(request, response);
-        }
-        if ("server".equals(upmsType)) {
-            return subject.isAuthenticated();
-        }
-        return false;
+        session.setAttribute(UpmsConstant.UPMS_TYPE, UpmsEnum.UPMSTYPE.getString());
+        return "client".equals(UpmsEnum.UPMSTYPE.getString()) ? validateClient(request, response) : "server".equals(UpmsEnum.UPMSTYPE.getString()) && subject.isAuthenticated();
     }
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        StringBuffer sso_server_url = new StringBuffer(PropertiesFileUtil.getInstance("pbs-ams-management-client").get("sso.server.url"));
+
         // server需要登录
-        String upmsType = PropertiesFileUtil.getInstance("pbs-ams-management-client").get("upms.type");
-        if ("server".equals(upmsType)) {
-            WebUtils.toHttp(response).sendRedirect(sso_server_url.append("/sso/login").toString());
+        if ("server".equals(UpmsEnum.UPMSTYPE.getString())) {
+            WebUtils.toHttp(response).sendRedirect(UpmsEnum.SSO_SERVER_URL.getStringBuilder()+"/sso/login");
             return false;
         }
-        sso_server_url.append("/sso/index").append("?").append("appid").append("=").append(PropertiesFileUtil.getInstance("pbs-ams-management-client").get("appID"));
+        UpmsEnum.SSO_SERVER_URL.getStringBuilder().append("/sso/index").append("?").append("appid").append("=").append(UpmsEnum.APPID.getString());
         // 回跳地址
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
         StringBuffer backurl = httpServletRequest.getRequestURL();
@@ -85,8 +74,8 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
         if (StringUtils.isNotBlank(queryString)) {
             backurl.append("?").append(queryString);
         }
-        sso_server_url.append("&").append("backurl").append("=").append(URLEncoder.encode(backurl.toString(), "utf-8"));
-        WebUtils.toHttp(response).sendRedirect(sso_server_url.toString());
+        UpmsEnum.SSO_SERVER_URL.getStringBuilder().append("&").append("backurl").append("=").append(URLEncoder.encode(backurl.toString(), "utf-8"));
+        WebUtils.toHttp(response).sendRedirect(UpmsEnum.SSO_SERVER_URL.getString());
         return false;
     }
 
@@ -100,19 +89,19 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
         String sessionId = session.getId().toString();
         int timeOut = (int) session.getTimeout() / 1000;
         // 判断局部会话是否登录
-        String cacheClientSession = RedisUtil.get(ams_UPMS_CLIENT_SESSION_ID + "_" + session.getId());
+        String cacheClientSession = RedisUtil.get(UpmsEnum.AMS_UPMS_CLIENT_SESSION_ID.getString() + "_" + session.getId());
         if (StringUtils.isNotBlank(cacheClientSession)) {
             // 更新code有效期
-            RedisUtil.set(ams_UPMS_CLIENT_SESSION_ID + "_" + sessionId, cacheClientSession, timeOut);
+            RedisUtil.set(UpmsEnum.AMS_UPMS_CLIENT_SESSION_ID.getString() + "_" + sessionId, cacheClientSession, timeOut);
             Jedis jedis = RedisUtil.getJedis();
-            jedis.expire(ams_UPMS_CLIENT_SESSION_IDS + "_" + cacheClientSession, timeOut);
+            jedis.expire(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + cacheClientSession, timeOut);
             jedis.close();
             // 移除url中的code参数
             if (null != request.getParameter("code")) {
                 String backUrl = RequestParameterUtil.getParameterWithOutCode(WebUtils.toHttp(request));
                 HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
                 try {
-                    httpServletResponse.sendRedirect(backUrl.toString());
+                    httpServletResponse.sendRedirect(backUrl);
                 } catch (IOException e) {
                     _log.error("局部会话已登录，移除code参数跳转出错：", e);
                 }
@@ -126,9 +115,8 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
         if (StringUtils.isNotBlank(code)) {
             // HttpPost去校验code
             try {
-                StringBuffer sso_server_url = new StringBuffer(PropertiesFileUtil.getInstance("pbs-ams-management-client").get("sso.server.url"));
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(sso_server_url.toString() + "/sso/code");
+                HttpPost httpPost = new HttpPost(UpmsEnum.SSO_SERVER_URL.getStringBuilder().append("/sso/code").toString());
 
                 List<NameValuePair> nameValuePairs = new ArrayList<>();
                 nameValuePairs.add(new BasicNameValuePair("code", code));
@@ -140,10 +128,10 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
                     JSONObject result = JSONObject.parseObject(EntityUtils.toString(httpEntity));
                     if (1 == result.getIntValue("code") && result.getString("data").equals(code)) {
                         // code校验正确，创建局部会话
-                        RedisUtil.set(ams_UPMS_CLIENT_SESSION_ID + "_" + sessionId, code, timeOut);
+                        RedisUtil.set(UpmsEnum.AMS_UPMS_CLIENT_SESSION_ID.getString() + "_" + sessionId, code, timeOut);
                         // 保存code对应的局部会话sessionId，方便退出操作
-                        RedisUtil.sadd(ams_UPMS_CLIENT_SESSION_IDS + "_" + code, sessionId, timeOut);
-                        _log.debug("当前code={}，对应的注册系统个数：{}个", code, RedisUtil.getJedis().scard(ams_UPMS_CLIENT_SESSION_IDS + "_" + code));
+                        RedisUtil.sadd(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + code, sessionId, timeOut);
+                        _log.debug("当前code={}，对应的注册系统个数：{}个", code, RedisUtil.getJedis().scard(UpmsEnum.AMS_UPMS_CLIENT_SESSION_IDS.getString() + "_" + code));
                         // 移除url中的token参数
                         String backUrl = RequestParameterUtil.getParameterWithOutCode(WebUtils.toHttp(request));
                         // 返回请求资源
@@ -152,7 +140,7 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
                             String username = request.getParameter("upms_username");
                             subject.login(new UsernamePasswordToken(username, ""));
                             HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
-                            httpServletResponse.sendRedirect(backUrl.toString());
+                            httpServletResponse.sendRedirect(backUrl);
                             return true;
                         } catch (IOException e) {
                             _log.error("已拿到code，移除code参数跳转出错：", e);

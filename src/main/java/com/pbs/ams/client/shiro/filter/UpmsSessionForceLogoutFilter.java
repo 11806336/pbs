@@ -1,5 +1,7 @@
 package com.pbs.ams.client.shiro.filter;
 
+import com.pbs.ams.common.constant.UpmsConstant;
+import com.pbs.ams.common.constant.UpmsEnum;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -19,7 +21,7 @@ public class UpmsSessionForceLogoutFilter extends AccessControlFilter {
         if(session == null) {
             return true;
         }
-        boolean forceout = session.getAttribute("FORCE_LOGOUT") == null;
+        boolean forceout = session.getAttribute(UpmsConstant.FORCE_LOGOUT) == null;
         return  forceout;
     }
 

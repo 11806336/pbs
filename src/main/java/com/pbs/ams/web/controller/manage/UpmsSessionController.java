@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/manage/session")
 public class UpmsSessionController extends BaseController {
 
-    private static Logger _log = LoggerFactory.getLogger(UpmsSessionController.class);
-
-
     private UpmsSessionDao upmsSessionDao = new UpmsSessionDao();
 
     @ApiOperation(value = "会话首页")
