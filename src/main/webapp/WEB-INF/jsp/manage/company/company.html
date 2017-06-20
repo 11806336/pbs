@@ -3,92 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>公司</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
     <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
     <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../../resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
-
-    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/create_broker.css">
+    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/public.css">
 </head>
 <body>
 <div id="content">
-    <div>
-        <div class="control-group">
-            <label for="company_name" class="control-label"><em class="rqd">*</em>公司名称：</label>
-            <div class="controls">
-                <input type="text" id="company_name" name="company_name" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司名称</span>
-            </div>
+    <div style="position: absolute;top:10px;z-index: 111;">
+        <div class="btn-panel" onclick="panel('create_company.html','添加新公司')" style="display: inline-block;">
+            <a class="btn icon-plus addstockcom btn-primary" href="#">添加新公司</a>
         </div>
-
-        <div class="control-group">
-            <label for="operator_id" class="control-label"><em class="rqd">*</em>操作人ID：</label>
-            <div class="controls">
-                <input type="text" id="operator_id" name="operator_id" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入操作人ID</span>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label for="company_phone" class="control-label"><em class="rqd">*</em>公司电话：</label>
-            <div class="controls">
-                <input type="text" id="company_phone" name="company_phone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司电话</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="company_address" class="control-label"><em class="rqd">*</em>公司地址：</label>
-            <div class="controls">
-                <input type="text" id="company_address" name="company_address" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司地址</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="company_fax" class="control-label">公司传真：</label>
-            <div class="controls">
-                <input type="text" maxlength="20" id="company_fax" name="company_fax" value="">
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="create_time" class="control-label"><em class="rqd">*</em>创建时间：</label>
-            <div class="controls">
-                <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="create_time" value="2017-06-14" id="create_time" class="set_date">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="comments">备注：</label>
-            <div class="controls">
-                <textarea id="comments" style="width:210px;" rows="10" cols="40" name="comments"></textarea>
-                <span class="tips-warning"></span>
-                <span class="tipsError"></span>
-            </div>
-        </div>
-        <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </div>
+    <table id="table"></table>
 </div>
 <script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
+<script src="../../../../resources/pbs-admin/js/public.js"></script>
 <script>
-    function importName1(obj) {
-        if(!$(obj).val()){
-            $(obj).next().show();
-        }
+    function panel(url, title) {//调用弹窗，需要传标题和url
+        layer.open({
+            type: 2,
+            title: title,
+            area: ['700px', '430px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: url,
+            shadeClose: true,
+            moveOut: true
+        });
     }
-    function importName2(obj) {
-        if($(obj).val()){
-            $(obj).next().hide();
+    var $table = $('#table');
+    //列配置项
+    var dataColumns = [
+        {field: 'ck', checkbox: true},
+        {field: 'company_id', title: '公司ID'},
+        {field: 'company_name', title: '公司名称'},
+        {field: 'manager_id', title: '负责人ID'},
+        {field: 'company_phone', title: '公司电话'},
+        {field: 'company_address', title: '公司地址'},
+        {field: 'company_fax', title: '公司传真'},
+        {field: 'create_time', title: '创建时间'},
+        {field: 'update_time', title: '修改时间'},
+        {field: 'desc', title: '备注'},
+        {
+            field: 'action',
+            title: '操作',
+            align: 'center',
+            formatter: 'actionFormatter',
+            events: 'actionEvents',
+            clickToSelect: true
         }
+    ];
+    //数据url
+    var url_json = "../../../../resources/pbs-admin/data/broker.json";
+    //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+    var sidePagination = 'client';
+    //指定主键列
+    var idField = 'companyId';
+    //右上角刷新搜索
+    var search = true;
+    var showRefresh = true;
+    var showColumns = true;
+    // 格式化操作按钮
+
+    function actionFormatter(value, row, index) {
+        return [
+            '<a class="update" href="javascript:;" onclick="panel(' + "'create_company.html'" + "," + "'添加新公司'" + ')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+            '<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+        ].join('');
     }
-    //实时监控input框
-    $(document).on("input","#company_name,#company_phone,#company_address,#operator_id",function () {
-        if($(this).val()){
-            $(this).next().hide();
-        }else {
-            $(this).next().show();
-        }
-    });
 </script>
 </body>
 </html>
