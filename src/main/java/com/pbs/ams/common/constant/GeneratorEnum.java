@@ -45,7 +45,7 @@ public enum GeneratorEnum {
 		return value;
 	}
 
-	// Implementing a fromString method on an enum type
+
     private static final Map<String, GeneratorEnum> stringToEnum = new HashMap<>();
     static {
         // Initialize map from constant name to enum constant
@@ -53,7 +53,7 @@ public enum GeneratorEnum {
             stringToEnum.put(enumObj.toString(), enumObj);
         }
     }
-    // Returns GeneratorEnum for string, or null if string is invalid
+    //通过枚举值获取枚举名称
     public static GeneratorEnum parse(String id) {
         return stringToEnum.get(id);
     }
