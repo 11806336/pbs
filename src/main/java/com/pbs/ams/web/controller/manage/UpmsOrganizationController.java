@@ -112,7 +112,7 @@ public class UpmsOrganizationController extends BaseController {
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsOrganization organization = upmsOrganizationService.selectByPrimaryKey(id);
         modelMap.put("organization", organization);
-        return "/manage/organization/update.jsp";
+        return  jsp("/organization/update");
     }
 
     @ApiOperation(value = "修改组织")
