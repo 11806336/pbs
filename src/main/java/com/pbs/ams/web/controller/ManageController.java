@@ -1,15 +1,16 @@
 package com.pbs.ams.web.controller;
 
 import com.pbs.ams.common.base.BaseController;
-import com.pbs.ams.common.util.RedisUtil;
-import com.pbs.ams.web.model.*;
-import com.pbs.ams.web.service.*;
+import com.pbs.ams.web.model.UpmsPermission;
+import com.pbs.ams.web.model.UpmsSystem;
+import com.pbs.ams.web.model.UpmsSystemExample;
+import com.pbs.ams.web.model.UpmsUser;
+import com.pbs.ams.web.service.UpmsApiService;
+import com.pbs.ams.web.service.UpmsSystemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,7 +34,7 @@ public class ManageController extends BaseController {
 	@Autowired
 	private UpmsApiService upmsApiService;
 
-	@ApiOperation(value = "后台首页")
+	@ApiOperation(value = "后 台首页")
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
 		// 已注册系统
@@ -50,5 +51,4 @@ public class ManageController extends BaseController {
 		modelMap.put("upmsPermissions", upmsPermissions);
 		return "/manage/index.jsp";
 	}
-
 }

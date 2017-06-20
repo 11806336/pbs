@@ -72,9 +72,9 @@
 						</li>
 						<li class="divider hidden-xs"></li>
 						<c:forEach var="upmsSystem" items="${upmsSystems}">
-						<li>
-							<a class="waves-effect switch-systems" href="javascript:;" systemid="${upmsSystem.systemId}" systemname="${upmsSystem.name}" systemtitle="${upmsSystem.title}"><i class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
-						</li>
+							<li>
+								<a class="waves-effect switch-systems" href="javascript:;" systemid="${upmsSystem.systemId}" systemname="${upmsSystem.name}" systemtitle="${upmsSystem.title}"><i class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
+							</li>
 						</c:forEach>
 					</ul>
 				</li>
@@ -141,20 +141,20 @@
 			</li>
 			<c:forEach var="upmsPermission" items="${upmsPermissions}" varStatus="status">
 				<c:if test="${upmsPermission.pid == 0}">
-				<li class="sub-menu system_menus system_${upmsPermission.systemId} ${status.index}" <c:if test="${upmsPermission.systemId != 1}">style="display:none;"</c:if>>
-					<a class="waves-effect" href="javascript:;"><i class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
-					<ul>
-						<c:forEach var="subUpmsPermission" items="${upmsPermissions}">
-							<c:if test="${subUpmsPermission.pid == upmsPermission.permissionId}">
-								<c:forEach var="upmsSystem" items="${upmsSystems}">
-									<c:if test="${subUpmsPermission.systemId == upmsSystem.systemId}">
-									<c:set var="systemBasePath" value="${upmsSystem.basepath}"/></c:if>
-								</c:forEach>
-								<li><a class="waves-effect" href="javascript:Tab.addTab('${subUpmsPermission.name}', '${systemBasePath}${subUpmsPermission.uri}');">${subUpmsPermission.name}</a></li>
-							</c:if>
-						</c:forEach>
-					</ul>
-				</li>
+					<li class="sub-menu system_menus system_${upmsPermission.systemId} ${status.index}" <c:if test="${upmsPermission.systemId != 1}">style="display:none;"</c:if>>
+						<a class="waves-effect" href="javascript:;"><i class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
+						<ul>
+							<c:forEach var="subUpmsPermission" items="${upmsPermissions}">
+								<c:if test="${subUpmsPermission.pid == upmsPermission.permissionId}">
+									<c:forEach var="upmsSystem" items="${upmsSystems}">
+										<c:if test="${subUpmsPermission.systemId == upmsSystem.systemId}">
+											<c:set var="systemBasePath" value="${upmsSystem.basepath}"/></c:if>
+									</c:forEach>
+									<li><a class="waves-effect" href="javascript:Tab.addTab('${subUpmsPermission.name}', '${systemBasePath}${subUpmsPermission.uri}');">${subUpmsPermission.name}</a></li>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</li>
 				</c:if>
 			</c:forEach>
 			<li>

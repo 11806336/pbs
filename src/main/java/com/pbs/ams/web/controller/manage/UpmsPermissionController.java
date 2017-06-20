@@ -4,18 +4,21 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.pbs.ams.common.base.BaseController;
-import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
-import com.pbs.ams.web.model.*;
-import com.pbs.ams.web.service.*;
+import com.pbs.ams.common.validator.LengthValidator;
+import com.pbs.ams.web.model.UpmsPermission;
+import com.pbs.ams.web.model.UpmsPermissionExample;
+import com.pbs.ams.web.model.UpmsSystem;
+import com.pbs.ams.web.model.UpmsSystemExample;
+import com.pbs.ams.web.service.UpmsApiService;
+import com.pbs.ams.web.service.UpmsPermissionService;
+import com.pbs.ams.web.service.UpmsSystemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -112,7 +115,9 @@ public class UpmsPermissionController extends BaseController {
         upmsSystemExample.createCriteria()
                 .andStatusEqualTo((byte) 1);
         List<UpmsSystem> upmsSystems = upmsSystemService.selectByExample(upmsSystemExample);
+
         modelMap.put("upmsSystems", upmsSystems);
+
         return "/manage/permission/create.jsp";
     }
 

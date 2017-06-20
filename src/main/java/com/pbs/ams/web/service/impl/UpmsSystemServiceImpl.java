@@ -30,4 +30,5 @@ public class UpmsSystemServiceImpl extends BaseServiceImpl< UpmsSystem, UpmsSyst
     public Object getMapper() {
         return upmsSystemMapper;
     }
+
 }
