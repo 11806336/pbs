@@ -13,6 +13,7 @@ target
 .log
 logs
 generatorConfig.xml
+generator.properties
 
 # Eclipse
 .classpath
