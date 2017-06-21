@@ -81,7 +81,11 @@ public class MybatisGeneratorUtil {
 		}
 
 		for (Map<String, String> lstTable : lstTables) {
-			String model = StringUtil.lineToHump(ObjectUtils.toString(lstTable.get("table_name")));
+			String tbName = ObjectUtils.toString(lstTable.get("table_name"));
+			String model = StringUtil.lineToHump(tbName);
+			if (tbName.contains("snaps")){
+				continue;
+			}
 			String service = servicePath + "/" + model + "Service.java";
 			String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
 			// 生成service
@@ -115,11 +119,44 @@ public class MybatisGeneratorUtil {
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 		Map<String, String> map1 = Maps.newHashMap();
-		map1.put("table_name","ams_broker");
+		map1.put("table_name","ams_product");
 		lstTables.add(map1);
+		Map<String, String> map11 = Maps.newHashMap();
+		map11.put("table_name","ams_product_snaps");
+		lstTables.add(map11);
 		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_platform");
+		map2.put("table_name","ams_product_detail");
 		lstTables.add(map2);
+		Map<String, String> map22 = Maps.newHashMap();
+		map22.put("table_name","ams_product_detail_snaps");
+		lstTables.add(map22);
+		Map<String, String> map3 = Maps.newHashMap();
+		map3.put("table_name","ams_product_account");
+		lstTables.add(map3);
+		Map<String, String> map4 = Maps.newHashMap();
+		map4.put("table_name","ams_stock_account");
+		lstTables.add(map4);
+		Map<String, String> map44 = Maps.newHashMap();
+		map44.put("table_name","ams_stock_account_snaps");
+		lstTables.add(map44);
+		Map<String, String> map5 = Maps.newHashMap();
+		map5.put("table_name","ams_stock_holding");
+		lstTables.add(map5);
+		Map<String, String> map55 = Maps.newHashMap();
+		map55.put("table_name","ams_stock_holding_snaps");
+		lstTables.add(map55);
+		Map<String, String> map6 = Maps.newHashMap();
+		map6.put("table_name","ams_market");
+		lstTables.add(map6);
+		Map<String, String> map66 = Maps.newHashMap();
+		map66.put("table_name","ams_market_snaps");
+		lstTables.add(map66);
+		Map<String, String> map7 = Maps.newHashMap();
+		map7.put("table_name","ams_stock");
+		lstTables.add(map7);
+		Map<String, String> map77 = Maps.newHashMap();
+		map77.put("table_name","ams_stock_snaps");
+		lstTables.add(map77);
 		MybatisGeneratorUtil.generator(lstTables);
 	}
 

@@ -12,6 +12,7 @@ target
 *.iml
 .log
 logs
+generatorConfig.xml
 
 # Eclipse
 .classpath
