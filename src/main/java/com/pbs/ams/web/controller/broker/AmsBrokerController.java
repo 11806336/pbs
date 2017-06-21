@@ -1,4 +1,4 @@
-package com.pbs.ams.web.controller.manage;
+package com.pbs.ams.web.controller.broker;
 
 import com.pbs.ams.common.base.BaseController;
 import com.pbs.ams.web.model.AmsBroker;
