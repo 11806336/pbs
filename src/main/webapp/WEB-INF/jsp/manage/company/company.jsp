@@ -1,7 +1,10 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>公司管理</title>
     <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
@@ -14,7 +17,7 @@
 <body>
 <div id="content">
     <div style="position: absolute;top:10px;z-index: 111;">
-        <div class="btn-panel" onclick="panel('create_company.html','添加新公司')" style="display: inline-block;">
+        <div class="btn-panel" onclick="panel('${basePath}/company/create','添加新公司')" style="display: inline-block;">
             <a class="btn icon-plus addstockcom btn-primary" href="#">添加新公司</a>
         </div>
     </div>
@@ -45,15 +48,15 @@
     //列配置项
     var dataColumns = [
         {field: 'ck', checkbox: true},
-        {field: 'company_id', title: '公司ID'},
-        {field: 'company_name', title: '公司名称'},
-        {field: 'manager_id', title: '负责人ID'},
-        {field: 'company_phone', title: '公司电话'},
-        {field: 'company_address', title: '公司地址'},
-        {field: 'company_fax', title: '公司传真'},
-        {field: 'create_time', title: '创建时间'},
-        {field: 'update_time', title: '修改时间'},
-        {field: 'desc', title: '备注'},
+        {field: 'companyId', title: '公司ID'},
+        {field: 'companyName', title: '公司名称'},
+        {field: 'managerId', title: '负责人ID'},
+        {field: 'companyPhone', title: '公司电话'},
+        {field: 'companyAddress', title: '公司地址'},
+        {field: 'companyFax', title: '公司传真'},
+        {field: 'createTime', title: '创建时间'},
+        {field: 'updateTime', title: '修改时间'},
+        {field: 'descriptoin', title: '备注'},
         {
             field: 'action',
             title: '操作',
@@ -64,9 +67,9 @@
         }
     ];
     //数据url
-    var url_json = "../../../../resources/pbs-admin/data/broker.json";
+    var url_json = "${basePath}/company/list";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination = 'client';
+    var sidePagination = 'server';
     //指定主键列
     var idField = 'companyId';
     //右上角刷新搜索
@@ -77,9 +80,21 @@
 
     function actionFormatter(value, row, index) {
         return [
-            '<a class="update" href="javascript:;" onclick="panel(' + "'create_company.html'" + "," + "'添加新公司'" + ')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-            '<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+            '<a class="update" href="javascript:;" onclick="panel(' + "'${basePath}/company/update/10016'" + "," + "'编辑公司'" + ')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+          //  '<a class="delete" href="javascript:;" onclick="deleteAction('+"'${basePath}/company/delete/10018'" + "," + "10018" + ')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+            '<a class="delete" href="javascript:;" onclick="del()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
+    }
+    function del() {
+        alert(del);
+        var ids = ['10017'];
+        $.ajax({
+            type: 'get',
+            url: '${basePath}/company/delete' + '/' + ids.join("-"),
+            success: function(result) {
+                alert(result);
+            }
+         });
     }
 </script>
 </body>
