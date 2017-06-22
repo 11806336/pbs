@@ -9,8 +9,6 @@ import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.AmsBroker;
 import com.pbs.ams.web.model.AmsBrokerExample;
-import com.pbs.ams.web.service.AmsBrokerService;
-import com.pbs.ams.web.service.AmsPlatformService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
