@@ -1,6 +1,12 @@
-package com.pbs.ams.web.controller.manage;
+package com.pbs.ams.web.controller.broker;
 
+import com.baidu.unbiz.fluentvalidator.ComplexResult;
+import com.baidu.unbiz.fluentvalidator.FluentValidator;
+import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.common.constant.UpmsResult;
+import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.AmsBroker;
 import com.pbs.ams.web.model.AmsBrokerExample;
 import com.pbs.ams.web.service.AmsBrokerService;
@@ -11,10 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,21 +31,24 @@ import java.util.Map;
 @Api(value = "经纪公司", description = "经纪公司")
 @RequestMapping("/manage/broker")
 public class AmsBrokerController extends BaseController {
-
     @Autowired
     private AmsBrokerService amsBrokerService;
 
     @Autowired
     private AmsPlatformService amsPlatformService;
 
-    @ApiOperation(value = "角色首页")
+
+
+    @ApiOperation(value = "经纪公司")
     @RequiresPermissions("ams:broker:read")
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value= "/index", method = RequestMethod.GET)
     public String index() {
         return "/manage/broker/broker.jsp";
     }
-    @ApiOperation(value = "组织列表")
-    @RequiresPermissions("upms:organization:read")
+
+
+    @ApiOperation(value = "经纪公司列表")
+    @RequiresPermissions("ams:broker:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list(
@@ -67,6 +73,39 @@ public class AmsBrokerController extends BaseController {
         result.put("total", total);
         return result;
     }
+    @ApiOperation(value = "新增经纪公司")
+    @RequiresPermissions("ams:broker:read")
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/broker/create_broker.jsp";
+    }
+
+    @ApiOperation(value = "新增经纪公司")
+    @RequiresPermissions("ams:broker:create")
+    @ResponseBody
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Object create(AmsBroker amsBroker) {
+        ComplexResult result = FluentValidator.checkAll()
+                .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
+                .doValidate()
+                .result(ResultCollectors.toComplex());
+        if (!result.isSuccess()) {
+            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+        }
+        long time = System.currentTimeMillis();
+        amsBroker.setCreateTime(time);
+        int count = amsBrokerService.insertSelective(amsBroker);
+        System.out.println(count+"------count------");
+        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+    }
 
 
+    @ApiOperation(value = "删除经纪公司")
+    @RequiresPermissions("ams:broker:delete")
+    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object delete(@PathVariable("ids") String ids) {
+
+        return null;
+    }
 }

@@ -115,11 +115,9 @@ public class MybatisGeneratorUtil {
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 		Map<String, String> map1 = Maps.newHashMap();
-		map1.put("table_name","ams_broker");
+		map1.put("table_name","ams_entrust");
 		lstTables.add(map1);
-		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_platform");
-		lstTables.add(map2);
+
 		MybatisGeneratorUtil.generator(lstTables);
 	}
 

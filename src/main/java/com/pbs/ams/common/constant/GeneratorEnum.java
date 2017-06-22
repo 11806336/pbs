@@ -13,21 +13,21 @@ import java.util.Map;
 public enum GeneratorEnum {
 
     //项
-    TARGET_PROJECT_JAVA("src/main/java"),
+    TARGET_PROJECT_JAVA("D:/Workspace/pbs-ams-management/src/main/java"),
     //项目名称
-    TARGET_PROJECT_RESOUCE("src/main/resources"),
+    TARGET_PROJECT_RESOUCE("D:/Workspace/pbs-ams-management/src/main/resources"),
     //生成xml路径
-    XML_PATH("src/main/resources/generatorConfig.xml"),
+    XML_PATH("D:/Workspace/pbs-ams-management/src/main/resources/generatorConfig.xml"),
     // generatorConfig模板路径
-    GENERATORCONFIG_VM("template/generatorConfig.vm"),
+    GENERATORCONFIG_VM("D:/Workspace/pbs-ams-management/template/generatorConfig.vm"),
     // Service模板路径
-    SERVICE_VM("template/Service.vm"),
+    SERVICE_VM("D:/Workspace/pbs-ams-management/template/Service.vm"),
     // ServiceImpl模板路径
-    SERVICEIMPL_VM("template/ServiceImpl.vm"),
+    SERVICEIMPL_VM("D:/Workspace/pbs-ams-management/src/main/resources/template/ServiceImpl.vm"),
     //生成service路径
-    CREATE_SERVICE_PATH("src/main/java/com/pbs/ams/web/service"),
+    CREATE_SERVICE_PATH("D:/Workspace/pbs-ams-management/src/main/java/com/pbs/ams/web/service"),
     //生成serviceimpl路径
-    CREATE_SERVICEIMPL_PATH("src/main/java/com/pbs/ams/web/service/impl"),
+    CREATE_SERVICEIMPL_PATH("D:/Workspace/pbs-ams-management/src/main/java/com/pbs/ams/web/service/impl"),
     //包名
     PACKAGE_NAME("com.pbs.ams.web"),
     //jdbc密码

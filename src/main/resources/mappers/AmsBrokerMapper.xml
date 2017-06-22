@@ -75,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name, 
-    creditable, day_begin, day_end, create_time, update_time, snaps_time, operator_id
+    broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name,
+    creditable, day_begin, day_end, create_time, update_time, operator_id
   </sql>
   <select id="selectByExample" parameterType="com.pbs.ams.web.model.AmsBrokerExample" resultMap="BaseResultMap">
     select
@@ -101,7 +101,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from ams_broker
     where broker_id = #{brokerId,jdbcType=INTEGER}
@@ -117,16 +117,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsBroker">
-    insert into ams_broker (broker_id, broker_type, platform_id, 
-      broker_abbr_name, broker_logo, broker_name, 
-      creditable, day_begin, day_end, 
-      create_time, update_time, snaps_time, 
-      operator_id)
-    values (#{brokerId,jdbcType=INTEGER}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER}, 
-      #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR}, 
-      #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{snapsTime,jdbcType=BIGINT}, 
-      #{operatorId,jdbcType=INTEGER})
+    insert into ams_broker (broker_id, broker_type, platform_id,
+    broker_abbr_name, broker_logo, broker_name,
+    creditable, day_begin, day_end,
+    create_time, update_time,
+    operator_id)
+    values (#{brokerId,jdbcType=INTEGER}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER},
+    #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR},
+    #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},
+    #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{snapsTime,jdbcType=BIGINT},
+    #{operatorId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsBroker">
     insert into ams_broker
@@ -163,9 +163,6 @@
       </if>
       <if test="updateTime != null">
         update_time,
-      </if>
-      <if test="snapsTime != null">
-        snaps_time,
       </if>
       <if test="operatorId != null">
         operator_id,
@@ -269,18 +266,18 @@
   <update id="updateByExample" parameterType="map">
     update ams_broker
     set broker_id = #{record.brokerId,jdbcType=INTEGER},
-      broker_type = #{record.brokerType,jdbcType=INTEGER},
-      platform_id = #{record.platformId,jdbcType=INTEGER},
-      broker_abbr_name = #{record.brokerAbbrName,jdbcType=VARCHAR},
-      broker_logo = #{record.brokerLogo,jdbcType=VARCHAR},
-      broker_name = #{record.brokerName,jdbcType=VARCHAR},
-      creditable = #{record.creditable,jdbcType=BIT},
-      day_begin = #{record.dayBegin,jdbcType=BIGINT},
-      day_end = #{record.dayEnd,jdbcType=BIGINT},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT},
-      snaps_time = #{record.snapsTime,jdbcType=BIGINT},
-      operator_id = #{record.operatorId,jdbcType=INTEGER}
+    broker_type = #{record.brokerType,jdbcType=INTEGER},
+    platform_id = #{record.platformId,jdbcType=INTEGER},
+    broker_abbr_name = #{record.brokerAbbrName,jdbcType=VARCHAR},
+    broker_logo = #{record.brokerLogo,jdbcType=VARCHAR},
+    broker_name = #{record.brokerName,jdbcType=VARCHAR},
+    creditable = #{record.creditable,jdbcType=BIT},
+    day_begin = #{record.dayBegin,jdbcType=BIGINT},
+    day_end = #{record.dayEnd,jdbcType=BIGINT},
+    create_time = #{record.createTime,jdbcType=BIGINT},
+    update_time = #{record.updateTime,jdbcType=BIGINT},
+    snaps_time = #{record.snapsTime,jdbcType=BIGINT},
+    operator_id = #{record.operatorId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
