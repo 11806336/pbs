@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.SysSequenceMapper">
+
+	<!-- 权限 -->
+	<resultMap id="SysSeqenceResultMap" type="com.pbs.ams.web.model.SysSequence">
+		<id column="SEQUENCE_CODE" jdbcType="VARCHAR" property="sequenceCode" />
+		<result column="MAX_VALUE" jdbcType="BIGINT" property="maxValue" />
+	</resultMap>
+
+
+	<!-- 根据code查询当前的最大序列值 -->
+	<select id="selectSequenceByCode" parameterType="java.lang.String" resultType="java.lang.Long">
+		select	max_value from sys_sequence t where t.sequence_code = #{sequenceCode, jdbcType=VARCHAR}
+	</select>
+	<!-- 插入最新的最大序列值 -->
+	<insert id="insertSequence" parameterType="com.pbs.ams.web.model.SysSequence">
+		insert into sys_sequence (sequence_code, max_value)
+    	values (#{sequenceCode,jdbcType=VARCHAR}, #{maxValue,jdbcType=BIGINT})
+	</insert>
+	<!-- 更新最大序列值 -->
+	<update id="updateSequence" parameterType="com.pbs.ams.web.model.SysSequence">
+		update sys_sequence
+		<trim prefix="set" suffixOverrides=",">
+			<if test="sequenceCode != null">sequence_code = #{sequenceCode,jdbcType=VARCHAR},</if>
+			<if test="maxValue != null">max_value = #{maxValue,jdbcType=BIGINT},</if>
+		</trim>
+		where sequence_code = #{sequenceCode,jdbcType=VARCHAR}
+	</update>
+
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+</mapper>
