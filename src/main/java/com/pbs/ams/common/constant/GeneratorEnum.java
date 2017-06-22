@@ -33,17 +33,24 @@ public enum GeneratorEnum {
     //jdbc密码
     JDBC_PASSWORD("");
 
-	private final String value;
+    private String projectPath=this.getClass().getResource("/").toString().replace("file:","").replace("/target/classes","");
+
+    private final String value;
+
 
     private  String jdbc_password = PropertiesFileUtil.getInstance("generator").get("generator.jdbc.password");
 
-	GeneratorEnum(String value) {
-		this.value = value;
-	}
+    GeneratorEnum(String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        if (this == GeneratorEnum.TARGET_PROJECT_JAVA|| this == GeneratorEnum.TARGET_PROJECT_RESOUCE ||
+                this == GeneratorEnum.CREATE_SERVICE_PATH|| this == GeneratorEnum.CREATE_SERVICEIMPL_PATH|| this == GeneratorEnum.XML_PATH){
+            return projectPath+value;
+        }
+        return value;
+    }
 
 
     private static final Map<String, GeneratorEnum> stringToEnum = new HashMap<>();
