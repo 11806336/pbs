@@ -95,11 +95,11 @@ public class UpmsCompanyServiceImpl extends BaseServiceImpl<UpmsCompany, UpmsCom
             //先查询本条记录
             Integer id = upmsCompany.getCompanyId();
             Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
-            UpmsCompany company = (UpmsCompany) selectByPrimaryKey.invoke( getMapper(), id);
+            UpmsCompany companyOld = (UpmsCompany) selectByPrimaryKey.invoke( getMapper(), id);
             //将本条记录放在快照表中
-            if (company != null) {//查到数据后再做新增和删除操作
+            if (companyOld != null) {//查到数据后再做新增和删除操作
                 UpmsCompanySnaps snaps = new UpmsCompanySnaps();
-                PropertyUtils.copyProperties(snaps, company);
+                PropertyUtils.copyProperties(snaps, companyOld);
                 snaps.setSnapsTime(System.currentTimeMillis());
                 int insertResult = upmsCompanyMapper.insertSnapshotSelective(snaps);
                 if (insertResult == 0) {
@@ -107,7 +107,7 @@ public class UpmsCompanyServiceImpl extends BaseServiceImpl<UpmsCompany, UpmsCom
                 }
 //                Method updateByPrimaryKeySelective =  getMapper().getClass().getDeclaredMethod("updateByPrimaryKeySelective", upmsCompany.getClass());
 //                result = Integer.parseInt(String.valueOf(updateByPrimaryKeySelective.invoke( getMapper(), upmsCompany)));
-                result = upmsCompanyMapper.updateByPrimaryKeySelective(company);
+                result = upmsCompanyMapper.updateByPrimaryKeySelective(upmsCompany);
             }
             return result;
         } catch (Exception e) {
