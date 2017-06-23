@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.AmsBrokerPlatformMapper">
-
+    <resultMap id="AllResultMap" type="com.pbs.ams.web.model.AmsBrokerPlatform">
+        <id column="broker_id" jdbcType="INTEGER" property="brokerId"/>
+        <result column="broker_type" jdbcType="INTEGER" property="brokerType"/>
+        <result column="platform_id" jdbcType="INTEGER" property="platformId"/>
+        <result column="broker_abbr_name" jdbcType="VARCHAR" property="brokerAbbrName"/>
+        <result column="broker_logo" jdbcType="VARCHAR" property="brokerLogo"/>
+        <result column="broker_name" jdbcType="VARCHAR" property="brokerName"/>
+        <result column="creditable" jdbcType="BIT" property="creditable"/>
+        <result column="day_begin" jdbcType="BIGINT" property="dayBegin"/>
+        <result column="day_end" jdbcType="BIGINT" property="dayEnd"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
+        <result column="platform_logo" jdbcType="VARCHAR" property="platformLogo"/>
+        <result column="platform_name" jdbcType="VARCHAR" property="platformName"/>
+        <result column="platform_abbr_name" jdbcType="VARCHAR" property="platformAbbrName"/>
+        <result column="platform_type" jdbcType="INTEGER" property="platformType"/>
+        <result column="creditable" jdbcType="BIT" property="creditable"/>
+    </resultMap>
     <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsBroker">
         <id column="broker_id" jdbcType="INTEGER" property="brokerId"/>
         <result column="broker_type" jdbcType="INTEGER" property="brokerType"/>
@@ -80,12 +98,13 @@
         broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name,
         creditable, day_begin, day_end, create_time, update_time, operator_id
     </sql>
-    <select id="selectByExample" parameterType="com.pbs.ams.web.model.AmsBrokerPlatform" resultMap="AllResultMap">
+    <select id="selectBrokerPlatform" parameterType="com.pbs.ams.web.model.AmsBrokerPlatform" resultMap="AllResultMap">
         select
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List"/>
+        b.broker_id, b.broker_abbr_name, p.platform_name
+        from ams_broker b ,ams_platform p
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -118,14 +137,14 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.pbs.ams.web.model.AmsBroker">
-    insert into ams_broker (broker_id, broker_type, platform_id, 
-      broker_abbr_name, broker_logo, broker_name, 
-      creditable, day_begin, day_end, 
+    insert into ams_broker (broker_id, broker_type, platform_id,
+      broker_abbr_name, broker_logo, broker_name,
+      creditable, day_begin, day_end,
       create_time, update_time, operator_id
       )
-    values (#{brokerId,jdbcType=INTEGER}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER}, 
-      #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR}, 
-      #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT}, 
+    values (#{brokerId,jdbcType=INTEGER}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER},
+      #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR},
+      #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=INTEGER}
       )
   </insert>
@@ -208,7 +227,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.pbs.ams.web.model.AmsBrokerExample" resultType="java.lang.Long">
+    <select id="selectCountByExample" parameterType="com.pbs.ams.web.model.AmsBrokerExample" resultType="java.lang.Long">
         select count(*) from ams_broker
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
