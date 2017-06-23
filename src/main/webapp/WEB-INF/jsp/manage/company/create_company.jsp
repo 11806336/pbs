@@ -32,13 +32,13 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <%--<div class="control-group">
             <label for="company_phone" class="control-label"><em class="rqd">*</em>公司电话：</label>
             <div class="controls">
                 <input type="text" id="company_phone" name="companyPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入公司电话</span>
             </div>
-        </div>
+        </div>--%>
         <div class="control-group">
             <label for="company_address" class="control-label"><em class="rqd">*</em>公司地址：</label>
             <div class="controls">
@@ -94,7 +94,7 @@
     $(document).on("click","#saveBrokerBtn",function () {
         var company_name=$("#company_name").val(),//公司名称
             operator_id=$("#operator_id").val(),//操作人ID
-            company_phone=$("#company_phone").val(),//公司电话
+         //   company_phone=$("#company_phone").val(),//公司电话
             company_address=$("#company_address").val(),//公司地址
             company_fax=$("#company_fax").val(),//公司传真
             comments=$("#comments").val();//备注
@@ -106,10 +106,10 @@
             alert("请正确输入操作人ID");
             return false;
         }
-        if(!/^\d{3,4}\-\d{7,8}$/.test(company_phone)){
+        /*if(!/^\d{3,4}\-\d{7,8}$/.test(company_phone)){
             alert("请正确输入公司电话");
             return false;
-        }
+        }*/
         if(company_fax == "" || /^\s*$/g.test(company_fax)){
             alert("请正确输入公司传真");
             return false;
