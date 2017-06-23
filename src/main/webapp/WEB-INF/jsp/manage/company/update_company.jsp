@@ -125,8 +125,8 @@
                 "companyFax":company_fax
             } ,
             success: function (data) {
-                console.info(data);
                 if (data.message == 'success') {
+                    alert("修改成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                 }
