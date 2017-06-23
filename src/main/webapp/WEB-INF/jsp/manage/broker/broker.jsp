@@ -31,7 +31,7 @@
                 <option value="6">股票期权平台</option>
                 <option value="8">期货期权平台</option>
             </select>
-            <div class="btn-panel" onclick="panel('${basePath}/manage/broker/create','添加证券')">
+            <div class="btn-panel" onclick="panel('${basePath}/manage/broker/broker','添加证券')">
                 <a class="btn icon-plus addstockcom btn-primary" >添加证券公司</a>
             </div>
         </div>
