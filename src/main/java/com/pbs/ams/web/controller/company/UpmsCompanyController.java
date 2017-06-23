@@ -10,11 +10,8 @@ import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
-import com.pbs.ams.common.validator.NotNullValidator;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanyExample;
-import com.pbs.ams.web.model.UpmsOrganization;
-import com.pbs.ams.web.model.UpmsRole;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +46,7 @@ public class UpmsCompanyController extends BaseController {
     }
 
     @ApiOperation(value = "公司列表")
-//    @RequiresPermissions("ams:broker:read")
+    @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list(
@@ -76,7 +73,7 @@ public class UpmsCompanyController extends BaseController {
     }
 
     @ApiOperation(value = "删除公司")
-//    @RequiresPermissions("ams:broker:read")
+    @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
@@ -86,14 +83,14 @@ public class UpmsCompanyController extends BaseController {
 
 
     @ApiOperation(value = "新增公司")
-//    @RequiresPermissions("upms:user:create")
+    @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
         return "/manage/company/create_company.jsp";
     }
 
     @ApiOperation(value = "新增公司")
-//    @RequiresPermissions("upms:role:create")
+    @RequiresPermissions("upms:company:read")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(UpmsCompany upmsCompany) {
@@ -114,7 +111,7 @@ public class UpmsCompanyController extends BaseController {
 
 
     @ApiOperation(value = "修改公司")
-//    @RequiresPermissions("upms:role:update")
+    @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsCompany company = upmsCompanyService.selectByPrimaryKey(id);
@@ -123,7 +120,7 @@ public class UpmsCompanyController extends BaseController {
     }
 
     @ApiOperation(value = "修改公司")
-//    @RequiresPermissions("upms:role:update")
+    @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public Object update(@PathVariable("id") int id, UpmsCompany upmsCompany) {
