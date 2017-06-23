@@ -66,9 +66,9 @@
 
         <div class="control-group ">
             <label  class="control-label">日盘启动时间：</label>
-            <input type="text" name="day_startDate" id="day_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+            <input type="text" name="day_begin" id="day_begin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
             <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="day_endDate" id="day_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
+            <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
             <span for="day_endDate" class="error" style="display: none;"></span>
         </div>
 
@@ -125,9 +125,9 @@
         var platform_add=$("#platform_add").val(),//平台ID
             brokerName=$("#brokerName").val(),//期货公司
             brokerId=$("#brokerId").val(),//公司代码
-            verification=$("#verification").val(),//客户端认证码
-            day_startDate=$("#day_startDate").val(),//日盘启动时间
-            night_startDate=$("#night_startDate").val();//夜盘启动时间
+//            verification=$("#verification").val(),//客户端认证码
+            dayBegin=$("#day_begin").val(),//日盘启动时间
+            dayEnd=$("#day_end").val();//夜盘启动时间
         /*if(platform_add == ""){
             alert("请正确输入公司名称");
             return false;
@@ -145,13 +145,13 @@
             return false;
         }*/
         $.ajax({
-            type: 'POST',
-            url: '${basePath}/ams/broker/create' ,
+            type: 'GET',
+            url: '${basePath}/manage/broker/create' ,
             data: {
                 "brokerName":brokerName,
                 "brokerId":brokerId,
-                "dayStartDate":day_startDate,
-                "nightStartDate":night_startDate
+                "dayBeginTemp":dayBegin,
+                "dayEndTemp":dayEnd,
             } ,
             success: function (data) {
                 console.info(data);
