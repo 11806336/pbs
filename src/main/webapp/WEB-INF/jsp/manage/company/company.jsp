@@ -86,7 +86,6 @@
         ].join('');
     }
     function del() {
-        alert(del);
         var ids = ['10017'];
         $.ajax({
             type: 'get',
