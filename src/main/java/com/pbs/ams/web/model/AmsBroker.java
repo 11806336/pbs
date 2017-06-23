@@ -81,13 +81,6 @@ public class AmsBroker implements Serializable {
     private Long updateTime;
 
     /**
-     * 快照时间
-     *
-     * @mbg.generated
-     */
-    private Long snapsTime;
-
-    /**
      * 操作人ID
      *
      * @mbg.generated
@@ -184,14 +177,6 @@ public class AmsBroker implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getSnapsTime() {
-        return snapsTime;
-    }
-
-    public void setSnapsTime(Long snapsTime) {
-        this.snapsTime = snapsTime;
-    }
-
     public Integer getOperatorId() {
         return operatorId;
     }
@@ -217,7 +202,6 @@ public class AmsBroker implements Serializable {
         sb.append(", dayEnd=").append(dayEnd);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", snapsTime=").append(snapsTime);
         sb.append(", operatorId=").append(operatorId);
         sb.append("]");
         return sb.toString();
@@ -246,7 +230,6 @@ public class AmsBroker implements Serializable {
             && (this.getDayEnd() == null ? other.getDayEnd() == null : this.getDayEnd().equals(other.getDayEnd()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getSnapsTime() == null ? other.getSnapsTime() == null : this.getSnapsTime().equals(other.getSnapsTime()))
             && (this.getOperatorId() == null ? other.getOperatorId() == null : this.getOperatorId().equals(other.getOperatorId()));
     }
 
@@ -265,7 +248,6 @@ public class AmsBroker implements Serializable {
         result = prime * result + ((getDayEnd() == null) ? 0 : getDayEnd().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getSnapsTime() == null) ? 0 : getSnapsTime().hashCode());
         result = prime * result + ((getOperatorId() == null) ? 0 : getOperatorId().hashCode());
         return result;
     }

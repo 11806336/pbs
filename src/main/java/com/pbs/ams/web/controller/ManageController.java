@@ -34,7 +34,7 @@ public class ManageController extends BaseController {
 	@Autowired
 	private UpmsApiService upmsApiService;
 
-	@ApiOperation(value = "后 台首页")
+	@ApiOperation(value = "后台首页")
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
 		// 已注册系统
