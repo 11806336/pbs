@@ -122,11 +122,12 @@
                 "operatorId":operator_id,
                 "companyPhone":company_phone,
                 "companyAddress":company_address,
-                "companyFax":company_fax
+                "companyFax":company_fax,
+                "description":description
             } ,
             success: function (data) {
-                console.info(data);
                 if (data.message == 'success') {
+                    alert("保存成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                 }
