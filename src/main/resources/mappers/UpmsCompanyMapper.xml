@@ -123,7 +123,7 @@
     values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER}, 
       #{managerId,jdbcType=INTEGER}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR}, 
       #{companyAddress,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, #{managerEmail,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+      #{description,jdbcType=VARCHAR}, CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED), CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsCompany">
     insert into upms_company
@@ -158,12 +158,8 @@
       <if test="description != null">
         description,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
         update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="companyId != null">
@@ -196,12 +192,8 @@
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.pbs.ams.web.model.UpmsCompanyExample" resultType="java.lang.Long">
@@ -244,11 +236,9 @@
         description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=BIGINT},
+        create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=BIGINT},
-      </if>
+        update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -266,8 +256,8 @@
       company_fax = #{record.companyFax,jdbcType=VARCHAR},
       manager_email = #{record.managerEmail,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT}
+      create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -303,11 +293,9 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=BIGINT},
+        create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
+        update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
     </set>
     where company_id = #{companyId,jdbcType=INTEGER}
   </update>
@@ -322,8 +310,8 @@
       company_fax = #{companyFax,jdbcType=VARCHAR},
       manager_email = #{managerEmail,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
+      create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
     where company_id = #{companyId,jdbcType=INTEGER}
   </update>
   <!-- insert snapshot-->
@@ -331,13 +319,13 @@
     insert into upms_company_snaps (company_id, company_name, operator_id,
     manager_id, manager_phone, manager_address,
     company_address, company_fax, manager_email,
-    desc, create_time, update_time,
+    description, create_time, update_time,
     snaps_time)
     values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER},
     #{managerId,jdbcType=INTEGER}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR},
     #{companyAddress,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, #{managerEmail,jdbcType=VARCHAR},
-    #{desc,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
-    #{snapsTime,jdbcType=BIGINT})
+    #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+    CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))
   </insert>
   <insert id="insertSnapshotSelective" parameterType="com.pbs.ams.web.model.UpmsCompanySnaps">
     insert into upms_company_snaps
@@ -369,8 +357,8 @@
       <if test="managerEmail != null">
         manager_email,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="description != null">
+        description,
       </if>
       <if test="createTime != null">
         create_time,
@@ -378,9 +366,7 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="snapsTime != null">
-        snaps_time,
-      </if>
+      snaps_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="companyId != null">
@@ -410,8 +396,8 @@
       <if test="managerEmail != null">
         #{managerEmail,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=BIGINT},
@@ -419,9 +405,7 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=BIGINT},
       </if>
-      <if test="snapsTime != null">
-        #{snapsTime,jdbcType=BIGINT},
-      </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
     </trim>
   </insert>
   <!-- end snapshot-->
