@@ -71,7 +71,7 @@ public class UpmsCompanySnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private String desc;
+    private String description;
 
     /**
      * 创建时间
@@ -168,12 +168,12 @@ public class UpmsCompanySnaps implements Serializable {
         this.managerEmail = managerEmail;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getCreateTime() {
@@ -215,7 +215,7 @@ public class UpmsCompanySnaps implements Serializable {
         sb.append(", companyAddress=").append(companyAddress);
         sb.append(", companyFax=").append(companyFax);
         sb.append(", managerEmail=").append(managerEmail);
-        sb.append(", desc=").append(desc);
+        sb.append(", description=").append(description);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", snapsTime=").append(snapsTime);
@@ -244,7 +244,7 @@ public class UpmsCompanySnaps implements Serializable {
             && (this.getCompanyAddress() == null ? other.getCompanyAddress() == null : this.getCompanyAddress().equals(other.getCompanyAddress()))
             && (this.getCompanyFax() == null ? other.getCompanyFax() == null : this.getCompanyFax().equals(other.getCompanyFax()))
             && (this.getManagerEmail() == null ? other.getManagerEmail() == null : this.getManagerEmail().equals(other.getManagerEmail()))
-            && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getSnapsTime() == null ? other.getSnapsTime() == null : this.getSnapsTime().equals(other.getSnapsTime()));
@@ -263,7 +263,7 @@ public class UpmsCompanySnaps implements Serializable {
         result = prime * result + ((getCompanyAddress() == null) ? 0 : getCompanyAddress().hashCode());
         result = prime * result + ((getCompanyFax() == null) ? 0 : getCompanyFax().hashCode());
         result = prime * result + ((getManagerEmail() == null) ? 0 : getManagerEmail().hashCode());
-        result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getSnapsTime() == null) ? 0 : getSnapsTime().hashCode());
