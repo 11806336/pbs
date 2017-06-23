@@ -1,7 +1,6 @@
 package com.pbs.ams.web.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class AmsBroker implements Serializable {
     /**
@@ -88,17 +87,7 @@ public class AmsBroker implements Serializable {
      */
     private Integer operatorId;
 
-    private List<AmsPlatform> amsPlatform;
-
     private static final long serialVersionUID = 1L;
-
-    public List<AmsPlatform> getAmsPlatform() {
-        return amsPlatform;
-    }
-
-    public void setAmsPlatform(List<AmsPlatform> amsPlatform) {
-        this.amsPlatform = amsPlatform;
-    }
 
     public Integer getBrokerId() {
         return brokerId;

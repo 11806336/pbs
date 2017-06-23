@@ -637,66 +637,6 @@ public class AmsPlatformExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andSnapsTimeIsNull() {
-            addCriterion("snaps_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeIsNotNull() {
-            addCriterion("snaps_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeEqualTo(Long value) {
-            addCriterion("snaps_time =", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeNotEqualTo(Long value) {
-            addCriterion("snaps_time <>", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeGreaterThan(Long value) {
-            addCriterion("snaps_time >", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeGreaterThanOrEqualTo(Long value) {
-            addCriterion("snaps_time >=", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeLessThan(Long value) {
-            addCriterion("snaps_time <", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeLessThanOrEqualTo(Long value) {
-            addCriterion("snaps_time <=", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeIn(List<Long> values) {
-            addCriterion("snaps_time in", values, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeNotIn(List<Long> values) {
-            addCriterion("snaps_time not in", values, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeBetween(Long value1, Long value2) {
-            addCriterion("snaps_time between", value1, value2, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeNotBetween(Long value1, Long value2) {
-            addCriterion("snaps_time not between", value1, value2, "snapsTime");
-            return (Criteria) this;
-        }
-
         public Criteria andOperatorIdIsNull() {
             addCriterion("operator_id is null");
             return (Criteria) this;

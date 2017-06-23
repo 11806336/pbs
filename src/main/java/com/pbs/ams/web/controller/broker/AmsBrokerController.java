@@ -8,7 +8,10 @@ import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.AmsBroker;
-import com.pbs.ams.web.model.AmsBrokerExample;
+import com.pbs.ams.web.model.AmsBrokerPlatform;
+import com.pbs.ams.web.model.AmsBrokerPlatformExample;
+import com.pbs.ams.web.service.AmsBrokerPlatformService;
+import com.pbs.ams.web.service.AmsBrokerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -29,13 +32,10 @@ import java.util.Map;
 @Api(value = "经纪公司", description = "经纪公司")
 @RequestMapping("/manage/broker")
 public class AmsBrokerController extends BaseController {
-    @Autowired
+   @Autowired
     private AmsBrokerService amsBrokerService;
-
-    @Autowired
-    private AmsPlatformService amsPlatformService;
-
-
+   @Autowired
+   private AmsBrokerPlatformService amsBrokerPlatformService;
 
     @ApiOperation(value = "经纪公司")
     @RequiresPermissions("ams:broker:read")
@@ -55,17 +55,18 @@ public class AmsBrokerController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order) {
-        AmsBrokerExample amsBrokerExample = new AmsBrokerExample();
-        amsBrokerExample.setOffset(offset);
-        amsBrokerExample.setLimit(limit);
+        AmsBrokerPlatformExample amsBrokerPlatformExample = new AmsBrokerPlatformExample();
+        amsBrokerPlatformExample.setOffset(offset);
+        amsBrokerPlatformExample.setLimit(limit);
         if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            amsBrokerExample.setOrderByClause(sort + " " + order);
+            amsBrokerPlatformExample.setOrderByClause(sort + " " + order);
         }
         if (StringUtils.isNotBlank(search)) {
-            amsBrokerExample.or().andBrokerAbbrNameLike("%" + search + "%");
+            amsBrokerPlatformExample.or().andBrokerAbbrNameLike("%" + search + "%");
         }
-        List<AmsBroker> rows = amsBrokerService.selectByExample(amsBrokerExample);
-        long total = amsBrokerService.countByExample(amsBrokerExample);
+        List<AmsBrokerPlatform> rows = amsBrokerPlatformService.selectAmsBrokerPlatform(amsBrokerPlatformExample);
+        long total = amsBrokerPlatformService.selectCountByExample(amsBrokerPlatformExample);
+        System.out.println(total+"--------total--------");
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
         result.put("total", total);
@@ -73,16 +74,16 @@ public class AmsBrokerController extends BaseController {
     }
     @ApiOperation(value = "新增经纪公司")
     @RequiresPermissions("ams:broker:read")
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/broker", method = RequestMethod.GET)
     public String create() {
         return "/manage/broker/create_broker.jsp";
     }
 
     @ApiOperation(value = "新增经纪公司")
-    @RequiresPermissions("ams:broker:create")
+    @RequiresPermissions("ams:broker:read")
     @ResponseBody
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Object create(AmsBroker amsBroker) {
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public Object create(AmsBroker amsBroker, String dayBeginTemp, String dayEndTemp) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
                 .doValidate()
@@ -91,7 +92,9 @@ public class AmsBrokerController extends BaseController {
             return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
         long time = System.currentTimeMillis();
+        System.out.println(time+"------time------");
         amsBroker.setCreateTime(time);
+
         int count = amsBrokerService.insertSelective(amsBroker);
         System.out.println(count+"------count------");
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
