@@ -30,4 +30,6 @@ public interface BaseMapper<Record, Example>  {
     int updateByPrimaryKeySelective(Record record);
 
     int updateByPrimaryKey(Record record);
+
+    int insertToSnaps();
 }
