@@ -9,13 +9,13 @@ public enum UpmsResultConstant {
     FAILED(0, "failed"),
     SUCCESS(1, "success"),
 
-    INVALID_LENGTH(10001, "Invalid length"),
+    INVALID_LENGTH(10001, "字数超过限制"),
 
-    EMPTY_USERNAME(10101, "Username cannot be empty"),
-    EMPTY_PASSWORD(10102, "Password cannot be empty"),
-    INVALID_USERNAME(10103, "Account does not exist"),
-    INVALID_PASSWORD(10104, "Password error"),
-    INVALID_ACCOUNT(10105, "Invalid account");
+    EMPTY_USERNAME(10101, "用户名不能为空"),
+    EMPTY_PASSWORD(10102, "密码不能为空"),
+    INVALID_USERNAME(10103, "账号不存在"),
+    INVALID_PASSWORD(10104, "密码错误"),
+    INVALID_ACCOUNT(10105, "账号无效");
 
     public int code;
 

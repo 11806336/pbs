@@ -46,5 +46,6 @@ public interface BaseService<Record, Example> {
 
     Object getMapper();
 
+    int insertToSnaps();
 
 }

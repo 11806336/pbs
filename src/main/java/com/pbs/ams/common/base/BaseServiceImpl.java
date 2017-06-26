@@ -269,6 +269,20 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 		return 0;
 	}
 
+	@Override
+	public int insertToSnaps() {
+		try {
+			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+			Method insert =  getMapper().getClass().getDeclaredMethod("insertToSnaps");
+			Object result = insert.invoke( getMapper());
+			return Integer.parseInt(String.valueOf(result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		DynamicDataSource.clearDataSource();
+		return 0;
+	}
+
 //	@Override
 //	public void init getMapper()() {
 //		this. getMapper() = SpringContextUtil.getBean(get getMapper()Class());
