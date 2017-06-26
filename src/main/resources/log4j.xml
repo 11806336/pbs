@@ -1,86 +1,86 @@
-<?xml version="1.0" encoding="GBK"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-    <!-- ¿ÉÒÔÅäÖÃ¶à¸öappenderÀ´¶ÔÓ¦²»Í¬µÄÊä³ö£¬ÈçÎÄ¼þÊä³ö£¬sqlÊä³ö£¬¿ØÖÆÌ¨Êä³ö£¬ÓÊ¼þÊä³öµÈ -->
-    <!-- [¿ØÖÆÌ¨STDOUT] ²»Í¬µÄÊä³öÀàÐÍ¶ÔÓ¦×Å²»Í¬µÄcalss£¬Èç¿ØÖÆÌ¨Êä³öclass¶ÔÓ¦×Å org.apache.log4j.ConsoleAppender -->
-    <appender name="console" class="org.apache.log4j.ConsoleAppender">  <!-- nameÌá¹©¸ølogger»òÕßrootµ÷ÓÃ -->
-        <param name="encoding" value="GBK" />  <!-- ±£´æ×Ö·û¼¯ -->
-        <param name="target" value="System.out" />  <!-- Êä³öµ½¿ØÖÆÌ¨ -->
-        <layout class="org.apache.log4j.PatternLayout"> <!-- loyout±íÊ¾Êä³ö·½Ê½£¬¿ÉÒÔ¶àÖÖ£¬classÖµÇø·Ö£¬PatternLayout±íÊ¾×Ô¶¨Òå¸ñÊ½ -->
-            <param name="ConversionPattern" value="%d{ISO8601} ºÄÊ±£º%r [ÈÕÖ¾À´×Ô£º%-40.40c{3} ÈÕÖ¾ÀàÐÍ: %-5p ÈÕÖ¾ÄÚÈÝ£º%m]%n" />  <!-- Êä³ö¸ñÊ½£¬ºóÃæ½âÊÍ -->
+    <!-- å¯ä»¥é…ç½®å¤šä¸ªappenderæ¥å¯¹åº”ä¸åŒçš„è¾“å‡ºï¼Œå¦‚æ–‡ä»¶è¾“å‡ºï¼Œsqlè¾“å‡ºï¼ŒæŽ§åˆ¶å°è¾“å‡ºï¼Œé‚®ä»¶è¾“å‡ºç­‰ -->
+    <!-- [æŽ§åˆ¶å°STDOUT] ä¸åŒçš„è¾“å‡ºç±»åž‹å¯¹åº”ç€ä¸åŒçš„calssï¼Œå¦‚æŽ§åˆ¶å°è¾“å‡ºclasså¯¹åº”ç€ org.apache.log4j.ConsoleAppender -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">  <!-- nameæä¾›ç»™loggeræˆ–è€…rootè°ƒç”¨ -->
+        <param name="encoding" value="UTF-8" />  <!-- ä¿å­˜å­—ç¬¦é›† -->
+        <param name="target" value="System.out" />  <!-- è¾“å‡ºåˆ°æŽ§åˆ¶å° -->
+        <layout class="org.apache.log4j.PatternLayout"> <!-- loyoutè¡¨ç¤ºè¾“å‡ºæ–¹å¼ï¼Œå¯ä»¥å¤šç§ï¼Œclasså€¼åŒºåˆ†ï¼ŒPatternLayoutè¡¨ç¤ºè‡ªå®šä¹‰æ ¼å¼ -->
+            <param name="ConversionPattern" value="%d{ISO8601} è€—æ—¶ï¼š%r [æ—¥å¿—æ¥è‡ªï¼š%-40.40c{3} æ—¥å¿—ç±»åž‹: %-5p æ—¥å¿—å†…å®¹ï¼š%m]%n" />  <!-- è¾“å‡ºæ ¼å¼ï¼ŒåŽé¢è§£é‡Š -->
         </layout>
-        <!--filter¹ýÂËÆ÷ÉèÖÃÊä³öµÄ¼¶±ð:ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
-            ËùÓÐÏÂÃæÊä³öµÄÊÇdebugµ½warn²»»áÓÐerrorºÍfatal
+        <!--filterè¿‡æ»¤å™¨è®¾ç½®è¾“å‡ºçš„çº§åˆ«:ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+            æ‰€æœ‰ä¸‹é¢è¾“å‡ºçš„æ˜¯debugåˆ°warnä¸ä¼šæœ‰errorå’Œfatal
         -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="levelMin" value="info" />
             <param name="levelMax" value="error" />
-            <param name="AcceptOnMatch" value="true" />  <!-- ´ð°¸£ºhttp://bbs.csdn.net/topics/350195913 -->
+            <param name="AcceptOnMatch" value="true" />  <!-- ç­”æ¡ˆï¼šhttp://bbs.csdn.net/topics/350195913 -->
         </filter>
     </appender>
 
-    <!-- [¹«¹²Appender] Õâ¸öclass±íÊ¾ÊäÈëµ½ÎÄ¼þ£¬²¢ÇÒ°´ÈÕÆÚÉú³ÉÐÂÎÄ¼þ-->
+    <!-- [å…¬å…±Appender] è¿™ä¸ªclassè¡¨ç¤ºè¾“å…¥åˆ°æ–‡ä»¶ï¼Œå¹¶ä¸”æŒ‰æ—¥æœŸç”Ÿæˆæ–°æ–‡ä»¶-->
     <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="../logs/common-default.log" />  <!-- ..ÏîÄ¿¸ùÂ·¾¶£¬×Ô¶¯»ñµÃ£¬²»ÓÃÅäÖÃ£¬¿É×Ô¼ºÔÚweb.xmlÖÐÅäÖÃ -->
-        <param name="Append" value="true" />  <!-- ÊÇ·ñÏîÄ¿ÖØÆô¼ÌÐø±£´æÖ®Ç°ÈÕÖ¾ -->
-        <param name="encoding" value="GBK" />
-        <param name="threshold" value="all" /> <!-- ¼ÇÂ¼ËùÓÐÀàÐÍÈÕÖ¾£¬¼ÇÂ¼ËüºÍ±ÈËüµÈ¼¶¸ßµÄÈÕÖ¾all<debug -->
-        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  <!-- ÈÕÆÚ¸ñÊ½  Àý×Ó£ºcommon-default.log.2015-09-17.log-->
-        <layout class="org.apache.log4j.PatternLayout">  <!-- Êä³ö·½Ê½ -->
-            <param name="ConversionPattern" value="%d{ISO8601} ºÄÊ±£º%r [ÈÕÖ¾À´×Ô£º%-40.40c{3} ÈÕÖ¾ÀàÐÍ: %-5p ÈÕÖ¾ÄÚÈÝ£º%m]%n" />
+        <param name="File" value="../logs/common-default.log" />  <!-- ..é¡¹ç›®æ ¹è·¯å¾„ï¼Œè‡ªåŠ¨èŽ·å¾—ï¼Œä¸ç”¨é…ç½®ï¼Œå¯è‡ªå·±åœ¨web.xmlä¸­é…ç½® -->
+        <param name="Append" value="true" />  <!-- æ˜¯å¦é¡¹ç›®é‡å¯ç»§ç»­ä¿å­˜ä¹‹å‰æ—¥å¿— -->
+        <param name="encoding" value="UTF-8" />
+        <param name="threshold" value="all" /> <!-- è®°å½•æ‰€æœ‰ç±»åž‹æ—¥å¿—ï¼Œè®°å½•å®ƒå’Œæ¯”å®ƒç­‰çº§é«˜çš„æ—¥å¿—all<debug -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  <!-- æ—¥æœŸæ ¼å¼  ä¾‹å­ï¼šcommon-default.log.2015-09-17.log-->
+        <layout class="org.apache.log4j.PatternLayout">  <!-- è¾“å‡ºæ–¹å¼ -->
+            <param name="ConversionPattern" value="%d{ISO8601} è€—æ—¶ï¼š%r [æ—¥å¿—æ¥è‡ªï¼š%-40.40c{3} æ—¥å¿—ç±»åž‹: %-5p æ—¥å¿—å†…å®¹ï¼š%m]%n" />
         </layout>
     </appender>
 
-    <!-- [debugÈÕÖ¾APPENDER] -->
+    <!-- [debugæ—¥å¿—APPENDER] -->
     <appender name="DEBUG-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="../logs/controller/debug-log.log" />
         <param name="Append" value="true" />
-        <param name="encoding" value="GBK" />
+        <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} ºÄÊ±£º%r [ÈÕÖ¾À´×Ô£º%-40.40c{3} ÈÕÖ¾ÀàÐÍ: %-5p ÈÕÖ¾ÄÚÈÝ£º%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} è€—æ—¶ï¼š%r [æ—¥å¿—æ¥è‡ªï¼š%-40.40c{3} æ—¥å¿—ç±»åž‹: %-5p æ—¥å¿—å†…å®¹ï¼š%m]%n" />
         </layout>
     </appender>
 
-    <!-- [infoÈÕÖ¾APPENDER] -->
+    <!-- [infoæ—¥å¿—APPENDER] -->
     <appender name="INFO-APPENDER"
               class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="../logs/controller/info-log.log" />
         <param name="Append" value="false" />
-        <param name="encoding" value="GBK" />
+        <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} ºÄÊ±£º%r [ÈÕÖ¾À´×Ô£º%-40.40c{3} ÈÕÖ¾ÀàÐÍ: %-5p ÈÕÖ¾ÄÚÈÝ£º%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} è€—æ—¶ï¼š%r [æ—¥å¿—æ¥è‡ªï¼š%-40.40c{3} æ—¥å¿—ç±»åž‹: %-5p æ—¥å¿—å†…å®¹ï¼š%m]%n" />
         </layout>
-        <!-- ÎÒÖ»Ïë¼ÇÂ¼infoÈÕÖ¾£¬¾Í×öÈçÏÂÉèÖÃ -->
+        <!-- æˆ‘åªæƒ³è®°å½•infoæ—¥å¿—ï¼Œå°±åšå¦‚ä¸‹è®¾ç½® -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMax" value="info"/>
             <param name="LevelMin" value="info"/>
         </filter>
     </appender>
 
-    <!-- [×é¼þÈÕÖ¾APPENDER] -->
+    <!-- [ç»„ä»¶æ—¥å¿—APPENDER] -->
     <appender name="COMPONENT-APPENDER"
               class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="../logs/logistics-component.log" />
         <param name="Append" value="true" />
-        <param name="encoding" value="GBK" />
+        <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} ºÄÊ±£º%r [ÈÕÖ¾À´×Ô£º%-40.40c{3} ÈÕÖ¾ÀàÐÍ: %-5p ÈÕÖ¾ÄÚÈÝ£º%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} è€—æ—¶ï¼š%r [æ—¥å¿—æ¥è‡ªï¼š%-40.40c{3} æ—¥å¿—ç±»åž‹: %-5p æ—¥å¿—å†…å®¹ï¼š%m]%n" />
         </layout>
     </appender>
 
     <!--&lt;!&ndash; debug log &ndash;&gt;-->
-    <!--&lt;!&ndash; nameÖ¸¶¨µÄÊÇ°üÃû£¬±íÊ¾Õâ¸öloggerÖ»¼ÇÂ¼com.wzw.controllerÏÂµÄËùÓÐÈÕÖ¾ &ndash;&gt;-->
-    <!--<logger name="com.wzw.controller" additivity="true">  &lt;!&ndash; additivity ÊÇ·ñ¼Ì³Ðroot &ndash;&gt;-->
+    <!--&lt;!&ndash; nameæŒ‡å®šçš„æ˜¯åŒ…åï¼Œè¡¨ç¤ºè¿™ä¸ªloggeråªè®°å½•com.wzw.controllerä¸‹çš„æ‰€æœ‰æ—¥å¿— &ndash;&gt;-->
+    <!--<logger name="com.wzw.controller" additivity="true">  &lt;!&ndash; additivity æ˜¯å¦ç»§æ‰¿root &ndash;&gt;-->
         <!--&lt;!&ndash; <level value="${loggingLevel}" />   &ndash;&gt;-->
-        <!--<level value="DEBUG"></level>  &lt;!&ndash; ÏÖÔÚ¼¶±ð &ndash;&gt;-->
+        <!--<level value="DEBUG"></level>  &lt;!&ndash; çŽ°åœ¨çº§åˆ« &ndash;&gt;-->
         <!--<appender-ref ref="DEBUG-APPENDER" />-->
     <!--</logger>-->
 
     <!--&lt;!&ndash; info log &ndash;&gt;-->
-    <!--&lt;!&ndash; nameÖ¸¶¨µÄÊÇ°üÃû£¬ÕâÑùÖ»²Ù×÷´Ë°üÏÂµÄlog &ndash;&gt;-->
+    <!--&lt;!&ndash; nameæŒ‡å®šçš„æ˜¯åŒ…åï¼Œè¿™æ ·åªæ“ä½œæ­¤åŒ…ä¸‹çš„log &ndash;&gt;-->
     <!--<logger name="com.wzw.controller" additivity="true">-->
         <!--<level value="INFO"></level>-->
         <!--<appender-ref ref="INFO-APPENDER" />-->
@@ -88,10 +88,10 @@
     <!--</logger>-->
 
     <!-- Root Logger -->
-    <!-- ËùÓÐloggerµÄ¸¸Àà£¬¼ÇÂ¼ËùÓÐµÄÈÕÖ¾¡£ -->
+    <!-- æ‰€æœ‰loggerçš„çˆ¶ç±»ï¼Œè®°å½•æ‰€æœ‰çš„æ—¥å¿—ã€‚ -->
     <root>
-        <level value="ALL"></level>  <!-- ÏÞ¶¨¼ÇÂ¼µÈ¼¶ -->
-        <appender-ref ref="DEFAULT-APPENDER" />  <!-- µ÷ÓÃ¼ÇÂ¼·½Ê½ -->
+        <level value="ALL"></level>  <!-- é™å®šè®°å½•ç­‰çº§ -->
+        <appender-ref ref="DEFAULT-APPENDER" />  <!-- è°ƒç”¨è®°å½•æ–¹å¼ -->
         <appender-ref ref="console"/>
     </root>
 

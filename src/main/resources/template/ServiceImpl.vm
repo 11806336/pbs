@@ -29,13 +29,4 @@ public class ${model}ServiceImpl extends BaseServiceImpl<${model}, ${model}Examp
     @Override
     public Object getMapper() { return ${mapper}Mapper; }
 
-
-    #if($snaps == "snaps")
-    @Override
-    public int insertToSnaps(){
-        return 1;
-    }
-    #end
-
-
 }

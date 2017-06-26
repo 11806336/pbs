@@ -2,10 +2,13 @@ package com.pbs.ams.common.base;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
+import com.pbs.ams.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -19,7 +22,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	public int countByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
-			Method countByExample =  getMapper().getClass().getDeclaredMethod("countByExample", example.getClass());
+			Method countByExample =  getMapper().getClass().getSuperclass().getDeclaredMethod("countByExample", example.getClass());
 			Object result = countByExample.invoke( getMapper(), example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (Exception e) {
@@ -103,7 +106,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	public List<Record> selectByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
-			Method selectByExample =  getMapper().getClass().getDeclaredMethod("selectByExample", example.getClass());
+			Method selectByExample = getMapper().getClass().getDeclaredMethod("selectByExample", example.getClass());
 			Object result = selectByExample.invoke( getMapper(), example);
 			return (List<Record>) result;
 		} catch (Exception e) {
@@ -282,18 +285,5 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 		DynamicDataSource.clearDataSource();
 		return 0;
 	}
-
-//	@Override
-//	public void init getMapper()() {
-//		this. getMapper() = SpringContextUtil.getBean(get getMapper()Class());
-//	}
-//
-//	/**
-//	 * 获取类泛型class
-//	 * @return
-//	 */
-//	public Class< getMapper()> get getMapper()Class() {
-//		return (Class< getMapper()>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-//	}
 
 }

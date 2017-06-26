@@ -101,7 +101,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from ams_product_detail
     where product_id = #{productId,jdbcType=BIGINT}
@@ -122,9 +122,9 @@
       security_total_value, stock_total_value, short_total_value, 
       create_time, update_time, operator_id
       )
-    values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productNetValue,jdbcType=DECIMAL},
-      #{netAssetValue,jdbcType=DECIMAL}, #{productShares,jdbcType=INTEGER}, #{stockTotalAssets,jdbcType=DECIMAL},
-      #{securityTotalValue,jdbcType=DECIMAL}, #{stockTotalValue,jdbcType=DECIMAL}, #{shortTotalValue,jdbcType=DECIMAL},
+    values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productNetValue,jdbcType=DECIMAL}, 
+      #{netAssetValue,jdbcType=DECIMAL}, #{productShares,jdbcType=INTEGER}, #{stockTotalAssets,jdbcType=DECIMAL}, 
+      #{securityTotalValue,jdbcType=DECIMAL}, #{stockTotalValue,jdbcType=DECIMAL}, #{shortTotalValue,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
       )
   </insert>
@@ -329,5 +329,8 @@
       operator_id = #{operatorId,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
+  <insert id="insertIntoSnaps">
+    insert into ams_product_detail_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product_detail as tb where product_id= #{product_id}
+  </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

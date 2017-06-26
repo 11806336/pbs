@@ -233,5 +233,8 @@
       operator_id = #{operatorId,jdbcType=BIGINT}
     where market_id = #{marketId,jdbcType=BIGINT}
   </update>
+  <insert id="insertIntoSnaps">
+    insert into ams_market_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_market as tb where market_id= #{market_id}
+  </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

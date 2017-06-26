@@ -186,5 +186,8 @@
       stock_account_id = #{stockAccountId,jdbcType=BIGINT}
     where product_account_id = #{productAccountId,jdbcType=BIGINT}
   </update>
+  <insert id="insertIntoSnaps">
+    insert into ams_product_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product_account as tb where product_account_id= #{product_account_id}
+  </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

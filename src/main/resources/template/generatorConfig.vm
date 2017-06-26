@@ -25,10 +25,8 @@
         <!-- 生成一个新的selectByExample方法，这个方法可以接收offset和limit参数，主要用来实现分页 -->
         <plugin type="com.pbs.ams.common.plugin.PaginationPlugin"/>
 
-        <!-- 生成一个向对应快照表中插入数据的方法
-        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin">
-
-        </plugin>-->
+        <!-- 生成一个向对应快照表中插入数据的方法-->
+        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin"/>
 
         <!-- 生成在XML中的<cache>元素 -->
         <plugin type="org.mybatis.generator.plugins.CachePlugin">
@@ -61,11 +59,11 @@
         <!-- model生成 -->
         <javaModelGenerator targetPackage="${model_target_package}" targetProject="${targetProject_java}" />
 
-      <!-- MapperXML生成 -->
+        <!-- MapperXML生成 -->
         <sqlMapGenerator targetPackage="${xml_target_package}" targetProject="${targetProject_resource}" />
 
-           <!-- Mapper接口生成 -->
-           <javaClientGenerator targetPackage="${mapper_target_package}" targetProject="${targetProject_java}" type="XMLMAPPER" />
+        <!-- Mapper接口生成 -->
+        <javaClientGenerator targetPackage="${mapper_target_package}" targetProject="${targetProject_java}" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
         #foreach($table in $listTables)
