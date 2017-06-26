@@ -12,11 +12,14 @@ import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanyExample;
+import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -56,7 +59,13 @@ public class UpmsCompanyController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order, HttpServletRequest request) {
-        request.getAttribute("upmsUser");
+        //获取session,取当前用户
+        Session session = SecurityUtils.getSubject().getSession();
+        Object obj = session.getAttribute("user");
+        UpmsUser upmsUser = null;
+        if (obj != null) {
+            upmsUser = (UpmsUser) session.getAttribute("user");
+        }
         UpmsCompanyExample upmsCompanyExample = new UpmsCompanyExample();
         upmsCompanyExample.setOffset(offset);
         upmsCompanyExample.setLimit(limit);
@@ -65,6 +74,11 @@ public class UpmsCompanyController extends BaseController {
         }
         if (StringUtils.isNotBlank(search)) {//根据公司名称进行模糊查询
             upmsCompanyExample.or().andCompanyNameLike("%" + search + "%");
+        }
+        if (upmsUser != null) {
+            if (!upmsUser.isSuperUser()) {//如果是超级管理员的话查询全部，否则带上公司进行查询
+                upmsCompanyExample.or().andCompanyIdEqualTo(upmsUser.getCompanyId());
+            }
         }
         List<UpmsCompany> rows = upmsCompanyService.selectByExample(upmsCompanyExample);
         long total = upmsCompanyService.countByExample(upmsCompanyExample);
@@ -75,7 +89,7 @@ public class UpmsCompanyController extends BaseController {
     }
 
     @ApiOperation(value = "删除公司")
-    @RequiresPermissions("upms:company:read")
+    @RequiresPermissions("upms:company:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
@@ -85,14 +99,14 @@ public class UpmsCompanyController extends BaseController {
 
 
     @ApiOperation(value = "新增公司")
-    @RequiresPermissions("upms:company:read")
+    @RequiresPermissions("upms:company:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
         return "/manage/company/create_company.jsp";
     }
 
     @ApiOperation(value = "新增公司")
-    @RequiresPermissions("upms:company:read")
+    @RequiresPermissions("upms:company:create")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(UpmsCompany upmsCompany) {
@@ -113,7 +127,7 @@ public class UpmsCompanyController extends BaseController {
 
 
     @ApiOperation(value = "修改公司")
-    @RequiresPermissions("upms:company:read")
+    @RequiresPermissions("upms:company:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsCompany company = upmsCompanyService.selectByPrimaryKey(id);
@@ -122,7 +136,7 @@ public class UpmsCompanyController extends BaseController {
     }
 
     @ApiOperation(value = "修改公司")
-    @RequiresPermissions("upms:company:read")
+    @RequiresPermissions("upms:company:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public Object update(@PathVariable("id") long id, UpmsCompany upmsCompany) {

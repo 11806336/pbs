@@ -13,6 +13,7 @@
     <result column="sex" jdbcType="TINYINT" property="sex" />
     <result column="locked" jdbcType="TINYINT" property="locked" />
     <result column="ctime" jdbcType="BIGINT" property="ctime" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, username, password, salt, realname, avatar, phone, email, sex, locked, ctime
+    user_id, username, password, salt, realname, avatar, phone, email, sex, locked, ctime, company_id
   </sql>
   <select id="selectByExample" parameterType="com.pbs.ams.web.model.UpmsUserExample" resultMap="BaseResultMap">
     select
@@ -117,11 +118,11 @@
     insert into upms_user (user_id, username, password, 
       salt, realname, avatar, 
       phone, email, sex, 
-      locked, ctime)
+      locked, ctime, company_id)
     values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
-      #{locked,jdbcType=TINYINT}, #{ctime,jdbcType=BIGINT})
+      #{locked,jdbcType=TINYINT}, #{ctime,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUser">
     insert into upms_user
@@ -159,6 +160,9 @@
       <if test="ctime != null">
         ctime,
       </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -193,6 +197,9 @@
       </if>
       <if test="ctime != null">
         #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -238,6 +245,9 @@
       <if test="record.ctime != null">
         ctime = #{record.ctime,jdbcType=BIGINT},
       </if>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -255,7 +265,8 @@
       email = #{record.email,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=TINYINT},
       locked = #{record.locked,jdbcType=TINYINT},
-      ctime = #{record.ctime,jdbcType=BIGINT}
+      ctime = #{record.ctime,jdbcType=BIGINT},
+     company_id = #{record.companyId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,6 +304,9 @@
       <if test="ctime != null">
         ctime = #{ctime,jdbcType=BIGINT},
       </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
@@ -307,7 +321,8 @@
       email = #{email,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=TINYINT},
       locked = #{locked,jdbcType=TINYINT},
-      ctime = #{ctime,jdbcType=BIGINT}
+      ctime = #{ctime,jdbcType=BIGINT},
+      company_id = #{companyId,jdbcType=BIGINT}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />

@@ -74,6 +74,11 @@ public class UpmsUser implements Serializable {
     private Byte locked;
 
     /**
+     * 所属公司id
+     */
+    private Long companyId;
+
+    /**
      * 创建时间
      *
      * @mbg.generated
@@ -170,6 +175,14 @@ public class UpmsUser implements Serializable {
         this.ctime = ctime;
     }
 
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -191,6 +204,13 @@ public class UpmsUser implements Serializable {
         return sb.toString();
     }
 
+    /**
+     * 判断用户是否是超级管理员
+     * @return
+     */
+    public boolean isSuperUser() {
+        return userId == 1L ? true : false;
+    }
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -213,6 +233,7 @@ public class UpmsUser implements Serializable {
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
             && (this.getLocked() == null ? other.getLocked() == null : this.getLocked().equals(other.getLocked()))
+            && (this.getCompanyId() == null ? other.getCompanyId() == null : this.getCompanyId().equals(other.getCompanyId()))
             && (this.getCtime() == null ? other.getCtime() == null : this.getCtime().equals(other.getCtime()));
     }
 
@@ -231,6 +252,7 @@ public class UpmsUser implements Serializable {
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
         result = prime * result + ((getLocked() == null) ? 0 : getLocked().hashCode());
         result = prime * result + ((getCtime() == null) ? 0 : getCtime().hashCode());
+        result = prime * result + ((getCompanyId() == null) ? 0 : getCompanyId().hashCode());
         return result;
     }
 }
