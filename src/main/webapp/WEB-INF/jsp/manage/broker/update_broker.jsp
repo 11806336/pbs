@@ -32,10 +32,9 @@
             <div class="controls">
                 <select name="platform_add" id="platform_add">
                     <option value="">---请选择---</option>
-                    <option value="20001" text="CTP实盘">CTP实盘</option>
-                    <option value="20002" text="恒生期货实盘">恒生期货实盘</option>
-                    <option value="21001" text="CTP模拟">CTP模拟</option>
-                    <option value="21002" text="恒生期货模拟">恒生期货模拟</option>
+                    <c:forEach var="platform" items="${lstPlatform}">
+                        <option value="${platform.platformId}">${platform.platformName}</option>
+                    </c:forEach>
                 </select>
                 <span for="platform_add" class="hint">请选择平台</span>
             </div>
@@ -124,37 +123,9 @@
 
     //保存公司
     $(document).on("click","#saveBrokerBtn",function () {
-        var platform_add=$("#platform_add").val(),//平台ID
-            brokerName=$("#brokerName").val(),//期货公司
-            brokerId=$("#brokerId").val(),//公司代码
-//            verification=$("#verification").val(),//客户端认证码
-            dayBegin=$("#day_begin").val(),//日盘启动时间
-            dayEnd=$("#day_end").val();//夜盘启动时间
-        /*if(platform_add == ""){
-            alert("请正确输入公司名称");
-            return false;
-        }
-        if(broker_name == ""){
-            alert("请正确输入操作人ID");
-            return false;
-        }
-        if(!/^\d{3,4}\-\d{7,8}$/.test(company_phone)){
-            alert("请正确输入公司电话");
-            return false;
-        }
-        if(company_fax == "" || /^\s*$/g.test(company_fax)){
-            alert("请正确输入公司传真");
-            return false;
-        }*/
         $.ajax({
-            type: 'GET',
-            url: '${basePath}/manage/broker/create' ,
-            data:/* {
-                "brokerName":brokerName,
-                "brokerId":brokerId,
-                "dayBeginTemp":dayBegin,
-                "dayEndTemp":dayEnd,
-            } */$('#addForm').serialize(),
+            type: 'POST',
+            url: '${basePath}/manage/broker/update/'${amsBrokers.platformId} ,
             success: function (data) {
                 console.info(data);
                 if (data.message == 'success') {

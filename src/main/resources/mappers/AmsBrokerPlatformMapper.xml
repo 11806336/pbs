@@ -120,7 +120,7 @@
             </if>
         </if>
     </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectAmsBrokerPlatformById" parameterType="java.lang.Integer" resultMap="AllResultMap">
         select
         <include refid="Base_Column_List"/>
         from ams_broker
@@ -227,7 +227,8 @@
             </if>
         </trim>
     </insert>
-    <select id="selectCountByExample" parameterType="com.pbs.ams.web.model.AmsBrokerExample" resultType="java.lang.Long">
+    <select id="selectCountByExample" parameterType="com.pbs.ams.web.model.AmsBrokerExample"
+            resultType="java.lang.Long">
         select count(*) from ams_broker
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>

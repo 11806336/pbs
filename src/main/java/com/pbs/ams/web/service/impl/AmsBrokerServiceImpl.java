@@ -37,12 +37,21 @@ public class AmsBrokerServiceImpl extends BaseServiceImpl<AmsBroker, AmsBrokerEx
         return 1;
     }
 
+   /* @Override
+    public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample){
+        return amsBrokerMapper.selectByExample(amsBrokerExample);
+    }*/
+    @Override
+    public int insertSelective(AmsBroker amsBroker){
+        return amsBrokerMapper.insertSelective(amsBroker);
+    }
+
     @Override
     public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample){
         return amsBrokerMapper.selectByExample(amsBrokerExample);
     }
-    @Override
-    public  int insertSelective(AmsBroker amsBroker){
-        return amsBrokerMapper.insertSelective(amsBroker);
-    }
+
+//    public int updateByPrimaryKeySelective(AmsBroker amsBroker){
+//        return amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
+//    }
 }

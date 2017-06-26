@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
 * com.ruixin:pbs-ams-management:war:1.0Service实现
 * Created by ams on 2017/6/22.
@@ -33,6 +35,14 @@ public class AmsPlatformServiceImpl extends BaseServiceImpl<AmsPlatform, AmsPlat
     public int insertToSnaps(){
         return 1;
     }
-    
+
+    /**
+     * 查询平台列表
+     * @return list AmsPlatform
+     */
+    @Override
+    public  List<AmsPlatform> selectByExample(AmsPlatformExample amsPlatformExample){
+        return amsPlatformMapper.selectByExample(amsPlatformExample);
+    }
 
 }

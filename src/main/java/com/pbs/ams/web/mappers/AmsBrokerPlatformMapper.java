@@ -11,4 +11,5 @@ import java.util.List;
 public interface AmsBrokerPlatformMapper {
     List<AmsBrokerPlatform> selectBrokerPlatform(AmsBrokerPlatformExample amsBrokerPlatformExample);
     Long selectCountByExample(AmsBrokerPlatformExample amsBrokerPlatformExample);
+    List<AmsBrokerPlatform> selectAmsBrokerPlatformById(Integer id);
 }

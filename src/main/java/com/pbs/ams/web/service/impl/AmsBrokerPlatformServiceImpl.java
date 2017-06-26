@@ -27,8 +27,13 @@ public class AmsBrokerPlatformServiceImpl extends BaseServiceImpl<AmsBrokerPlatf
     public List<AmsBrokerPlatform> selectAmsBrokerPlatform(AmsBrokerPlatformExample amsBrokerPlatformExample){
         return amsBrokerPlatformMapper.selectBrokerPlatform(amsBrokerPlatformExample);
     }
+
     public Long selectCountByExample(AmsBrokerPlatformExample amsBrokerPlatformExample){
         return amsBrokerPlatformMapper.selectCountByExample(amsBrokerPlatformExample);
+    }
+
+    public List<AmsBrokerPlatform> selectAmsBrokerPlatformById(Integer id){
+        return amsBrokerPlatformMapper.selectAmsBrokerPlatformById(id);
     }
 
 }

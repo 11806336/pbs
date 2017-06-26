@@ -3,7 +3,6 @@ package com.pbs.ams.common.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.constant.GeneratorEnum;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -120,7 +119,7 @@ public class MybatisGeneratorUtil {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 
 		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_product_detail");
+		map2.put("table_name","ams_platform");
 		map2.put("snaps","snaps");
 		lstTables.add(map2);
 		MybatisGeneratorUtil.generator(lstTables);

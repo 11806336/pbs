@@ -26,12 +26,11 @@
             <label for="tradePlatformSearch">交易平台： </label>
             <select id="tradePlatformSearch" name="tradePlatformSearch">
                 <option value=""> -- 全部平台 -- </option>
-                <option value="1">期货平台</option>
-                <option value="2">股票平台</option>
-                <option value="6">股票期权平台</option>
-                <option value="8">期货期权平台</option>
+                <c:forEach var="platform" items="${lstPlatform}">
+                    <option value="${platform.platformId}">${platform.platformName}</option>
+                </c:forEach>
             </select>
-            <div class="btn-panel" onclick="panel('${basePath}/manage/broker/broker','添加证券')">
+            <div class="btn-panel" onclick="createAction('${basePath}/manage/broker/broker','添加证券')">
                 <a class="btn icon-plus addstockcom btn-primary" >添加证券公司</a>
             </div>
         </div>
@@ -48,10 +47,98 @@
 <script src="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="${basePath}/resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
 <script src="${basePath}/resources/pbs-admin/plugins/layer/js/layer.js"></script>
-<script src="${basePath}/resources/pbs-admin/js/public.js"></script>
 <script>
     $("#tradePlatformSearch").select2();
-    function panel(url,title) {//调用弹窗，需要传标题和url
+
+    var $table = $('#table');
+    $(function() {
+        // bootstrap table初始化
+        $table.bootstrapTable({
+            url: '${basePath}/manage/broker/list',
+            height: getHeight(),
+            striped: true,
+            search: true,
+            showRefresh: true,
+            showColumns: true,
+            minimumCountColumns: 2,
+            clickToSelect: true,
+            detailView: true,
+            detailFormatter: 'detailFormatter',
+            pagination: true,
+            paginationLoop: false,
+            sidePagination: 'server',
+            silentSort: false,
+            smartDisplay: false,
+            escape: true,
+            searchOnEnterKey: true,
+            idField: 'brokerId',
+            maintainSelected: true,
+            toolbar: '#toolbar',
+            columns:dataColumns,
+        });
+    });
+    function getHeight() {
+        return $(window).height() - 20;
+    }
+
+    // 格式化图标
+    function iconFormatter(value, row, index) {
+        return '<i class="' + value + '"></i>';
+    }
+    // 格式化类型
+    function typeFormatter(value, row, index) {
+        if (value == 1) {
+            return '目录';
+        }
+        if (value == 2) {
+            return '菜单';
+        }
+        if (value == 3) {
+            return '按钮';
+        }
+        return '-';
+    }
+    // 格式化状态
+    function statusFormatter(value, row, index) {
+        if (value == 1) {
+            return '<span class="label label-success">正常</span>';
+        } else {
+            return '<span class="label label-default">锁定</span>';
+        }
+    }
+    //列配置项
+    var dataColumns=[
+        {field: 'ck', checkbox: true},
+        {field: 'brokerId', title: '经纪公司ID'},
+        {field: 'platformName', title: '交易平台'},
+        {field: 'brokerAbbrName', title: '经纪公司'},
+        {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
+    ];
+    //数据url
+    var url_json="${basePath}/manage/broker/list";//"${basePath}/resources/pbs-admin/data/broker.json";
+    //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+    var sidePagination='server';
+    //指定主键列
+    var idField='brokerId';
+
+
+
+    //右上角刷新搜索
+    var search=true;
+    var showRefresh=true;
+    var showColumns= true;
+    // 格式化操作按钮
+
+    function actionFormatter(value, row, index) {
+        return [
+            "<a class='selected' href='javascript:;' onclick=updateAction('/manage/broker/updateBroker','编辑',"+row.brokerId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='selected' href='javascript:;' onclick=deleteAction('/manage/broker/deleteBroker','删除',"+row.brokerId+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+
+        ].join('');
+    }
+    // 新增
+    var createAction;
+    function createAction(url,title) {//调用弹窗，需要传标题和url
         layer.open({
             type: 2,
             title:title,
@@ -64,66 +151,120 @@
         });
     }
 
-    var $table = $('#table');
-    $(function() {
-     // bootstrap table初始化
-     $table.bootstrapTable({
-     url: '${basePath}/manage/broker/list',
-     height: getHeight(),
-     striped: true,
-     search: true,
-     showRefresh: true,
-     showColumns: true,
-     minimumCountColumns: 2,
-     clickToSelect: true,
-     detailView: true,
-     detailFormatter: 'detailFormatter',
-     pagination: true,
-     paginationLoop: false,
-     sidePagination: 'server',
-     silentSort: false,
-     smartDisplay: false,
-     escape: true,
-     searchOnEnterKey: true,
-     idField: 'brokerId',
-     maintainSelected: true,
-     toolbar: '#toolbar',
-     columns: [
-             {field: 'ck', checkbox: true},
-             {field: 'brokerId', title: '经纪公司ID'},
-             {field: 'platformName', title: '交易平台'},
-             {field: 'brokerAbbrName', title: '经纪公司'},
-             {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
-     ]
-     });
-     });
-    //列配置项
-   var dataColumns=[
-        {field: 'ck', checkbox: true},
-        {field: 'brokerId', title: '经纪公司ID2'},
-        {field: 'platformName', title: '交易平台'},
-        {field: 'brokerAbbrName', title: '经纪公司'},
-        {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
-    ];
-    //数据url
-    var url_json="${basePath}/manage/broker/list";//"${basePath}/resources/pbs-admin/data/broker.json";
-    //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination='server';
-    //指定主键列
-    var idField='brokerId';
-    //右上角刷新搜索
-    var search=true;
-    var showRefresh=true;
-    var showColumns= true;
-    // 格式化操作按钮
+    var rows = $table.bootstrapTable('getSelections');
+    // 编辑
+    var updateAction;
+    function updateAction(url,title,id){
+        var updateurl = "${basePath}/manage/broker/updateBroker/"+id;
+        alert(updateurl);
+        layer.open({
+            type: 2,
+            title:title,
+            area: ['700px', '430px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: updateurl,
+            shadeClose:true,
+            moveOut:true
+        });
 
-    function actionFormatter(value, row, index) {
-        return [
-            '<a class="update" href="javascript:;" onclick="panel('+"'create_broker.jsp'"+","+"'管理经纪公司'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-            '<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
-        ].join('');
     }
 
+    // 删除
+    var deleteDialog;
+    function deleteAction(url,ids) {
+        var rows = $table.bootstrapTable('getSelections');
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        } else {
+            deleteDialog = $.confirm({
+                type: 'red',
+                animationSpeed: 300,
+                title: false,
+                content: '确认删除吗？',
+                buttons: {
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'waves-effect waves-button',
+                        action: function () {
+                            $.ajax({
+                                type: 'get',
+                                url: '${basePath}/manage/broker/deleteBroker/' + ids.join("-"), /*/manage/permission/delete*/
+                                success: function(result) {
+                                    if (result.code != 1) {
+                                        if (result.data instanceof Array) {
+                                            $.each(result.data, function(index, value) {
+                                                $.confirm({
+                                                    theme: 'dark',
+                                                    animation: 'rotateX',
+                                                    closeAnimation: 'rotateX',
+                                                    title: false,
+                                                    content: value.errorMsg,
+                                                    buttons: {
+                                                        confirm: {
+                                                            text: '确认',
+                                                            btnClass: 'waves-effect waves-button waves-light'
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        } else {
+                                            $.confirm({
+                                                theme: 'dark',
+                                                animation: 'rotateX',
+                                                closeAnimation: 'rotateX',
+                                                title: false,
+                                                content: result.data.errorMsg,
+                                                buttons: {
+                                                    confirm: {
+                                                        text: '确认',
+                                                        btnClass: 'waves-effect waves-button waves-light'
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        deleteDialog.close();
+                                        $table.bootstrapTable('refresh');
+                                    }
+                                },
+                                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        theme: 'dark',
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        content: textStatus,
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        }
+    }
 </script>
 </body>
 </html>

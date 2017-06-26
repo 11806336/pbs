@@ -10,6 +10,11 @@ import java.util.List;
  * Created by Administrator on 2017/6/22.
  */
 public interface AmsBrokerPlatformService  extends BaseService<AmsBrokerPlatform, AmsBrokerPlatformExample>{
+
     List<AmsBrokerPlatform> selectAmsBrokerPlatform(AmsBrokerPlatformExample amsBrokerPlatformExample);
+
     Long selectCountByExample(AmsBrokerPlatformExample amsBrokerPlatformExample);
+
+    List<AmsBrokerPlatform> selectAmsBrokerPlatformById(Integer id);
+
 }
