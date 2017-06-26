@@ -8,7 +8,7 @@ public class AmsPlatform implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer platformId;
+    private Long platformId;
 
     /**
      * 平台LOGO
@@ -60,26 +60,19 @@ public class AmsPlatform implements Serializable {
     private Long updateTime;
 
     /**
-     * 快照时间
-     *
-     * @mbg.generated
-     */
-    private Long snapsTime;
-
-    /**
      * 操作人ID
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getPlatformId() {
+    public Long getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(Integer platformId) {
+    public void setPlatformId(Long platformId) {
         this.platformId = platformId;
     }
 
@@ -139,19 +132,11 @@ public class AmsPlatform implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getSnapsTime() {
-        return snapsTime;
-    }
-
-    public void setSnapsTime(Long snapsTime) {
-        this.snapsTime = snapsTime;
-    }
-
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 
@@ -169,7 +154,6 @@ public class AmsPlatform implements Serializable {
         sb.append(", creditable=").append(creditable);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", snapsTime=").append(snapsTime);
         sb.append(", operatorId=").append(operatorId);
         sb.append("]");
         return sb.toString();
@@ -195,7 +179,6 @@ public class AmsPlatform implements Serializable {
             && (this.getCreditable() == null ? other.getCreditable() == null : this.getCreditable().equals(other.getCreditable()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getSnapsTime() == null ? other.getSnapsTime() == null : this.getSnapsTime().equals(other.getSnapsTime()))
             && (this.getOperatorId() == null ? other.getOperatorId() == null : this.getOperatorId().equals(other.getOperatorId()));
     }
 
@@ -211,7 +194,6 @@ public class AmsPlatform implements Serializable {
         result = prime * result + ((getCreditable() == null) ? 0 : getCreditable().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getSnapsTime() == null) ? 0 : getSnapsTime().hashCode());
         result = prime * result + ((getOperatorId() == null) ? 0 : getOperatorId().hashCode());
         return result;
     }

@@ -120,7 +120,7 @@
             data: {
                 "companyName":company_name,
                 "operatorId":operator_id,
-                "companyPhone":company_phone,
+             //   "companyPhone":company_phone,
                 "companyAddress":company_address,
                 "companyFax":company_fax
             } ,

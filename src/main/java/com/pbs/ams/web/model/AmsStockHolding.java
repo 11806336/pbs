@@ -9,42 +9,42 @@ public class AmsStockHolding implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockHoldingId;
+    private Long stockHoldingId;
 
     /**
      * 公司ID
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 证券公司ID
      *
      * @mbg.generated
      */
-    private Integer brokerId;
+    private Long brokerId;
 
     /**
      * 证券账号ID
      *
      * @mbg.generated
      */
-    private Integer stockAccountId;
+    private Long stockAccountId;
 
     /**
      * 市场ID
      *
      * @mbg.generated
      */
-    private Integer marketId;
+    private Long marketId;
 
     /**
      * 证券公司ID
      *
      * @mbg.generated
      */
-    private Integer stockId;
+    private Long stockId;
 
     /**
      * 市场代码
@@ -191,55 +191,55 @@ public class AmsStockHolding implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStockHoldingId() {
+    public Long getStockHoldingId() {
         return stockHoldingId;
     }
 
-    public void setStockHoldingId(Integer stockHoldingId) {
+    public void setStockHoldingId(Long stockHoldingId) {
         this.stockHoldingId = stockHoldingId;
     }
 
-    public Integer getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
-    public Integer getBrokerId() {
+    public Long getBrokerId() {
         return brokerId;
     }
 
-    public void setBrokerId(Integer brokerId) {
+    public void setBrokerId(Long brokerId) {
         this.brokerId = brokerId;
     }
 
-    public Integer getStockAccountId() {
+    public Long getStockAccountId() {
         return stockAccountId;
     }
 
-    public void setStockAccountId(Integer stockAccountId) {
+    public void setStockAccountId(Long stockAccountId) {
         this.stockAccountId = stockAccountId;
     }
 
-    public Integer getMarketId() {
+    public Long getMarketId() {
         return marketId;
     }
 
-    public void setMarketId(Integer marketId) {
+    public void setMarketId(Long marketId) {
         this.marketId = marketId;
     }
 
-    public Integer getStockId() {
+    public Long getStockId() {
         return stockId;
     }
 
-    public void setStockId(Integer stockId) {
+    public void setStockId(Long stockId) {
         this.stockId = stockId;
     }
 
@@ -403,11 +403,11 @@ public class AmsStockHolding implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 

@@ -16,28 +16,28 @@ public interface UpmsApiService {
      * @param upmsUserId
      * @return
      */
-    List<UpmsPermission> selectUpmsPermissionByUpmsUserId(Integer upmsUserId);
+    List<UpmsPermission> selectUpmsPermissionByUpmsUserId(Long upmsUserId);
 
     /**
      * 根据用户id获取所属的角色
      * @param upmsUserId
      * @return
      */
-    List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId);
+    List<UpmsRole> selectUpmsRoleByUpmsUserId(Long upmsUserId);
 
     /**
      * 根据角色id获取所拥有的权限
      * @param upmsRoleId
      * @return
      */
-    List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Integer upmsRoleId);
+    List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Long upmsRoleId);
 
     /**
      * 根据用户id获取所拥有的权限
      * @param upmsUserId
      * @return
      */
-    List<UpmsUserPermission> selectUpmsUserPermissionByUpmsUserId(Integer upmsUserId);
+    List<UpmsUserPermission> selectUpmsUserPermissionByUpmsUserId(Long upmsUserId);
 
     /**
      * 根据条件获取系统数据

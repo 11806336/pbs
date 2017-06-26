@@ -8,14 +8,14 @@ public class UpmsOrganization implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer organizationId;
+    private Long organizationId;
 
     /**
      * 所属上级
      *
      * @mbg.generated
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 组织名称
@@ -40,19 +40,19 @@ public class UpmsOrganization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getOrganizationId() {
+    public Long getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Integer organizationId) {
+    public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
     }
 
-    public Integer getPid() {
+    public Long getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(Long pid) {
         this.pid = pid;
     }
 

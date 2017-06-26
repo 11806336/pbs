@@ -8,7 +8,7 @@ public class UpmsRole implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer roleId;
+    private Long roleId;
 
     /**
      * 角色名称
@@ -47,11 +47,11 @@ public class UpmsRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

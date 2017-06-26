@@ -138,52 +138,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdEqualTo(Integer value) {
+        public Criteria andStockHoldingIdEqualTo(Long value) {
             addCriterion("stock_holding_id =", value, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdNotEqualTo(Integer value) {
+        public Criteria andStockHoldingIdNotEqualTo(Long value) {
             addCriterion("stock_holding_id <>", value, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdGreaterThan(Integer value) {
+        public Criteria andStockHoldingIdGreaterThan(Long value) {
             addCriterion("stock_holding_id >", value, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStockHoldingIdGreaterThanOrEqualTo(Long value) {
             addCriterion("stock_holding_id >=", value, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdLessThan(Integer value) {
+        public Criteria andStockHoldingIdLessThan(Long value) {
             addCriterion("stock_holding_id <", value, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStockHoldingIdLessThanOrEqualTo(Long value) {
             addCriterion("stock_holding_id <=", value, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdIn(List<Integer> values) {
+        public Criteria andStockHoldingIdIn(List<Long> values) {
             addCriterion("stock_holding_id in", values, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdNotIn(List<Integer> values) {
+        public Criteria andStockHoldingIdNotIn(List<Long> values) {
             addCriterion("stock_holding_id not in", values, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdBetween(Integer value1, Integer value2) {
+        public Criteria andStockHoldingIdBetween(Long value1, Long value2) {
             addCriterion("stock_holding_id between", value1, value2, "stockHoldingId");
             return (Criteria) this;
         }
 
-        public Criteria andStockHoldingIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStockHoldingIdNotBetween(Long value1, Long value2) {
             addCriterion("stock_holding_id not between", value1, value2, "stockHoldingId");
             return (Criteria) this;
         }
@@ -198,52 +198,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdEqualTo(Integer value) {
+        public Criteria andCompanyIdEqualTo(Long value) {
             addCriterion("company_id =", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotEqualTo(Integer value) {
+        public Criteria andCompanyIdNotEqualTo(Long value) {
             addCriterion("company_id <>", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThan(Integer value) {
+        public Criteria andCompanyIdGreaterThan(Long value) {
             addCriterion("company_id >", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCompanyIdGreaterThanOrEqualTo(Long value) {
             addCriterion("company_id >=", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThan(Integer value) {
+        public Criteria andCompanyIdLessThan(Long value) {
             addCriterion("company_id <", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThanOrEqualTo(Integer value) {
+        public Criteria andCompanyIdLessThanOrEqualTo(Long value) {
             addCriterion("company_id <=", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIn(List<Integer> values) {
+        public Criteria andCompanyIdIn(List<Long> values) {
             addCriterion("company_id in", values, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotIn(List<Integer> values) {
+        public Criteria andCompanyIdNotIn(List<Long> values) {
             addCriterion("company_id not in", values, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdBetween(Integer value1, Integer value2) {
+        public Criteria andCompanyIdBetween(Long value1, Long value2) {
             addCriterion("company_id between", value1, value2, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andCompanyIdNotBetween(Long value1, Long value2) {
             addCriterion("company_id not between", value1, value2, "companyId");
             return (Criteria) this;
         }
@@ -258,52 +258,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdEqualTo(Integer value) {
+        public Criteria andBrokerIdEqualTo(Long value) {
             addCriterion("broker_id =", value, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdNotEqualTo(Integer value) {
+        public Criteria andBrokerIdNotEqualTo(Long value) {
             addCriterion("broker_id <>", value, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdGreaterThan(Integer value) {
+        public Criteria andBrokerIdGreaterThan(Long value) {
             addCriterion("broker_id >", value, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andBrokerIdGreaterThanOrEqualTo(Long value) {
             addCriterion("broker_id >=", value, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdLessThan(Integer value) {
+        public Criteria andBrokerIdLessThan(Long value) {
             addCriterion("broker_id <", value, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdLessThanOrEqualTo(Integer value) {
+        public Criteria andBrokerIdLessThanOrEqualTo(Long value) {
             addCriterion("broker_id <=", value, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdIn(List<Integer> values) {
+        public Criteria andBrokerIdIn(List<Long> values) {
             addCriterion("broker_id in", values, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdNotIn(List<Integer> values) {
+        public Criteria andBrokerIdNotIn(List<Long> values) {
             addCriterion("broker_id not in", values, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdBetween(Integer value1, Integer value2) {
+        public Criteria andBrokerIdBetween(Long value1, Long value2) {
             addCriterion("broker_id between", value1, value2, "brokerId");
             return (Criteria) this;
         }
 
-        public Criteria andBrokerIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andBrokerIdNotBetween(Long value1, Long value2) {
             addCriterion("broker_id not between", value1, value2, "brokerId");
             return (Criteria) this;
         }
@@ -318,52 +318,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdEqualTo(Integer value) {
+        public Criteria andStockAccountIdEqualTo(Long value) {
             addCriterion("stock_account_id =", value, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdNotEqualTo(Integer value) {
+        public Criteria andStockAccountIdNotEqualTo(Long value) {
             addCriterion("stock_account_id <>", value, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdGreaterThan(Integer value) {
+        public Criteria andStockAccountIdGreaterThan(Long value) {
             addCriterion("stock_account_id >", value, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStockAccountIdGreaterThanOrEqualTo(Long value) {
             addCriterion("stock_account_id >=", value, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdLessThan(Integer value) {
+        public Criteria andStockAccountIdLessThan(Long value) {
             addCriterion("stock_account_id <", value, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStockAccountIdLessThanOrEqualTo(Long value) {
             addCriterion("stock_account_id <=", value, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdIn(List<Integer> values) {
+        public Criteria andStockAccountIdIn(List<Long> values) {
             addCriterion("stock_account_id in", values, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdNotIn(List<Integer> values) {
+        public Criteria andStockAccountIdNotIn(List<Long> values) {
             addCriterion("stock_account_id not in", values, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdBetween(Integer value1, Integer value2) {
+        public Criteria andStockAccountIdBetween(Long value1, Long value2) {
             addCriterion("stock_account_id between", value1, value2, "stockAccountId");
             return (Criteria) this;
         }
 
-        public Criteria andStockAccountIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStockAccountIdNotBetween(Long value1, Long value2) {
             addCriterion("stock_account_id not between", value1, value2, "stockAccountId");
             return (Criteria) this;
         }
@@ -378,52 +378,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdEqualTo(Integer value) {
+        public Criteria andMarketIdEqualTo(Long value) {
             addCriterion("market_id =", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdNotEqualTo(Integer value) {
+        public Criteria andMarketIdNotEqualTo(Long value) {
             addCriterion("market_id <>", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdGreaterThan(Integer value) {
+        public Criteria andMarketIdGreaterThan(Long value) {
             addCriterion("market_id >", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMarketIdGreaterThanOrEqualTo(Long value) {
             addCriterion("market_id >=", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdLessThan(Integer value) {
+        public Criteria andMarketIdLessThan(Long value) {
             addCriterion("market_id <", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdLessThanOrEqualTo(Integer value) {
+        public Criteria andMarketIdLessThanOrEqualTo(Long value) {
             addCriterion("market_id <=", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdIn(List<Integer> values) {
+        public Criteria andMarketIdIn(List<Long> values) {
             addCriterion("market_id in", values, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdNotIn(List<Integer> values) {
+        public Criteria andMarketIdNotIn(List<Long> values) {
             addCriterion("market_id not in", values, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdBetween(Integer value1, Integer value2) {
+        public Criteria andMarketIdBetween(Long value1, Long value2) {
             addCriterion("market_id between", value1, value2, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andMarketIdNotBetween(Long value1, Long value2) {
             addCriterion("market_id not between", value1, value2, "marketId");
             return (Criteria) this;
         }
@@ -438,52 +438,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andStockIdEqualTo(Integer value) {
+        public Criteria andStockIdEqualTo(Long value) {
             addCriterion("stock_id =", value, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdNotEqualTo(Integer value) {
+        public Criteria andStockIdNotEqualTo(Long value) {
             addCriterion("stock_id <>", value, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdGreaterThan(Integer value) {
+        public Criteria andStockIdGreaterThan(Long value) {
             addCriterion("stock_id >", value, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStockIdGreaterThanOrEqualTo(Long value) {
             addCriterion("stock_id >=", value, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdLessThan(Integer value) {
+        public Criteria andStockIdLessThan(Long value) {
             addCriterion("stock_id <", value, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStockIdLessThanOrEqualTo(Long value) {
             addCriterion("stock_id <=", value, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdIn(List<Integer> values) {
+        public Criteria andStockIdIn(List<Long> values) {
             addCriterion("stock_id in", values, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdNotIn(List<Integer> values) {
+        public Criteria andStockIdNotIn(List<Long> values) {
             addCriterion("stock_id not in", values, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdBetween(Integer value1, Integer value2) {
+        public Criteria andStockIdBetween(Long value1, Long value2) {
             addCriterion("stock_id between", value1, value2, "stockId");
             return (Criteria) this;
         }
 
-        public Criteria andStockIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStockIdNotBetween(Long value1, Long value2) {
             addCriterion("stock_id not between", value1, value2, "stockId");
             return (Criteria) this;
         }
@@ -1768,52 +1768,52 @@ public class AmsStockHoldingExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdEqualTo(Integer value) {
+        public Criteria andOperatorIdEqualTo(Long value) {
             addCriterion("operator_id =", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotEqualTo(Integer value) {
+        public Criteria andOperatorIdNotEqualTo(Long value) {
             addCriterion("operator_id <>", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdGreaterThan(Integer value) {
+        public Criteria andOperatorIdGreaterThan(Long value) {
             addCriterion("operator_id >", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOperatorIdGreaterThanOrEqualTo(Long value) {
             addCriterion("operator_id >=", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdLessThan(Integer value) {
+        public Criteria andOperatorIdLessThan(Long value) {
             addCriterion("operator_id <", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdLessThanOrEqualTo(Integer value) {
+        public Criteria andOperatorIdLessThanOrEqualTo(Long value) {
             addCriterion("operator_id <=", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdIn(List<Integer> values) {
+        public Criteria andOperatorIdIn(List<Long> values) {
             addCriterion("operator_id in", values, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotIn(List<Integer> values) {
+        public Criteria andOperatorIdNotIn(List<Long> values) {
             addCriterion("operator_id not in", values, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdBetween(Integer value1, Integer value2) {
+        public Criteria andOperatorIdBetween(Long value1, Long value2) {
             addCriterion("operator_id between", value1, value2, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andOperatorIdNotBetween(Long value1, Long value2) {
             addCriterion("operator_id not between", value1, value2, "operatorId");
             return (Criteria) this;
         }

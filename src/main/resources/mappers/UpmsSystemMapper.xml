@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.UpmsSystemMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.UpmsSystem">
-    <id column="system_id" jdbcType="INTEGER" property="systemId" />
+    <id column="system_id" jdbcType="BIGINT" property="systemId" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="banner" jdbcType="VARCHAR" property="banner" />
     <result column="theme" jdbcType="VARCHAR" property="theme" />
@@ -98,15 +98,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from upms_system
-    where system_id = #{systemId,jdbcType=INTEGER}
+    where system_id = #{systemId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_system
-    where system_id = #{systemId,jdbcType=INTEGER}
+    where system_id = #{systemId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.UpmsSystemExample">
     delete from upms_system
@@ -119,7 +119,7 @@
       theme, basepath, status, 
       name, title, description, 
       ctime, orders)
-    values (#{systemId,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}, 
+    values (#{systemId,jdbcType=BIGINT}, #{icon,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}, 
       #{theme,jdbcType=VARCHAR}, #{basepath,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{ctime,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT})
@@ -163,7 +163,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="systemId != null">
-        #{systemId,jdbcType=INTEGER},
+        #{systemId,jdbcType=BIGINT},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
@@ -207,7 +207,7 @@
     update upms_system
     <set>
       <if test="record.systemId != null">
-        system_id = #{record.systemId,jdbcType=INTEGER},
+        system_id = #{record.systemId,jdbcType=BIGINT},
       </if>
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
@@ -246,7 +246,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update upms_system
-    set system_id = #{record.systemId,jdbcType=INTEGER},
+    set system_id = #{record.systemId,jdbcType=BIGINT},
       icon = #{record.icon,jdbcType=VARCHAR},
       banner = #{record.banner,jdbcType=VARCHAR},
       theme = #{record.theme,jdbcType=VARCHAR},
@@ -295,7 +295,7 @@
         orders = #{orders,jdbcType=BIGINT},
       </if>
     </set>
-    where system_id = #{systemId,jdbcType=INTEGER}
+    where system_id = #{systemId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.UpmsSystem">
     update upms_system
@@ -309,7 +309,7 @@
       description = #{description,jdbcType=VARCHAR},
       ctime = #{ctime,jdbcType=BIGINT},
       orders = #{orders,jdbcType=BIGINT}
-    where system_id = #{systemId,jdbcType=INTEGER}
+    where system_id = #{systemId,jdbcType=BIGINT}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

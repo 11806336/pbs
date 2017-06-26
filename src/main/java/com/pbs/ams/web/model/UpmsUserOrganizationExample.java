@@ -137,52 +137,52 @@ public class UpmsUserOrganizationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdEqualTo(Integer value) {
+        public Criteria andUserOrganizationIdEqualTo(Long value) {
             addCriterion("user_organization_id =", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdNotEqualTo(Integer value) {
+        public Criteria andUserOrganizationIdNotEqualTo(Long value) {
             addCriterion("user_organization_id <>", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdGreaterThan(Integer value) {
+        public Criteria andUserOrganizationIdGreaterThan(Long value) {
             addCriterion("user_organization_id >", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserOrganizationIdGreaterThanOrEqualTo(Long value) {
             addCriterion("user_organization_id >=", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdLessThan(Integer value) {
+        public Criteria andUserOrganizationIdLessThan(Long value) {
             addCriterion("user_organization_id <", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdLessThanOrEqualTo(Integer value) {
+        public Criteria andUserOrganizationIdLessThanOrEqualTo(Long value) {
             addCriterion("user_organization_id <=", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdIn(List<Integer> values) {
+        public Criteria andUserOrganizationIdIn(List<Long> values) {
             addCriterion("user_organization_id in", values, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdNotIn(List<Integer> values) {
+        public Criteria andUserOrganizationIdNotIn(List<Long> values) {
             addCriterion("user_organization_id not in", values, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdBetween(Integer value1, Integer value2) {
+        public Criteria andUserOrganizationIdBetween(Long value1, Long value2) {
             addCriterion("user_organization_id between", value1, value2, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrganizationIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserOrganizationIdNotBetween(Long value1, Long value2) {
             addCriterion("user_organization_id not between", value1, value2, "userOrganizationId");
             return (Criteria) this;
         }
@@ -197,52 +197,52 @@ public class UpmsUserOrganizationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
+        public Criteria andUserIdEqualTo(Long value) {
             addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
+        public Criteria andUserIdNotEqualTo(Long value) {
             addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
+        public Criteria andUserIdGreaterThan(Long value) {
             addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
             addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
+        public Criteria andUserIdLessThan(Long value) {
             addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
+        public Criteria andUserIdLessThanOrEqualTo(Long value) {
             addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
+        public Criteria andUserIdIn(List<Long> values) {
             addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
+        public Criteria andUserIdNotIn(List<Long> values) {
             addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
+        public Criteria andUserIdBetween(Long value1, Long value2) {
             addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserIdNotBetween(Long value1, Long value2) {
             addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -257,52 +257,52 @@ public class UpmsUserOrganizationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdEqualTo(Integer value) {
+        public Criteria andOrganizationIdEqualTo(Long value) {
             addCriterion("organization_id =", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdNotEqualTo(Integer value) {
+        public Criteria andOrganizationIdNotEqualTo(Long value) {
             addCriterion("organization_id <>", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdGreaterThan(Integer value) {
+        public Criteria andOrganizationIdGreaterThan(Long value) {
             addCriterion("organization_id >", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOrganizationIdGreaterThanOrEqualTo(Long value) {
             addCriterion("organization_id >=", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdLessThan(Integer value) {
+        public Criteria andOrganizationIdLessThan(Long value) {
             addCriterion("organization_id <", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdLessThanOrEqualTo(Integer value) {
+        public Criteria andOrganizationIdLessThanOrEqualTo(Long value) {
             addCriterion("organization_id <=", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdIn(List<Integer> values) {
+        public Criteria andOrganizationIdIn(List<Long> values) {
             addCriterion("organization_id in", values, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdNotIn(List<Integer> values) {
+        public Criteria andOrganizationIdNotIn(List<Long> values) {
             addCriterion("organization_id not in", values, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdBetween(Integer value1, Integer value2) {
+        public Criteria andOrganizationIdBetween(Long value1, Long value2) {
             addCriterion("organization_id between", value1, value2, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andOrganizationIdNotBetween(Long value1, Long value2) {
             addCriterion("organization_id not between", value1, value2, "organizationId");
             return (Criteria) this;
         }

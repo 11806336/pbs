@@ -8,45 +8,45 @@ public class AmsProductAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer productAccountId;
+    private Long productAccountId;
 
     /**
      * 产品ID
      *
      * @mbg.generated
      */
-    private Integer productId;
+    private Long productId;
 
     /**
      * 账号ID
      *
      * @mbg.generated
      */
-    private Integer stockAccountId;
+    private Long stockAccountId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getProductAccountId() {
+    public Long getProductAccountId() {
         return productAccountId;
     }
 
-    public void setProductAccountId(Integer productAccountId) {
+    public void setProductAccountId(Long productAccountId) {
         this.productAccountId = productAccountId;
     }
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public Integer getStockAccountId() {
+    public Long getStockAccountId() {
         return stockAccountId;
     }
 
-    public void setStockAccountId(Integer stockAccountId) {
+    public void setStockAccountId(Long stockAccountId) {
         this.stockAccountId = stockAccountId;
     }
 

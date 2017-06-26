@@ -8,14 +8,14 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockAccountId;
+    private Long stockAccountId;
 
     /**
      * 公司ID
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 账号类型
@@ -29,7 +29,7 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockAccount;
+    private Long stockAccount;
 
     /**
      * 证券账号名称
@@ -85,23 +85,23 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStockAccountId() {
+    public Long getStockAccountId() {
         return stockAccountId;
     }
 
-    public void setStockAccountId(Integer stockAccountId) {
+    public void setStockAccountId(Long stockAccountId) {
         this.stockAccountId = stockAccountId;
     }
 
-    public Integer getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -113,11 +113,11 @@ public class AmsStockAccount implements Serializable {
         this.stockAccountType = stockAccountType;
     }
 
-    public Integer getStockAccount() {
+    public Long getStockAccount() {
         return stockAccount;
     }
 
-    public void setStockAccount(Integer stockAccount) {
+    public void setStockAccount(Long stockAccount) {
         this.stockAccount = stockAccount;
     }
 
@@ -177,11 +177,11 @@ public class AmsStockAccount implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 

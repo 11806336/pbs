@@ -42,7 +42,7 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl< UpmsPermission, 
     UpmsUserPermissionMapper upmsUserPermissionMapper;
 
     @Override
-    public JSONArray getTreeByRoleId(Integer roleId) {
+    public JSONArray getTreeByRoleId(Long roleId) {
         // 角色已有权限
         List<UpmsRolePermission> rolePermissions = upmsApiService.selectUpmsRolePermisstionByUpmsRoleId(roleId);
 
@@ -67,7 +67,7 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl< UpmsPermission, 
                 UpmsPermissionExample upmsPermissionExample = new UpmsPermissionExample();
                 upmsPermissionExample.createCriteria()
                         .andStatusEqualTo((byte) 1)
-                        .andSystemIdEqualTo(((JSONObject) system).getIntValue("id"));
+                        .andSystemIdEqualTo(((JSONObject) system).getLongValue("id"));
                 upmsPermissionExample.setOrderByClause("orders asc");
                 List<UpmsPermission> upmsPermissions = upmsPermissionMapper.selectByExample(upmsPermissionExample);
                 if (upmsPermissions.size() == 0) continue;
@@ -137,7 +137,7 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl< UpmsPermission, 
     }
 
     @Override
-    public JSONArray getTreeByUserId(Integer usereId, Byte type) {
+    public JSONArray getTreeByUserId(Long usereId, Byte type) {
         // 角色权限
         UpmsUserPermissionExample upmsUserPermissionExample = new UpmsUserPermissionExample();
         upmsUserPermissionExample.createCriteria()
@@ -166,7 +166,7 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl< UpmsPermission, 
                 UpmsPermissionExample upmsPermissionExample = new UpmsPermissionExample();
                 upmsPermissionExample.createCriteria()
                         .andStatusEqualTo((byte) 1)
-                        .andSystemIdEqualTo(((JSONObject) system).getIntValue("id"));
+                        .andSystemIdEqualTo(((JSONObject) system).getLongValue("id"));
                 upmsPermissionExample.setOrderByClause("orders asc");
                 List<UpmsPermission> upmsPermissions = upmsPermissionMapper.selectByExample(upmsPermissionExample);
                 if (upmsPermissions.size() == 0) continue;

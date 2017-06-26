@@ -10,7 +10,7 @@ public interface UpmsSystemMapper {
 
     int deleteByExample(UpmsSystemExample example);
 
-    int deleteByPrimaryKey(Integer systemId);
+    int deleteByPrimaryKey(Long systemId);
 
     int insert(UpmsSystem record);
 
@@ -18,7 +18,7 @@ public interface UpmsSystemMapper {
 
     List<UpmsSystem> selectByExample(UpmsSystemExample example);
 
-    UpmsSystem selectByPrimaryKey(Integer systemId);
+    UpmsSystem selectByPrimaryKey(Long systemId);
 
     int updateByExampleSelective(@Param("record") UpmsSystem record, @Param("example") UpmsSystemExample example);
 

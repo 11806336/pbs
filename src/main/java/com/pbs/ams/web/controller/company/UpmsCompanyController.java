@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,8 @@ public class UpmsCompanyController extends BaseController {
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
-            @RequestParam(required = false, value = "order") String order) {
+            @RequestParam(required = false, value = "order") String order, HttpServletRequest request) {
+        request.getAttribute("upmsUser");
         UpmsCompanyExample upmsCompanyExample = new UpmsCompanyExample();
         upmsCompanyExample.setOffset(offset);
         upmsCompanyExample.setLimit(limit);
@@ -104,7 +106,7 @@ public class UpmsCompanyController extends BaseController {
         long time = System.currentTimeMillis();
         upmsCompany.setCreateTime(time);
         Long id = IdGeneratorUtil.getKey("upms_company");
-        upmsCompany.setCompanyId(id.intValue());//获取公司id
+        upmsCompany.setCompanyId(id);//获取公司id
         int count = upmsCompanyService.insertSelective(upmsCompany);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
@@ -113,7 +115,7 @@ public class UpmsCompanyController extends BaseController {
     @ApiOperation(value = "修改公司")
     @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") int id, ModelMap modelMap) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsCompany company = upmsCompanyService.selectByPrimaryKey(id);
         modelMap.put("company", company);
         return "/manage/company/update_company.jsp";
@@ -123,7 +125,7 @@ public class UpmsCompanyController extends BaseController {
     @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") int id, UpmsCompany upmsCompany) {
+    public Object update(@PathVariable("id") long id, UpmsCompany upmsCompany) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsCompany.getCompanyName(), new LengthValidator(1, 20, "名称"))
 //                .on(upmsCompany.getTitle(),  new NotNullValidator("姓名"))

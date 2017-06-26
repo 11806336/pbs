@@ -10,7 +10,7 @@ public interface UpmsOrganizationMapper {
 
     int deleteByExample(UpmsOrganizationExample example);
 
-    int deleteByPrimaryKey(Integer organizationId);
+    int deleteByPrimaryKey(Long organizationId);
 
     int insert(UpmsOrganization record);
 
@@ -18,7 +18,7 @@ public interface UpmsOrganizationMapper {
 
     List<UpmsOrganization> selectByExample(UpmsOrganizationExample example);
 
-    UpmsOrganization selectByPrimaryKey(Integer organizationId);
+    UpmsOrganization selectByPrimaryKey(Long organizationId);
 
     int updateByExampleSelective(@Param("record") UpmsOrganization record, @Param("example") UpmsOrganizationExample example);
 
