@@ -13,7 +13,7 @@ import java.util.List;
  * Created by ams on 2017/01/07.
  */
 public abstract class BaseServiceImpl< Record, Example> implements BaseService<Record, Example> {
-	
+
 
 	@Override
 	public int countByExample(Example example) {
