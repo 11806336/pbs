@@ -127,6 +127,66 @@ public class UpmsCompanySnapsExample implements Serializable {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andSnapsTimeIsNull() {
+            addCriterion("snaps_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeIsNotNull() {
+            addCriterion("snaps_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeEqualTo(Long value) {
+            addCriterion("snaps_time =", value, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeNotEqualTo(Long value) {
+            addCriterion("snaps_time <>", value, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeGreaterThan(Long value) {
+            addCriterion("snaps_time >", value, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeGreaterThanOrEqualTo(Long value) {
+            addCriterion("snaps_time >=", value, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeLessThan(Long value) {
+            addCriterion("snaps_time <", value, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeLessThanOrEqualTo(Long value) {
+            addCriterion("snaps_time <=", value, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeIn(List<Long> values) {
+            addCriterion("snaps_time in", values, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeNotIn(List<Long> values) {
+            addCriterion("snaps_time not in", values, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeBetween(Long value1, Long value2) {
+            addCriterion("snaps_time between", value1, value2, "snapsTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapsTimeNotBetween(Long value1, Long value2) {
+            addCriterion("snaps_time not between", value1, value2, "snapsTime");
+            return (Criteria) this;
+        }
+
         public Criteria andCompanyIdIsNull() {
             addCriterion("company_id is null");
             return (Criteria) this;
@@ -137,52 +197,52 @@ public class UpmsCompanySnapsExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdEqualTo(Integer value) {
+        public Criteria andCompanyIdEqualTo(Long value) {
             addCriterion("company_id =", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotEqualTo(Integer value) {
+        public Criteria andCompanyIdNotEqualTo(Long value) {
             addCriterion("company_id <>", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThan(Integer value) {
+        public Criteria andCompanyIdGreaterThan(Long value) {
             addCriterion("company_id >", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCompanyIdGreaterThanOrEqualTo(Long value) {
             addCriterion("company_id >=", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThan(Integer value) {
+        public Criteria andCompanyIdLessThan(Long value) {
             addCriterion("company_id <", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThanOrEqualTo(Integer value) {
+        public Criteria andCompanyIdLessThanOrEqualTo(Long value) {
             addCriterion("company_id <=", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIn(List<Integer> values) {
+        public Criteria andCompanyIdIn(List<Long> values) {
             addCriterion("company_id in", values, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotIn(List<Integer> values) {
+        public Criteria andCompanyIdNotIn(List<Long> values) {
             addCriterion("company_id not in", values, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdBetween(Integer value1, Integer value2) {
+        public Criteria andCompanyIdBetween(Long value1, Long value2) {
             addCriterion("company_id between", value1, value2, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andCompanyIdNotBetween(Long value1, Long value2) {
             addCriterion("company_id not between", value1, value2, "companyId");
             return (Criteria) this;
         }
@@ -267,52 +327,52 @@ public class UpmsCompanySnapsExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdEqualTo(Integer value) {
+        public Criteria andOperatorIdEqualTo(Long value) {
             addCriterion("operator_id =", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotEqualTo(Integer value) {
+        public Criteria andOperatorIdNotEqualTo(Long value) {
             addCriterion("operator_id <>", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdGreaterThan(Integer value) {
+        public Criteria andOperatorIdGreaterThan(Long value) {
             addCriterion("operator_id >", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOperatorIdGreaterThanOrEqualTo(Long value) {
             addCriterion("operator_id >=", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdLessThan(Integer value) {
+        public Criteria andOperatorIdLessThan(Long value) {
             addCriterion("operator_id <", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdLessThanOrEqualTo(Integer value) {
+        public Criteria andOperatorIdLessThanOrEqualTo(Long value) {
             addCriterion("operator_id <=", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdIn(List<Integer> values) {
+        public Criteria andOperatorIdIn(List<Long> values) {
             addCriterion("operator_id in", values, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotIn(List<Integer> values) {
+        public Criteria andOperatorIdNotIn(List<Long> values) {
             addCriterion("operator_id not in", values, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdBetween(Integer value1, Integer value2) {
+        public Criteria andOperatorIdBetween(Long value1, Long value2) {
             addCriterion("operator_id between", value1, value2, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andOperatorIdNotBetween(Long value1, Long value2) {
             addCriterion("operator_id not between", value1, value2, "operatorId");
             return (Criteria) this;
         }
@@ -327,52 +387,52 @@ public class UpmsCompanySnapsExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdEqualTo(Integer value) {
+        public Criteria andManagerIdEqualTo(Long value) {
             addCriterion("manager_id =", value, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdNotEqualTo(Integer value) {
+        public Criteria andManagerIdNotEqualTo(Long value) {
             addCriterion("manager_id <>", value, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdGreaterThan(Integer value) {
+        public Criteria andManagerIdGreaterThan(Long value) {
             addCriterion("manager_id >", value, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andManagerIdGreaterThanOrEqualTo(Long value) {
             addCriterion("manager_id >=", value, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdLessThan(Integer value) {
+        public Criteria andManagerIdLessThan(Long value) {
             addCriterion("manager_id <", value, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdLessThanOrEqualTo(Integer value) {
+        public Criteria andManagerIdLessThanOrEqualTo(Long value) {
             addCriterion("manager_id <=", value, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdIn(List<Integer> values) {
+        public Criteria andManagerIdIn(List<Long> values) {
             addCriterion("manager_id in", values, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdNotIn(List<Integer> values) {
+        public Criteria andManagerIdNotIn(List<Long> values) {
             addCriterion("manager_id not in", values, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdBetween(Integer value1, Integer value2) {
+        public Criteria andManagerIdBetween(Long value1, Long value2) {
             addCriterion("manager_id between", value1, value2, "managerId");
             return (Criteria) this;
         }
 
-        public Criteria andManagerIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andManagerIdNotBetween(Long value1, Long value2) {
             addCriterion("manager_id not between", value1, value2, "managerId");
             return (Criteria) this;
         }
@@ -904,66 +964,6 @@ public class UpmsCompanySnapsExample implements Serializable {
 
         public Criteria andUpdateTimeNotBetween(Long value1, Long value2) {
             addCriterion("update_time not between", value1, value2, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeIsNull() {
-            addCriterion("snaps_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeIsNotNull() {
-            addCriterion("snaps_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeEqualTo(Long value) {
-            addCriterion("snaps_time =", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeNotEqualTo(Long value) {
-            addCriterion("snaps_time <>", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeGreaterThan(Long value) {
-            addCriterion("snaps_time >", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeGreaterThanOrEqualTo(Long value) {
-            addCriterion("snaps_time >=", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeLessThan(Long value) {
-            addCriterion("snaps_time <", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeLessThanOrEqualTo(Long value) {
-            addCriterion("snaps_time <=", value, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeIn(List<Long> values) {
-            addCriterion("snaps_time in", values, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeNotIn(List<Long> values) {
-            addCriterion("snaps_time not in", values, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeBetween(Long value1, Long value2) {
-            addCriterion("snaps_time between", value1, value2, "snapsTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapsTimeNotBetween(Long value1, Long value2) {
-            addCriterion("snaps_time not between", value1, value2, "snapsTime");
             return (Criteria) this;
         }
     }

@@ -44,7 +44,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Integer id) {
+	public int deleteByPrimaryKey(Long id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
 			Method deleteByPrimaryKey =  getMapper().getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
@@ -146,7 +146,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	}
 
 	@Override
-	public Record selectByPrimaryKey(Integer id) {
+	public Record selectByPrimaryKey(Long id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
 			Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.UpmsCompanyMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.UpmsCompany">
-    <id column="company_id" jdbcType="INTEGER" property="companyId" />
+    <id column="company_id" jdbcType="BIGINT" property="companyId" />
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
-    <result column="manager_id" jdbcType="INTEGER" property="managerId" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="manager_id" jdbcType="BIGINT" property="managerId" />
     <result column="manager_phone" jdbcType="INTEGER" property="managerPhone" />
     <result column="manager_address" jdbcType="VARCHAR" property="managerAddress" />
     <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
@@ -99,15 +99,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from upms_company
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where company_id = #{companyId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_company
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where company_id = #{companyId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.UpmsCompanyExample">
     delete from upms_company
@@ -120,8 +120,8 @@
       manager_id, manager_phone, manager_address, 
       company_address, company_fax, manager_email, 
       description, create_time, update_time)
-    values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER}, 
-      #{managerId,jdbcType=INTEGER}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR}, 
+    values (#{companyId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=BIGINT},
+      #{managerId,jdbcType=BIGINT}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR},
       #{companyAddress,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, #{managerEmail,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED), CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))
   </insert>
@@ -163,16 +163,16 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="companyId != null">
-        #{companyId,jdbcType=INTEGER},
+        #{companyId,jdbcType=BIGINT},
       </if>
       <if test="companyName != null">
         #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="operatorId != null">
-        #{operatorId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="managerId != null">
-        #{managerId,jdbcType=INTEGER},
+        #{managerId,jdbcType=BIGINT},
       </if>
       <if test="managerPhone != null">
         #{managerPhone,jdbcType=INTEGER},
@@ -206,16 +206,16 @@
     update upms_company
     <set>
       <if test="record.companyId != null">
-        company_id = #{record.companyId,jdbcType=INTEGER},
+        company_id = #{record.companyId,jdbcType=BIGINT},
       </if>
       <if test="record.companyName != null">
         company_name = #{record.companyName,jdbcType=VARCHAR},
       </if>
       <if test="record.operatorId != null">
-        operator_id = #{record.operatorId,jdbcType=INTEGER},
+        operator_id = #{record.operatorId,jdbcType=BIGINT},
       </if>
       <if test="record.managerId != null">
-        manager_id = #{record.managerId,jdbcType=INTEGER},
+        manager_id = #{record.managerId,jdbcType=BIGINT},
       </if>
       <if test="record.managerPhone != null">
         manager_phone = #{record.managerPhone,jdbcType=INTEGER},
@@ -246,10 +246,10 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update upms_company
-    set company_id = #{record.companyId,jdbcType=INTEGER},
+    set company_id = #{record.companyId,jdbcType=BIGINT},
       company_name = #{record.companyName,jdbcType=VARCHAR},
-      operator_id = #{record.operatorId,jdbcType=INTEGER},
-      manager_id = #{record.managerId,jdbcType=INTEGER},
+      operator_id = #{record.operatorId,jdbcType=BIGINT},
+      manager_id = #{record.managerId,jdbcType=BIGINT},
       manager_phone = #{record.managerPhone,jdbcType=INTEGER},
       manager_address = #{record.managerAddress,jdbcType=VARCHAR},
       company_address = #{record.companyAddress,jdbcType=VARCHAR},
@@ -269,10 +269,10 @@
         company_name = #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=INTEGER},
+        operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="managerId != null">
-        manager_id = #{managerId,jdbcType=INTEGER},
+        manager_id = #{managerId,jdbcType=BIGINT},
       </if>
       <if test="managerPhone != null">
         manager_phone = #{managerPhone,jdbcType=INTEGER},
@@ -297,13 +297,13 @@
       </if>
         update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
     </set>
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where company_id = #{companyId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.UpmsCompany">
     update upms_company
     set company_name = #{companyName,jdbcType=VARCHAR},
-      operator_id = #{operatorId,jdbcType=INTEGER},
-      manager_id = #{managerId,jdbcType=INTEGER},
+      operator_id = #{operatorId,jdbcType=BIGINT},
+      manager_id = #{managerId,jdbcType=BIGINT},
       manager_phone = #{managerPhone,jdbcType=INTEGER},
       manager_address = #{managerAddress,jdbcType=VARCHAR},
       company_address = #{companyAddress,jdbcType=VARCHAR},
@@ -312,7 +312,7 @@
       description = #{description,jdbcType=VARCHAR},
       create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where company_id = #{companyId,jdbcType=BIGINT}
   </update>
   <!-- insert snapshot-->
   <insert id="insertSnapshot" parameterType="com.pbs.ams.web.model.UpmsCompanySnaps">
@@ -321,8 +321,8 @@
     company_address, company_fax, manager_email,
     description, create_time, update_time,
     snaps_time)
-    values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER},
-    #{managerId,jdbcType=INTEGER}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR},
+    values (#{companyId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=BIGINT},
+    #{managerId,jdbcType=BIGINT}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR},
     #{companyAddress,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, #{managerEmail,jdbcType=VARCHAR},
     #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
     CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))
@@ -370,16 +370,16 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="companyId != null">
-        #{companyId,jdbcType=INTEGER},
+        #{companyId,jdbcType=BIGINT},
       </if>
       <if test="companyName != null">
         #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="operatorId != null">
-        #{operatorId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="managerId != null">
-        #{managerId,jdbcType=INTEGER},
+        #{managerId,jdbcType=BIGINT},
       </if>
       <if test="managerPhone != null">
         #{managerPhone,jdbcType=INTEGER},

@@ -137,52 +137,52 @@ public class AmsMarketExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdEqualTo(Integer value) {
+        public Criteria andMarketIdEqualTo(Long value) {
             addCriterion("market_id =", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdNotEqualTo(Integer value) {
+        public Criteria andMarketIdNotEqualTo(Long value) {
             addCriterion("market_id <>", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdGreaterThan(Integer value) {
+        public Criteria andMarketIdGreaterThan(Long value) {
             addCriterion("market_id >", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMarketIdGreaterThanOrEqualTo(Long value) {
             addCriterion("market_id >=", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdLessThan(Integer value) {
+        public Criteria andMarketIdLessThan(Long value) {
             addCriterion("market_id <", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdLessThanOrEqualTo(Integer value) {
+        public Criteria andMarketIdLessThanOrEqualTo(Long value) {
             addCriterion("market_id <=", value, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdIn(List<Integer> values) {
+        public Criteria andMarketIdIn(List<Long> values) {
             addCriterion("market_id in", values, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdNotIn(List<Integer> values) {
+        public Criteria andMarketIdNotIn(List<Long> values) {
             addCriterion("market_id not in", values, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdBetween(Integer value1, Integer value2) {
+        public Criteria andMarketIdBetween(Long value1, Long value2) {
             addCriterion("market_id between", value1, value2, "marketId");
             return (Criteria) this;
         }
 
-        public Criteria andMarketIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andMarketIdNotBetween(Long value1, Long value2) {
             addCriterion("market_id not between", value1, value2, "marketId");
             return (Criteria) this;
         }
@@ -457,52 +457,52 @@ public class AmsMarketExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdEqualTo(Integer value) {
+        public Criteria andOperatorIdEqualTo(Long value) {
             addCriterion("operator_id =", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotEqualTo(Integer value) {
+        public Criteria andOperatorIdNotEqualTo(Long value) {
             addCriterion("operator_id <>", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdGreaterThan(Integer value) {
+        public Criteria andOperatorIdGreaterThan(Long value) {
             addCriterion("operator_id >", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOperatorIdGreaterThanOrEqualTo(Long value) {
             addCriterion("operator_id >=", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdLessThan(Integer value) {
+        public Criteria andOperatorIdLessThan(Long value) {
             addCriterion("operator_id <", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdLessThanOrEqualTo(Integer value) {
+        public Criteria andOperatorIdLessThanOrEqualTo(Long value) {
             addCriterion("operator_id <=", value, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdIn(List<Integer> values) {
+        public Criteria andOperatorIdIn(List<Long> values) {
             addCriterion("operator_id in", values, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotIn(List<Integer> values) {
+        public Criteria andOperatorIdNotIn(List<Long> values) {
             addCriterion("operator_id not in", values, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdBetween(Integer value1, Integer value2) {
+        public Criteria andOperatorIdBetween(Long value1, Long value2) {
             addCriterion("operator_id between", value1, value2, "operatorId");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andOperatorIdNotBetween(Long value1, Long value2) {
             addCriterion("operator_id not between", value1, value2, "operatorId");
             return (Criteria) this;
         }

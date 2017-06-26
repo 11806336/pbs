@@ -86,7 +86,7 @@
         ].join('');
     }
     function del() {
-        var ids = ['10017'];
+        var ids = ['10022'];
         $.ajax({
             type: 'get',
             url: '${basePath}/company/delete' + '/' + ids.join("-"),

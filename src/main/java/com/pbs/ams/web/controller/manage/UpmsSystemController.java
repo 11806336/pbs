@@ -111,7 +111,7 @@ public class UpmsSystemController extends BaseController {
 	@ApiOperation(value = "修改系统")
 	@RequiresPermissions("upms:system:update")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-	public String update(@PathVariable("id") int id, ModelMap modelMap) {
+	public String update(@PathVariable("id") long id, ModelMap modelMap) {
 		UpmsSystem system = upmsSystemService.selectByPrimaryKey(id);
 		modelMap.put("system", system);
 		return "/manage/system/update.jsp";
@@ -121,7 +121,7 @@ public class UpmsSystemController extends BaseController {
 	@RequiresPermissions("upms:system:update")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public Object update(@PathVariable("id") int id, UpmsSystem upmsSystem) {
+	public Object update(@PathVariable("id") long id, UpmsSystem upmsSystem) {
 		ComplexResult result = FluentValidator.checkAll()
 				.on(upmsSystem.getTitle(), new LengthValidator(1, 20, "标题"))
 				.on(upmsSystem.getName(), new LengthValidator(1, 20, "名称"))

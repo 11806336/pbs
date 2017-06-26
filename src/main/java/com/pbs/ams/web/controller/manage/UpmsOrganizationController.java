@@ -107,7 +107,7 @@ public class UpmsOrganizationController extends BaseController {
     @ApiOperation(value = "修改组织")
     @RequiresPermissions("upms:organization:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") int id, ModelMap modelMap) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsOrganization organization = upmsOrganizationService.selectByPrimaryKey(id);
         modelMap.put("organization", organization);
         return  jsp("/organization/update");
@@ -117,7 +117,7 @@ public class UpmsOrganizationController extends BaseController {
     @RequiresPermissions("upms:organization:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") int id, UpmsOrganization upmsOrganization) {
+    public Object update(@PathVariable("id") long id, UpmsOrganization upmsOrganization) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsOrganization.getName(), new LengthValidator(1, 20, "名称"))
                 .doValidate()

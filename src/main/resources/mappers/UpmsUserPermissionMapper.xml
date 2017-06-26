@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.UpmsUserPermissionMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.UpmsUserPermission">
-    <id column="user_permission_id" jdbcType="INTEGER" property="userPermissionId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <id column="user_permission_id" jdbcType="BIGINT" property="userPermissionId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="permission_id" jdbcType="BIGINT" property="permissionId" />
     <result column="type" jdbcType="TINYINT" property="type" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -90,15 +90,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from upms_user_permission
-    where user_permission_id = #{userPermissionId,jdbcType=INTEGER}
+    where user_permission_id = #{userPermissionId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_user_permission
-    where user_permission_id = #{userPermissionId,jdbcType=INTEGER}
+    where user_permission_id = #{userPermissionId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.UpmsUserPermissionExample">
     delete from upms_user_permission
@@ -109,7 +109,7 @@
   <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsUserPermission">
     insert into upms_user_permission (user_permission_id, user_id, permission_id, 
       type)
-    values (#{userPermissionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, 
+    values (#{userPermissionId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}, 
       #{type,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUserPermission">
@@ -130,13 +130,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userPermissionId != null">
-        #{userPermissionId,jdbcType=INTEGER},
+        #{userPermissionId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="permissionId != null">
-        #{permissionId,jdbcType=INTEGER},
+        #{permissionId,jdbcType=BIGINT},
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
@@ -153,13 +153,13 @@
     update upms_user_permission
     <set>
       <if test="record.userPermissionId != null">
-        user_permission_id = #{record.userPermissionId,jdbcType=INTEGER},
+        user_permission_id = #{record.userPermissionId,jdbcType=BIGINT},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=BIGINT},
       </if>
       <if test="record.permissionId != null">
-        permission_id = #{record.permissionId,jdbcType=INTEGER},
+        permission_id = #{record.permissionId,jdbcType=BIGINT},
       </if>
       <if test="record.type != null">
         type = #{record.type,jdbcType=TINYINT},
@@ -171,9 +171,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update upms_user_permission
-    set user_permission_id = #{record.userPermissionId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      permission_id = #{record.permissionId,jdbcType=INTEGER},
+    set user_permission_id = #{record.userPermissionId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      permission_id = #{record.permissionId,jdbcType=BIGINT},
       type = #{record.type,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -183,23 +183,23 @@
     update upms_user_permission
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="permissionId != null">
-        permission_id = #{permissionId,jdbcType=INTEGER},
+        permission_id = #{permissionId,jdbcType=BIGINT},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=TINYINT},
       </if>
     </set>
-    where user_permission_id = #{userPermissionId,jdbcType=INTEGER}
+    where user_permission_id = #{userPermissionId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.UpmsUserPermission">
     update upms_user_permission
-    set user_id = #{userId,jdbcType=INTEGER},
-      permission_id = #{permissionId,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=BIGINT},
+      permission_id = #{permissionId,jdbcType=BIGINT},
       type = #{type,jdbcType=TINYINT}
-    where user_permission_id = #{userPermissionId,jdbcType=INTEGER}
+    where user_permission_id = #{userPermissionId,jdbcType=BIGINT}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

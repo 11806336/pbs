@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.UpmsPermissionMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.UpmsPermission">
-    <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
-    <result column="system_id" jdbcType="INTEGER" property="systemId" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <id column="permission_id" jdbcType="BIGINT" property="permissionId" />
+    <result column="system_id" jdbcType="BIGINT" property="systemId" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="permission_value" jdbcType="VARCHAR" property="permissionValue" />
@@ -98,15 +98,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from upms_permission
-    where permission_id = #{permissionId,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_permission
-    where permission_id = #{permissionId,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.UpmsPermissionExample">
     delete from upms_permission
@@ -119,7 +119,7 @@
       name, type, permission_value, 
       uri, icon, status, 
       ctime, orders)
-    values (#{permissionId,jdbcType=INTEGER}, #{systemId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+    values (#{permissionId,jdbcType=BIGINT}, #{systemId,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{permissionValue,jdbcType=VARCHAR}, 
       #{uri,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{ctime,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT})
@@ -163,13 +163,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="permissionId != null">
-        #{permissionId,jdbcType=INTEGER},
+        #{permissionId,jdbcType=BIGINT},
       </if>
       <if test="systemId != null">
-        #{systemId,jdbcType=INTEGER},
+        #{systemId,jdbcType=BIGINT},
       </if>
       <if test="pid != null">
-        #{pid,jdbcType=INTEGER},
+        #{pid,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -207,13 +207,13 @@
     update upms_permission
     <set>
       <if test="record.permissionId != null">
-        permission_id = #{record.permissionId,jdbcType=INTEGER},
+        permission_id = #{record.permissionId,jdbcType=BIGINT},
       </if>
       <if test="record.systemId != null">
-        system_id = #{record.systemId,jdbcType=INTEGER},
+        system_id = #{record.systemId,jdbcType=BIGINT},
       </if>
       <if test="record.pid != null">
-        pid = #{record.pid,jdbcType=INTEGER},
+        pid = #{record.pid,jdbcType=BIGINT},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -246,9 +246,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update upms_permission
-    set permission_id = #{record.permissionId,jdbcType=INTEGER},
-      system_id = #{record.systemId,jdbcType=INTEGER},
-      pid = #{record.pid,jdbcType=INTEGER},
+    set permission_id = #{record.permissionId,jdbcType=BIGINT},
+      system_id = #{record.systemId,jdbcType=BIGINT},
+      pid = #{record.pid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=TINYINT},
       permission_value = #{record.permissionValue,jdbcType=VARCHAR},
@@ -265,10 +265,10 @@
     update upms_permission
     <set>
       <if test="systemId != null">
-        system_id = #{systemId,jdbcType=INTEGER},
+        system_id = #{systemId,jdbcType=BIGINT},
       </if>
       <if test="pid != null">
-        pid = #{pid,jdbcType=INTEGER},
+        pid = #{pid,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -295,12 +295,12 @@
         orders = #{orders,jdbcType=BIGINT},
       </if>
     </set>
-    where permission_id = #{permissionId,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.UpmsPermission">
     update upms_permission
-    set system_id = #{systemId,jdbcType=INTEGER},
-      pid = #{pid,jdbcType=INTEGER},
+    set system_id = #{systemId,jdbcType=BIGINT},
+      pid = #{pid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=TINYINT},
       permission_value = #{permissionValue,jdbcType=VARCHAR},
@@ -309,7 +309,7 @@
       status = #{status,jdbcType=TINYINT},
       ctime = #{ctime,jdbcType=BIGINT},
       orders = #{orders,jdbcType=BIGINT}
-    where permission_id = #{permissionId,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=BIGINT}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

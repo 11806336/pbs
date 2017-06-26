@@ -8,7 +8,7 @@ public class AmsMarket implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer marketId;
+    private Long marketId;
 
     /**
      * 市场名称
@@ -43,15 +43,15 @@ public class AmsMarket implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getMarketId() {
+    public Long getMarketId() {
         return marketId;
     }
 
-    public void setMarketId(Integer marketId) {
+    public void setMarketId(Long marketId) {
         this.marketId = marketId;
     }
 
@@ -87,11 +87,11 @@ public class AmsMarket implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 

@@ -8,7 +8,7 @@ public class AmsStock implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockId;
+    private Long stockId;
 
     /**
      * 证券名称
@@ -29,7 +29,7 @@ public class AmsStock implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockCategoryId;
+    private Long stockCategoryId;
 
     /**
      * 创建时间
@@ -50,15 +50,15 @@ public class AmsStock implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStockId() {
+    public Long getStockId() {
         return stockId;
     }
 
-    public void setStockId(Integer stockId) {
+    public void setStockId(Long stockId) {
         this.stockId = stockId;
     }
 
@@ -78,11 +78,11 @@ public class AmsStock implements Serializable {
         this.stockCode = stockCode;
     }
 
-    public Integer getStockCategoryId() {
+    public Long getStockCategoryId() {
         return stockCategoryId;
     }
 
-    public void setStockCategoryId(Integer stockCategoryId) {
+    public void setStockCategoryId(Long stockCategoryId) {
         this.stockCategoryId = stockCategoryId;
     }
 
@@ -102,11 +102,11 @@ public class AmsStock implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 

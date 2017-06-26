@@ -21,7 +21,7 @@ import java.util.Map;
  * Mybatis代码生成类
  * Created by ams on 2017/6/10.
  * @author TiAmo
- * 如果要生成的mapper.xml存在 内容会被追加,如果需要重写切记备份后手动删除原文件.
+ * 如果要生成的mapper.xml存在 内容会被新增,如果需要重写切记备份后手动删除原文件.
  * 如果要生成的service/serviceImpl存在,不会被覆盖.
  * 如果要生成的model存在,会被重写.如需原文件请注意备份.
  */
@@ -66,7 +66,7 @@ public class MybatisGeneratorUtil {
 		}
 		System.out.println("========== 结束运行MybatisGenerator ==========");
 
-		System.out.println("========== 开始生成Service ==========");
+		/*System.out.println("========== 开始生成Service ==========");
 		String ctime = new SimpleDateFormat("yyyy/M/d").format(new Date());
 		String servicePath = GeneratorEnum.CREATE_SERVICE_PATH.getValue();
 		String serviceImplPath = GeneratorEnum.CREATE_SERVICEIMPL_PATH.getValue();
@@ -81,9 +81,7 @@ public class MybatisGeneratorUtil {
 		}
 
 		for (Map<String, String> lstTable : lstTables) {
-			String tbName = lstTable.get("table_name");
-			String snaps = lstTable.get("snaps");
-			String model = StringUtil.lineToHump(tbName);
+			String model = StringUtil.lineToHump(ObjectUtils.toString(lstTable.get("table_name")));
 			String service = servicePath + "/" + model + "Service.java";
 			String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
 			// 生成service
@@ -93,7 +91,6 @@ public class MybatisGeneratorUtil {
 				context.put("package_name", GeneratorEnum.PACKAGE_NAME.getValue());
 				context.put("model", model);
 				context.put("ctime", ctime);
-				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICE_VM.getValue(), service, context);
 				System.out.println(service);
 			}
@@ -105,12 +102,11 @@ public class MybatisGeneratorUtil {
 				context.put("model", model);
 				context.put("mapper", StringUtil.toLowerCaseFirstOne(model));
 				context.put("ctime", ctime);
-				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICEIMPL_VM.getValue(), serviceImpl, context);
 				System.out.println(serviceImpl);
 			}
 		}
-		System.out.println("========== 结束生成Service ==========");
+		System.out.println("========== 结束生成Service ==========");*/
 	}
 
 	/**
@@ -118,10 +114,11 @@ public class MybatisGeneratorUtil {
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
-
+		Map<String, String> map1 = Maps.newHashMap();
+		map1.put("table_name","upms_role");
+		lstTables.add(map1);
 		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_product_detail");
-		map2.put("snaps","snaps");
+		map2.put("table_name","upms_role_permission");
 		lstTables.add(map2);
 		MybatisGeneratorUtil.generator(lstTables);
 	}

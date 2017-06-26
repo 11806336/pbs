@@ -8,14 +8,14 @@ public class AmsProduct implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer productId;
+    private Long productId;
 
     /**
      * 公司ID
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 产品名称
@@ -57,7 +57,7 @@ public class AmsProduct implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer rightId;
+    private Long rightId;
 
     /**
      * 创建时间
@@ -78,23 +78,23 @@ public class AmsProduct implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public Integer getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -138,11 +138,11 @@ public class AmsProduct implements Serializable {
         this.productStatus = productStatus;
     }
 
-    public Integer getRightId() {
+    public Long getRightId() {
         return rightId;
     }
 
-    public void setRightId(Integer rightId) {
+    public void setRightId(Long rightId) {
         this.rightId = rightId;
     }
 
@@ -162,11 +162,11 @@ public class AmsProduct implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 
