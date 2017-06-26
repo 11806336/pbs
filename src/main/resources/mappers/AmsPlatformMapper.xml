@@ -97,7 +97,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from ams_platform
     where platform_id = #{platformId,jdbcType=BIGINT}
@@ -117,8 +117,8 @@
       platform_abbr_name, platform_type, creditable, 
       create_time, update_time, operator_id
       )
-    values (#{platformId,jdbcType=BIGINT}, #{platformLogo,jdbcType=VARCHAR}, #{platformName,jdbcType=VARCHAR}, 
-      #{platformAbbrName,jdbcType=VARCHAR}, #{platformType,jdbcType=INTEGER}, #{creditable,jdbcType=BIT}, 
+    values (#{platformId,jdbcType=BIGINT}, #{platformLogo,jdbcType=VARCHAR}, #{platformName,jdbcType=VARCHAR},
+      #{platformAbbrName,jdbcType=VARCHAR}, #{platformType,jdbcType=INTEGER}, #{creditable,jdbcType=BIT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
       )
   </insert>
@@ -281,5 +281,9 @@
       operator_id = #{operatorId,jdbcType=BIGINT}
     where platform_id = #{platformId,jdbcType=BIGINT}
   </update>
+  <insert id="insertIntoSnaps">
+    insert into ams_platform_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_platform as tb where platform_id= #{platform_id}
+  </insert>
+
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

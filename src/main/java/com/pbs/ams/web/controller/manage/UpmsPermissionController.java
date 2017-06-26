@@ -68,6 +68,7 @@ public class UpmsPermissionController extends BaseController {
             @RequestParam(required = false, value = "order") String order) {
         UpmsPermissionExample upmsPermissionExample = new UpmsPermissionExample();
         UpmsPermissionExample.Criteria criteria = upmsPermissionExample.createCriteria();
+
         if (0 != type) {
             criteria.andTypeEqualTo((byte) type);
         }

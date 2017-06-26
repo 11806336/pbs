@@ -31,8 +31,8 @@
                 <option value="6">股票期权平台</option>
                 <option value="8">期货期权平台</option>
             </select>
-            <div class="btn-panel" onclick="panel('create_broker.html','添加证券')">
-                <a class="btn icon-plus addstockcom btn-primary" href="#">添加证券公司</a>
+            <div class="btn-panel" onclick="panel('${basePath}/manage/broker/broker','添加证券')">
+                <a class="btn icon-plus addstockcom btn-primary" >添加证券公司</a>
             </div>
         </div>
     </div>
@@ -65,52 +65,52 @@
     }
 
     var $table = $('#table');
-    /*$(function() {
-        // bootstrap table初始化
-        $table.bootstrapTable({
-            url: '${basePath}/manage/broker/list',
-            height: getHeight(),
-            striped: true,
-            search: true,
-            showRefresh: true,
-            showColumns: true,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            detailView: true,
-            detailFormatter: 'detailFormatter',
-            pagination: true,
-            paginationLoop: false,
-            sidePagination: 'server',
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: 'organizationId',
-            maintainSelected: true,
-            toolbar: '#toolbar',
-            columns: [
-                {field: 'ck', checkbox: true},
-                {field: 'companyId', title: '公司代码'},
-                {field: 'platform', title: '交易平台'},
-                {field: 'companyName', title: '经纪公司'},
-                {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
-            ]
-        });
-    });*/
+    $(function() {
+     // bootstrap table初始化
+     $table.bootstrapTable({
+     url: '${basePath}/manage/broker/list',
+     height: getHeight(),
+     striped: true,
+     search: true,
+     showRefresh: true,
+     showColumns: true,
+     minimumCountColumns: 2,
+     clickToSelect: true,
+     detailView: true,
+     detailFormatter: 'detailFormatter',
+     pagination: true,
+     paginationLoop: false,
+     sidePagination: 'server',
+     silentSort: false,
+     smartDisplay: false,
+     escape: true,
+     searchOnEnterKey: true,
+     idField: 'brokerId',
+     maintainSelected: true,
+     toolbar: '#toolbar',
+     columns: [
+             {field: 'ck', checkbox: true},
+             {field: 'brokerId', title: '经纪公司ID'},
+             {field: 'platformName', title: '交易平台'},
+             {field: 'brokerAbbrName', title: '经纪公司'},
+             {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
+     ]
+     });
+     });
     //列配置项
-    var dataColumns=[
+   var dataColumns=[
         {field: 'ck', checkbox: true},
-        {field: 'companyId', title: '公司代码'},
-        {field: 'platform', title: '交易平台'},
-        {field: 'companyName', title: '经纪公司'},
+        {field: 'brokerId', title: '经纪公司ID2'},
+        {field: 'platformName', title: '交易平台'},
+        {field: 'brokerAbbrName', title: '经纪公司'},
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     //数据url
-    var url_json="${basePath}/resources/pbs-admin/data/broker.json";
+    var url_json="${basePath}/manage/broker/list";//"${basePath}/resources/pbs-admin/data/broker.json";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination='client';
+    var sidePagination='server';
     //指定主键列
-    var idField='companyId';
+    var idField='brokerId';
     //右上角刷新搜索
     var search=true;
     var showRefresh=true;
@@ -119,10 +119,11 @@
 
     function actionFormatter(value, row, index) {
         return [
-            '<a class="update" href="javascript:;" onclick="panel('+"'create_broker.html'"+","+"'管理经纪公司'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+            '<a class="update" href="javascript:;" onclick="panel('+"'create_broker.jsp'"+","+"'管理经纪公司'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
             '<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
     }
+
 </script>
 </body>
 </html>
