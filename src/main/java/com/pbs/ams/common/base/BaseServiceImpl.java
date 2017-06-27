@@ -6,6 +6,9 @@ import com.pbs.ams.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -15,6 +18,8 @@ import java.util.List;
  * 实现BaseService抽象类
  * Created by ams on 2017/01/07.
  */
+@Service
+@Transactional(rollbackFor = Exception.class)
 public abstract class BaseServiceImpl< Record, Example> implements BaseService<Record, Example> {
 
 
@@ -248,6 +253,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 
 	@Override
 	public int deleteByPrimaryKeys(String ids) {
+
 		try {
 			if (StringUtils.isBlank(ids)) {
 				return 0;
@@ -272,12 +278,17 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 		return 0;
 	}
 
-	@Override
+
+	/**
+	 * MANDATORY:该方法只能在一个已存在的事务中执行.
+	 * @return
+	 */
+	@Transactional(propagation = Propagation.MANDATORY)
 	public int insertToSnaps() {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-			Method insert =  getMapper().getClass().getDeclaredMethod("insertToSnaps");
-			Object result = insert.invoke( getMapper());
+			Method insertSelective =  getMapper().getClass().getDeclaredMethod("insertSnaps");
+			Object result = insertSelective.invoke( getMapper());
 			return Integer.parseInt(String.valueOf(result));
 		} catch (Exception e) {
 			e.printStackTrace();
