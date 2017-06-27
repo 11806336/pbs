@@ -8,6 +8,7 @@ import com.pbs.ams.web.model.UpmsCompanySnaps;
 import org.apache.ibatis.annotations.Param;
 
 public interface UpmsCompanyMapper {
+
     long countByExample(UpmsCompanyExample example);
 
     int deleteByExample(UpmsCompanyExample example);

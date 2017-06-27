@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
-* Service实现
+* AmsStockAccountService实现
 * Created by ams on 2017/6/27.
 */
 @Service
@@ -30,6 +30,6 @@ public class AmsStockAccountServiceImpl extends BaseServiceImpl<AmsStockAccount,
     public Object getMapper() { return amsStockAccountMapper; }
 
 
-    
+
 
 }

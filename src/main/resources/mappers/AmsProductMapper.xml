@@ -311,5 +311,8 @@
       operator_id = #{operatorId,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
+  <insert id="insertIntoSnaps">
+    insert into ams_product_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product as tb where product_id= #{product_id}
+  </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

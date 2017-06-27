@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务</title>
+    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../resources/css/common.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../resources/plugins/layer/css/layer.css">
+
+    <!--选择时间-->
+    <link rel="stylesheet" href="../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
+</head>
+<body>
+<div id="main">
+    <div class="control-group">
+        <div class="controls sel_time">
+            <label for="build_date_bgn_start">起始日期：</label>
+            <input class="form-control" type="text" id="build_date_bgn_start" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="build_date_bgn_start" readonly="readonly" style="background-color: #fff;cursor:pointer">
+            <label for="build_date_bgn_end" style="margin-left: 10px;">结束日期:</label>
+            <input class="form-control" type="text" id="build_date_bgn_end" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="build_date_bgn_end" readonly="readonly" style="background-color: #fff;cursor:pointer">
+            <input type="button" value="查询" class="btn" id="searchBtnIdata" style="margin-left: 20px;">
+            <div class="btn-panel-right" style="float:right;">
+                <button type="button" data-toggle="modal" class="btn" data-target="#exportModal" id="export_data">导出数据</button>
+            </div>
+        </div>
+    </div>
+
+    <table id="taskTable"></table>
+</div>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../resources/plugins/waves-0.7.5/waves.min.js"></script
+<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
+<script src="../../../resources/plugins/layer/js/layer.js"></script>
+
+<!--选择时间-->
+<script src="../../../resources/plugins/My97DatePicker/WdatePicker.js"></script>
+
+<script src="../../../resources/js/common.js"></script>
+<script src="../../../resources/js/public.js"></script>
+<script>
+    var $table = $('#taskTable');
+    var url_json = "../../../resources/data/product_task.json";
+    var dataColumns =  [
+        {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
+        {field: 'directiveId', title: '指令ID'},
+        {field: 'account', title: '账号'},
+        {field: 'code', title: '代码'},
+        {field: 'tradeType', title: '交易类型'},
+        {field: 'progress', title: '进度'},
+        {field: 'commissionTimes', title: '委托次数'},
+        {field: 'startTime', title: '开始时间'},
+        {field: 'endTime', title: '结束时间'},
+        {field: 'status', title: '状态'}
+    ];
+
+    // 设置分页
+    var sidePagination = 'client';
+
+    // 指定主键列
+    var idField = 'otherId';
+    //右上角刷新搜索
+    var search = false;
+    var showRefresh = false;
+    var showColumns = false;
+</script>
+</body>
+</html>

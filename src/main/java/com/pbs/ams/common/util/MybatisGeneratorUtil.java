@@ -111,15 +111,17 @@ public class MybatisGeneratorUtil {
 
 	/**
 	 * 走你
+	 * @snaps: 传参snaps则生成向对应快照表添加记录数据的方法.
+	 * @create_service: 传参1则生成service 否则不生成
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 		Map<String, String> map1 = Maps.newHashMap();
-		map1.put("table_name","ams_stock_account");
+		map1.put("table_name","upms_role");
 		lstTables.add(map1);
-//		Map<String, String> map2 = Maps.newHashMap();
-//		map2.put("table_name","upms_role_permission");
-//		lstTables.add(map2);
+		Map<String, String> map2 = Maps.newHashMap();
+		map2.put("table_name","upms_role_permission");
+		lstTables.add(map2);
 		MybatisGeneratorUtil.generator(lstTables);
 	}
 

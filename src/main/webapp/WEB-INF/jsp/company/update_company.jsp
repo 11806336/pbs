@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>更新公司</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../../resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link href="../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
 
-    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/create_broker.css">
+    <link rel="stylesheet" href="../../../resources/pbs-admin/css/create_broker.css">
 </head>
 <body>
 <div id="content">
@@ -69,8 +69,8 @@
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </div>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
+<script src="../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
 <script>
     function importName1(obj) {
         if(!$(obj).val()){
