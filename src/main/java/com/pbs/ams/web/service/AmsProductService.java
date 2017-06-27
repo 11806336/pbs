@@ -6,7 +6,7 @@ import com.pbs.ams.web.model.AmsProductExample;
 
 /**
 * AmsProductService接口
-* Created by ams on 2017/6/26.
+* Created by ams on 2017/6/27.
 */
 public interface AmsProductService extends BaseService<AmsProduct, AmsProductExample> {
 
