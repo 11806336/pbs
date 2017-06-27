@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>证券账号管理页</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../resources/css/common.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../resources/plugins/layer/css/layer.css">
+    <link rel="import" href="../css_list.html">
 </head>
 <body>
 <div id="main">
@@ -23,17 +16,7 @@
     </div>
     <table id="table"></table>
 </div>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../resources/plugins/waves-0.7.5/waves.min.js"></script
-<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
-<script src="../../../resources/plugins/layer/js/layer.js"></script>
-
-<script src="../../../resources/js/common.js"></script>
-<script src="../../../resources/js/public.js"></script>
+<link rel="import" href="../js_list.html">
 <script>
     var $table = $('#table');
     //列配置项
@@ -83,7 +66,7 @@
         }
         return [
             "<a class='selected' href='javascript:;' onclick=updateAction('/manage/permission/update','编辑'," + row.stockId + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=accountDetail('inquire/tab.html','账号详情') data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('inquire/tab.html','账号详情') data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
             "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update'," + ids + ") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
