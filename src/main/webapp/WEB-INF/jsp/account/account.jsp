@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,19 +25,19 @@
     //列配置项
     var dataColumns = [
         {field: 'ck', checkbox: true},
-        {field: 'stockId', title: '证券ID'},
+        {field: 'stockAccountId', title: '证券ID'},
         {field: 'stockAccountType', title: '账号类型'},
         {field: 'stockAccount', title: '资金账号'},
         {field: 'stockAccountName', title: '账号名称'},
-        {field: 'broker', title: '证券公司'},
-        {field: 'product', title: '所属产品'},
-        {field: 'status', title: '状态'},
+        {field: 'brokerId', title: '证券公司'},
+        {field: 'productId', title: '所属产品'},
+        {field: 'stockAccountStatus', title: '状态'},
         {field: 'breakEven', title: '盈亏'},
         {field: 'expendableund', title: '可用资金'},
         {field: 'fee', title: '手续费'},
         {field: 'totalAssets', title: '总资产'},
         {field: 'totalMarketCapitalization', title: '总市值'},
-        {field: 'createOperator', title: '创建人'},
+        {field: 'operatorId', title: '创建人'},
         {field: 'createTime', title: '创建时间'},
         {
             field: 'action',

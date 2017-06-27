@@ -25,8 +25,10 @@
         <!-- 生成一个新的selectByExample方法，这个方法可以接收offset和limit参数，主要用来实现分页 -->
         <plugin type="com.pbs.ams.common.plugin.PaginationPlugin"/>
 
-        <!-- 生成一个向对应快照表中插入数据的方法-->
-        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin"/>
+        <!-- 生成一个向对应快照表中插入数据的方法
+        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin">
+
+        </plugin>-->
 
         <!-- 生成在XML中的<cache>元素 -->
         <plugin type="org.mybatis.generator.plugins.CachePlugin">
@@ -57,21 +59,15 @@
                         password="Root123," />
 
         <!-- model生成 -->
-        <javaModelGenerator targetPackage="com.pbs.ams.web.model" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/java" />
+        <javaModelGenerator targetPackage="com.pbs.ams.web.model" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/java" />
 
-        <!-- MapperXML生成 -->
-        <sqlMapGenerator targetPackage="mappers" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/resources" />
+      <!-- MapperXML生成 -->
+        <sqlMapGenerator targetPackage="mappers" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/resources" />
 
-        <!-- Mapper接口生成 -->
-        <javaClientGenerator targetPackage="com.pbs.ams.web.mappers" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/java" type="XMLMAPPER" />
+           <!-- Mapper接口生成 -->
+           <javaClientGenerator targetPackage="com.pbs.ams.web.mappers" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
-                    <table tableName="ams_product" domainObjectName=""/>
-                    <table tableName="ams_market" domainObjectName=""/>
-                    <table tableName="ams_stock" domainObjectName=""/>
-                    <table tableName="ams_stock_holding" domainObjectName=""/>
                     <table tableName="ams_stock_account" domainObjectName=""/>
-                    <table tableName="ams_product_account" domainObjectName=""/>
-                    <table tableName="ams_product_detail" domainObjectName=""/>
             </context>
 </generatorConfiguration>

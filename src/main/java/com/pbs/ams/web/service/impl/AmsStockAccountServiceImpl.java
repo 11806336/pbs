@@ -29,4 +29,7 @@ public class AmsStockAccountServiceImpl extends BaseServiceImpl<AmsStockAccount,
     @Override
     public Object getMapper() { return amsStockAccountMapper; }
 
+
+
+
 }

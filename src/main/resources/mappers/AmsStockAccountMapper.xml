@@ -8,8 +8,8 @@
     <result column="stock_account" jdbcType="BIGINT" property="stockAccount" />
     <result column="stock_account_name" jdbcType="VARCHAR" property="stockAccountName" />
     <result column="stock_account_password" jdbcType="VARCHAR" property="stockAccountPassword" />
-    <result column="broker_id" jdbcType="VARCHAR" property="brokerId" />
-    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="broker_id" jdbcType="BIGINT" property="brokerId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="stock_account_status" jdbcType="VARCHAR" property="stockAccountStatus" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
@@ -124,7 +124,7 @@
       )
     values (#{stockAccountId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{stockAccountType,jdbcType=INTEGER}, 
       #{stockAccount,jdbcType=BIGINT}, #{stockAccountName,jdbcType=VARCHAR}, #{stockAccountPassword,jdbcType=VARCHAR}, 
-      #{brokerId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{stockAccountStatus,jdbcType=VARCHAR}, 
+      #{brokerId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{stockAccountStatus,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
       )
   </insert>
@@ -188,10 +188,10 @@
         #{stockAccountPassword,jdbcType=VARCHAR},
       </if>
       <if test="brokerId != null">
-        #{brokerId,jdbcType=VARCHAR},
+        #{brokerId,jdbcType=BIGINT},
       </if>
       <if test="productId != null">
-        #{productId,jdbcType=VARCHAR},
+        #{productId,jdbcType=BIGINT},
       </if>
       <if test="stockAccountStatus != null">
         #{stockAccountStatus,jdbcType=VARCHAR},
@@ -235,10 +235,10 @@
         stock_account_password = #{record.stockAccountPassword,jdbcType=VARCHAR},
       </if>
       <if test="record.brokerId != null">
-        broker_id = #{record.brokerId,jdbcType=VARCHAR},
+        broker_id = #{record.brokerId,jdbcType=BIGINT},
       </if>
       <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=VARCHAR},
+        product_id = #{record.productId,jdbcType=BIGINT},
       </if>
       <if test="record.stockAccountStatus != null">
         stock_account_status = #{record.stockAccountStatus,jdbcType=VARCHAR},
@@ -265,8 +265,8 @@
       stock_account = #{record.stockAccount,jdbcType=BIGINT},
       stock_account_name = #{record.stockAccountName,jdbcType=VARCHAR},
       stock_account_password = #{record.stockAccountPassword,jdbcType=VARCHAR},
-      broker_id = #{record.brokerId,jdbcType=VARCHAR},
-      product_id = #{record.productId,jdbcType=VARCHAR},
+      broker_id = #{record.brokerId,jdbcType=BIGINT},
+      product_id = #{record.productId,jdbcType=BIGINT},
       stock_account_status = #{record.stockAccountStatus,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=BIGINT},
       update_time = #{record.updateTime,jdbcType=BIGINT},
@@ -294,10 +294,10 @@
         stock_account_password = #{stockAccountPassword,jdbcType=VARCHAR},
       </if>
       <if test="brokerId != null">
-        broker_id = #{brokerId,jdbcType=VARCHAR},
+        broker_id = #{brokerId,jdbcType=BIGINT},
       </if>
       <if test="productId != null">
-        product_id = #{productId,jdbcType=VARCHAR},
+        product_id = #{productId,jdbcType=BIGINT},
       </if>
       <if test="stockAccountStatus != null">
         stock_account_status = #{stockAccountStatus,jdbcType=VARCHAR},
@@ -321,8 +321,8 @@
       stock_account = #{stockAccount,jdbcType=BIGINT},
       stock_account_name = #{stockAccountName,jdbcType=VARCHAR},
       stock_account_password = #{stockAccountPassword,jdbcType=VARCHAR},
-      broker_id = #{brokerId,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=VARCHAR},
+      broker_id = #{brokerId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
       stock_account_status = #{stockAccountStatus,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},

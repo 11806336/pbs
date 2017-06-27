@@ -4,15 +4,44 @@
     <meta charset="UTF-8">
     <title>手续费</title>
 
-    <link rel="import" href="../css_list.html">
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+
+    <script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
+    <script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+
+    <!--公共css-->
+    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/public.css">
+    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/create_broker.css">
 </head>
 <body>
-<div id="main">
+
+<div id="content">
     <table id="table"></table>
 </div>
-<link rel="import" href="../js_list.html">
+<!--<div id="iframe">
+    <iframe src="" frameborder="0"></iframe>
+</div>-->
+<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/pbs-admin/plugins/bootstrap-modal.js"></script>
+<!--公共js-->
+<script src="../../../../resources/pbs-admin/js/public.js"></script>
 <script>
+
+
+    function getHeight() {
+        return $(window).height() - 20;
+    }
+
     var $table = $('#table');
+
     //列配置项
     var dataColumns=[
         {field: 'ck', checkbox: true},
@@ -28,7 +57,7 @@
     ];
 
     //数据url
-    var url_json="../../../resources/data/charge.json";
+    var url_json="../../../../resources/pbs-admin/data/charge.json";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='client';
     //指定主键列
@@ -42,13 +71,29 @@
         var rows = $table.bootstrapTable('getSelections');
         ids = new Array();
         for (var i in rows) {
-            ids.push(rows[i].chargeId);
+            ids.push(rows[i].chargeId);k
         }
         return [
-            "<a class='selected' href='javascript:;' onclick=updateAction('/manage/permission/update','编辑',"+row.chargeId+") data-toggle='tooltip' title='编辑' style='margin-right: 8px;'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='selected' href='javascript:;' onclick=updateAction('/manage/permission/update','编辑',"+row.chargeId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
             "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update',"+ids+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
+
+    function selectAccountDetail(){
+        alert("selectAccountDetail");
+    }
+
+    function panel(url,title) {//调用弹窗，需要传标题和url
+        layer.open({
+            type: 2,
+            title:title,
+            area: ['700px', '430px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: url
+        });
+    }
+
 </script>
 </body>
 </html>
