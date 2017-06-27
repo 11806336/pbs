@@ -25,28 +25,46 @@
         <div class="tab_right">
             <a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-right"></i></a>
         </div>
-        <ul id="tabs" class="tabs" style="overflow-x: hidden;">
+        <ul id="tabs" class="tabs">
             <!-- todo:li的id 和 data-index 和它对应的iframe 的值后半段一定要一样-->
-            <li id="tab_setAccountInfo" data-index="setAccountInfo" class="cur">
-                <a class="waves-effect waves-light">账号信息</a>
+            <li id="tab_setAccountInfo" data-index="position" class="cur">
+                <a class="waves-effect waves-light">持仓</a>
             </li>
-            <li id="tab_setWhiteBlackList" data-index="setWhiteBlackList" class="">
-                <a class="waves-effect waves-light">黑白名单</a>
+            <li id="tab_setWhiteBlackList" data-index="assets" class="">
+                <a class="waves-effect waves-light">资产</a>
             </li>
-            <li id="tab_setCharge" data-index="setCharge" class="">
-                <a class="waves-effect waves-light">手续费设置</a>
+            <li id="tab_entrust" data-index="entrust" class="">
+                <a class="waves-effect waves-light">委托</a>
+            </li>
+            <li id="tab_success_bargain" data-index="success_bargain" class="">
+                <a class="waves-effect waves-light">成交</a>
+            </li>
+            <li id="tab_settlement_date" data-index="settlement_date" class="">
+                <a class="waves-effect waves-light">结算单</a>
+            </li>
+            <li id="tab_transfer_record" data-index="transfer_record" class="">
+                <a class="waves-effect waves-light">转账记录</a>
             </li>
         </ul>
     </div>
     <div class="content_main">
-        <div id="iframe_setAccountInfo" class="iframe cur">
-            <iframe class="tab_iframe" src="create_account_base.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        <div id="iframe_position" class="iframe cur">
+            <iframe class="tab_iframe" src="query_position.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
-        <div id="iframe_setWhiteBlackList" class="iframe">
-            <iframe class="tab_iframe" src="whiteBlackList.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        <div id="iframe_assets" class="iframe">
+            <iframe class="tab_iframe" src="query_assets.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
-        <div id="iframe_setCharge" class="iframe">
-            <iframe class="tab_iframe" src="charge.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        <div id="iframe_entrust" class="iframe">
+            <iframe class="tab_iframe" src="query_entrust.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_success_bargain" class="iframe">
+            <iframe class="tab_iframe" src="query_success_bargain.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_settlement_date" class="iframe">
+            <iframe class="tab_iframe" src="query_settlement_date.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_transfer_record" class="iframe">
+            <iframe class="tab_iframe" src="query_transfer_record.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
     </div>
 </section>

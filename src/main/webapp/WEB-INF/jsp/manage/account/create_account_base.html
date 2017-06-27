@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>账号</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../../resources/pbs-admin/css/create_broker.css">
-
-    <style>
-        .fixed-table-container {height:auto !important;padding-bottom: 0 !important;}
-    </style>
+    <link href="../../../../resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../resources/css/common.css">
 </head>
 <body>
 <div id="content">
@@ -65,14 +61,13 @@
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </div>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/plugins/select2/js/select2.min.js"></script>
 <script>
     //下拉框选择
-    $("#platform_add,#broker_add").select2({
+    $("select").select2({
         minimumResultsForSearch: -1
     });
-
 </script>
 </body>
 </html>
