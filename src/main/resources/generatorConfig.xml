@@ -68,7 +68,6 @@
            <javaClientGenerator targetPackage="com.pbs.ams.web.mappers" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
-                    <table tableName="upms_role" domainObjectName=""/>
-                    <table tableName="upms_role_permission" domainObjectName=""/>
+                    <table tableName="ams_stock_account" domainObjectName=""/>
             </context>
 </generatorConfiguration>

@@ -50,14 +50,14 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private String brokerId;
+    private Long brokerId;
 
     /**
      * 产品IDID
      *
      * @mbg.generated
      */
-    private String productId;
+    private Long productId;
 
     /**
      * 证券账号状态
@@ -137,19 +137,19 @@ public class AmsStockAccount implements Serializable {
         this.stockAccountPassword = stockAccountPassword;
     }
 
-    public String getBrokerId() {
+    public Long getBrokerId() {
         return brokerId;
     }
 
-    public void setBrokerId(String brokerId) {
+    public void setBrokerId(Long brokerId) {
         this.brokerId = brokerId;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

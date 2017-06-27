@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +22,7 @@
 <div id="content">
     <div id="searchDiv">
         <div class="form-group">
-           <input class="col-sm-2" type="text" name="" id="" placeholder="请输入主账号,按Enter查询">
+           <%--<input class="col-sm-2" type="text" name="" id="" placeholder="请输入主账号,按Enter查询">--%>
            <div class="btn">
                 <div class="btn-panel" onclick="panel('tab.html','添加证券账号')">
                     <a class="btn icon-plus addstockcom btn-primary" href="#">添加证券账号</a>
@@ -54,28 +57,28 @@
     //列配置项
     var dataColumns=[
         {field: 'ck', checkbox: true},
-        {field: 'stockId', title: '证券ID'},
+        {field: 'stockAccountId', title: '证券ID'},
         {field: 'stockAccountType', title: '账号类型'},
         {field: 'stockAccount', title: '资金账号'},
         {field: 'stockAccountName', title: '账号名称'},
-        {field: 'broker', title: '证券公司'},
-        {field: 'product', title: '所属产品'},
-        {field: 'status', title: '状态'},
+        {field: 'brokerId', title: '证券公司'},
+        {field: 'productId', title: '所属产品'},
+        {field: 'stockAccountStatus', title: '状态'},
         {field: 'breakEven', title: '盈亏'},
         {field: 'expendableund', title: '可用资金'},
         {field: 'fee', title: '手续费'},
         {field: 'totalAssets', title: '总资产'},
         {field: 'totalMarketCapitalization', title: '总市值'},
-        {field: 'createOperator', title: '创建人'},
+        {field: 'operatorId', title: '创建人'},
         {field: 'createTime', title: '创建时间'},
-        {field: 'login', title: '登录', align: 'center', formatter: 'loginFormatter', events: 'actionEvents', clickToSelect: true},
+      //  {field: 'login', title: '登录', align: 'center', formatter: 'loginFormatter', events: 'actionEvents', clickToSelect: true},
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
 
     //数据url
-    var url_json="../../../../resources/pbs-admin/data/account.json";
+    var url_json="${basePath}/account/list";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination='client';
+    var sidePagination='server';
     //指定主键列
     var idField='stockId';
     //右上角刷新搜索
