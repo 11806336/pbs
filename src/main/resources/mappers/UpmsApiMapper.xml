@@ -4,9 +4,9 @@
 
 	<!-- 权限 -->
 	<resultMap id="UpmsPermissionResultMap" type="com.pbs.ams.web.model.UpmsPermission">
-		<id column="permission_id" jdbcType="INTEGER" property="permissionId" />
-		<result column="system_id" jdbcType="INTEGER" property="systemId" />
-		<result column="pid" jdbcType="INTEGER" property="pid" />
+		<id column="permission_id" jdbcType="BIGINT" property="permissionId" />
+		<result column="system_id" jdbcType="BIGINT" property="systemId" />
+		<result column="pid" jdbcType="BIGINT" property="pid" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="type" jdbcType="TINYINT" property="type" />
 		<result column="permission_value" jdbcType="VARCHAR" property="permissionValue" />
@@ -19,7 +19,7 @@
 
 	<!-- 角色 -->
 	<resultMap id="UpmsRoleResultMap" type="com.pbs.ams.web.model.UpmsRole">
-		<id column="role_id" jdbcType="INTEGER" property="roleId" />
+		<id column="role_id" jdbcType="BIGINT" property="roleId" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="description" jdbcType="VARCHAR" property="description" />
@@ -38,7 +38,7 @@
 	</sql>
 
 	<!-- 根据用户获取所拥有的权限 -->
-	<select id="selectUpmsPermissionByUpmsUserId" parameterType="java.lang.Integer" resultMap="UpmsPermissionResultMap">
+	<select id="selectUpmsPermissionByUpmsUserId" parameterType="java.lang.Long" resultMap="UpmsPermissionResultMap">
 		select
 			<include refid="UpmsPermission_Column_List" />
 		from upms_permission up where up.`status`=1 and up.permission_id in (
@@ -54,7 +54,7 @@
 	</select>
 
 	<!-- 根据用户id获取所属的角色 -->
-	<select id="selectUpmsRoleByUpmsUserId" parameterType="java.lang.Integer" resultMap="UpmsRoleResultMap">
+	<select id="selectUpmsRoleByUpmsUserId" parameterType="java.lang.Long" resultMap="UpmsRoleResultMap">
 		select
 			<include refid="UpmsRole_Column_List" />
 		from upms_role ur where ur.role_id in (

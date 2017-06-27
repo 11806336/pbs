@@ -10,6 +10,7 @@ import com.pbs.ams.web.service.UpmsSystemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,9 @@ public class ManageController extends BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		String username = (String) subject.getPrincipal();
 		UpmsUser upmsUser = upmsApiService.selectUpmsUserByUsername(username);
+		//向session中插入用户信息
+		Session session = subject.getSession();
+		session.setAttribute("user", upmsUser);
 		List<UpmsPermission> upmsPermissions = upmsApiService.selectUpmsPermissionByUpmsUserId(upmsUser.getUserId());
 		modelMap.put("upmsPermissions", upmsPermissions);
 		return "/manage/index.jsp";

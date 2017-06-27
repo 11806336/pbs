@@ -8,45 +8,45 @@ public class UpmsUserRole implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer userRoleId;
+    private Long userRoleId;
 
     /**
      * 用户编号
      *
      * @mbg.generated
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 角色编号
      *
      * @mbg.generated
      */
-    private Integer roleId;
+    private Long roleId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getUserRoleId() {
+    public Long getUserRoleId() {
         return userRoleId;
     }
 
-    public void setUserRoleId(Integer userRoleId) {
+    public void setUserRoleId(Long userRoleId) {
         this.userRoleId = userRoleId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

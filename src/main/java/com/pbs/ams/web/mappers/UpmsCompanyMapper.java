@@ -8,11 +8,12 @@ import com.pbs.ams.web.model.UpmsCompanySnaps;
 import org.apache.ibatis.annotations.Param;
 
 public interface UpmsCompanyMapper {
+
     long countByExample(UpmsCompanyExample example);
 
     int deleteByExample(UpmsCompanyExample example);
 
-    int deleteByPrimaryKey(Integer companyId);
+    int deleteByPrimaryKey(Long companyId);
 
     int insert(UpmsCompany record);
 
@@ -20,7 +21,7 @@ public interface UpmsCompanyMapper {
 
     List<UpmsCompany> selectByExample(UpmsCompanyExample example);
 
-    UpmsCompany selectByPrimaryKey(Integer companyId);
+    UpmsCompany selectByPrimaryKey(Long companyId);
 
     int updateByExampleSelective(@Param("record") UpmsCompany record, @Param("example") UpmsCompanyExample example);
 
@@ -30,8 +31,5 @@ public interface UpmsCompanyMapper {
 
     int updateByPrimaryKey(UpmsCompany record);
 
-    int insertSnapshot(UpmsCompanySnaps upmsCompanySnaps);
-
     int insertSnapshotSelective(UpmsCompanySnaps upmsCompanySnaps);
-
 }

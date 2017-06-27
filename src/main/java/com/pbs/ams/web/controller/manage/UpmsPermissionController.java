@@ -63,7 +63,7 @@ public class UpmsPermissionController extends BaseController {
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, defaultValue = "0", value = "type") int type,
-            @RequestParam(required = false, defaultValue = "0", value = "systemId") int systemId,
+            @RequestParam(required = false, defaultValue = "0", value = "systemId") long systemId,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order) {
         UpmsPermissionExample upmsPermissionExample = new UpmsPermissionExample();
@@ -96,7 +96,7 @@ public class UpmsPermissionController extends BaseController {
     @RequiresPermissions("upms:permission:read")
     @RequestMapping(value = "/role/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object role(@PathVariable("id") int id) {
+    public Object role(@PathVariable("id") long id) {
         return upmsPermissionService.getTreeByRoleId(id);
     }
 
@@ -104,7 +104,7 @@ public class UpmsPermissionController extends BaseController {
     @RequiresPermissions("upms:permission:read")
     @RequestMapping(value = "/user/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object user(@PathVariable("id") int id, HttpServletRequest request) {
+    public Object user(@PathVariable("id") long id, HttpServletRequest request) {
         return upmsPermissionService.getTreeByUserId(id, NumberUtils.toByte(request.getParameter("type")));
     }
 
@@ -153,7 +153,7 @@ public class UpmsPermissionController extends BaseController {
     @ApiOperation(value = "修改权限")
     @RequiresPermissions("upms:permission:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") int id, ModelMap modelMap) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.createCriteria()
                 .andStatusEqualTo((byte) 1);
@@ -168,7 +168,7 @@ public class UpmsPermissionController extends BaseController {
     @RequiresPermissions("upms:permission:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") int id, UpmsPermission upmsPermission) {
+    public Object update(@PathVariable("id") long id, UpmsPermission upmsPermission) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsPermission.getName(), new LengthValidator(1, 20, "名称"))
                 .doValidate()

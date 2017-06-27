@@ -137,52 +137,52 @@ public class UpmsLogExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andLogIdEqualTo(Integer value) {
+        public Criteria andLogIdEqualTo(Long value) {
             addCriterion("log_id =", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdNotEqualTo(Integer value) {
+        public Criteria andLogIdNotEqualTo(Long value) {
             addCriterion("log_id <>", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdGreaterThan(Integer value) {
+        public Criteria andLogIdGreaterThan(Long value) {
             addCriterion("log_id >", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLogIdGreaterThanOrEqualTo(Long value) {
             addCriterion("log_id >=", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdLessThan(Integer value) {
+        public Criteria andLogIdLessThan(Long value) {
             addCriterion("log_id <", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdLessThanOrEqualTo(Integer value) {
+        public Criteria andLogIdLessThanOrEqualTo(Long value) {
             addCriterion("log_id <=", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdIn(List<Integer> values) {
+        public Criteria andLogIdIn(List<Long> values) {
             addCriterion("log_id in", values, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdNotIn(List<Integer> values) {
+        public Criteria andLogIdNotIn(List<Long> values) {
             addCriterion("log_id not in", values, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdBetween(Integer value1, Integer value2) {
+        public Criteria andLogIdBetween(Long value1, Long value2) {
             addCriterion("log_id between", value1, value2, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andLogIdNotBetween(Long value1, Long value2) {
             addCriterion("log_id not between", value1, value2, "logId");
             return (Criteria) this;
         }

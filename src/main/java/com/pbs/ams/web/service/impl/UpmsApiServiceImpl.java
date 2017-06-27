@@ -50,7 +50,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @return
      */
     @Override
-    public List<UpmsPermission> selectUpmsPermissionByUpmsUserId(Integer upmsUserId) {
+    public List<UpmsPermission> selectUpmsPermissionByUpmsUserId(Long upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
         if (null == upmsUser || 1 == upmsUser.getLocked()) {
@@ -67,7 +67,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @return
      */
     @Override
-    public List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId) {
+    public List<UpmsRole> selectUpmsRoleByUpmsUserId(Long upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
         if (null == upmsUser || 1 == upmsUser.getLocked()) {
@@ -84,7 +84,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @return
      */
     @Override
-    public List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Integer upmsRoleId) {
+    public List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Long upmsRoleId) {
         UpmsRolePermissionExample upmsRolePermissionExample = new UpmsRolePermissionExample();
         upmsRolePermissionExample.createCriteria()
                 .andRoleIdEqualTo(upmsRoleId);
@@ -98,7 +98,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @return
      */
     @Override
-    public List<UpmsUserPermission> selectUpmsUserPermissionByUpmsUserId(Integer upmsUserId) {
+    public List<UpmsUserPermission> selectUpmsUserPermissionByUpmsUserId(Long upmsUserId) {
         UpmsUserPermissionExample upmsUserPermissionExample = new UpmsUserPermissionExample();
         upmsUserPermissionExample.createCriteria()
                 .andUserIdEqualTo(upmsUserId);

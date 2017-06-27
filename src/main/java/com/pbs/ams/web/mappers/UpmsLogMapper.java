@@ -10,7 +10,7 @@ public interface UpmsLogMapper {
 
     int deleteByExample(UpmsLogExample example);
 
-    int deleteByPrimaryKey(Integer logId);
+    int deleteByPrimaryKey(Long logId);
 
     int insert(UpmsLog record);
 
@@ -20,7 +20,7 @@ public interface UpmsLogMapper {
 
     List<UpmsLog> selectByExample(UpmsLogExample example);
 
-    UpmsLog selectByPrimaryKey(Integer logId);
+    UpmsLog selectByPrimaryKey(Long logId);
 
     int updateByExampleSelective(@Param("record") UpmsLog record, @Param("example") UpmsLogExample example);
 

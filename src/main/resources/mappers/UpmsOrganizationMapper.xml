@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.UpmsOrganizationMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.UpmsOrganization">
-    <id column="organization_id" jdbcType="INTEGER" property="organizationId" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <id column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="ctime" jdbcType="BIGINT" property="ctime" />
@@ -91,15 +91,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from upms_organization
-    where organization_id = #{organizationId,jdbcType=INTEGER}
+    where organization_id = #{organizationId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_organization
-    where organization_id = #{organizationId,jdbcType=INTEGER}
+    where organization_id = #{organizationId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.UpmsOrganizationExample">
     delete from upms_organization
@@ -110,7 +110,7 @@
   <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsOrganization">
     insert into upms_organization (organization_id, pid, name, 
       description, ctime)
-    values (#{organizationId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    values (#{organizationId,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsOrganization">
@@ -134,10 +134,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="organizationId != null">
-        #{organizationId,jdbcType=INTEGER},
+        #{organizationId,jdbcType=BIGINT},
       </if>
       <if test="pid != null">
-        #{pid,jdbcType=INTEGER},
+        #{pid,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -160,10 +160,10 @@
     update upms_organization
     <set>
       <if test="record.organizationId != null">
-        organization_id = #{record.organizationId,jdbcType=INTEGER},
+        organization_id = #{record.organizationId,jdbcType=BIGINT},
       </if>
       <if test="record.pid != null">
-        pid = #{record.pid,jdbcType=INTEGER},
+        pid = #{record.pid,jdbcType=BIGINT},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -181,8 +181,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update upms_organization
-    set organization_id = #{record.organizationId,jdbcType=INTEGER},
-      pid = #{record.pid,jdbcType=INTEGER},
+    set organization_id = #{record.organizationId,jdbcType=BIGINT},
+      pid = #{record.pid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       ctime = #{record.ctime,jdbcType=BIGINT}
@@ -194,7 +194,7 @@
     update upms_organization
     <set>
       <if test="pid != null">
-        pid = #{pid,jdbcType=INTEGER},
+        pid = #{pid,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -206,15 +206,15 @@
         ctime = #{ctime,jdbcType=BIGINT},
       </if>
     </set>
-    where organization_id = #{organizationId,jdbcType=INTEGER}
+    where organization_id = #{organizationId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.UpmsOrganization">
     update upms_organization
-    set pid = #{pid,jdbcType=INTEGER},
+    set pid = #{pid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       ctime = #{ctime,jdbcType=BIGINT}
-    where organization_id = #{organizationId,jdbcType=INTEGER}
+    where organization_id = #{organizationId,jdbcType=BIGINT}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

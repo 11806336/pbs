@@ -8,7 +8,7 @@ public class UpmsLog implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer logId;
+    private Long logId;
 
     /**
      * 操作描述
@@ -93,11 +93,11 @@ public class UpmsLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getLogId() {
+    public Long getLogId() {
         return logId;
     }
 
-    public void setLogId(Integer logId) {
+    public void setLogId(Long logId) {
         this.logId = logId;
     }
 

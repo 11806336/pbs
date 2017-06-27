@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.UpmsUserOrganizationMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.UpmsUserOrganization">
-    <id column="user_organization_id" jdbcType="INTEGER" property="userOrganizationId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
+    <id column="user_organization_id" jdbcType="BIGINT" property="userOrganizationId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -89,15 +89,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from upms_user_organization
-    where user_organization_id = #{userOrganizationId,jdbcType=INTEGER}
+    where user_organization_id = #{userOrganizationId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_user_organization
-    where user_organization_id = #{userOrganizationId,jdbcType=INTEGER}
+    where user_organization_id = #{userOrganizationId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.UpmsUserOrganizationExample">
     delete from upms_user_organization
@@ -108,7 +108,7 @@
   <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsUserOrganization">
     insert into upms_user_organization (user_organization_id, user_id, organization_id
       )
-    values (#{userOrganizationId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{organizationId,jdbcType=INTEGER}
+    values (#{userOrganizationId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUserOrganization">
@@ -126,13 +126,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userOrganizationId != null">
-        #{userOrganizationId,jdbcType=INTEGER},
+        #{userOrganizationId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="organizationId != null">
-        #{organizationId,jdbcType=INTEGER},
+        #{organizationId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -146,13 +146,13 @@
     update upms_user_organization
     <set>
       <if test="record.userOrganizationId != null">
-        user_organization_id = #{record.userOrganizationId,jdbcType=INTEGER},
+        user_organization_id = #{record.userOrganizationId,jdbcType=BIGINT},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=BIGINT},
       </if>
       <if test="record.organizationId != null">
-        organization_id = #{record.organizationId,jdbcType=INTEGER},
+        organization_id = #{record.organizationId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -161,9 +161,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update upms_user_organization
-    set user_organization_id = #{record.userOrganizationId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      organization_id = #{record.organizationId,jdbcType=INTEGER}
+    set user_organization_id = #{record.userOrganizationId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      organization_id = #{record.organizationId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -172,19 +172,19 @@
     update upms_user_organization
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="organizationId != null">
-        organization_id = #{organizationId,jdbcType=INTEGER},
+        organization_id = #{organizationId,jdbcType=BIGINT},
       </if>
     </set>
-    where user_organization_id = #{userOrganizationId,jdbcType=INTEGER}
+    where user_organization_id = #{userOrganizationId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.UpmsUserOrganization">
     update upms_user_organization
-    set user_id = #{userId,jdbcType=INTEGER},
-      organization_id = #{organizationId,jdbcType=INTEGER}
-    where user_organization_id = #{userOrganizationId,jdbcType=INTEGER}
+    set user_id = #{userId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT}
+    where user_organization_id = #{userOrganizationId,jdbcType=BIGINT}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

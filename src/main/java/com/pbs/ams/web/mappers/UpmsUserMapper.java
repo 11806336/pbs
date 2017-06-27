@@ -10,7 +10,7 @@ public interface UpmsUserMapper {
 
     int deleteByExample(UpmsUserExample example);
 
-    int deleteByPrimaryKey(Integer userId);
+    int deleteByPrimaryKey(Long userId);
 
     int insert(UpmsUser record);
 
@@ -18,7 +18,7 @@ public interface UpmsUserMapper {
 
     List<UpmsUser> selectByExample(UpmsUserExample example);
 
-    UpmsUser selectByPrimaryKey(Integer userId);
+    UpmsUser selectByPrimaryKey(Long userId);
 
     int updateByExampleSelective(@Param("record") UpmsUser record, @Param("example") UpmsUserExample example);
 

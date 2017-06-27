@@ -8,7 +8,7 @@ public class UpmsCompany implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 公司名称
@@ -22,14 +22,14 @@ public class UpmsCompany implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     /**
      * 负责人ID
      *
      * @mbg.generated
      */
-    private Integer managerId;
+    private Long managerId;
 
     /**
      * 负责人电话
@@ -87,14 +87,13 @@ public class UpmsCompany implements Serializable {
      */
     private Long updateTime;
 
-
     private static final long serialVersionUID = 1L;
 
-    public Integer getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -106,19 +105,19 @@ public class UpmsCompany implements Serializable {
         this.companyName = companyName;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 
-    public Integer getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Integer managerId) {
+    public void setManagerId(Long managerId) {
         this.managerId = managerId;
     }
 
@@ -185,7 +184,6 @@ public class UpmsCompany implements Serializable {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
-
 
     @Override
     public String toString() {

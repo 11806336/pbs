@@ -137,52 +137,52 @@ public class UpmsRolePermissionExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdEqualTo(Integer value) {
+        public Criteria andRolePermissionIdEqualTo(Long value) {
             addCriterion("role_permission_id =", value, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdNotEqualTo(Integer value) {
+        public Criteria andRolePermissionIdNotEqualTo(Long value) {
             addCriterion("role_permission_id <>", value, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdGreaterThan(Integer value) {
+        public Criteria andRolePermissionIdGreaterThan(Long value) {
             addCriterion("role_permission_id >", value, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andRolePermissionIdGreaterThanOrEqualTo(Long value) {
             addCriterion("role_permission_id >=", value, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdLessThan(Integer value) {
+        public Criteria andRolePermissionIdLessThan(Long value) {
             addCriterion("role_permission_id <", value, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdLessThanOrEqualTo(Integer value) {
+        public Criteria andRolePermissionIdLessThanOrEqualTo(Long value) {
             addCriterion("role_permission_id <=", value, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdIn(List<Integer> values) {
+        public Criteria andRolePermissionIdIn(List<Long> values) {
             addCriterion("role_permission_id in", values, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdNotIn(List<Integer> values) {
+        public Criteria andRolePermissionIdNotIn(List<Long> values) {
             addCriterion("role_permission_id not in", values, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdBetween(Integer value1, Integer value2) {
+        public Criteria andRolePermissionIdBetween(Long value1, Long value2) {
             addCriterion("role_permission_id between", value1, value2, "rolePermissionId");
             return (Criteria) this;
         }
 
-        public Criteria andRolePermissionIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andRolePermissionIdNotBetween(Long value1, Long value2) {
             addCriterion("role_permission_id not between", value1, value2, "rolePermissionId");
             return (Criteria) this;
         }
@@ -197,52 +197,52 @@ public class UpmsRolePermissionExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdEqualTo(Integer value) {
+        public Criteria andRoleIdEqualTo(Long value) {
             addCriterion("role_id =", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotEqualTo(Integer value) {
+        public Criteria andRoleIdNotEqualTo(Long value) {
             addCriterion("role_id <>", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThan(Integer value) {
+        public Criteria andRoleIdGreaterThan(Long value) {
             addCriterion("role_id >", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andRoleIdGreaterThanOrEqualTo(Long value) {
             addCriterion("role_id >=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThan(Integer value) {
+        public Criteria andRoleIdLessThan(Long value) {
             addCriterion("role_id <", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThanOrEqualTo(Integer value) {
+        public Criteria andRoleIdLessThanOrEqualTo(Long value) {
             addCriterion("role_id <=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIn(List<Integer> values) {
+        public Criteria andRoleIdIn(List<Long> values) {
             addCriterion("role_id in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotIn(List<Integer> values) {
+        public Criteria andRoleIdNotIn(List<Long> values) {
             addCriterion("role_id not in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdBetween(Integer value1, Integer value2) {
+        public Criteria andRoleIdBetween(Long value1, Long value2) {
             addCriterion("role_id between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andRoleIdNotBetween(Long value1, Long value2) {
             addCriterion("role_id not between", value1, value2, "roleId");
             return (Criteria) this;
         }
@@ -257,52 +257,52 @@ public class UpmsRolePermissionExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdEqualTo(Integer value) {
+        public Criteria andPermissionIdEqualTo(Long value) {
             addCriterion("permission_id =", value, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdNotEqualTo(Integer value) {
+        public Criteria andPermissionIdNotEqualTo(Long value) {
             addCriterion("permission_id <>", value, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdGreaterThan(Integer value) {
+        public Criteria andPermissionIdGreaterThan(Long value) {
             addCriterion("permission_id >", value, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPermissionIdGreaterThanOrEqualTo(Long value) {
             addCriterion("permission_id >=", value, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdLessThan(Integer value) {
+        public Criteria andPermissionIdLessThan(Long value) {
             addCriterion("permission_id <", value, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdLessThanOrEqualTo(Integer value) {
+        public Criteria andPermissionIdLessThanOrEqualTo(Long value) {
             addCriterion("permission_id <=", value, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdIn(List<Integer> values) {
+        public Criteria andPermissionIdIn(List<Long> values) {
             addCriterion("permission_id in", values, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdNotIn(List<Integer> values) {
+        public Criteria andPermissionIdNotIn(List<Long> values) {
             addCriterion("permission_id not in", values, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdBetween(Integer value1, Integer value2) {
+        public Criteria andPermissionIdBetween(Long value1, Long value2) {
             addCriterion("permission_id between", value1, value2, "permissionId");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andPermissionIdNotBetween(Long value1, Long value2) {
             addCriterion("permission_id not between", value1, value2, "permissionId");
             return (Criteria) this;
         }

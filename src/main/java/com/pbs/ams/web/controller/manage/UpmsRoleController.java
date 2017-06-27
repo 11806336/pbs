@@ -55,7 +55,7 @@ public class UpmsRoleController extends BaseController {
     @ApiOperation(value = "角色权限")
     @RequiresPermissions("upms:role:permission")
     @RequestMapping(value = "/permission/{id}", method = RequestMethod.GET)
-    public String permission(@PathVariable("id") int id, ModelMap modelMap) {
+    public String permission(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsRole role = upmsRoleService.selectByPrimaryKey(id);
         modelMap.put("role", role);
         return "/manage/role/permission.jsp";
@@ -65,18 +65,18 @@ public class UpmsRoleController extends BaseController {
     @RequiresPermissions("upms:role:permission")
     @RequestMapping(value = "/permission/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object permission(@PathVariable("id") int id, HttpServletRequest request) {
+    public Object permission(@PathVariable("id") long id, HttpServletRequest request) {
         JSONArray datas = JSONArray.parseArray(request.getParameter("datas"));
-        List<Integer> deleteIds = new ArrayList<>();
+        List<Long> deleteIds = new ArrayList<Long>();
         for (int i = 0; i < datas.size(); i ++) {
             JSONObject json = datas.getJSONObject(i);
             if (!json.getBoolean("checked")) {
-                deleteIds.add(json.getIntValue("id"));
+                deleteIds.add(json.getLongValue("id"));
             } else {
                 // 新增权限
                 UpmsRolePermission upmsRolePermission = new UpmsRolePermission();
                 upmsRolePermission.setRoleId(id);
-                upmsRolePermission.setPermissionId(json.getIntValue("id"));
+                upmsRolePermission.setPermissionId(json.getLongValue("id"));
                 upmsRolePermissionService.insertSelective(upmsRolePermission);
             }
         }
@@ -158,7 +158,7 @@ public class UpmsRoleController extends BaseController {
     @ApiOperation(value = "修改角色")
     @RequiresPermissions("upms:role:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") int id, ModelMap modelMap) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsRole role = upmsRoleService.selectByPrimaryKey(id);
         modelMap.put("role", role);
         return "/manage/role/update.jsp";
@@ -168,7 +168,7 @@ public class UpmsRoleController extends BaseController {
     @RequiresPermissions("upms:role:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") int id, UpmsRole upmsRole) {
+    public Object update(@PathVariable("id") long id, UpmsRole upmsRole) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsRole.getName(), new LengthValidator(1, 20, "名称"))
                 .on(upmsRole.getTitle(), new LengthValidator(1, 20, "标题"))

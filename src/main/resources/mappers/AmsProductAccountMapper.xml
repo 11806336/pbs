@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.AmsProductAccountMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsProductAccount">
+    <id column="product_account_id" jdbcType="BIGINT" property="productAccountId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="stock_account_id" jdbcType="BIGINT" property="stockAccountId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    product_account_id, product_id, stock_account_id
+  </sql>
+  <select id="selectByExample" parameterType="com.pbs.ams.web.model.AmsProductAccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ams_product_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ams_product_account
+    where product_account_id = #{productAccountId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ams_product_account
+    where product_account_id = #{productAccountId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.AmsProductAccountExample">
+    delete from ams_product_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductAccount">
+    insert into ams_product_account (product_account_id, product_id, stock_account_id
+      )
+    values (#{productAccountId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{stockAccountId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProductAccount">
+    insert into ams_product_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productAccountId != null">
+        product_account_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="stockAccountId != null">
+        stock_account_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productAccountId != null">
+        #{productAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="stockAccountId != null">
+        #{stockAccountId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pbs.ams.web.model.AmsProductAccountExample" resultType="java.lang.Long">
+    select count(*) from ams_product_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ams_product_account
+    <set>
+      <if test="record.productAccountId != null">
+        product_account_id = #{record.productAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=BIGINT},
+      </if>
+      <if test="record.stockAccountId != null">
+        stock_account_id = #{record.stockAccountId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ams_product_account
+    set product_account_id = #{record.productAccountId,jdbcType=BIGINT},
+      product_id = #{record.productId,jdbcType=BIGINT},
+      stock_account_id = #{record.stockAccountId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsProductAccount">
+    update ams_product_account
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="stockAccountId != null">
+        stock_account_id = #{stockAccountId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where product_account_id = #{productAccountId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsProductAccount">
+    update ams_product_account
+    set product_id = #{productId,jdbcType=BIGINT},
+      stock_account_id = #{stockAccountId,jdbcType=BIGINT}
+    where product_account_id = #{productAccountId,jdbcType=BIGINT}
+  </update>
+  <insert id="insertIntoSnaps">
+    insert into ams_product_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product_account as tb where product_account_id= #{product_account_id}
+  </insert>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

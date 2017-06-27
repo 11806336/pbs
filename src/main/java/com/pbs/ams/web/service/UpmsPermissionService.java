@@ -12,8 +12,8 @@ import com.pbs.ams.web.model.UpmsPermissionExample;
 
 public interface UpmsPermissionService extends BaseService<UpmsPermission, UpmsPermissionExample> {
 
-    JSONArray getTreeByRoleId(Integer roleId);
+    JSONArray getTreeByRoleId(Long roleId);
 
-    JSONArray getTreeByUserId(Integer usereId, Byte type);
+    JSONArray getTreeByUserId(Long usereId, Byte type);
 
 }

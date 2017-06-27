@@ -54,7 +54,7 @@ public class UpmsCompanyServiceImpl extends BaseServiceImpl<UpmsCompany, UpmsCom
                 if (StringUtils.isBlank(idStr)) {
                     continue;
                 }
-                Integer id = Integer.parseInt(idStr);
+                Long id = Long.parseLong(idStr);
                 //先查询本条记录
                 Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
                 UpmsCompany upmsCompany = (UpmsCompany) selectByPrimaryKey.invoke( getMapper(), id);
@@ -93,7 +93,7 @@ public class UpmsCompanyServiceImpl extends BaseServiceImpl<UpmsCompany, UpmsCom
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
             int result = 0;
             //先查询本条记录
-            Integer id = upmsCompany.getCompanyId();
+            Long id = upmsCompany.getCompanyId();
             Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
             UpmsCompany companyOld = (UpmsCompany) selectByPrimaryKey.invoke( getMapper(), id);
             //将本条记录放在快照表中

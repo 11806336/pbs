@@ -8,7 +8,7 @@ public class UpmsSystem implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer systemId;
+    private Long systemId;
 
     /**
      * 图标
@@ -82,11 +82,11 @@ public class UpmsSystem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getSystemId() {
+    public Long getSystemId() {
         return systemId;
     }
 
-    public void setSystemId(Integer systemId) {
+    public void setSystemId(Long systemId) {
         this.systemId = systemId;
     }
 

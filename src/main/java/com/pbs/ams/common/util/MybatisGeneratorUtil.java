@@ -81,19 +81,21 @@ public class MybatisGeneratorUtil {
 		}
 
 		for (Map<String, String> lstTable : lstTables) {
+			if (!"1".equals(lstTable.get("create_service"))){
+				continue;
+			}
 			String tbName = lstTable.get("table_name");
 			String snaps = lstTable.get("snaps");
-			String model = StringUtil.lineToHump(tbName);
-			String service = servicePath + "/" + model + "Service.java";
-			String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
+			String modelName = StringUtil.lineToHump(tbName);
+			String service = servicePath + "/" + modelName + "Service.java";
+			String serviceImpl = serviceImplPath + "/" + modelName + "ServiceImpl.java";
 			// 生成service
 			File serviceFile = new File(service);
 			if (!serviceFile.exists()) {
 				VelocityContext context = new VelocityContext();
 				context.put("package_name", GeneratorEnum.PACKAGE_NAME.getValue());
-				context.put("model", model);
+				context.put("model", modelName);
 				context.put("ctime", ctime);
-				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICE_VM.getValue(), service, context);
 				System.out.println(service);
 			}
@@ -102,10 +104,9 @@ public class MybatisGeneratorUtil {
 			if (!serviceImplFile.exists()) {
 				VelocityContext context = new VelocityContext();
 				context.put("package_name", GeneratorEnum.PACKAGE_NAME.getValue());
-				context.put("model", model);
-				context.put("mapper", StringUtil.toLowerCaseFirstOne(model));
+				context.put("model", modelName);
+				context.put("mapper", StringUtil.toLowerCaseFirstOne(modelName));
 				context.put("ctime", ctime);
-				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICEIMPL_VM.getValue(), serviceImpl, context);
 				System.out.println(serviceImpl);
 			}
@@ -115,14 +116,36 @@ public class MybatisGeneratorUtil {
 
 	/**
 	 * 走你
+	 * @snaps: 传参snaps则生成向对应快照表添加记录数据的方法.
+	 * @create_service: 传参1则生成service 否则不生成
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 
+		Map<String, String> map1 = Maps.newHashMap();
+		map1.put("table_name","ams_product");
+		map1.put("create_service","1");
+		lstTables.add(map1);
 		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_product_detail");
-		map2.put("snaps","snaps");
+		map2.put("table_name","ams_market");
 		lstTables.add(map2);
+		Map<String, String> map3 = Maps.newHashMap();
+		map3.put("table_name","ams_stock");
+		lstTables.add(map3);
+		Map<String, String> map4 = Maps.newHashMap();
+		map4.put("table_name","ams_stock_holding");
+		lstTables.add(map4);
+		Map<String, String> map5 = Maps.newHashMap();
+		map5.put("table_name","ams_stock_account");
+		map5.put("create_service","1");
+		lstTables.add(map5);
+		Map<String, String> map6 = Maps.newHashMap();
+		map6.put("table_name","ams_product_account");
+		lstTables.add(map6);
+		Map<String, String> map7 = Maps.newHashMap();
+		map7.put("table_name","ams_product_detail");
+		lstTables.add(map7);
+
 		MybatisGeneratorUtil.generator(lstTables);
 	}
 
