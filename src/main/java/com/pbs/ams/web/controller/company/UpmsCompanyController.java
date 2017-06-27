@@ -46,7 +46,7 @@ public class UpmsCompanyController extends BaseController {
     @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "/manage/company/company.jsp";
+        return "/company/company.jsp";
     }
 
     @ApiOperation(value = "公司列表")
@@ -102,7 +102,7 @@ public class UpmsCompanyController extends BaseController {
     @RequiresPermissions("upms:company:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
-        return "/manage/company/create_company.jsp";
+        return "/company/create_company.jsp";
     }
 
     @ApiOperation(value = "新增公司")
@@ -132,7 +132,7 @@ public class UpmsCompanyController extends BaseController {
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsCompany company = upmsCompanyService.selectByPrimaryKey(id);
         modelMap.put("company", company);
-        return "/manage/company/update_company.jsp";
+        return "/company/update_company.jsp";
     }
 
     @ApiOperation(value = "修改公司")
