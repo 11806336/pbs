@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
-* AmsBrokerService实现
-* Created by ams on 2017/6/22.
-*/
+ * AmsBrokerService实现
+ * Created by ams on 2017/6/22.
+ */
 @Service
 @Transactional
 @BaseService
@@ -37,21 +37,34 @@ public class AmsBrokerServiceImpl extends BaseServiceImpl<AmsBroker, AmsBrokerEx
         return 1;
     }
 
-   /* @Override
-    public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample){
-        return amsBrokerMapper.selectByExample(amsBrokerExample);
-    }*/
+    /**
+     * 添加经纪公司
+     */
     @Override
     public int insertSelective(AmsBroker amsBroker){
         return amsBrokerMapper.insertSelective(amsBroker);
     }
 
+    /**
+     * 查询列表
+     */
     @Override
     public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample){
         return amsBrokerMapper.selectByExample(amsBrokerExample);
     }
 
-//    public int updateByPrimaryKeySelective(AmsBroker amsBroker){
-//        return amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
-//    }
+    /**
+     * 查询数量
+     */
+    @Override
+    public long countByExample(AmsBrokerExample amsBrokerExample){
+        return amsBrokerMapper.countByExample(amsBrokerExample);
+    }
+
+    /**
+     * 修改
+     */
+    public int updateByPrimaryKeySelective(AmsBroker amsBroker){
+        return amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
+    }
 }

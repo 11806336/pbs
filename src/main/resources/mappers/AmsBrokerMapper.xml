@@ -16,6 +16,13 @@
         <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
         <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
     </resultMap>
+
+    <resultMap type="com.pbs.ams.web.model.AmsBroker" id="BaseResultMapExtend" extends="BaseResultMap">
+        <association property="amsPlatform" javaType="com.pbs.ams.web.model.AmsPlatform">
+            <id property="platformId" column="platform_id" />
+            <result property="platformName" column="platform_name" />
+        </association>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -80,13 +87,23 @@
     broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name,
     creditable, day_begin, day_end, create_time, update_time, operator_id
   </sql>
-    <select id="selectByExample" parameterType="com.pbs.ams.web.model.AmsBroker" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.pbs.ams.web.model.AmsBroker" resultMap="BaseResultMapExtend">
         select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List" />
-        from ams_broker
+        b.broker_id,
+        b.broker_type,
+        b.platform_id,
+        b.broker_abbr_name,
+        b.broker_logo,
+        b.broker_name,
+        b.creditable,
+        b.day_begin,
+        b.day_end,
+        b.create_time,
+        b.update_time,
+        b.operator_id,
+        p.platform_id,
+        p.platform_name
+        from ams_broker b left join ams_platform p on b.platform_id=p.platform_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>

@@ -85,6 +85,21 @@ public class AmsBroker implements Serializable {
      *
      * @mbg.generated
      */
+
+    private AmsPlatform amsPlatform;
+
+    public AmsPlatform getAmsPlatform() {
+        return amsPlatform;
+    }
+
+    public void setAmsPlatform(AmsPlatform amsPlatform) {
+        this.amsPlatform = amsPlatform;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     private Integer operatorId;
 
     private static final long serialVersionUID = 1L;

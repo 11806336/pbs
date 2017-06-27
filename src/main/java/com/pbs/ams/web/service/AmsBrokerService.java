@@ -15,12 +15,28 @@ public interface AmsBrokerService extends BaseService<AmsBroker, AmsBrokerExampl
 
     int insertToSnaps();
 
+    /**
+     * 添加经纪公司
+     */
     @Autowired
     public int insertSelective(AmsBroker amsBroker);
 
+    /**
+     * 查询列表
+     */
     @Autowired
     public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample);
 
-//  public int updateByPrimaryKeySelective(AmsBroker amsBroker);
+    /**
+     * 查询数量
+     */
+    @Autowired
+    public long countByExample(AmsBrokerExample amsBrokerExample);
+
+    /**
+     * 修改
+     */
+    @Autowired
+    public int updateByPrimaryKeySelective(AmsBroker amsBroker);
 
 }

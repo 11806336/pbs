@@ -45,6 +45,16 @@ public class AmsBrokerExample implements Serializable {
         oredCriteria.add(criteria);
     }
 
+    private Integer platformId;
+
+    public Integer getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Integer platformId) {
+        this.platformId = platformId;
+    }
+
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
@@ -262,6 +272,8 @@ public class AmsBrokerExample implements Serializable {
             return (Criteria) this;
         }
 
+
+        
         public Criteria andPlatformIdNotEqualTo(Integer value) {
             addCriterion("platform_id <>", value, "platformId");
             return (Criteria) this;

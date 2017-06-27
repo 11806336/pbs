@@ -16,7 +16,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	
 
 	@Override
-	public int countByExample(Example example) {
+	public long countByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
 			Method countByExample =  getMapper().getClass().getDeclaredMethod("countByExample", example.getClass());

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface BaseService<Record, Example> {
 
-    int countByExample(Example example);
+    long countByExample(Example example);
 
     int deleteByExample(Example example);
 

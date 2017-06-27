@@ -24,10 +24,10 @@
     <div id="searchDiv">
         <div class="form-group">
             <label for="tradePlatformSearch">交易平台： </label>
-            <select id="tradePlatformSearch" name="tradePlatformSearch">
+            <select id="tradePlatformSearch" name="tradePlatformSearch" onchange="searchByPlatFormId();">
                 <option value="0"> -- 全部平台 -- </option>
                 <c:forEach var="platform" items="${amsPlatforms}">
-                    <option value="${platform.platformId}">${platform.platformName}</option>
+                    <option value="${platform.platformId}" id="platformId">${platform.platformName}</option>
                 </c:forEach>
             </select>
             <div class="btn-panel" onclick="createAction('${basePath}/ams/broker/create','添加证券')">
@@ -36,7 +36,7 @@
         </div>
         <div id="toolbar">
             <shiro:hasPermission name="upms:organization:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction('${basePath}/ams/broker/create','添加证券')"><i class="zmdi zmdi-plus"></i> 新增公司</a></shiro:hasPermission>
-            <shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;" onclick="")><i class="zmdi zmdi-edit"></i> 编辑公司</a></shiro:hasPermission>
+            <shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;" onclick=""><i class="zmdi zmdi-edit"></i> 编辑公司</a></shiro:hasPermission>
             <shiro:hasPermission name="upms:organization:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除公司</a></shiro:hasPermission>
         </div>
     </div>
@@ -57,6 +57,7 @@
 
     $("#tradePlatformSearch").select2();
     var $table = $('#table');
+
     $(function() {
         // bootstrap table初始化
         $table.bootstrapTable({
@@ -83,6 +84,15 @@
             columns:dataColumns,
         });
     });
+    function searchByPlatFormId() {
+        var a = $('#tradePlatformSearch option:selected') .val();
+        $('#table').bootstrapTable(
+            "refresh",
+            {
+                url:"${basePath}/ams/broker/queryAmsBroker?platformId="+a
+            }
+        )
+    }
     function getHeight() {
         return $(window).height() - 20;
     }
@@ -126,8 +136,6 @@
     var sidePagination='server';
     //指定主键列
     var idField='brokerName';
-
-
 
     //右上角刷新搜索
     var search=true;
@@ -173,7 +181,6 @@
             shadeClose:true,
             moveOut:true
         });
-
     }
 
     // 删除
@@ -275,7 +282,6 @@
             });
         }
     }
-
 </script>
 </body>
 </html>

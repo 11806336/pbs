@@ -8,8 +8,10 @@ import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
-import com.pbs.ams.web.model.*;
-import com.pbs.ams.web.service.AmsBrokerPlatformService;
+import com.pbs.ams.web.model.AmsBroker;
+import com.pbs.ams.web.model.AmsBrokerExample;
+import com.pbs.ams.web.model.AmsPlatform;
+import com.pbs.ams.web.model.AmsPlatformExample;
 import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsPlatformService;
 import io.swagger.annotations.Api;
@@ -36,12 +38,10 @@ import java.util.Map;
  */
 @Controller
 @Api(value = "经纪公司", description = "经纪公司")
-@RequestMapping("/manage/broker")
+@RequestMapping("/ams/broker")
 public class AmsBrokerController extends BaseController {
     @Autowired
     private AmsBrokerService amsBrokerService;
-    @Autowired
-    private AmsBrokerPlatformService amsBrokerPlatformService;
     @Autowired
     private AmsPlatformService amsPlatformService;
 
@@ -50,15 +50,14 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value= "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request) {
         AmsPlatformExample amsPlatformExample = new AmsPlatformExample();
-        List<AmsPlatform> lstPlatform =amsPlatformService.selectByExample(amsPlatformExample);
-        request.setAttribute("lstPlatform",lstPlatform);
-        return "/manage/broker/broker.jsp";
+        List<AmsPlatform> amsPlatforms =amsPlatformService.selectByExample(amsPlatformExample);
+        request.setAttribute("amsPlatforms",amsPlatforms);
+        return "/broker/index.jsp";
     }
 
-
-    @ApiOperation(value = "经纪公司列表")
+    @ApiOperation(value = "公司列表")
     @RequiresPermissions("ams:broker:read")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryAmsBroker", method = RequestMethod.GET)
     @ResponseBody
     public Object list(
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
@@ -66,35 +65,41 @@ public class AmsBrokerController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order,
-            ModelMap modelMap) {
-        AmsBrokerPlatformExample amsBrokerPlatformExample = new AmsBrokerPlatformExample();
-        amsBrokerPlatformExample.setOffset(offset);
-        amsBrokerPlatformExample.setLimit(limit);
+            @RequestParam(required = false) Integer platformId) {
+        AmsBrokerExample amsBrokerExample = new AmsBrokerExample();
+        amsBrokerExample.setOffset(offset);
+        amsBrokerExample.setLimit(limit);
         if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            amsBrokerPlatformExample.setOrderByClause(sort + " " + order);
+            amsBrokerExample.setOrderByClause(sort + " " + order);
         }
         if (StringUtils.isNotBlank(search)) {
-            amsBrokerPlatformExample.or().andBrokerAbbrNameLike("%" + search + "%");
+                amsBrokerExample.or().andBrokerNameLike("%" + search + "%");
         }
-        List<AmsBrokerPlatform> rows = amsBrokerPlatformService.selectAmsBrokerPlatform(amsBrokerPlatformExample);
-        long total = amsBrokerPlatformService.selectCountByExample(amsBrokerPlatformExample);
+        if(platformId!=null){
+            amsBrokerExample.or().andPlatformIdEqualTo(platformId);
+
+        }
+        List<AmsBroker> rows = amsBrokerService.selectByExample(amsBrokerExample);
+        long total = amsBrokerService.countByExample(amsBrokerExample);
         Map<String, Object> result = new HashMap<>();
-        modelMap.put("amsBrokerPlatform",rows);
         result.put("rows", rows);
         result.put("total", total);
         return result;
     }
-    @ApiOperation(value = "新增经纪公司")
-    @RequiresPermissions("ams:broker:read")
-    @RequestMapping(value = "/broker", method = RequestMethod.GET)
-    public String create() {
-        return "/manage/broker/create_broker.jsp";
+    @ApiOperation(value = "新增公司")
+    @RequiresPermissions("ams:broker:create")
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(HttpServletRequest request) {
+        AmsPlatformExample amsPlatformExample = new AmsPlatformExample();
+        List<AmsPlatform> amsPlatforms =amsPlatformService.selectByExample(amsPlatformExample);
+        request.setAttribute("amsPlatforms",amsPlatforms);
+        return "/broker/create_broker.jsp";
     }
 
-    @ApiOperation(value = "新增经纪公司")
-    @RequiresPermissions("ams:broker:read")
+    @ApiOperation(value = "新增公司")
+    @RequiresPermissions("ams:broker:create")
     @ResponseBody
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", method = RequestMethod.GET)
     public Object create(AmsBroker amsBroker, String dayBeginTemp, String dayEndTemp) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
@@ -109,12 +114,11 @@ public class AmsBrokerController extends BaseController {
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
         int count = amsBrokerService.insertSelective(amsBroker);
-        System.out.println(count+"---------count--------");
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
 
-    @ApiOperation(value = "删除经纪公司")
+    @ApiOperation(value = "删除公司")
     @RequiresPermissions("ams:broker:delete")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     @ResponseBody
@@ -123,26 +127,24 @@ public class AmsBrokerController extends BaseController {
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
-    @ApiOperation(value = "修改经纪公司")
-    @RequiresPermissions("ams:broker:read")
-    @RequestMapping(value = "/updateBroker/{id}",method = RequestMethod.GET)
+    @ApiOperation(value = "编辑公司")
+    @RequiresPermissions("ams:broker:edit")
+    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, ModelMap modelMap,HttpServletRequest request) {
         AmsBroker amsBroker=amsBrokerService.selectByPrimaryKey(id);
         modelMap.put("amsBrokers",amsBroker);
-
         AmsPlatformExample amsPlatformExample = new AmsPlatformExample();
-        List<AmsPlatform> lstPlatform =amsPlatformService.selectByExample(amsPlatformExample);
-        request.setAttribute("lstPlatform",lstPlatform);
-
-        return "/manage/broker/update_broker.jsp";
+        List<AmsPlatform> amsPlatforms =amsPlatformService.selectByExample(amsPlatformExample);
+        request.setAttribute("amsPlatforms",amsPlatforms);
+        return "/ams/broker/update_broker.jsp";
     }
 
 
-    @ApiOperation(value = "修改经纪公司")
-    @RequiresPermissions("ams:broker:read")
+    @ApiOperation(value = "修改公司")
+    @RequiresPermissions("ams:broker:edit")
     @ResponseBody
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public Object update(@PathVariable("id") int id, AmsBroker amsBroker,ModelMap modelMap) {
+    public Object update(@PathVariable("id") int id, AmsBroker amsBroker) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
                 .doValidate()
@@ -153,9 +155,6 @@ public class AmsBrokerController extends BaseController {
         amsBroker.setBrokerId(id);
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
-        AmsBrokerPlatformExample amsBrokerPlatformExample = new AmsBrokerPlatformExample();
-        List<AmsBrokerPlatform> rows = amsBrokerPlatformService.selectAmsBrokerPlatform(amsBrokerPlatformExample);
-        modelMap.put("amsBrokerPlatform",rows);
         int count = amsBrokerService.updateByPrimaryKeySelective(amsBroker);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }

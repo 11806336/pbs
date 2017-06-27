@@ -176,7 +176,6 @@ public class UpmsPermissionController extends BaseController {
         if (!result.isSuccess()) {
             return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
-
         upmsPermission.setPermissionId(id);
         int count = upmsPermissionService.updateByPrimaryKeySelective(upmsPermission);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
