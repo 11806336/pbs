@@ -121,7 +121,7 @@
         }
     }
     //实时监控input框
-    $(document).on("input", "#productName,#productCode,#productSupervisor,#productManager", function () {
+    $(document).on("input", "input", function () {
         if ($(this).val()) {
             $(this).next().hide();
         } else {

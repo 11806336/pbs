@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>交易设置</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
     <link href="../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
     <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
     <link href="../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
@@ -14,14 +14,12 @@
 
     <!--选择时间-->
     <link rel="stylesheet" href="../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
-    <style>
-        .icon-sort-down:before            { content: "\f0dd"; }
-        .icon-sort-up:before              { content: "\f0de"; }
-    </style>
+    <!--加减按钮-->
+    <link rel="stylesheet" href="../../../resources/css/font_awesome.css">
 </head>
 <body>
 <div id="main">
-        <div class="control-group" style="600px;">
+        <div class="control-group">
             <div class="span7 block minw800" style="margin-left: 0;">
                 <a href="#stockClientRefreshInterval" class="block-heading collapsed" data-toggle="collapse">证券推送频率设置</a>
                 <div id="stockClientRefreshInterval" class="block-body in collapse" style="height: auto;">
@@ -32,8 +30,8 @@
                                 <div class="control-group">
                                     <label class="control-label" for="account_hold_interval">帐号持仓：</label>
                                     <div class="controls controlsSet">
-                                        <input type="text" name="account_hold_interval" value="0" id="account_hold_interval" />
-                                        <div class="add-on">
+                                        <input type="text" name="account_hold_interval" value="0" id="account_hold_interval">
+                                        <div class="add-on" style="display: inline-block;">
                                             <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
                                             <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
                                         </div>
@@ -45,7 +43,7 @@
                                     <label class="control-label" for="trader_bid_interval">委托成交：</label>
                                     <div class="controls controlsSet">
                                         <input type="text" name="trader_bid_interval" value="0" id="trader_bid_interval" />
-                                        <div class="add-on">
+                                        <div class="add-on" style="display: inline-block;">
                                             <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
                                             <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
                                         </div>
@@ -57,7 +55,7 @@
                                     <label class="control-label" for="instruction_task_interval">指令任务：</label>
                                     <div class="controls controlsSet">
                                         <input type="text" name="instruction_task_interval" value="0" id="instruction_task_interval" />
-                                        <div class="add-on">
+                                        <div class="add-on" style="display: inline-block;">
                                             <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
                                             <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
                                         </div>
@@ -69,8 +67,9 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <input type="submit" class="btn btn-primary" name="saveBtn" id="saveClientRefreshIntervalBtn" value=" 保存交易设置 " style="clear: both;"/>
+            <div style="clear: both;">
+                <input type="submit" class="btn btn-primary" name="saveBtn" id="saveClientRefreshIntervalBtn" value=" 保存交易设置 " style="clear: both;"/>
+            </div>
         </div>
 </div>
 <script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
@@ -103,7 +102,6 @@
         }
         $input.val(inputValue - 0.5)
     });
-
 </script>
 </body>
 </html>

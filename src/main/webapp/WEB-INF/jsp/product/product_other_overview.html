@@ -3,39 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>其他权益</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link href="../../../resources/css/public.css" rel="stylesheet"/>
-    <!--该页面 单独的css-->
-    <link href="../../../resources/css/create_broker.css" rel="stylesheet"/>
+
+    <link rel="import" href="../css_list.html">
 </head>
 <body>
-<div id="content">
+<div id="main">
     <div class="control-group">
-        <label for="day_startDate" class="control-label">起始日期：</label>
-        <input type="text" name="day_startDate" id="day_startDate" readonly="readonly" onfocus="" style="background-color: #fff;cursor:pointer;margin-left: 20px">
-        <span for="day_startDate" class="error" style="display: none;"></span>
-        <span style="display: inline-block;margin:0 10px;">结束日期：</span>
-        <input type="text" name="day_endDate" id="day_endDate" readonly="readonly" onfocus="" style="background-color: #fff;cursor:pointer">
-        <span for="day_endDate" class="error" style="display: none;"></span>
-
-        <a class="btn icon-plus addstockcom btn-primary" href="#">查询</a>
+        <label for="build_date_bgn_start">起始日期：</label>
+        <input class="form-control" type="text" id="build_date_bgn_start" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="build_date_bgn_start" readonly="readonly" style="background-color: #fff;cursor:pointer">
+        <label for="build_date_bgn_end" style="margin-left: 10px;">结束日期:</label>
+        <input class="form-control" type="text" id="build_date_bgn_end" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="build_date_bgn_end" readonly="readonly" style="background-color: #fff;cursor:pointer">
+        <input type="button" value="查询" class="btn" id="searchBtnIdata" style="margin-left: 20px;">
     </div>
 
     <table id="otherRightTable"></table>
 </div>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
-<script src="../../../resources/plugins/layer/js/layer.js"></script>
 
+<link rel="import" href="../js_list.html">
 <script>
     var $table = $('#otherRightTable');
     var url_json = "../../../resources/data/product_other.json";
@@ -54,37 +38,10 @@
 
     // 指定主键列
     var idField = 'otherId';
-
-    $(function() {
-        // bootstrap table初始化
-        $table.bootstrapTable({
-            url: url_json,
-            datatype: 'json',
-            height: getHeight(),
-            striped: true,
-            search: false,
-            showRefresh: false,
-            showColumns: false,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            detailView: false,
-            detailFormatter: 'detailFormatter',
-            pagination: true,
-            paginationLoop: false,
-            sidePagination: sidePagination,
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: idField,
-            maintainSelected: true,
-            toolbar: '#toolbar',
-            columns: dataColumns
-        });
-    });
-    function getHeight() {
-        return $(window).height() - 20;
-    }
+    //右上角刷新搜索
+    var search = false;
+    var showRefresh = false;
+    var showColumns = false;
 </script>
 </body>
 </html>
