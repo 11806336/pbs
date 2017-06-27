@@ -26,13 +26,13 @@
 <body>
 <div id="content">
     <div>
-        <form id="addForm">
+        <form id="updateForm">
         <div class="control-group">
-            <label for="platform_add" class="control-label"><em class="rqd">*</em>交易平台：</label>
+            <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
             <div class="controls">
-                <select name="platform_add" id="platform_add">
+                <select name="platformId" id="platformId">
                     <option value="">---请选择---</option>
-                    <c:forEach var="platform" items="${lstPlatform}">
+                    <c:forEach var="platform" items="${amsPlatforms}">
                         <option value="${platform.platformId}">${platform.platformName}</option>
                     </c:forEach>
                 </select>
@@ -43,16 +43,16 @@
         <div class="control-group">
             <label for="brokerName" class="control-label"><em class="rqd">*</em>期货公司：</label>
             <div class="controls">
-                <input type="text" id="brokerName" name="brokerName" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <input type="text" id="brokerName" name="brokerName" value="${amsBrokers.brokerName}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入名称</span>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="brokerId" class="control-label"><em class="rqd">*</em>公司代码：</label>
+            <label for="brokerAbbrName" class="control-label"><em class="rqd">*</em>缩写名称：</label>
             <div class="controls">
-                <input type="text" maxlength="8" id="brokerId" name="brokerId" onfocus="importName1(this)" onblur="importName2(this)"  value="">
-                <span class="tipsError">请输入代码</span>
+                <input type="text" maxlength="8" id="brokerAbbrName" name="brokerAbbrName" onfocus="importName1(this)" onblur="importName2(this)"  value="${amsBrokers.brokerId}">
+                <span class="tipsError">请输入缩写名称</span>
             </div>
         </div>
 
@@ -125,7 +125,8 @@
     $(document).on("click","#saveBrokerBtn",function () {
         $.ajax({
             type: 'POST',
-            url: '${basePath}/manage/broker/update/'${amsBrokers.platformId} ,
+            url: '${basePath}/manage/broker/update/${amsBrokers.brokerId}',
+            data: $('#updateForm').serialize(),
             success: function (data) {
                 console.info(data);
                 if (data.message == 'success') {

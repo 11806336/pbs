@@ -28,14 +28,13 @@
     <div>
         <form id="addForm">
         <div class="control-group">
-            <label for="platform_add" class="control-label"><em class="rqd">*</em>交易平台：</label>
+            <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
             <div class="controls">
-                <select name="platform_add" id="platform_add">
-                    <option value="">---请选择---</option>
-                    <option value="20001" text="CTP实盘">CTP实盘</option>
-                    <option value="20002" text="恒生期货实盘">恒生期货实盘</option>
-                    <option value="21001" text="CTP模拟">CTP模拟</option>
-                    <option value="21002" text="恒生期货模拟">恒生期货模拟</option>
+                <select name="platformId" id="platformId">
+                    <option value="0">---请选择---</option>
+                    <c:forEach var="platform" items="${amsPlatforms}">
+                        <option value="${platform.platformId}">${platform.platformName}</option>
+                    </c:forEach>
                 </select>
                 <span for="platform_add" class="hint">请选择平台</span>
             </div>
@@ -50,10 +49,10 @@
         </div>
 
         <div class="control-group">
-            <label for="brokerId" class="control-label"><em class="rqd">*</em>公司代码：</label>
+            <label for="brokerAbbrName" class="control-label"><em class="rqd">*</em>缩写名称：</label>
             <div class="controls">
-                <input type="text" maxlength="8" id="brokerId" name="brokerId" onfocus="importName1(this)" onblur="importName2(this)"  value="">
-                <span class="tipsError">请输入代码</span>
+                <input type="text" maxlength="8" id="brokerAbbrName" name="brokerAbbrName" onfocus="importName1(this)" onblur="importName2(this)"  value="">
+                <span class="tipsError">请输入缩写名称</span>
             </div>
         </div>
 
@@ -124,47 +123,20 @@
 
     //保存公司
     $(document).on("click","#saveBrokerBtn",function () {
-        var platform_add=$("#platform_add").val(),//平台ID
-            brokerName=$("#brokerName").val(),//期货公司
-            brokerId=$("#brokerId").val(),//公司代码
-//            verification=$("#verification").val(),//客户端认证码
-            dayBegin=$("#day_begin").val(),//日盘启动时间
-            dayEnd=$("#day_end").val();//夜盘启动时间
-        /*if(platform_add == ""){
-            alert("请正确输入公司名称");
-            return false;
-        }
-        if(broker_name == ""){
-            alert("请正确输入操作人ID");
-            return false;
-        }
-        if(!/^\d{3,4}\-\d{7,8}$/.test(company_phone)){
-            alert("请正确输入公司电话");
-            return false;
-        }
-        if(company_fax == "" || /^\s*$/g.test(company_fax)){
-            alert("请正确输入公司传真");
-            return false;
-        }*/
-        $.ajax({
-            type: 'GET',
-            url: '${basePath}/manage/broker/create' ,
-            data:/* {
-                "brokerName":brokerName,
-                "brokerId":brokerId,
-                "dayBeginTemp":dayBegin,
-                "dayEndTemp":dayEnd,
-            } */$('#addForm').serialize(),
-            success: function (data) {
-                console.info(data);
-                if (data.message == 'success') {
-                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                    parent.layer.close(index);
-                }
-            } ,
-            error: function () {
-            }
-        });
+         $.ajax({
+         type: 'GET',
+         url: '${basePath}/manage/broker/save' ,
+         data:$('#addForm').serialize(),
+         success: function (data) {
+         console.info(data);
+         if (data.message == 'success') {
+         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+         parent.layer.close(index);
+         }
+         } ,
+         error: function () {
+         }
+         });
     });
 </script>
 </body>
