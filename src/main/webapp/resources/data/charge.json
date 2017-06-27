@@ -1,0 +1,52 @@
+[
+  {
+    "chargeId": "1",
+    "chargeCatName": "测试",
+    "commission": "12%",
+    "minimumCommission": "123123",
+    "transferRate": "1%",
+    "minimumTransferee": "123",
+    "buyStampDutyRate": "11%",
+    "sellStampDutyRate": "13%"
+  },
+  {
+    "chargeId": "1",
+    "chargeCatName": "测试",
+    "commission": "12%",
+    "minimumCommission": "123123",
+    "transferRate": "1%",
+    "minimumTransferee": "123",
+    "buyStampDutyRate": "11%",
+    "sellStampDutyRate": "13%"
+  },
+  {
+    "chargeId": "1",
+    "chargeCatName": "测试",
+    "commission": "12%",
+    "minimumCommission": "123123",
+    "transferRate": "1%",
+    "minimumTransferee": "123",
+    "buyStampDutyRate": "11%",
+    "sellStampDutyRate": "13%"
+  },
+  {
+    "chargeId": "1",
+    "chargeCatName": "测试",
+    "commission": "12%",
+    "minimumCommission": "123123",
+    "transferRate": "1%",
+    "minimumTransferee": "123",
+    "buyStampDutyRate": "11%",
+    "sellStampDutyRate": "13%"
+  },
+  {
+    "chargeId": "1",
+    "chargeCatName": "测试",
+    "commission": "12%",
+    "minimumCommission": "123123",
+    "transferRate": "1%",
+    "minimumTransferee": "123",
+    "buyStampDutyRate": "11%",
+    "sellStampDutyRate": "13%"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "accountId":   "001",
+    "accountCode":  "75689123",
+    "accountName":  "75689123",
+    "accountCategory":  "股票账号",
+    "accountType":  "主账号",
+    "accountStatus":  "连接断开",
+    "broker": "中山证券",
+    "breakEven": "0.00",
+    "availableFunds": "1000000",
+    "totalAssets": "1000000000"
+  }
+]

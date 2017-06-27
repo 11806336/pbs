@@ -1,0 +1,13 @@
+[
+  {
+    "directiveId":   "001",
+    "account":  "账号",
+    "code":  "代码",
+    "tradeType": "交易类型I",
+    "progress": "90%",
+    "commissionTimes": "2",
+    "startTime": "2017-06-01",
+    "endTime": "2017-06-30",
+    "status": "状态OK"
+  }
+]
