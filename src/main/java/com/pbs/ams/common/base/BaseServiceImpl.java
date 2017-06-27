@@ -27,7 +27,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	public int countByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
-			Method countByExample =  getMapper().getClass().getSuperclass().getDeclaredMethod("countByExample", example.getClass());
+			Method countByExample =  getMapper().getClass().getDeclaredMethod("countByExample", example.getClass());
 			Object result = countByExample.invoke( getMapper(), example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (Exception e) {
