@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>产品管理</title>
-    <link href="../../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/css/common.css" rel="stylesheet"/>
-    <link href="../../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../../resources/plugins/layer/css/layer.css">
+    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../resources/css/common.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../resources/plugins/layer/css/layer.css">
 </head>
 <body>
 <div id="main">
@@ -30,30 +30,21 @@
     </div>
     <table id="table"></table>
 </div>
-<script src="../../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/plugins/select2/js/select2.min.js"></script>
-<script src="../../../../resources/plugins/layer/js/layer.js"></script>
-<script src="../../../../resources/js/public.js"></script>
-<script src="../../../../resources/js/Timer.js"></script>
-<script src="../../../../resources/js/Loader.js"></script>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
+<script src="../../../resources/plugins/layer/js/layer.js"></script>
+<script src="../../../resources/js/public.js"></script>
+<script src="../../../resources/js/Timer.js"></script>
+<script src="../../../resources/js/Loader.js"></script>
 
 <script>
-    function createProduct() {
-        layer.open({
-            type: 2,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: 'product_tabs.html'
-        });
-    }
     var $table = $('#table');
     //json数据
-    var url_json = "../../../../resources/data/product.json";
+    var url_json = "../../../resources/data/product.json";
     var dataColumns =  [
         {field: 'ck', checkbox: true},
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
