@@ -17,9 +17,11 @@
 <body>
 <div id="content">
     <div style="position: absolute;top:10px;z-index: 111;">
+        <shiro:hasPermission name="upms:t:t">
         <div class="btn-panel" onclick="panel('${basePath}/company/create','添加新公司')" style="display: inline-block;">
             <a class="btn icon-plus addstockcom btn-primary" href="#">添加新公司</a>
         </div>
+        </shiro:hasPermission>
     </div>
     <table id="table"></table>
 </div>
@@ -76,8 +78,8 @@
     var search = true;
     var showRefresh = true;
     var showColumns = true;
-    // 格式化操作按钮
 
+    // 格式化操作按钮
     function actionFormatter(value, row, index) {
         return [
             '<a class="update" href="javascript:;" onclick="panel(' + "'${basePath}/company/update/" + row.companyId + "'," + "'编辑公司'" + ')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
@@ -99,6 +101,33 @@
                 console.info(JSON.parse(result));
             }
          });
+    }
+    /**
+     * 批量删除公司
+     */
+    function batchDelete() {
+        var rows = $table.bootstrapTable('getSelections');
+        if (rows) {
+
+            var ids = new Array();
+            for (var i in rows) {
+                ids.push(rows[i].companyId);
+            }
+            $.ajax({
+                type: 'get',
+                url: '${basePath}/company/delete/' + ids.join("-"),
+                success: function(result) {
+                    console.info(JSON.parse(result));
+                    if (result.message == 'success') {//说明删除成功
+                        alert("删除成功！");
+                    } else {
+                        alert("删除失败！");
+                    }
+                }
+            });
+        } else {
+            alert("请先选择要删除的行！");
+        }
     }
 </script>
 </body>
