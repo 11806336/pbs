@@ -178,7 +178,16 @@ function deleteAction(url,ids) {
         });
     }
 }
-
+function dialog(url,title) {//调用弹窗，需要传标题和url
+    layer.open({
+        type: 2,
+        title:title,
+        area: ['700px', '430px'],
+        fixed: false, //不固定
+        maxmin: true,
+        content: url
+    });
+}
 /**共有的js文件
  * Created by Administrator on 2017/5/27.
  */

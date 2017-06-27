@@ -15,10 +15,10 @@
 <body>
 <div id="main">
     <div id="searchDiv">
-        <input type="text" id="query" class="form-control" style="width:220px;" placeholder="请输入主账号,按Enter查询">
+        <input type="text" id="query" class="form-control" style="width:220px;font-size: 12px;" placeholder="请输入主账号,按Enter查询">
         <div class="btn-panel">
-            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="panel('tab.html','添加证券账号')">添加证券账号</a>
-            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="daochu()">导出全部持仓</a>
+            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="dialog('tab.html','添加证券账号')">添加证券账号</a>
+            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="">导出全部持仓</a>
         </div>
     </div>
     <table id="table"></table>
@@ -87,29 +87,6 @@
             "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update'," + ids + ") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
-
-    function panel(url, title) {//调用弹窗，需要传标题和url
-        layer.open({
-            type: 2,
-            title: title,
-            area: ['780px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: url
-        });
-    }
-
-    function accountDetail(url, title) {
-        layer.open({
-            type: 2,
-            title: title,
-            area: ['780px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: url
-        });
-    }
-
 </script>
 </body>
 </html>
