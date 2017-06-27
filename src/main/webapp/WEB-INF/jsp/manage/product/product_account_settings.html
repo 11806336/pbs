@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>账号设置</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
 
-    <link href="../../../../resources/pbs-admin/css/public.css" rel="stylesheet">
+    <link href="../../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/css/common.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../resources/plugins/layer/css/layer.css">
+
+    <!--选择时间-->
+    <link rel="stylesheet" href="../../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
+
+    <link href="../../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+
 </head>
 <body>
-<div id="content">
+<div id="main">
     <div id="searchDiv">
         <div class="form-group">
-            <label for="tradePlatformSearch">账号类别： </label>
-            <select id="tradePlatformSearch" name="tradePlatformSearch">
+            <label for="tradePlatformSearch" style="">账号类别：</label>
+            <select id="tradePlatformSearch" style="width:160px;" name="tradePlatformSearch">
                 <option value=""> -- 全部账号 -- </option>
                 <option value="1">期货账号</option>
                 <option value="2">证券账号</option>
@@ -25,29 +32,36 @@
                 <option value="4">股票期权账号</option>
                 <option value="5">期货期权账号</option>
             </select>
-            <div class="btn-panel">
-                <a class="btn icon-plus addstockcom btn-primary" href="#">添加账号</a>
+            <div class="btn-panel" style="display: inline-block;margin-left:20px;">
+                <a class="btn icon-plus addstockcom btn-primary" href="#" style="margin-bottom: 0;">添加账号</a>
             </div>
         </div>
+
     </div>
     <table id="accountTable"></table>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
+<script src="../../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../../resources/plugins/waves-0.7.5/waves.min.js"></script
+<script src="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../../resources/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/plugins/layer/js/layer.js"></script>
 
+<!--选择时间-->
+<script src="../../../../resources/plugins/My97DatePicker/WdatePicker.js"></script>
+
+<script src="../../../../resources/js/common.js"></script>
+<script src="../../../../resources/js/public.js"></script>
 <script>
     //下拉框选择
-    $("#platform_add").select2({
+    $("#tradePlatformSearch").select2({
         minimumResultsForSearch: -1
     });
 
     var $table = $('#accountTable');
-    var url_json = "../../../../resources/pbs-admin/data/product_account.json";
+    var url_json = "../../../../resources/data/product_account.json";
 
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
@@ -68,37 +82,10 @@
 
     // 指定主键列
     var idField = 'accountId';
-
-    $(function() {
-        // bootstrap table初始化
-        $table.bootstrapTable({
-            url: url_json,
-            datatype: 'json',
-            height: getHeight(),
-            striped: true,
-            search: false,
-            showRefresh: false,
-            showColumns: false,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            detailView: false,
-            detailFormatter: 'detailFormatter',
-            pagination: true,
-            paginationLoop: false,
-            sidePagination: sidePagination,
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: idField,
-            maintainSelected: true,
-            toolbar: '#toolbar',
-            columns: dataColumns
-        });
-    });
-    function getHeight() {
-        return $(window).height() - 20;
-    }
+    //右上角刷新搜索
+    var search = false;
+    var showRefresh = false;
+    var showColumns = false;
 </script>
 </body>
 </html>

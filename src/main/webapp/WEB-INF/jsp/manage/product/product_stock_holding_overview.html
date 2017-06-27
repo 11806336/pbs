@@ -3,41 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>股票持仓</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/css/public.css" rel="stylesheet"/>
-    <!--该页面 单独的css-->
-    <link href="../../../../resources/pbs-admin/css/create_broker.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/css/common.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../resources/plugins/layer/css/layer.css">
+
+    <!--选择时间-->
+    <link rel="stylesheet" href="../../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
 </head>
 <body>
-<div id="content">
-    <div class="control-group">
-        <label for="queryDate" class="control-label">查询日期：</label>
-        <input type="text" name="queryDate" id="queryDate" readonly="readonly" onfocus="" style="background-color: #fff;cursor:pointer;margin-left: 20px">
-        <span for="day_startDate" class="error" style="display: none;"></span>
-        <a class="btn icon-plus addstockcom btn-primary" href="#">查询</a>
-        <a class="btn icon-plus addstockcom btn-primary" href="#">上一日</a>
-        <a class="btn icon-plus addstockcom btn-primary" href="#">下一日</a>
-        <a class="btn icon-plus addstockcom btn-primary" href="#">导出数据</a>
+<div id="main">
+    <div class="control-group form-inline mt10 mb10">
+        <div class="controls">
+            <label for="build_date_bgn_start">查询日期：</label>
+            <input class="form-control" type="text" id="build_date_bgn_start" name="build_date_bgn_start"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  readonly="readonly" style="background-color: #fff;cursor:pointer">
+            <input type="button" value="查询" class="btn" id="searchBtnIdata" style="margin-left: 20px;">
+            <input type="button" value="上一日" class="btn" id="prev_day" style="margin-left: 10px;">
+            <input type="button" value="下一日" class="btn" id="next_day" style="margin-left: 10px;">
+            <div class="btn-panel-right" style="float:right;">
+                <button type="button" data-toggle="modal" class="btn" data-target="#exportModal" id="export_data">导出数据</button>
+            </div>
+        </div>
     </div>
-
     <table id="stockHoldingTable"></table>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
+<script src="../../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../../resources/plugins/waves-0.7.5/waves.min.js"></script
+<script src="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../../resources/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/plugins/layer/js/layer.js"></script>
+
+<!--选择时间-->
+<script src="../../../../resources/plugins/My97DatePicker/WdatePicker.js"></script>
+
+<script src="../../../../resources/js/common.js"></script>
+<script src="../../../../resources/js/public.js"></script>
 
 <script>
     var $table = $('#stockHoldingTable');
-    var url_json = "../../../../resources/pbs-admin/data/product_stock_holding.json";
+    var url_json = "../../../../resources/data/product_stock_holding.json";
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
         {field: 'broker', title: '证券公司'},
@@ -69,38 +80,10 @@
 
     // 指定主键列
     var idField = 'otherId';
-
-    $(function() {
-        // bootstrap table初始化
-        $table.bootstrapTable({
-            url: url_json,
-            datatype: 'json',
-            height: getHeight(),
-            striped: true,
-            search: false,
-            showRefresh: false,
-            showColumns: false,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            detailView: false,
-            detailFormatter: 'detailFormatter',
-            pagination: true,
-            paginationLoop: false,
-            sidePagination: sidePagination,
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: idField,
-            maintainSelected: true,
-            toolbar: '#toolbar',
-            columns: dataColumns
-        });
-    });
-
-    function getHeight() {
-        return $(window).height() - 20;
-    }
+    //右上角刷新搜索
+    var search = false;
+    var showRefresh = false;
+    var showColumns = false;
 </script>
 </body>
 </html>

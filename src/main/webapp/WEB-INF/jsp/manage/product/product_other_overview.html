@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>其他权益</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/css/public.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../resources/plugins/layer/css/layer.css" rel="stylesheet"/>
+    <link href="../../../../resources/css/public.css" rel="stylesheet"/>
     <!--该页面 单独的css-->
-    <link href="../../../../resources/pbs-admin/css/create_broker.css" rel="stylesheet"/>
+    <link href="../../../../resources/css/create_broker.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="content">
@@ -28,17 +28,17 @@
 
     <table id="otherRightTable"></table>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
+<script src="../../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../../resources/plugins/select2/js/select2.min.js"></script>
+<script src="../../../../resources/plugins/layer/js/layer.js"></script>
 
 <script>
     var $table = $('#otherRightTable');
-    var url_json = "../../../../resources/pbs-admin/data/product_other.json";
+    var url_json = "../../../../resources/data/product_other.json";
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
         {field: 'otherId', title: '其他权益ID', visible: false},
