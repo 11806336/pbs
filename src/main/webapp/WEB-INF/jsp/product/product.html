@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>产品管理</title>
 
-    <link rel="import" href="../css_list.html">
+    <link rel="import" href="../../../resources/inc/css_list.html">
 </head>
 <body>
 <div id="main">
@@ -25,12 +25,12 @@
     <table id="table"></table>
 </div>
 
-<link rel="import" href="../js_list.html">
+<link rel="import" href="../../../resources/inc/js_list.html">
 
 <script src="../../../resources/js/public.js"></script>
 <script src="../../../resources/js/Timer.js"></script>
 <script src="../../../resources/js/Loader.js"></script>
-
+<script src="../../../resources/js/timer2.js"></script>
 <script>
     var $table = $('#table');
     //json数据
@@ -72,54 +72,11 @@
         for (var i in rows) {
             ids.push(rows[i].productId);
         }
-
         return [
             '<a class="update" href="javascript:;" onclick="updateAction()" data-toggle="tooltip" title="Update" style="padding-right: 5px;"><i class="glyphicon glyphicon-edit"></i></a>',
             '<a class="query" href="javascript:;" onclick="queryAction()" data-toggle="tooltip" title="Search"><i class="glyphicon glyphicon-search"></i></a>'
         ].join('');
     }
-    // 计算合计值
-    function sumFormatter(data) {
-        var field = this.field;
-        return data.reduce(function(sum, row) {
-            return sum + (+row[field]);
-        }, 0);
-    }
-    // 倒计时
-    var countdown = $(".countdown");
-    var countText = countdown.find("em");
-    var loading = countdown.find(".load").show();
-    var url = "/manage/product/product.html";
-    var timer = new Timer(url, 30);
-
-    loading.hide();
-    timer.start(function(count){
-        if (count >= timer.updateInterval && !Loader.loading && !Loader.localUpdate){
-            loading.show();
-            $(".btnRefresh").click();
-            timer.count = 0;
-        }
-        if (count >= 3600){
-            count = (Math.floor(count / 3600)) + "&nbsp;时...";
-        }else if(count >= 60){
-            count = (Math.floor(count / 60)) + "&nbsp;分...";
-        }else{
-            count += "&nbsp;秒";
-        }
-        countText.html(count);
-    });
-
-    //立即更新
-    $(".btnRefresh").click(function(){
-        var _this = this;
-        if ($(_this).hasClass("disabled")) return false;
-        $(_this).addClass("disabled");
-        loading.show();
-        timer.count = 0;
-        $table.bootstrapTable('refresh',{url: url_json});
-        $(_this).removeClass("disabled");
-        loading.hide();
-    });
 </script>
 </body>
 </html>

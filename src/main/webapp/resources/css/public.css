@@ -61,3 +61,4 @@ th,td {text-align: center;}
 .pagination>li>a, .pagination>li>span {
     color: #000;
 }
+.fixed-table-container {height:auto !important;padding-bottom: 0 !important;}
