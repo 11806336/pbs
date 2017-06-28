@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>产品管理</title>
 
-    <link rel="import" href="${basePath}/resources/inc/css_list.html">
+    <link rel="import" href="${basePath}/resources/inc/css_list.jsp">
 </head>
 <body>
 <div id="main">
@@ -27,7 +27,7 @@
     <table id="table"></table>
 </div>
 
-<link rel="import" href="${basePath}/resources/inc/js_list.html">
+<link rel="import" href="${basePath}/resources/inc/js_list.jsp">
 
 <script src="${basePath}/resources/js/public.js"></script>
 <script src="${basePath}/resources/js/Timer.js"></script>

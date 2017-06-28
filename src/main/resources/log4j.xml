@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="GBK"?>
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
     <!-- 可以配置多个appender来对应不同的输出，如文件输出，sql输出，控制台输出，邮件输出等 -->
-    <!-- [控制台STDOUT] 不同的输出类型对应着不同的calss，如控制台输出class对应着 org.apache.log4j.ConsoleAppender -->
-    <appender name="console" class="org.apache.log4j.ConsoleAppender">  <!-- name提供给logger或者root调用 -->
-        <param name="encoding" value="UTF-8" />  <!-- 保存字符集 -->
+    <!-- [控制台STDOUT] 不同的输出类型对应着不同的calss，如控制台输出class对应�? org.apache.log4j.ConsoleAppender -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">  <!-- name提供给logger或�?�root调用 -->
+        <param name="encoding" value="GBK" />  <!-- 保存字符�? -->
         <param name="target" value="System.out" />  <!-- 输出到控制台 -->
-        <layout class="org.apache.log4j.PatternLayout"> <!-- loyout表示输出方式，可以多种，class值区分，PatternLayout表示自定义格式 -->
-            <param name="ConversionPattern" value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n" />  <!-- 输出格式，后面解释 -->
+        <layout class="org.apache.log4j.PatternLayout"> <!-- loyout表示输出方式，可以多种，class值区分，PatternLayout表示自定义格�? -->
+            <param name="ConversionPattern" value="%d{ISO8601} 耗时�?%r [日志来自�?%-40.40c{3} 日志类型: %-5p 日志内容�?%m]%n" />  <!-- 输出格式，后面解�? -->
         </layout>
         <!--filter过滤器设置输出的级别:ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
-            所有下面输出的是debug到warn不会有error和fatal
+            �?有下面输出的是debug到warn不会有error和fatal
         -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="levelMin" value="info" />
@@ -21,13 +21,13 @@
 
     <!-- [公共Appender] 这个class表示输入到文件，并且按日期生成新文件-->
     <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="../logs/common-default.log" />  <!-- ..项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
+        <param name="File" value="../logs/common-default.log" />  <!-- ..项目根路径，自动获得，不用配置，可自己在web.xml中配�? -->
         <param name="Append" value="true" />  <!-- 是否项目重启继续保存之前日志 -->
-        <param name="encoding" value="UTF-8" />
-        <param name="threshold" value="all" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->
+        <param name="encoding" value="GBK" />
+        <param name="threshold" value="all" /> <!-- 记录�?有类型日志，记录它和比它等级高的日志all<debug -->
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  <!-- 日期格式  例子：common-default.log.2015-09-17.log-->
         <layout class="org.apache.log4j.PatternLayout">  <!-- 输出方式 -->
-            <param name="ConversionPattern" value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} 耗时�?%r [日志来自�?%-40.40c{3} 日志类型: %-5p 日志内容�?%m]%n" />
         </layout>
     </appender>
 
@@ -35,10 +35,10 @@
     <appender name="DEBUG-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="../logs/controller/debug-log.log" />
         <param name="Append" value="true" />
-        <param name="encoding" value="UTF-8" />
+        <param name="encoding" value="GBK" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} 耗时�?%r [日志来自�?%-40.40c{3} 日志类型: %-5p 日志内容�?%m]%n" />
         </layout>
     </appender>
 
@@ -47,12 +47,12 @@
               class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="../logs/controller/info-log.log" />
         <param name="Append" value="false" />
-        <param name="encoding" value="UTF-8" />
+        <param name="encoding" value="GBK" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} 耗时�?%r [日志来自�?%-40.40c{3} 日志类型: %-5p 日志内容�?%m]%n" />
         </layout>
-        <!-- 我只想记录info日志，就做如下设置 -->
+        <!-- 我只想记录info日志，就做如下设�? -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMax" value="info"/>
             <param name="LevelMin" value="info"/>
@@ -64,15 +64,15 @@
               class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="../logs/logistics-component.log" />
         <param name="Append" value="true" />
-        <param name="encoding" value="UTF-8" />
+        <param name="encoding" value="GBK" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n" />
+            <param name="ConversionPattern" value="%d{ISO8601} 耗时�?%r [日志来自�?%-40.40c{3} 日志类型: %-5p 日志内容�?%m]%n" />
         </layout>
     </appender>
 
     <!--&lt;!&ndash; debug log &ndash;&gt;-->
-    <!--&lt;!&ndash; name指定的是包名，表示这个logger只记录com.wzw.controller下的所有日志 &ndash;&gt;-->
+    <!--&lt;!&ndash; name指定的是包名，表示这个logger只记录com.wzw.controller下的�?有日�? &ndash;&gt;-->
     <!--<logger name="com.wzw.controller" additivity="true">  &lt;!&ndash; additivity 是否继承root &ndash;&gt;-->
         <!--&lt;!&ndash; <level value="${loggingLevel}" />   &ndash;&gt;-->
         <!--<level value="DEBUG"></level>  &lt;!&ndash; 现在级别 &ndash;&gt;-->
@@ -88,7 +88,7 @@
     <!--</logger>-->
 
     <!-- Root Logger -->
-    <!-- 所有logger的父类，记录所有的日志。 -->
+    <!-- �?有logger的父类，记录�?有的日志�? -->
     <root>
         <level value="ALL"></level>  <!-- 限定记录等级 -->
         <appender-ref ref="DEFAULT-APPENDER" />  <!-- 调用记录方式 -->

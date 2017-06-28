@@ -1,21 +1,22 @@
 package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.common.annotation.BaseService;
-import com.pbs.ams.common.base.BaseServiceImpl;
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
 import com.pbs.ams.web.mappers.AmsBrokerMapper;
-import com.pbs.ams.web.model.*;
+import com.pbs.ams.web.model.AmsBroker;
+import com.pbs.ams.web.model.AmsBrokerSnaps;
 import com.pbs.ams.web.service.AmsBrokerService;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 /**
  * AmsBrokerService实现
@@ -24,56 +25,75 @@ import java.lang.reflect.Method;
 @Service
 @Transactional
 @BaseService
-public class AmsBrokerServiceImpl extends BaseServiceImpl<AmsBroker, AmsBrokerExample> implements AmsBrokerService {
+public class AmsBrokerServiceImpl implements AmsBrokerService {
 
     private static Logger _log = LoggerFactory.getLogger(AmsBrokerServiceImpl.class);
 
-    @Autowired
     private AmsBrokerMapper amsBrokerMapper;
 
-    @Override
     public Object getMapper() { return amsBrokerMapper; }
 
 
-    @Override
     public int insertToSnaps(){
         return 1;
     }
 
-   /* *//**
+    /**
      * 添加经纪公司
-     *//*
-    @Override
+     */
     public int insertSelective(AmsBroker amsBroker){
         return amsBrokerMapper.insertSelective(amsBroker);
     }
 
-    *//**
+    /**
      * 查询列表
-     *//*
-    @Override
-    public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample){
-        return amsBrokerMapper.selectByExample(amsBrokerExample);
+     */
+    public List<AmsBroker> selectByExample(Map params){
+        return amsBrokerMapper.selectByExample(params);
     }
 
-    *//**
+    /**
      * 查询数量
-     *//*
-    @Override
-    public long countByExample(AmsBrokerExample amsBrokerExample){
-        return amsBrokerMapper.countByExample(amsBrokerExample);
+     */
+    public long countByExample(AmsBroker amsBroker){
+        return amsBrokerMapper.countByExample(amsBroker);
     }
 
-    *//**
+    /**
      * 修改
-     *//*
+     */
     public int updateByPrimaryKeySelective(AmsBroker amsBroker){
-        return amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            int result = 0;
+            //先查询本条记录
+            Long id = amsBroker.getBrokerId();
+            Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
+            AmsBroker ams = (AmsBroker) selectByPrimaryKey.invoke( getMapper(), id);
+            //将本条记录放在快照表中
+            if (ams != null) {//查到数据后再做新增和删除操作
+                AmsBrokerSnaps snaps = new AmsBrokerSnaps();
+                PropertyUtils.copyProperties(snaps, ams);
+                snaps.setSnapsTime(System.currentTimeMillis());
+                int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
+                if (insertResult == 0) {
+                    new RuntimeException();
+                }
+//                Method updateByPrimaryKeySelective =  getMapper().getClass().getDeclaredMethod("updateByPrimaryKeySelective", upmsCompany.getClass());
+//                result = Integer.parseInt(String.valueOf(updateByPrimaryKeySelective.invoke( getMapper(), upmsCompany)));
+                result = amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DynamicDataSource.clearDataSource();
+        return 0;
     }
 
     public AmsBroker selectByPrimaryKey(Long id){
         return amsBrokerMapper.selectByPrimaryKey(id);
-    }*/
+    }
 
     /**
      * 删除操作
@@ -120,42 +140,4 @@ public class AmsBrokerServiceImpl extends BaseServiceImpl<AmsBroker, AmsBrokerEx
         DynamicDataSource.clearDataSource();
         return 0;
     }
-
-    /**
-     * 修改
-     * @param
-     * @return
-     */
-
-    @Override
-    public int updateByPrimaryKeySelective(AmsBroker amsBroker) {
-        try {
-            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            int result = 0;
-            //先查询本条记录
-            Long id = amsBroker.getBrokerId();
-            Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
-            AmsBroker ams = (AmsBroker) selectByPrimaryKey.invoke( getMapper(), id);
-            //将本条记录放在快照表中
-            if (ams != null) {//查到数据后再做新增和删除操作
-                AmsBrokerSnaps snaps = new AmsBrokerSnaps();
-                PropertyUtils.copyProperties(snaps, ams);
-                snaps.setSnapsTime(System.currentTimeMillis());
-                int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
-                if (insertResult == 0) {
-                    new RuntimeException();
-                }
-//                Method updateByPrimaryKeySelective =  getMapper().getClass().getDeclaredMethod("updateByPrimaryKeySelective", upmsCompany.getClass());
-//                result = Integer.parseInt(String.valueOf(updateByPrimaryKeySelective.invoke( getMapper(), upmsCompany)));
-                result = amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
-            }
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DynamicDataSource.clearDataSource();
-        return 0;
-    }
-
-
 }

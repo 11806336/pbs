@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>证券账号管理页</title>
-    <link rel="import" href="../../../resources/inc/css_list.html">
+    <link rel="import" href="../../../resources/inc/css_list.jsp">
 </head>
 <body>
 <div id="main">
@@ -19,7 +19,7 @@
     </div>
     <table id="table"></table>
 </div>
-<link rel="import" href="../../../resources/inc/js_list.html">
+<link rel="import" href="../../../resources/inc/js_list.jsp">
 <script>
     var $table = $('#table');
     //列配置项
