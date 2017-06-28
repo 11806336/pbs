@@ -9,7 +9,7 @@ function sumFormatter(data) {
 var countdown = $(".countdown");
 var countText = countdown.find("em");
 var loading = countdown.find(".load").show();
-var url = "/manage/product/product.html";
+var url = "/manage/product/index.jsp";
 var timer = new Timer(url, 30);
 
 loading.hide();

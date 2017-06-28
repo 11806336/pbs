@@ -55,6 +55,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	public int deleteByPrimaryKey(Long id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+			Class x = id.getClass();
 			Method deleteByPrimaryKey =  getMapper().getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
 			Object result = deleteByPrimaryKey.invoke( getMapper(), id);
 			return Integer.parseInt(String.valueOf(result));
@@ -265,7 +266,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 				if (StringUtils.isBlank(idStr)) {
 					continue;
 				}
-				Integer id = Integer.parseInt(idStr);
+				Long id = Long.parseLong(idStr);
 				Method deleteByPrimaryKey =  getMapper().getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
 				Object result = deleteByPrimaryKey.invoke( getMapper(), id);
 				count += Integer.parseInt(String.valueOf(result));
