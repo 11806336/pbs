@@ -14,8 +14,6 @@
         <property name="endingDelimiter" value="`"/>
         <property name="package" value="com.pbs.ams.web.mappers"/>
 
-        <!-- 为生成的Java模型创建一个toString方法 -->
-        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
         <!-- 为生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
         <plugin type="com.pbs.ams.common.plugin.SerializablePlugin">
@@ -25,10 +23,8 @@
         <!-- 生成一个新的selectByExample方法，这个方法可以接收offset和limit参数，主要用来实现分页 -->
         <plugin type="com.pbs.ams.common.plugin.PaginationPlugin"/>
 
-        <!-- 生成一个向对应快照表中插入数据的方法
-        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin">
-
-        </plugin>-->
+        <!-- 生成一个向对应快照表中插入数据的方法-->
+        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin"/>
 
         <!-- 生成在XML中的<cache>元素 -->
         <plugin type="org.mybatis.generator.plugins.CachePlugin">
@@ -43,8 +39,6 @@
             -->
         </plugin>
 
-        <!-- Java模型生成equals和hashcode方法 -->
-        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <!-- 生成的代码注释 -->
         <commentGenerator type="com.pbs.ams.common.plugin.CommentGenerator">
@@ -59,15 +53,21 @@
                         password="Root123," />
 
         <!-- model生成 -->
-        <javaModelGenerator targetPackage="com.pbs.ams.web.model" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/java" />
+        <javaModelGenerator targetPackage="com.pbs.ams.web.model" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/java" />
 
-      <!-- MapperXML生成 -->
-        <sqlMapGenerator targetPackage="mappers" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/resources" />
+        <!-- MapperXML生成 -->
+        <sqlMapGenerator targetPackage="mappers" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/resources" />
 
-           <!-- Mapper接口生成 -->
-           <javaClientGenerator targetPackage="com.pbs.ams.web.mappers" targetProject="/C:/programs/Workspaces/latest/pbs-ams-management/src/main/java" type="XMLMAPPER" />
+        <!-- Mapper接口生成 -->
+        <javaClientGenerator targetPackage="com.pbs.ams.web.mappers" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
-                    <table tableName="ams_stock_account" domainObjectName=""/>
+                    <table tableName="ams_product" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_market" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_stock" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_stock_holding" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_stock_account" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_product_account" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_product_detail" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
             </context>
 </generatorConfiguration>

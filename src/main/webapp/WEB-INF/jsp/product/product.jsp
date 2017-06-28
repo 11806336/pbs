@@ -12,11 +12,11 @@
 <head>
     <meta charset="UTF-8">
     <title>产品管理</title>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/css/admin.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/css/admin.css" rel="stylesheet"/>
     <style>
         #searchDiv .countdown {
             display: inline-block;
@@ -58,16 +58,16 @@
     </div>
     <table id="table"></table>
 </div>
-<script src="${basePath}/resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/layer/js/layer.js"></script>
-<script src="${basePath}/resources/pbs-admin/js/public.js"></script>
-<script src="${basePath}/resources/pbs-admin/js/Timer.js"></script>
-<script src="${basePath}/resources/pbs-admin/js/Loader.js"></script>
+<script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="${basePath}/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="${basePath}/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="${basePath}/resources/plugins/select2/js/select2.min.js"></script>
+<script src="${basePath}/resources/plugins/layer/js/layer.js"></script>
+<script src="${basePath}/resources/js/public.js"></script>
+<script src="${basePath}/resources/js/Timer.js"></script>
+<script src="${basePath}/resources/js/Loader.js"></script>
 <script>
 
     var $table = $('#table');
