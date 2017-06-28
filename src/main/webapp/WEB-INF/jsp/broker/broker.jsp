@@ -11,13 +11,13 @@
 <head>
     <meta charset="UTF-8">
     <title>经纪公司</title>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="${basePath}/resources/pbs-admin/css/public.css">
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/layer/css/layer.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/css/public.css">
 </head>
 <body>
 <div id="content">
@@ -41,14 +41,14 @@
 <!--<div id="iframe">
     <iframe src="" frameborder="0"></iframe>
 </div>-->
-<script src="${basePath}/resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/layer/js/layer.js"></script>
-<script src="${basePath}/resources/pbs-admin/js/public.js"></script>
+<script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="${basePath}/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="${basePath}/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="${basePath}/resources/plugins/select2/js/select2.min.js"></script>
+<script src="${basePath}/resources/plugins/layer/js/layer.js"></script>
+<script src="${basePath}/resources/js/public.js"></script>
 <script>
     $("#tradePlatformSearch").select2();
     function panel(url,title) {//调用弹窗，需要传标题和url
@@ -106,7 +106,7 @@
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     //数据url
-    var url_json="${basePath}/manage/broker/list";//"${basePath}/resources/pbs-admin/data/broker.json";
+    var url_json="${basePath}/manage/broker/list";//"${basePath}/resources/data/broker.json";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='server';
     //指定主键列
