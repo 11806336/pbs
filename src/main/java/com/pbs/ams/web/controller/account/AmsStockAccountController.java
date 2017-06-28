@@ -101,7 +101,7 @@ public class AmsStockAccountController extends BaseController {
     @RequiresPermissions("upms:account:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
-        return "/account/create_company.jsp";
+        return "/jsp/account/create_account_base.jsp";
     }
 
     @ApiOperation(value = "新增账号")
