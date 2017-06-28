@@ -3,6 +3,7 @@ package com.pbs.ams.common.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.constant.GeneratorEnum;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -80,13 +81,6 @@ public class MybatisGeneratorUtil {
 		}
 
 		for (Map<String, String> lstTable : lstTables) {
-<<<<<<< HEAD
-			String tbName = lstTable.get("table_name");
-			String snaps = lstTable.get("snaps");
-			String model = StringUtil.lineToHump(tbName);
-			String service = servicePath + "/" + model + "Service.java";
-			String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
-=======
 			if (!"1".equals(lstTable.get("create_service"))){
 				continue;
 			}
@@ -94,7 +88,6 @@ public class MybatisGeneratorUtil {
 			String modelName = StringUtil.lineToHump(tbName);
 			String service = servicePath + "/" + modelName + "Service.java";
 			String serviceImpl = serviceImplPath + "/" + modelName + "ServiceImpl.java";
->>>>>>> cccc120e7658fc2e74a95c493e7a2a10d6d118a8
 			// 生成service
 			File serviceFile = new File(service);
 			if (!serviceFile.exists()) {
@@ -102,7 +95,6 @@ public class MybatisGeneratorUtil {
 				context.put("package_name", GeneratorEnum.PACKAGE_NAME.getValue());
 				context.put("model", modelName);
 				context.put("ctime", ctime);
-				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICE_VM.getValue(), service, context);
 				System.out.println(service);
 			}
@@ -114,7 +106,6 @@ public class MybatisGeneratorUtil {
 				context.put("model", modelName);
 				context.put("mapper", StringUtil.toLowerCaseFirstOne(modelName));
 				context.put("ctime", ctime);
-				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICEIMPL_VM.getValue(), serviceImpl, context);
 				System.out.println(serviceImpl);
 			}
@@ -124,18 +115,7 @@ public class MybatisGeneratorUtil {
 
 	/**
 	 * 走你
-<<<<<<< HEAD
-	 */
-	public static void main(String[] args) throws Exception {
-		List<Map<String, String>> lstTables = Lists.newArrayList();
-
-		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_platform");
-		map2.put("snaps","snaps");
-		lstTables.add(map2);
-=======
 	 * @create_service: 传参1则生成service 否则不生成
-	 * 生成完毕请注释掉所有map,以免不小心点到运行GG.
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
@@ -164,7 +144,6 @@ public class MybatisGeneratorUtil {
 //		map7.put("table_name","ams_product_detail");
 //		lstTables.add(map7);
 
->>>>>>> cccc120e7658fc2e74a95c493e7a2a10d6d118a8
 		MybatisGeneratorUtil.generator(lstTables);
 	}
 
