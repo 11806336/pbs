@@ -14,6 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>用户管理</title>
 	<jsp:include page="/resources/inc/head.jsp" flush="true"/>
+
 </head>
 <body>
 <div id="main">
@@ -27,7 +28,7 @@
 	</div>
 	<table id="table"></table>
 </div>
-<jsp:include page="/resources/inc/footer.jsp" flush="true"/>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
 var $table = $('#table');
 $(function() {

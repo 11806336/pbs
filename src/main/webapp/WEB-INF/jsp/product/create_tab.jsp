@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
+    <link rel="import" href="../../../resources/inc/css_list.html">
     <!--二级选项卡-->
     <link href="../../../resources/css/tab2.css" rel="stylesheet"/>
 </head>
@@ -48,7 +48,15 @@
         </div>
     </div>
 </section>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="../../../resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../../resources/plugins/device.min.js"></script>
+<script src="../../../resources/plugins/fullPage/jquery.fullPage.min.js"></script>
+<script src="../../../resources/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script src="../../../resources/plugins/jquery.cookie.js"></script>
 
-<link rel="import" href="../../../resources/inc/js_tab_list.html">
+<script src="../../../resources/js/admin.js"></script>
 </body>
 </html>

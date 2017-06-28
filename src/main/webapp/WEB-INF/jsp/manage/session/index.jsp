@@ -22,7 +22,7 @@
 	</div>
 	<table id="table"></table>
 </div>
-<jsp:include page="/resources/inc/footer.jsp" flush="true"/>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
 var $table = $('#table');
 $(function() {

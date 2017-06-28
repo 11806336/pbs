@@ -2,6 +2,9 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsProduct;
 
+import java.util.List;
+import java.util.Map;
+
 public interface AmsProductMapper {
     int deleteByPrimaryKey(Long productId);
 
@@ -14,4 +17,8 @@ public interface AmsProductMapper {
     int updateByPrimaryKeySelective(AmsProduct record);
 
     int updateByPrimaryKey(AmsProduct record);
+
+    List<Map> selectProductWithDetail(Map map);
+
+    int selectProductWithDetailCount(Map map);
 }
