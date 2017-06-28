@@ -132,6 +132,7 @@ public class ${model}ServiceImpl  implements ${model}Service {
         * MANDATORY:该方法只能在一个已存在的事务中执行.
         * @return
         */
+        @Override
         @Transactional(propagation = Propagation.MANDATORY)
         public int insertTo${model}Snaps() {
         try {
