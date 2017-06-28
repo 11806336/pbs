@@ -3,143 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <title>新建产品</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../../resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
 
-    <!--该页面 单独的css-->
-    <link href="../../../../resources/pbs-admin/css/create_broker.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../resources/css/common.css">
 </head>
 <body>
-<div id="content">
-    <div>
-        <div class="control-group">
-            <label for="productName" class="control-label"><em class="rqd">*</em>产品名称：</label>
-            <div class="controls">
-                <input type="text" id="productName" name="productName" value="" onblur="funBlur(this)" maxlength="25">
-                <span class="tipsError" >请输入产品名称</span>
-                <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="productType"><em class="rqd">*</em>产品类型：</label>
-            <input type="hidden" id="productType" name="productType" value="1">
-            <div class="controls">
-                <label class="radio inline" style="min-width:60px;">
-                    <input checked="checked" type="radio" name="types" value="1"> 普通基金
-                </label>
-                <label class="radio inline" style="min-width:60px;">
-                    <input type="radio" name="types" value="2"> 分级基金
-                </label>
-                <span class="tipsError" style="display: inline-block;top:4px;">保存后不可更改</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="productCode" class="control-label"><em class="rqd">*</em>产品代码：</label>
-            <div class="controls">
-                <input type="text" id="productCode" name="productCode" value="" onblur="funBlur(this)">
-                <span class="tipsError">请输入产品代码</span>
-                <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="productSupervisor" class="control-label">产品管理人：</label>
-            <div class="controls">
-                <input type="text" id="productSupervisor" name="productSupervisor" value="" onblur="funBlur(this)" maxlength="25">
-                <span class="tipsError">请输入产品管理人</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="productManager" class="control-label">产品经理：</label>
-            <div class="controls">
-                <input type="text" id="productManager" name="productManager" value="" onblur="funBlur(this)" maxlength="25">
-                <span class="tipsError">请输入产品经理</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="" class="control-label">产品起止日期：</label>
-            <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="setup_date" value="2017-06-14" id="setup_date" class="required">
-            <span for="night_startDate" class="error" style="display: none;"></span>
-            <span style="display: inline-block;margin:0 10px;">至</span>
-            <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="end_date" id="end_date" class="required" onblur="funBlur(this)">
-            <span class="tipsError">起始日期不能大于结束日期</span>
-            <span class="tipsError" style="display: inline-block;">(修改需重启服务生效)</span>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="productSharesSource">产品总份额来源：</label>
-            <input type="hidden" id="productSharesSource" name="productSharesSource" value="1">
-            <div class="controls">
-                <label class="radio inline" style="min-width:60px;">
-                    <input class="productSharesSource" checked="checked" type="radio" name="productSharesSource" value="1"> 自定义
-                </label>
-                <label class="radio inline" style="min-width:60px;">
-                    <input class="productSharesSource" type="radio" name="productSharesSource" value="2"> O32读取
-                </label>
-                <br>
-            </div>
-        </div>
+<div id="main">
 
-        <div class="control-group radioShow" id="custom" style="display: block;">
-            <label class="control-label" for="total_value">产品总份额：</label>
-            <input type="hidden" id="isNoHM" value="1">
-            <div class="controls">
-                <input type="text" name="total_value" value="0.000" id="total_value" class="" maxlength="17">
-                <span for="total_value" class="error" style="display: none;">小数位数不能超过 3 位!</span>
-                <span class="tipsError"></span>
-            </div>
+    <div class="control-group">
+        <label for="productName" class="control-label"><em class="rqd">*</em>产品名称：</label>
+        <div class="controls">
+            <input type="text" id="productName" name="productName" value="" onblur="funBlur(this)" maxlength="25">
+            <span class="tipsError">请输入产品名称</span>
+            <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
         </div>
-
-        <div class="control-group radioShow" id="read" style="display: none;">
-            <label class="control-label" for="fund_id">O32 ID：</label>
-            <input type="hidden" id="isNoHM" value="1">
-            <div class="controls">
-                <input type="text" name="fund_id" id="fund_id" class="" maxlength="10">
-                <span class="tipsError"></span>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="comments">备注：</label>
-            <div class="controls">
-                <textarea id="comments" style="width:440px;" rows="10" cols="40" name="comments"></textarea>
-                <span class="tips-warning"></span>
-                <span class="tipsError"></span>
-            </div>
-        </div>
-        <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </div>
+    <div class="control-group">
+        <label class="control-label" for="productType"><em class="rqd">*</em>产品类型：</label>
+        <input type="hidden" id="productType" name="productType" value="1">
+        <div class="controls">
+            <label class="radio inline" style="min-width:60px;">
+                <input checked="checked" type="radio" name="types" value="1"> 普通基金
+            </label>
+            <label class="radio inline" style="min-width:60px;">
+                <input type="radio" name="types" value="2"> 分级基金
+            </label>
+            <span class="tipsError" style="display: inline-block;top:4px;">保存后不可更改</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productCode" class="control-label"><em class="rqd">*</em>产品代码：</label>
+        <div class="controls">
+            <input type="text" id="productCode" name="productCode" value="" onblur="funBlur(this)">
+            <span class="tipsError">请输入产品代码</span>
+            <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productSupervisor" class="control-label">产品管理人：</label>
+        <div class="controls">
+            <input type="text" id="productSupervisor" name="productSupervisor" value="" onblur="funBlur(this)" maxlength="25">
+            <span class="tipsError">请输入产品管理人</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productManager" class="control-label">产品经理：</label>
+        <div class="controls">
+            <input type="text" id="productManager" name="productManager" value="" onblur="funBlur(this)" maxlength="25">
+            <span class="tipsError">请输入产品经理</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="" class="control-label">产品起止日期：</label>
+        <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="setup_date" value="2017-06-14" id="setup_date" class="required">
+        <span for="night_startDate" class="error" style="display: none;"></span>
+        <span style="display: inline-block;margin:0 10px;">至</span>
+        <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="end_date" id="end_date" class="required" onblur="funBlur(this)">
+        <span class="tipsError">起始日期不能大于结束日期</span>
+        <span class="tipsError" style="display: inline-block;">(修改需重启服务生效)</span>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="productSharesSource">产品总份额来源：</label>
+        <input type="hidden" id="productSharesSource" name="productSharesSource" value="1">
+        <div class="controls">
+            <label class="radio inline" style="min-width:60px;">
+                <input class="productSharesSource" checked="checked" type="radio" name="productSharesSource" value="1">
+                自定义
+            </label>
+            <label class="radio inline" style="min-width:60px;">
+                <input class="productSharesSource" type="radio" name="productSharesSource" value="2"> O32读取
+            </label>
+            <br>
+        </div>
+    </div>
+
+    <div class="control-group radioShow" id="custom" style="display: block;">
+        <label class="control-label" for="total_value">产品总份额：</label>
+        <input type="hidden" id="isNoHM" value="1">
+        <div class="controls">
+            <input type="text" name="total_value" value="0.000" id="total_value" class="" maxlength="17">
+            <span for="total_value" class="error" style="display: none;">小数位数不能超过 3 位!</span>
+            <span class="tipsError"></span>
+        </div>
+    </div>
+
+    <div class="control-group radioShow" id="read" style="display: none;">
+        <label class="control-label" for="fund_id">O32 ID：</label>
+        <input type="hidden" id="isNoHM" value="1">
+        <div class="controls">
+            <input type="text" name="fund_id" id="fund_id" class="" maxlength="10">
+            <span class="tipsError"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="comments">备注：</label>
+        <div class="controls">
+            <textarea id="comments" style="width:440px;" rows="10" cols="40" name="comments"></textarea>
+            <span class="tips-warning"></span>
+            <span class="tipsError"></span>
+        </div>
+    </div>
+    <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/My97DatePicker/WdatePicker.js"></script>
 <script>
     //提示
     function funBlur(obj) {
-        if(!$(obj).val()){
+        if (!$(obj).val()) {
             $(obj).next().show();
         }
     }
     //实时监控input框
-    $(document).on("input","#productName,#productCode,#productSupervisor,#productManager",function () {
-        if($(this).val()){
+    $(document).on("input", "input", function () {
+        if ($(this).val()) {
             $(this).next().hide();
-        }else {
+        } else {
             $(this).next().show();
         }
     });
     //单选按钮
-    $(document).on("change",".productSharesSource",function () {
-        var val=$("input[name='productSharesSource']:checked").val();
+    $(document).on("change", ".productSharesSource", function () {
+        var val = $("input[name='productSharesSource']:checked").val();
         $(".radioShow").hide();
-        if(val == 1){
+        if (val == 1) {
             $("#custom").show();
-        }else {
+        } else {
             $("#read").show();
         }
     });
-
 </script>
 </body>
 </html>

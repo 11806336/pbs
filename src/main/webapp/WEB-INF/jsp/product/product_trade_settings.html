@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>交易设置</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/easyUi/css/easyui.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/easyUi/css/icon.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="../../../resources/css/common.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../resources/plugins/layer/css/layer.css">
 
-    <!--该页面 单独的css-->
-    <link href="../../../../resources/pbs-admin/css/create_broker.css" rel="stylesheet"/>
-    <style>
-        .icon-sort-down:before            { content: "\f0dd"; }
-        .icon-sort-up:before              { content: "\f0de"; }
-    </style>
+    <!--选择时间-->
+    <link rel="stylesheet" href="../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
+    <!--加减按钮-->
+    <link rel="stylesheet" href="../../../resources/css/font_awesome.css">
 </head>
 <body>
-<div id="content">
-    <div>
+<div id="main">
         <div class="control-group">
             <div class="span7 block minw800" style="margin-left: 0;">
                 <a href="#stockClientRefreshInterval" class="block-heading collapsed" data-toggle="collapse">证券推送频率设置</a>
@@ -33,8 +30,8 @@
                                 <div class="control-group">
                                     <label class="control-label" for="account_hold_interval">帐号持仓：</label>
                                     <div class="controls controlsSet">
-                                        <input type="text" name="account_hold_interval" value="0" id="account_hold_interval" />
-                                        <div class="add-on">
+                                        <input type="text" name="account_hold_interval" value="0" id="account_hold_interval">
+                                        <div class="add-on" style="display: inline-block;">
                                             <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
                                             <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
                                         </div>
@@ -46,7 +43,7 @@
                                     <label class="control-label" for="trader_bid_interval">委托成交：</label>
                                     <div class="controls controlsSet">
                                         <input type="text" name="trader_bid_interval" value="0" id="trader_bid_interval" />
-                                        <div class="add-on">
+                                        <div class="add-on" style="display: inline-block;">
                                             <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
                                             <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
                                         </div>
@@ -58,7 +55,7 @@
                                     <label class="control-label" for="instruction_task_interval">指令任务：</label>
                                     <div class="controls controlsSet">
                                         <input type="text" name="instruction_task_interval" value="0" id="instruction_task_interval" />
-                                        <div class="add-on">
+                                        <div class="add-on" style="display: inline-block;">
                                             <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
                                             <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
                                         </div>
@@ -70,16 +67,17 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary" name="saveBtn" id="saveClientRefreshIntervalBtn" value=" 保存交易设置 "/>
+            <div style="clear: both;">
+                <input type="submit" class="btn btn-primary" name="saveBtn" id="saveClientRefreshIntervalBtn" value=" 保存交易设置 " style="clear: both;"/>
+            </div>
         </div>
-    </div>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
 <script>
     //下拉框选择
     $("#platform_add").select2({
@@ -104,7 +102,6 @@
         }
         $input.val(inputValue - 0.5)
     });
-
 </script>
 </body>
 </html>

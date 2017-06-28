@@ -5,7 +5,7 @@ import com.pbs.ams.web.model.AmsStockAccount;
 import com.pbs.ams.web.model.AmsStockAccountExample;
 
 /**
-* AmsStockAccountService接口
+ * 股票账号Service接口
 * Created by ams on 2017/6/27.
 */
 public interface AmsStockAccountService extends BaseService<AmsStockAccount, AmsStockAccountExample> {

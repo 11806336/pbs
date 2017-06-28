@@ -3,27 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>总览</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
 
-    <link href="../../../../resources/pbs-admin/css/public.css" rel="stylesheet">
+    <link rel="import" href="../css_list.html">
 </head>
 <body>
-<div id="content">
+<div id="main">
     <table id="accountOverviewTable"></table>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
 
+<link rel="import" href="../js_list.html">
 <script>
     //下拉框选择
     $("#platform_add").select2({
@@ -31,7 +19,7 @@
     });
 
     var $table = $('#accountOverviewTable');
-    var url_json = "../../../../resources/pbs-admin/data/product_account.json";
+    var url_json = "../../../resources/data/product_account.json";
 
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
@@ -52,37 +40,11 @@
 
     // 指定主键列
     var idField = 'accountId';
+    //右上角刷新搜索
+    var search = false;
+    var showRefresh = false;
+    var showColumns = false;
 
-    $(function() {
-        // bootstrap table初始化
-        $table.bootstrapTable({
-            url: url_json,
-            datatype: 'json',
-            height: getHeight(),
-            striped: true,
-            search: true,
-            showRefresh: false,
-            showColumns: false,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            detailView: false,
-            detailFormatter: 'detailFormatter',
-            pagination: true,
-            paginationLoop: false,
-            sidePagination: sidePagination,
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: idField,
-            maintainSelected: true,
-            toolbar: '#toolbar',
-            columns: dataColumns
-        });
-    });
-    function getHeight() {
-        return $(window).height() - 20;
-    }
 </script>
 </body>
 </html>

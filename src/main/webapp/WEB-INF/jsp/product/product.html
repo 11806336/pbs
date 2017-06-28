@@ -3,46 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>产品管理</title>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link href="../../../../resources/pbs-admin/css/public.css" rel="stylesheet"/>
-    <style>
-        #searchDiv .countdown {
-            display: inline-block;
-            margin-left: 15px;
-            color: #f00;
-            border: 1px solid #f00;
-            background-color: #ffeeee;
-            padding: 3px 10px;
-            vertical-align: middle;
-        }
-        /*#searchDiv .countdown.load{background: url("/media/modules/images/loading.gif") no-repeat scroll 3px 3px #ffeeee;padding-left: 26px;}*/
-        #searchDiv .countdown .load {
-            background: url("/images/loading.gif") no-repeat scroll 0 0 #ffeeee;
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            vertical-align: middle;
-            margin: -2px -3px 0 0;
-        }
-        #searchDiv .countdown em {
-            font-style: normal;
-        }
-    </style>
+
+    <link rel="import" href="../css_list.html">
 </head>
 <body>
-<div id="content">
+<div id="main">
     <div id="searchDiv">
         <div class="form-group">
-            <div class="countdown">
+            <div class="countdown" style="float:left;">
                 <span class="countText">距离前次更新</span>
                 <em></em>
                 <span class="load"></span>
             </div>
-            <div class="btn-panel">
+            <div class="btn-panel" style="float:left;">
                 <a class="btn icon-plus addstockcom btn-primary btnRefresh" href="#">立即更新</a>
                 <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="createProduct()">新建产品</a>
                 <a class="btn icon-plus addstockcom btn-primary btnExport" href="#">导出数据</a>
@@ -51,33 +24,17 @@
     </div>
     <table id="table"></table>
 </div>
-<script src="../../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="../../../../resources/pbs-admin/plugins/layer/js/layer.js"></script>
-<script src="../../../../resources/pbs-admin/js/public.js"></script>
-<script src="../../../../resources/pbs-admin/js/Timer.js"></script>
-<script src="../../../../resources/pbs-admin/js/Loader.js"></script>
+
+<link rel="import" href="../js_list.html">
+
+<script src="../../../resources/js/public.js"></script>
+<script src="../../../resources/js/Timer.js"></script>
+<script src="../../../resources/js/Loader.js"></script>
 
 <script>
-
-    function createProduct() {
-        layer.open({
-            type: 2,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: 'product_tabs.html'
-        });
-    }
-
     var $table = $('#table');
     //json数据
-    var url_json = "../../../../resources/pbs-admin/data/product.json";
-
+    var url_json = "../../../resources/data/product.json";
     var dataColumns =  [
         {field: 'ck', checkbox: true},
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
@@ -163,27 +120,6 @@
         $(_this).removeClass("disabled");
         loading.hide();
     });
-
-    function queryAction() {
-        layer.open({
-            type: 2,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: 'query_product_tabs.html'
-        });
-    }
-
-    function updateAction() {
-        layer.open({
-            type: 2,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: 'edit_product_tabs.html'
-        });
-    }
-
 </script>
 </body>
 </html>
