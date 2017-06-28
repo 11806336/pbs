@@ -1,6 +1,9 @@
 package com.pbs.ams.common.base;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.pbs.ams.common.util.PropertiesFileUtil;
+import org.apache.commons.beanutils.BeanMap;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.session.InvalidSessionException;
 import org.slf4j.Logger;
@@ -9,6 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 控制器基类
@@ -63,4 +69,28 @@ public abstract class BaseController {
 		return "/".concat(folder).concat(path).concat(".html");
 	}
 
+
+	public static Map<?, ?> objectToMap(Object obj) {
+		if(obj == null){
+			return null;
+		}
+		return new BeanMap(obj);
+	}
+
+	protected List<Map> convertMap(List lst,String child) {
+		List<Map> lstMap = Lists.newArrayList();
+		for (Object parent : lst) {
+			Map map1 = objectToMap(parent);
+			try {
+				Method method = parent.getClass().getDeclaredMethod("get"+child);
+				Object obj = method.invoke(parent);
+				Map map2 = objectToMap(obj);
+				map1.putAll(map2);
+				lstMap.add(map1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return lstMap;
+	}
 }

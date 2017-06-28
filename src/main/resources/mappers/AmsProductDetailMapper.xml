@@ -15,91 +15,11 @@
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List">
     product_id, company_id, product_net_value, net_asset_value, product_shares, stock_total_assets, 
     security_total_value, stock_total_value, short_total_value, create_time, update_time, 
     operator_id
   </sql>
-  <select id="selectByExample" parameterType="com.pbs.ams.web.model.AmsProductDetailExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from ams_product_detail
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -109,12 +29,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_product_detail
     where product_id = #{productId,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.AmsProductDetailExample">
-    delete from ams_product_detail
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductDetail">
     insert into ams_product_detail (product_id, company_id, product_net_value, 
@@ -207,74 +121,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pbs.ams.web.model.AmsProductDetailExample" resultType="java.lang.Long">
-    select count(*) from ams_product_detail
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update ams_product_detail
-    <set>
-      <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=BIGINT},
-      </if>
-      <if test="record.companyId != null">
-        company_id = #{record.companyId,jdbcType=BIGINT},
-      </if>
-      <if test="record.productNetValue != null">
-        product_net_value = #{record.productNetValue,jdbcType=DECIMAL},
-      </if>
-      <if test="record.netAssetValue != null">
-        net_asset_value = #{record.netAssetValue,jdbcType=DECIMAL},
-      </if>
-      <if test="record.productShares != null">
-        product_shares = #{record.productShares,jdbcType=INTEGER},
-      </if>
-      <if test="record.stockTotalAssets != null">
-        stock_total_assets = #{record.stockTotalAssets,jdbcType=DECIMAL},
-      </if>
-      <if test="record.securityTotalValue != null">
-        security_total_value = #{record.securityTotalValue,jdbcType=DECIMAL},
-      </if>
-      <if test="record.stockTotalValue != null">
-        stock_total_value = #{record.stockTotalValue,jdbcType=DECIMAL},
-      </if>
-      <if test="record.shortTotalValue != null">
-        short_total_value = #{record.shortTotalValue,jdbcType=DECIMAL},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.operatorId != null">
-        operator_id = #{record.operatorId,jdbcType=BIGINT},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update ams_product_detail
-    set product_id = #{record.productId,jdbcType=BIGINT},
-      company_id = #{record.companyId,jdbcType=BIGINT},
-      product_net_value = #{record.productNetValue,jdbcType=DECIMAL},
-      net_asset_value = #{record.netAssetValue,jdbcType=DECIMAL},
-      product_shares = #{record.productShares,jdbcType=INTEGER},
-      stock_total_assets = #{record.stockTotalAssets,jdbcType=DECIMAL},
-      security_total_value = #{record.securityTotalValue,jdbcType=DECIMAL},
-      stock_total_value = #{record.stockTotalValue,jdbcType=DECIMAL},
-      short_total_value = #{record.shortTotalValue,jdbcType=DECIMAL},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT},
-      operator_id = #{record.operatorId,jdbcType=BIGINT}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsProductDetail">
     update ams_product_detail
     <set>
@@ -329,7 +175,7 @@
       operator_id = #{operatorId,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
-  <insert id="insertIntoSnaps">
+  <insert id="insertIntoAmsProductDetailSnaps">
     insert into ams_product_detail_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product_detail as tb where product_id= #{product_id}
   </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />

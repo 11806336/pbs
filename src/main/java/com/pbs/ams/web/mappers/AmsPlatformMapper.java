@@ -1,31 +1,30 @@
 package com.pbs.ams.web.mappers;
 
-import com.pbs.ams.web.model.AmsMarket;
-import com.pbs.ams.web.model.AmsMarketExample;
+import com.pbs.ams.web.model.AmsPlatform;
+import com.pbs.ams.web.model.AmsPlatformExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface AmsPlatformMapper {
-    long countByExample(AmsMarketExample example);
+    long countByExample(AmsPlatformExample example);
 
-    int deleteByExample(AmsMarketExample example);
+    int deleteByExample(AmsPlatformExample example);
 
-    int deleteByPrimaryKey(Long marketId);
+    int deleteByPrimaryKey(Integer platformId);
 
-    int insert(AmsMarket record);
+    int insert(AmsPlatform record);
 
-    int insertSelective(AmsMarket record);
+    int insertSelective(AmsPlatform record);
 
-    List<AmsMarket> selectByExample(AmsMarketExample example);
+    List<AmsPlatform> selectByExample(AmsPlatformExample example);
 
-    AmsMarket selectByPrimaryKey(Long marketId);
+    AmsPlatform selectByPrimaryKey(Integer platformId);
 
-    int updateByExampleSelective(@Param("record") AmsMarket record, @Param("example") AmsMarketExample example);
+    int updateByExampleSelective(@Param("record") AmsPlatform record, @Param("example") AmsPlatformExample example);
 
-    int updateByExample(@Param("record") AmsMarket record, @Param("example") AmsMarketExample example);
+    int updateByExample(@Param("record") AmsPlatform record, @Param("example") AmsPlatformExample example);
 
-    int updateByPrimaryKeySelective(AmsMarket record);
+    int updateByPrimaryKeySelective(AmsPlatform record);
 
-    int updateByPrimaryKey(AmsMarket record);
+    int updateByPrimaryKey(AmsPlatform record);
 }

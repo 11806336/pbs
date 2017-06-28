@@ -14,8 +14,8 @@
         <property name="endingDelimiter" value="`"/>
         <property name="package" value="com.pbs.ams.web.mappers"/>
 
-        <!-- 为生成的Java模型创建一个toString方法 -->
-        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+##        <!-- 为生成的Java模型创建一个toString方法 -->
+##        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
         <!-- 为生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
         <plugin type="com.pbs.ams.common.plugin.SerializablePlugin">
@@ -41,8 +41,8 @@
             -->
         </plugin>
 
-        <!-- Java模型生成equals和hashcode方法 -->
-        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+##        <!-- Java模型生成equals和hashcode方法 -->
+##        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <!-- 生成的代码注释 -->
         <commentGenerator type="com.pbs.ams.common.plugin.CommentGenerator">
@@ -67,7 +67,7 @@
 
         <!-- 需要映射的表 -->
         #foreach($table in $listTables)
-            <table tableName="$!table.table_name" domainObjectName="$!table.model_name"/>
+            <table tableName="$!table.table_name" domainObjectName="$!table.model_name" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
         #end
     </context>
 </generatorConfiguration>
