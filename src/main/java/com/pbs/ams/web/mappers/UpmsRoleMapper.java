@@ -2,8 +2,9 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.UpmsRole;
 import com.pbs.ams.web.model.UpmsRoleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UpmsRoleMapper {
     long countByExample(UpmsRoleExample example);

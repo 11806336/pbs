@@ -2,10 +2,10 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanyExample;
-import java.util.List;
-
 import com.pbs.ams.web.model.UpmsCompanySnaps;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UpmsCompanyMapper {
 

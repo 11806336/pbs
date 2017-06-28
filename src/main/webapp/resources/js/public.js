@@ -87,6 +87,7 @@ function updateAction(url,title,id) {
 var deleteDialog;
 function deleteAction(url,ids) {
     var rows = $table.bootstrapTable('getSelections');
+    alert(rows);
     if (rows.length == 0) {
         $.confirm({
             title: false,
