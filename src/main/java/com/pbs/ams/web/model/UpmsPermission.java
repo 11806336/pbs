@@ -2,28 +2,27 @@ package com.pbs.ams.web.model;
 
 import java.io.Serializable;
 
-
 public class UpmsPermission implements Serializable {
     /**
      * 编号
      *
      * @mbg.generated
      */
-    private Integer permissionId;
+    private Long permissionId;
 
     /**
      * 所属系统
      *
      * @mbg.generated
      */
-    private Integer systemId;
+    private Long systemId;
 
     /**
      * 所属上级
      *
      * @mbg.generated
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 名称
@@ -83,27 +82,27 @@ public class UpmsPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getPermissionId() {
+    public Long getPermissionId() {
         return permissionId;
     }
 
-    public void setPermissionId(Integer permissionId) {
+    public void setPermissionId(Long permissionId) {
         this.permissionId = permissionId;
     }
 
-    public Integer getSystemId() {
+    public Long getSystemId() {
         return systemId;
     }
 
-    public void setSystemId(Integer systemId) {
+    public void setSystemId(Long systemId) {
         this.systemId = systemId;
     }
 
-    public Integer getPid() {
+    public Long getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(Long pid) {
         this.pid = pid;
     }
 

@@ -137,52 +137,52 @@ public class UpmsOrganizationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdEqualTo(Integer value) {
+        public Criteria andOrganizationIdEqualTo(Long value) {
             addCriterion("organization_id =", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdNotEqualTo(Integer value) {
+        public Criteria andOrganizationIdNotEqualTo(Long value) {
             addCriterion("organization_id <>", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdGreaterThan(Integer value) {
+        public Criteria andOrganizationIdGreaterThan(Long value) {
             addCriterion("organization_id >", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andOrganizationIdGreaterThanOrEqualTo(Long value) {
             addCriterion("organization_id >=", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdLessThan(Integer value) {
+        public Criteria andOrganizationIdLessThan(Long value) {
             addCriterion("organization_id <", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdLessThanOrEqualTo(Integer value) {
+        public Criteria andOrganizationIdLessThanOrEqualTo(Long value) {
             addCriterion("organization_id <=", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdIn(List<Integer> values) {
+        public Criteria andOrganizationIdIn(List<Long> values) {
             addCriterion("organization_id in", values, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdNotIn(List<Integer> values) {
+        public Criteria andOrganizationIdNotIn(List<Long> values) {
             addCriterion("organization_id not in", values, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdBetween(Integer value1, Integer value2) {
+        public Criteria andOrganizationIdBetween(Long value1, Long value2) {
             addCriterion("organization_id between", value1, value2, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andOrganizationIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andOrganizationIdNotBetween(Long value1, Long value2) {
             addCriterion("organization_id not between", value1, value2, "organizationId");
             return (Criteria) this;
         }
@@ -197,52 +197,52 @@ public class UpmsOrganizationExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andPidEqualTo(Integer value) {
+        public Criteria andPidEqualTo(Long value) {
             addCriterion("pid =", value, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidNotEqualTo(Integer value) {
+        public Criteria andPidNotEqualTo(Long value) {
             addCriterion("pid <>", value, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidGreaterThan(Integer value) {
+        public Criteria andPidGreaterThan(Long value) {
             addCriterion("pid >", value, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPidGreaterThanOrEqualTo(Long value) {
             addCriterion("pid >=", value, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidLessThan(Integer value) {
+        public Criteria andPidLessThan(Long value) {
             addCriterion("pid <", value, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidLessThanOrEqualTo(Integer value) {
+        public Criteria andPidLessThanOrEqualTo(Long value) {
             addCriterion("pid <=", value, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidIn(List<Integer> values) {
+        public Criteria andPidIn(List<Long> values) {
             addCriterion("pid in", values, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidNotIn(List<Integer> values) {
+        public Criteria andPidNotIn(List<Long> values) {
             addCriterion("pid not in", values, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidBetween(Integer value1, Integer value2) {
+        public Criteria andPidBetween(Long value1, Long value2) {
             addCriterion("pid between", value1, value2, "pid");
             return (Criteria) this;
         }
 
-        public Criteria andPidNotBetween(Integer value1, Integer value2) {
+        public Criteria andPidNotBetween(Long value1, Long value2) {
             addCriterion("pid not between", value1, value2, "pid");
             return (Criteria) this;
         }

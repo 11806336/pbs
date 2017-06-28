@@ -137,52 +137,52 @@ public class UpmsSystemExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdEqualTo(Integer value) {
+        public Criteria andSystemIdEqualTo(Long value) {
             addCriterion("system_id =", value, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdNotEqualTo(Integer value) {
+        public Criteria andSystemIdNotEqualTo(Long value) {
             addCriterion("system_id <>", value, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdGreaterThan(Integer value) {
+        public Criteria andSystemIdGreaterThan(Long value) {
             addCriterion("system_id >", value, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSystemIdGreaterThanOrEqualTo(Long value) {
             addCriterion("system_id >=", value, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdLessThan(Integer value) {
+        public Criteria andSystemIdLessThan(Long value) {
             addCriterion("system_id <", value, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdLessThanOrEqualTo(Integer value) {
+        public Criteria andSystemIdLessThanOrEqualTo(Long value) {
             addCriterion("system_id <=", value, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdIn(List<Integer> values) {
+        public Criteria andSystemIdIn(List<Long> values) {
             addCriterion("system_id in", values, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdNotIn(List<Integer> values) {
+        public Criteria andSystemIdNotIn(List<Long> values) {
             addCriterion("system_id not in", values, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdBetween(Integer value1, Integer value2) {
+        public Criteria andSystemIdBetween(Long value1, Long value2) {
             addCriterion("system_id between", value1, value2, "systemId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andSystemIdNotBetween(Long value1, Long value2) {
             addCriterion("system_id not between", value1, value2, "systemId");
             return (Criteria) this;
         }

@@ -8,45 +8,45 @@ public class UpmsRolePermission implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer rolePermissionId;
+    private Long rolePermissionId;
 
     /**
      * 角色编号
      *
      * @mbg.generated
      */
-    private Integer roleId;
+    private Long roleId;
 
     /**
      * 权限编号
      *
      * @mbg.generated
      */
-    private Integer permissionId;
+    private Long permissionId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getRolePermissionId() {
+    public Long getRolePermissionId() {
         return rolePermissionId;
     }
 
-    public void setRolePermissionId(Integer rolePermissionId) {
+    public void setRolePermissionId(Long rolePermissionId) {
         this.rolePermissionId = rolePermissionId;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getPermissionId() {
+    public Long getPermissionId() {
         return permissionId;
     }
 
-    public void setPermissionId(Integer permissionId) {
+    public void setPermissionId(Long permissionId) {
         this.permissionId = permissionId;
     }
 

@@ -8,14 +8,14 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockAccountId;
+    private Long stockAccountId;
 
     /**
      * 公司ID
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 账号类型
@@ -29,7 +29,7 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer stockAccount;
+    private Long stockAccount;
 
     /**
      * 证券账号名称
@@ -50,14 +50,14 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private String brokerId;
+    private Long brokerId;
 
     /**
      * 产品IDID
      *
      * @mbg.generated
      */
-    private String productId;
+    private Long productId;
 
     /**
      * 证券账号状态
@@ -85,23 +85,23 @@ public class AmsStockAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStockAccountId() {
+    public Long getStockAccountId() {
         return stockAccountId;
     }
 
-    public void setStockAccountId(Integer stockAccountId) {
+    public void setStockAccountId(Long stockAccountId) {
         this.stockAccountId = stockAccountId;
     }
 
-    public Integer getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -113,11 +113,11 @@ public class AmsStockAccount implements Serializable {
         this.stockAccountType = stockAccountType;
     }
 
-    public Integer getStockAccount() {
+    public Long getStockAccount() {
         return stockAccount;
     }
 
-    public void setStockAccount(Integer stockAccount) {
+    public void setStockAccount(Long stockAccount) {
         this.stockAccount = stockAccount;
     }
 
@@ -137,19 +137,19 @@ public class AmsStockAccount implements Serializable {
         this.stockAccountPassword = stockAccountPassword;
     }
 
-    public String getBrokerId() {
+    public Long getBrokerId() {
         return brokerId;
     }
 
-    public void setBrokerId(String brokerId) {
+    public void setBrokerId(Long brokerId) {
         this.brokerId = brokerId;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -177,11 +177,11 @@ public class AmsStockAccount implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 

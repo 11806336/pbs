@@ -4,6 +4,9 @@ import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -12,14 +15,16 @@ import java.util.List;
  * 实现BaseService抽象类
  * Created by ams on 2017/01/07.
  */
+@Service
+@Transactional(rollbackFor = Exception.class)
 public abstract class BaseServiceImpl< Record, Example> implements BaseService<Record, Example> {
-	
+
 
 	@Override
 	public long countByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
-			Method countByExample =  getMapper().getClass().getDeclaredMethod("countByExample", example.getClass());
+			Method countByExample =  getMapper().getClass().getSuperclass().getDeclaredMethod("countByExample", example.getClass());
 			Object result = countByExample.invoke( getMapper(), example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (Exception e) {
@@ -44,7 +49,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Integer id) {
+	public int deleteByPrimaryKey(Long id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
 			Method deleteByPrimaryKey =  getMapper().getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
@@ -103,7 +108,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	public List<Record> selectByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
-			Method selectByExample =  getMapper().getClass().getDeclaredMethod("selectByExample", example.getClass());
+			Method selectByExample = getMapper().getClass().getDeclaredMethod("selectByExample", example.getClass());
 			Object result = selectByExample.invoke( getMapper(), example);
 			return (List<Record>) result;
 		} catch (Exception e) {
@@ -146,7 +151,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 	}
 
 	@Override
-	public Record selectByPrimaryKey(Integer id) {
+	public Record selectByPrimaryKey(Long id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
 			Method selectByPrimaryKey =  getMapper().getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
@@ -245,6 +250,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 
 	@Override
 	public int deleteByPrimaryKeys(String ids) {
+
 		try {
 			if (StringUtils.isBlank(ids)) {
 				return 0;
@@ -269,17 +275,23 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 		return 0;
 	}
 
-//	@Override
-//	public void init getMapper()() {
-//		this. getMapper() = SpringContextUtil.getBean(get getMapper()Class());
-//	}
-//
-//	/**
-//	 * 获取类泛型class
-//	 * @return
-//	 */
-//	public Class< getMapper()> get getMapper()Class() {
-//		return (Class< getMapper()>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-//	}
+
+	/**
+	 * MANDATORY:该方法只能在一个已存在的事务中执行.
+	 * @return
+	 */
+	@Transactional(propagation = Propagation.MANDATORY)
+	public int insertToSnaps() {
+		try {
+			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+			Method insertSelective =  getMapper().getClass().getDeclaredMethod("insertSnaps");
+			Object result = insertSelective.invoke( getMapper());
+			return Integer.parseInt(String.valueOf(result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		DynamicDataSource.clearDataSource();
+		return 0;
+	}
 
 }

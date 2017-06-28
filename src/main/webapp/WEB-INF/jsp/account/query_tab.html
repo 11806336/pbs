@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="import" href="../css_list.html">
+    <!--二级选项卡-->
+    <link href="../../../resources/css/tab2.css" rel="stylesheet"/>
+</head>
+<body>
+<section style="height:100%;">
+    <div class="content_tab" style="background-color: #333;">
+        <div class="tab_left">
+            <a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-left"></i></a>
+        </div>
+        <div class="tab_right">
+            <a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-right"></i></a>
+        </div>
+        <ul id="tabs" class="tabs">
+            <!-- todo:li的id 和 data-index 和它对应的iframe 的值后半段一定要一样-->
+            <li id="tab_setAccountInfo" data-index="position" class="cur">
+                <a class="waves-effect waves-light">持仓</a>
+            </li>
+            <li id="tab_setWhiteBlackList" data-index="assets" class="">
+                <a class="waves-effect waves-light">资产</a>
+            </li>
+            <li id="tab_entrust" data-index="entrust" class="">
+                <a class="waves-effect waves-light">委托</a>
+            </li>
+            <li id="tab_success_bargain" data-index="success_bargain" class="">
+                <a class="waves-effect waves-light">成交</a>
+            </li>
+            <li id="tab_settlement_date" data-index="settlement_date" class="">
+                <a class="waves-effect waves-light">结算单</a>
+            </li>
+            <li id="tab_transfer_record" data-index="transfer_record" class="">
+                <a class="waves-effect waves-light">转账记录</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content_main">
+        <div id="iframe_position" class="iframe cur">
+            <iframe class="tab_iframe" src="query_position.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_assets" class="iframe">
+            <iframe class="tab_iframe" src="query_assets.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_entrust" class="iframe">
+            <iframe class="tab_iframe" src="query_entrust.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_success_bargain" class="iframe">
+            <iframe class="tab_iframe" src="query_success_bargain.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_settlement_date" class="iframe">
+            <iframe class="tab_iframe" src="query_settlement_date.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+        <div id="iframe_transfer_record" class="iframe">
+            <iframe class="tab_iframe" src="query_transfer_record.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        </div>
+    </div>
+</section>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="../../../resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../../resources/plugins/device.min.js"></script>
+<script src="../../../resources/plugins/fullPage/jquery.fullPage.min.js"></script>
+<script src="../../../resources/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script src="../../../resources/plugins/jquery.cookie.js"></script>
+
+<script src="../../../resources/js/admin.js"></script>
+</body>
+</html>

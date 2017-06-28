@@ -64,21 +64,25 @@ public class AmsBrokerController extends BaseController {
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
-            @RequestParam(required = false, value = "order") String order,
-            @RequestParam(required = false) Integer platformId) {
+            @RequestParam(required = false, value = "order") String order
+//            @RequestParam(required = false) Long platformId
+    ) {
         AmsBrokerExample amsBrokerExample = new AmsBrokerExample();
         amsBrokerExample.setOffset(offset);
         amsBrokerExample.setLimit(limit);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("offset", offset);
+        params.put("limit", limit);
         if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
             amsBrokerExample.setOrderByClause(sort + " " + order);
         }
         if (StringUtils.isNotBlank(search)) {
                 amsBrokerExample.or().andBrokerNameLike("%" + search + "%");
         }
-        if(platformId!=null){
+        /*if(platformId!=null){
             amsBrokerExample.or().andPlatformIdEqualTo(platformId);
 
-        }
+        }*/
         List<AmsBroker> rows = amsBrokerService.selectByExample(amsBrokerExample);
         long total = amsBrokerService.countByExample(amsBrokerExample);
         Map<String, Object> result = new HashMap<>();
@@ -86,7 +90,7 @@ public class AmsBrokerController extends BaseController {
         result.put("total", total);
         return result;
     }
-    @ApiOperation(value = "新增公司")
+    @ApiOperation(value = "新增券商")
     @RequiresPermissions("ams:broker:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
@@ -96,7 +100,7 @@ public class AmsBrokerController extends BaseController {
         return "/broker/create_broker.jsp";
     }
 
-    @ApiOperation(value = "新增公司")
+    @ApiOperation(value = "新增券商")
     @RequiresPermissions("ams:broker:create")
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
@@ -109,8 +113,7 @@ public class AmsBrokerController extends BaseController {
             return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
-        int a=(int) id;
-        amsBroker.setBrokerId(a);
+        amsBroker.setBrokerId(id);
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
         int count = amsBrokerService.insertSelective(amsBroker);
@@ -118,7 +121,7 @@ public class AmsBrokerController extends BaseController {
     }
 
 
-    @ApiOperation(value = "删除公司")
+    @ApiOperation(value = "删除券商")
     @RequiresPermissions("ams:broker:delete")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     @ResponseBody
@@ -127,24 +130,24 @@ public class AmsBrokerController extends BaseController {
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
-    @ApiOperation(value = "编辑公司")
+    @ApiOperation(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
-    public String update(@PathVariable("id") int id, ModelMap modelMap,HttpServletRequest request) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap,HttpServletRequest request) {
         AmsBroker amsBroker=amsBrokerService.selectByPrimaryKey(id);
         modelMap.put("amsBrokers",amsBroker);
         AmsPlatformExample amsPlatformExample = new AmsPlatformExample();
         List<AmsPlatform> amsPlatforms =amsPlatformService.selectByExample(amsPlatformExample);
         request.setAttribute("amsPlatforms",amsPlatforms);
-        return "/ams/broker/update_broker.jsp";
+        return "/broker/update_broker.jsp";
     }
 
 
-    @ApiOperation(value = "修改公司")
+    @ApiOperation(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @ResponseBody
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public Object update(@PathVariable("id") int id, AmsBroker amsBroker) {
+    public Object update(@PathVariable("id") long id, AmsBroker amsBroker) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
                 .doValidate()

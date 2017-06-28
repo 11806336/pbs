@@ -2,15 +2,16 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.UpmsLog;
 import com.pbs.ams.web.model.UpmsLogExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UpmsLogMapper {
     long countByExample(UpmsLogExample example);
 
     int deleteByExample(UpmsLogExample example);
 
-    int deleteByPrimaryKey(Integer logId);
+    int deleteByPrimaryKey(Long logId);
 
     int insert(UpmsLog record);
 
@@ -20,7 +21,7 @@ public interface UpmsLogMapper {
 
     List<UpmsLog> selectByExample(UpmsLogExample example);
 
-    UpmsLog selectByPrimaryKey(Integer logId);
+    UpmsLog selectByPrimaryKey(Long logId);
 
     int updateByExampleSelective(@Param("record") UpmsLog record, @Param("example") UpmsLogExample example);
 

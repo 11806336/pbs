@@ -137,52 +137,52 @@ public class UpmsUserRoleExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdEqualTo(Integer value) {
+        public Criteria andUserRoleIdEqualTo(Long value) {
             addCriterion("user_role_id =", value, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdNotEqualTo(Integer value) {
+        public Criteria andUserRoleIdNotEqualTo(Long value) {
             addCriterion("user_role_id <>", value, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdGreaterThan(Integer value) {
+        public Criteria andUserRoleIdGreaterThan(Long value) {
             addCriterion("user_role_id >", value, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserRoleIdGreaterThanOrEqualTo(Long value) {
             addCriterion("user_role_id >=", value, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdLessThan(Integer value) {
+        public Criteria andUserRoleIdLessThan(Long value) {
             addCriterion("user_role_id <", value, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdLessThanOrEqualTo(Integer value) {
+        public Criteria andUserRoleIdLessThanOrEqualTo(Long value) {
             addCriterion("user_role_id <=", value, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdIn(List<Integer> values) {
+        public Criteria andUserRoleIdIn(List<Long> values) {
             addCriterion("user_role_id in", values, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdNotIn(List<Integer> values) {
+        public Criteria andUserRoleIdNotIn(List<Long> values) {
             addCriterion("user_role_id not in", values, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdBetween(Integer value1, Integer value2) {
+        public Criteria andUserRoleIdBetween(Long value1, Long value2) {
             addCriterion("user_role_id between", value1, value2, "userRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserRoleIdNotBetween(Long value1, Long value2) {
             addCriterion("user_role_id not between", value1, value2, "userRoleId");
             return (Criteria) this;
         }
@@ -197,52 +197,52 @@ public class UpmsUserRoleExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
+        public Criteria andUserIdEqualTo(Long value) {
             addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
+        public Criteria andUserIdNotEqualTo(Long value) {
             addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
+        public Criteria andUserIdGreaterThan(Long value) {
             addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
             addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
+        public Criteria andUserIdLessThan(Long value) {
             addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
+        public Criteria andUserIdLessThanOrEqualTo(Long value) {
             addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
+        public Criteria andUserIdIn(List<Long> values) {
             addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
+        public Criteria andUserIdNotIn(List<Long> values) {
             addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
+        public Criteria andUserIdBetween(Long value1, Long value2) {
             addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserIdNotBetween(Long value1, Long value2) {
             addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -257,52 +257,52 @@ public class UpmsUserRoleExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdEqualTo(Integer value) {
+        public Criteria andRoleIdEqualTo(Long value) {
             addCriterion("role_id =", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotEqualTo(Integer value) {
+        public Criteria andRoleIdNotEqualTo(Long value) {
             addCriterion("role_id <>", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThan(Integer value) {
+        public Criteria andRoleIdGreaterThan(Long value) {
             addCriterion("role_id >", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andRoleIdGreaterThanOrEqualTo(Long value) {
             addCriterion("role_id >=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThan(Integer value) {
+        public Criteria andRoleIdLessThan(Long value) {
             addCriterion("role_id <", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThanOrEqualTo(Integer value) {
+        public Criteria andRoleIdLessThanOrEqualTo(Long value) {
             addCriterion("role_id <=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIn(List<Integer> values) {
+        public Criteria andRoleIdIn(List<Long> values) {
             addCriterion("role_id in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotIn(List<Integer> values) {
+        public Criteria andRoleIdNotIn(List<Long> values) {
             addCriterion("role_id not in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdBetween(Integer value1, Integer value2) {
+        public Criteria andRoleIdBetween(Long value1, Long value2) {
             addCriterion("role_id between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andRoleIdNotBetween(Long value1, Long value2) {
             addCriterion("role_id not between", value1, value2, "roleId");
             return (Criteria) this;
         }

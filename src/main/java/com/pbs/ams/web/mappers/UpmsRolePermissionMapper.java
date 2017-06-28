@@ -10,7 +10,7 @@ public interface UpmsRolePermissionMapper {
 
     int deleteByExample(UpmsRolePermissionExample example);
 
-    int deleteByPrimaryKey(Integer rolePermissionId);
+    int deleteByPrimaryKey(Long rolePermissionId);
 
     int insert(UpmsRolePermission record);
 
@@ -18,7 +18,7 @@ public interface UpmsRolePermissionMapper {
 
     List<UpmsRolePermission> selectByExample(UpmsRolePermissionExample example);
 
-    UpmsRolePermission selectByPrimaryKey(Integer rolePermissionId);
+    UpmsRolePermission selectByPrimaryKey(Long rolePermissionId);
 
     int updateByExampleSelective(@Param("record") UpmsRolePermission record, @Param("example") UpmsRolePermissionExample example);
 

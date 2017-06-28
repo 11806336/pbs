@@ -8,21 +8,21 @@ public class UpmsUserPermission implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer userPermissionId;
+    private Long userPermissionId;
 
     /**
      * 用户编号
      *
      * @mbg.generated
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 权限编号
      *
      * @mbg.generated
      */
-    private Integer permissionId;
+    private Long permissionId;
 
     /**
      * 权限类型(-1:减权限,1:增权限)
@@ -33,27 +33,27 @@ public class UpmsUserPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getUserPermissionId() {
+    public Long getUserPermissionId() {
         return userPermissionId;
     }
 
-    public void setUserPermissionId(Integer userPermissionId) {
+    public void setUserPermissionId(Long userPermissionId) {
         this.userPermissionId = userPermissionId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getPermissionId() {
+    public Long getPermissionId() {
         return permissionId;
     }
 
-    public void setPermissionId(Integer permissionId) {
+    public void setPermissionId(Long permissionId) {
         this.permissionId = permissionId;
     }
 

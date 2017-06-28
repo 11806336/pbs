@@ -6,9 +6,9 @@ import com.pbs.ams.web.model.AmsPlatform;
 import com.pbs.ams.web.model.AmsPlatformExample;
 
 /**
- * AmsPlatformService接口
- * Created by ams on 2017/6/22.
- */
+* com.ruixin:pbs-ams-management:war:1.0Service接口
+* Created by ams on 2017/6/22.
+*/
 public interface AmsPlatformService extends BaseService<AmsPlatform, AmsPlatformExample> {
 
     int insertToSnaps();

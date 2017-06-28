@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品管理</title>
+
+    <link rel="import" href="../css_list.html">
+</head>
+<body>
+<div id="main">
+    <div id="searchDiv">
+        <div class="form-group">
+            <div class="countdown" style="float:left;">
+                <span class="countText">距离前次更新</span>
+                <em></em>
+                <span class="load"></span>
+            </div>
+            <div class="btn-panel" style="float:left;">
+                <a class="btn icon-plus addstockcom btn-primary btnRefresh" href="#">立即更新</a>
+                <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="createProduct()">新建产品</a>
+                <a class="btn icon-plus addstockcom btn-primary btnExport" href="#">导出数据</a>
+            </div>
+        </div>
+    </div>
+    <table id="table"></table>
+</div>
+
+<link rel="import" href="../js_list.html">
+
+<script src="../../../resources/js/public.js"></script>
+<script src="../../../resources/js/Timer.js"></script>
+<script src="../../../resources/js/Loader.js"></script>
+
+<script>
+    var $table = $('#table');
+    //json数据
+    var url_json = "../../../resources/data/product.json";
+    var dataColumns =  [
+        {field: 'ck', checkbox: true},
+        {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
+        {field: 'productId', title: '产品ID', visible: false},
+        {field: 'productName', title: '产品名称'},
+        {field: 'productType', title: '产品类型'},
+        {field: 'productCode', title: '产品代码'},
+        {field: 'productManager', title: '产品经理'},
+        {field: 'productStatus', title: '产品状态'},
+        {field: 'productNetValue', title: '产品净值'},
+        {field: 'netAssetValue', title: '单位净值'},
+        {field: 'productShares', title: '产品份额'},
+        {field: 'stockTotalAssets', title: '证券总资产'},
+        {field: 'securityTotalValue', title: '证券总市值'},
+        {field: 'stockTotalValue', title: '股票总市值'},
+        {field: 'shortTotalValue', title: '空单总市值'},
+        {field: 'otherRights', title: '其他权益'},
+        {field: 'operator', title: '创建人'},
+        {field: 'createTime', title: '创建时间'},
+        {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
+    ];
+    // 设置分页
+    var sidePagination = 'client';
+
+    // 指定主键列
+    var idField = 'productId';
+    //右上角刷新搜索
+    var search=true;
+    var showRefresh=true;
+    var showColumns= true;
+    // 格式化操作按钮
+    function actionFormatter(value, row, index) {
+        var rows = $table.bootstrapTable('getSelections');
+        ids = new Array();
+        for (var i in rows) {
+            ids.push(rows[i].productId);
+        }
+
+        return [
+            '<a class="update" href="javascript:;" onclick="updateAction()" data-toggle="tooltip" title="Update" style="padding-right: 5px;"><i class="glyphicon glyphicon-edit"></i></a>',
+            '<a class="query" href="javascript:;" onclick="queryAction()" data-toggle="tooltip" title="Search"><i class="glyphicon glyphicon-search"></i></a>'
+        ].join('');
+    }
+    // 计算合计值
+    function sumFormatter(data) {
+        var field = this.field;
+        return data.reduce(function(sum, row) {
+            return sum + (+row[field]);
+        }, 0);
+    }
+    // 倒计时
+    var countdown = $(".countdown");
+    var countText = countdown.find("em");
+    var loading = countdown.find(".load").show();
+    var url = "/manage/product/product.html";
+    var timer = new Timer(url, 30);
+
+    loading.hide();
+    timer.start(function(count){
+        if (count >= timer.updateInterval && !Loader.loading && !Loader.localUpdate){
+            loading.show();
+            $(".btnRefresh").click();
+            timer.count = 0;
+        }
+        if (count >= 3600){
+            count = (Math.floor(count / 3600)) + "&nbsp;时...";
+        }else if(count >= 60){
+            count = (Math.floor(count / 60)) + "&nbsp;分...";
+        }else{
+            count += "&nbsp;秒";
+        }
+        countText.html(count);
+    });
+
+    //立即更新
+    $(".btnRefresh").click(function(){
+        var _this = this;
+        if ($(_this).hasClass("disabled")) return false;
+        $(_this).addClass("disabled");
+        loading.show();
+        timer.count = 0;
+        $table.bootstrapTable('refresh',{url: url_json});
+        $(_this).removeClass("disabled");
+        loading.hide();
+    });
+</script>
+</body>
+</html>

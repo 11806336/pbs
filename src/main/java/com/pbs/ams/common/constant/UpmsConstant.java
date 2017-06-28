@@ -1,12 +1,10 @@
 package com.pbs.ams.common.constant;
 
-import com.pbs.ams.common.base.BaseConstants;
-
 /**
  * upms系统常量类
  * Created by ams on 2017/2/18.
  */
-public class UpmsConstant extends BaseConstants {
+public class UpmsConstant {
 
     public static final String UPMS_TYPE = "upms.type";
 

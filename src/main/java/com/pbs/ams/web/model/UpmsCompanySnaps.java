@@ -4,11 +4,18 @@ import java.io.Serializable;
 
 public class UpmsCompanySnaps implements Serializable {
     /**
+     * 快照时间
+     *
+     * @mbg.generated
+     */
+    private Long snapsTime;
+
+    /**
      * 公司id
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 公司名称
@@ -22,14 +29,14 @@ public class UpmsCompanySnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     /**
      * 负责人ID
      *
      * @mbg.generated
      */
-    private Integer managerId;
+    private Long managerId;
 
     /**
      * 负责人电话
@@ -87,20 +94,21 @@ public class UpmsCompanySnaps implements Serializable {
      */
     private Long updateTime;
 
-    /**
-     * 快照时间
-     *
-     * @mbg.generated
-     */
-    private Long snapsTime;
-
     private static final long serialVersionUID = 1L;
 
-    public Integer getCompanyId() {
+    public Long getSnapsTime() {
+        return snapsTime;
+    }
+
+    public void setSnapsTime(Long snapsTime) {
+        this.snapsTime = snapsTime;
+    }
+
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -112,19 +120,19 @@ public class UpmsCompanySnaps implements Serializable {
         this.companyName = companyName;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 
-    public Integer getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Integer managerId) {
+    public void setManagerId(Long managerId) {
         this.managerId = managerId;
     }
 
@@ -192,20 +200,13 @@ public class UpmsCompanySnaps implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getSnapsTime() {
-        return snapsTime;
-    }
-
-    public void setSnapsTime(Long snapsTime) {
-        this.snapsTime = snapsTime;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", snapsTime=").append(snapsTime);
         sb.append(", companyId=").append(companyId);
         sb.append(", companyName=").append(companyName);
         sb.append(", operatorId=").append(operatorId);
@@ -218,7 +219,6 @@ public class UpmsCompanySnaps implements Serializable {
         sb.append(", description=").append(description);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", snapsTime=").append(snapsTime);
         sb.append("]");
         return sb.toString();
     }
@@ -235,7 +235,8 @@ public class UpmsCompanySnaps implements Serializable {
             return false;
         }
         UpmsCompanySnaps other = (UpmsCompanySnaps) that;
-        return (this.getCompanyId() == null ? other.getCompanyId() == null : this.getCompanyId().equals(other.getCompanyId()))
+        return (this.getSnapsTime() == null ? other.getSnapsTime() == null : this.getSnapsTime().equals(other.getSnapsTime()))
+            && (this.getCompanyId() == null ? other.getCompanyId() == null : this.getCompanyId().equals(other.getCompanyId()))
             && (this.getCompanyName() == null ? other.getCompanyName() == null : this.getCompanyName().equals(other.getCompanyName()))
             && (this.getOperatorId() == null ? other.getOperatorId() == null : this.getOperatorId().equals(other.getOperatorId()))
             && (this.getManagerId() == null ? other.getManagerId() == null : this.getManagerId().equals(other.getManagerId()))
@@ -246,14 +247,14 @@ public class UpmsCompanySnaps implements Serializable {
             && (this.getManagerEmail() == null ? other.getManagerEmail() == null : this.getManagerEmail().equals(other.getManagerEmail()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getSnapsTime() == null ? other.getSnapsTime() == null : this.getSnapsTime().equals(other.getSnapsTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getSnapsTime() == null) ? 0 : getSnapsTime().hashCode());
         result = prime * result + ((getCompanyId() == null) ? 0 : getCompanyId().hashCode());
         result = prime * result + ((getCompanyName() == null) ? 0 : getCompanyName().hashCode());
         result = prime * result + ((getOperatorId() == null) ? 0 : getOperatorId().hashCode());
@@ -266,7 +267,6 @@ public class UpmsCompanySnaps implements Serializable {
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getSnapsTime() == null) ? 0 : getSnapsTime().hashCode());
         return result;
     }
 }

@@ -26,9 +26,7 @@
         <plugin type="com.pbs.ams.common.plugin.PaginationPlugin"/>
 
         <!-- 生成一个向对应快照表中插入数据的方法-->
-        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin">
-
-        </plugin>
+        <plugin type="com.pbs.ams.common.plugin.AddMethodToMappXmlPlugin"/>
 
         <!-- 生成在XML中的<cache>元素 -->
         <plugin type="org.mybatis.generator.plugins.CachePlugin">

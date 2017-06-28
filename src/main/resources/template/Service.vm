@@ -10,7 +10,4 @@ import ${package_name}.model.${model}Example;
 */
 public interface ${model}Service extends BaseService<${model}, ${model}Example> {
 
-        #if($snaps == "snaps")
-            int insertToSnaps();
-        #end
 }
