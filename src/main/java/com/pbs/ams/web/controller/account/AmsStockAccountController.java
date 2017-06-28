@@ -10,6 +10,7 @@
 //import com.pbs.ams.common.util.IdGeneratorUtil;
 //import com.pbs.ams.common.validator.LengthValidator;
 //import com.pbs.ams.web.model.AmsStockAccount;
+//import com.pbs.ams.web.model.AmsStockAccountExample;
 //import com.pbs.ams.web.model.UpmsUser;
 //import com.pbs.ams.web.service.AmsStockAccountService;
 //import io.swagger.annotations.Api;
@@ -100,7 +101,7 @@
 //    @RequiresPermissions("upms:account:create")
 //    @RequestMapping(value = "/create", method = RequestMethod.GET)
 //    public String create() {
-//        return "/account/create_company.jsp";
+//        return "/jsp/account/create_account_base.jsp";
 //    }
 //
 //    @ApiOperation(value = "新增账号")

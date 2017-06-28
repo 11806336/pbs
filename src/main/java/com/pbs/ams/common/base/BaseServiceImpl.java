@@ -2,16 +2,13 @@ package com.pbs.ams.common.base;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
-import com.pbs.ams.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -24,7 +21,7 @@ public abstract class BaseServiceImpl< Record, Example> implements BaseService<R
 
 
 	@Override
-	public int countByExample(Example example) {
+	public long countByExample(Example example) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
 			Method countByExample =  getMapper().getClass().getDeclaredMethod("countByExample", example.getClass());

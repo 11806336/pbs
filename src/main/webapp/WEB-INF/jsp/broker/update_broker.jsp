@@ -11,27 +11,27 @@
 <head>
     <meta charset="UTF-8">
     <title>经纪公司</title>
-    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
 
-    <link rel="stylesheet" href="${basePath}/resources/css/create_broker.css">
-    <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
-    <script src="${basePath}/resources/plugins/select2/js/select2.min.js"></script>
-    <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
+    <link rel="stylesheet" href="${basePath}/resources/pbs-admin/css/create_broker.css">
+    <script src="${basePath}/resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
+    <script src="${basePath}/resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
+    <script src="${basePath}/resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <div id="content">
     <div>
-        <form id="addForm">
+        <form id="updateForm">
         <div class="control-group">
             <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
             <div class="controls">
                 <select name="platformId" id="platformId">
-                    <option value="0">---请选择---</option>
+                    <option value="">---请选择---</option>
                     <c:forEach var="platform" items="${amsPlatforms}">
                         <option value="${platform.platformId}">${platform.platformName}</option>
                     </c:forEach>
@@ -43,7 +43,7 @@
         <div class="control-group">
             <label for="brokerName" class="control-label"><em class="rqd">*</em>期货公司：</label>
             <div class="controls">
-                <input type="text" id="brokerName" name="brokerName" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <input type="text" id="brokerName" name="brokerName" value="${amsBrokers.brokerName}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入名称</span>
             </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="control-group">
             <label for="brokerAbbrName" class="control-label"><em class="rqd">*</em>缩写名称：</label>
             <div class="controls">
-                <input type="text" maxlength="8" id="brokerAbbrName" name="brokerAbbrName" onfocus="importName1(this)" onblur="importName2(this)"  value="">
+                <input type="text" maxlength="8" id="brokerAbbrName" name="brokerAbbrName" onfocus="importName1(this)" onblur="importName2(this)"  value="${amsBrokers.brokerId}">
                 <span class="tipsError">请输入缩写名称</span>
             </div>
         </div>
@@ -123,20 +123,20 @@
 
     //保存公司
     $(document).on("click","#saveBrokerBtn",function () {
-         $.ajax({
-         type: 'GET',
-         url: '${basePath}/manage/broker/save' ,
-         data:$('#addForm').serialize(),
-         success: function (data) {
-         console.info(data);
-         if (data.message == 'success') {
-         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-         parent.layer.close(index);
-         }
-         } ,
-         error: function () {
-         }
-         });
+        $.ajax({
+            type: 'POST',
+            url: '${basePath}/manage/broker/update/${amsBrokers.brokerId}',
+            data: $('#updateForm').serialize(),
+            success: function (data) {
+                console.info(data);
+                if (data.message == 'success') {
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                }
+            } ,
+            error: function () {
+            }
+        });
     });
 </script>
 </body>

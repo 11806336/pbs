@@ -33,6 +33,14 @@ public class AmsPlatformServiceImpl extends BaseServiceImpl<AmsPlatform, AmsPlat
     public int insertToSnaps(){
         return 1;
     }
-    
+
+    /**
+     * 查询平台列表
+     * @return list AmsPlatform
+     */
+/*    @Override
+    public  List<AmsPlatform> selectByExample(AmsPlatformExample amsPlatformExample){
+        return amsPlatformMapper.selectByExample(amsPlatformExample);
+    }*/
 
 }

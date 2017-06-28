@@ -2,7 +2,12 @@ package com.pbs.ams.web.model;
 
 import java.io.Serializable;
 
-public class AmsBroker implements Serializable {
+public class AmsBrokerSnaps implements Serializable {
+    /**
+     * 快照时间
+     *
+     * @mbg.generated
+     */
     /**
      * 经纪公司ID
      *
@@ -244,7 +249,7 @@ public class AmsBroker implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        AmsBroker other = (AmsBroker) that;
+        AmsBrokerSnaps other = (AmsBrokerSnaps) that;
         return (this.getBrokerId() == null ? other.getBrokerId() == null : this.getBrokerId().equals(other.getBrokerId()))
             && (this.getBrokerType() == null ? other.getBrokerType() == null : this.getBrokerType().equals(other.getBrokerType()))
             && (this.getPlatformId() == null ? other.getPlatformId() == null : this.getPlatformId().equals(other.getPlatformId()))

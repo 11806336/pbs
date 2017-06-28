@@ -1,14 +1,15 @@
 package com.pbs.ams.web.controller;
 
-import com.pbs.ams.common.base.BaseController;
-import com.pbs.ams.common.constant.UpmsEnum;
-import com.pbs.ams.common.util.RedisUtil;
 import com.pbs.ams.client.shiro.session.UpmsSession;
 import com.pbs.ams.client.shiro.session.UpmsSessionDao;
+import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.common.constant.UpmsEnum;
 import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.util.RedisUtil;
 import com.pbs.ams.web.model.UpmsSystemExample;
-import com.pbs.ams.web.service.*;
+import com.pbs.ams.web.service.UpmsSystemService;
+import com.pbs.ams.web.service.UpmsUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.BooleanUtils;
@@ -20,8 +21,6 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -64,7 +63,7 @@ public class SSOController extends BaseController {
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.createCriteria()
                 .andNameEqualTo(appid);
-        int count = upmsSystemService.countByExample(upmsSystemExample);
+        long count = upmsSystemService.countByExample(upmsSystemExample);
         if (0 == count) {
             throw new RuntimeException(String.format("未注册的系统:%s", appid));
         }
