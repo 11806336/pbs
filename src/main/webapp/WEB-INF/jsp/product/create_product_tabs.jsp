@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="../../../resources/pbs-admin/plugins/fullPage/jquery.fullPage.css" rel="stylesheet"/>
-    <link href="../../../resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/pbs-admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-    <link href="../../../resources/pbs-admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="../../../resources/pbs-admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    <link href="../../../resources/pbs-admin/css/admin.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/fullPage/jquery.fullPage.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="../../../resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <link href="../../../resources/css/admin.css" rel="stylesheet"/>
     <style>
         .content_tab>ul>li,
         .content_tab>ul>li>a{
@@ -59,15 +59,15 @@
         </div>
     </div>
 </section>
-<script src="../../../resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/waves-0.7.5/waves.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/device.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/fullPage/jquery.fullPage.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/fullPage/jquery.jdirk.min.js"></script>
-<script src="../../../resources/pbs-admin/plugins/jquery.cookie.js"></script>
+<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="../../../resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../../resources/plugins/device.min.js"></script>
+<script src="../../../resources/plugins/fullPage/jquery.fullPage.min.js"></script>
+<script src="../../../resources/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script src="../../../resources/plugins/jquery.cookie.js"></script>
 
-<script src="../../../resources/pbs-admin/js/admin.js"></script>
+<script src="../../../resources/js/admin.js"></script>
 </body>
 </html>
