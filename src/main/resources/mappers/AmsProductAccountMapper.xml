@@ -10,7 +10,7 @@
     product_account_id, product_id, stock_account_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from ams_product_account
     where product_account_id = #{productAccountId,jdbcType=BIGINT}
@@ -21,9 +21,9 @@
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductAccount">
     insert into ams_product_account (product_account_id, product_id, stock_account_id
-      )
+    )
     values (#{productAccountId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{stockAccountId,jdbcType=BIGINT}
-      )
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProductAccount">
     insert into ams_product_account
@@ -50,6 +50,8 @@
       </if>
     </trim>
   </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsProductAccount">
     update ams_product_account
     <set>

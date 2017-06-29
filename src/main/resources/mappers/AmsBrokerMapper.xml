@@ -3,9 +3,9 @@
 <mapper namespace="com.pbs.ams.web.mappers.AmsBrokerMapper">
 
     <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsBroker">
-        <id column="broker_id" jdbcType="INTEGER" property="brokerId"/>
+        <id column="broker_id" jdbcType="BIGINT" property="brokerId"/>
         <result column="broker_type" jdbcType="INTEGER" property="brokerType"/>
-        <result column="platform_id" jdbcType="INTEGER" property="platformId"/>
+        <result column="platform_id" jdbcType="BIGINT" property="platformId"/>
         <result column="broker_abbr_name" jdbcType="VARCHAR" property="brokerAbbrName"/>
         <result column="broker_logo" jdbcType="VARCHAR" property="brokerLogo"/>
         <result column="broker_name" jdbcType="VARCHAR" property="brokerName"/>
@@ -14,7 +14,7 @@
         <result column="day_end" jdbcType="BIGINT" property="dayEnd"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
-        <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
+        <result column="operator_id" jdbcType="BIGINT" property="operatorId"/>
     </resultMap>
 
     <resultMap type="com.pbs.ams.web.model.AmsBroker" id="BaseResultMapExtend" extends="BaseResultMap">
@@ -44,6 +44,12 @@
         p.platform_id,
         p.platform_name
         from ams_broker b left join ams_platform p on b.platform_id=p.platform_id
+        <where>
+          <if test="search!=null">
+            broker_name like CONCAT('%','${search}','%' )
+          </if>
+        </where>
+
         <if test="limit != null">
             <if test="offset != null">
                 limit ${offset}, ${limit}
@@ -53,15 +59,19 @@
             </if>
         </if>
     </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from ams_broker
-        where broker_id = #{brokerId,jdbcType=INTEGER}
+        where broker_id = #{brokerId,jdbcType=BIGINT}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_broker
     where broker_id = #{brokerId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.Long">
+    delete from ams_broker
+    where broker_id IN #{brokerId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.pbs.ams.web.model.AmsBrokerExample">
     delete from ams_broker
@@ -273,5 +283,85 @@
       operator_id = #{operatorId,jdbcType=BIGINT}
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </update>
+
+
+  <insert id="insertSnapshotSelective" parameterType="com.pbs.ams.web.model.AmsBrokerSnaps">
+    insert into ams_broker_snaps
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="brokerId != null">
+        broker_id,
+      </if>
+      <if test="brokerType != null">
+        broker_type,
+      </if>
+      <if test="platformId != null">
+        platform_id,
+      </if>
+      <if test="brokerAbbrName != null">
+        broker_abbr_name,
+      </if>
+      <if test="brokerLogo != null">
+        broker_logo,
+      </if>
+      <if test="brokerName != null">
+        broker_name,
+      </if>
+      <if test="creditable != null">
+        creditable,
+      </if>
+      <if test="dayBegin != null">
+        day_begin,
+      </if>
+      <if test="dayEnd != null">
+        day_end,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="snapsTime != null">
+        snaps_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="brokerId != null">
+        #{brokerId,jdbcType=BIGINT},
+      </if>
+      <if test="brokerType != null">
+        #{brokerType,jdbcType=VARCHAR},
+      </if>
+      <if test="platformId != null">
+        #{platformId,jdbcType=BIGINT},
+      </if>
+      <if test="brokerAbbrName != null">
+        #{brokerAbbrName,jdbcType=BIGINT},
+      </if>
+      <if test="brokerLogo != null">
+        #{brokerLogo,jdbcType=INTEGER},
+      </if>
+      <if test="brokerName != null">
+        #{brokerName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditable != null">
+        #{creditable,jdbcType=VARCHAR},
+      </if>
+      <if test="dayBegin != null">
+        #{dayBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="dayEnd != null">
+        #{dayEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+    </trim>
+  </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

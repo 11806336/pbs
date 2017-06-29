@@ -20,9 +20,9 @@
 <link href="${basePath}/resources/css/common.css" rel="stylesheet"/>
 
 <!--dialog样式-->
-<link rel="stylesheet" href="../plugins/layer/css/layer.css">
+<link rel="stylesheet" href="${basePath}/resources/plugins/layer/css/layer.css">
 
 <!--选择时间-->
-<link rel="stylesheet" href="../plugins/My97DatePicker/skin/WdatePicker.css">
+<link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
 
 

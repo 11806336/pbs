@@ -60,7 +60,12 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
     public long countByExample(AmsBroker amsBroker){
         return amsBrokerMapper.countByExample(amsBroker);
     }
-
+    /**
+     * 通过ID查询
+     */
+    public AmsBroker selectByPrimaryKey(Long id){
+        return amsBrokerMapper.selectByPrimaryKey(id);
+    }
     /**
      * 修改
      */
@@ -77,12 +82,10 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
                 AmsBrokerSnaps snaps = new AmsBrokerSnaps();
                 PropertyUtils.copyProperties(snaps, ams);
                 snaps.setSnapsTime(System.currentTimeMillis());
-                int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
-                if (insertResult == 0) {
-                    new RuntimeException();
+                    int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
+                    if (insertResult == 0) {
+                        new RuntimeException();
                 }
-//                Method updateByPrimaryKeySelective =  getMapper().getClass().getDeclaredMethod("updateByPrimaryKeySelective", upmsCompany.getClass());
-//                result = Integer.parseInt(String.valueOf(updateByPrimaryKeySelective.invoke( getMapper(), upmsCompany)));
                 result = amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
             }
             return result;
@@ -93,9 +96,6 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
         return 0;
     }
 
-    public AmsBroker selectByPrimaryKey(Long id){
-        return amsBrokerMapper.selectByPrimaryKey(id);
-    }
 
     /**
      * 删除操作
@@ -124,8 +124,6 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
                     AmsBrokerSnaps snaps = new AmsBrokerSnaps();
                     PropertyUtils.copyProperties(snaps, amsBroker);
                     snaps.setSnapsTime(System.currentTimeMillis());
-//                    Method insertSelective =  getMapper().getClass().getDeclaredMethod("insertSelective", snaps.getClass());
-//                    Object t = insertSelective.invoke( getMapper(), snaps);
                     int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
                     if (insertResult == 0) {
                         new RuntimeException();

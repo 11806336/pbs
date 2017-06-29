@@ -85,9 +85,10 @@ function updateAction(url,title,id) {
 }
 // 删除
 var deleteDialog;
-function deleteAction(url,ids) {
+function deleteAction(url,id) {
+    var ids = [];
+    ids.push(ids);
     var rows = $table.bootstrapTable('getSelections');
-    alert(ids[0]);
     if (rows.length == 0) {
         $.confirm({
             title: false,
@@ -112,6 +113,7 @@ function deleteAction(url,ids) {
                     text: '确认',
                     btnClass: 'waves-effect waves-button',
                     action: function () {
+
                         $.ajax({
                             type: 'get',
                             url: '${basePath}'+url+"/"+ ids.join("-"),  /*/manage/permission/delete*/

@@ -30,6 +30,9 @@ public interface AmsBrokerService{
     @Autowired
     public List<AmsBroker> selectByExample(Map<String, Object> params);
 
+
+    public AmsBroker selectByPrimaryKey(Long id);
+
     /**
      *
      * @param amsBroker    券商数量

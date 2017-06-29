@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +63,6 @@ public class AmsBrokerController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order
-//            @RequestParam(required = false) Long platformId
     ) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("offset", offset);
@@ -117,12 +117,12 @@ public class AmsBrokerController extends BaseController {
         int count=amsBrokerService.deleteByPrimaryKeys(ids);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
-/*
+
 
     @ApiOperation(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id, ModelMap modelMap,HttpServletRequest request) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap, HttpServletRequest request) {
         AmsBroker amsBroker=amsBrokerService.selectByPrimaryKey(id);
         modelMap.put("amsBrokers",amsBroker);
         AmsPlatformExample amsPlatformExample = new AmsPlatformExample();
@@ -130,7 +130,7 @@ public class AmsBrokerController extends BaseController {
         request.setAttribute("amsPlatforms",amsPlatforms);
         return "/broker/update_broker.jsp";
     }
-*/
+
 
 
     @ApiOperation(value = "编辑券商")

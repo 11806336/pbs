@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>经纪公司</title>
-    <jsp:include page="/resources/inc/css_list.jsp" flush="true"/>
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
     <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -21,7 +21,9 @@
             <label for="tradePlatformSearch">交易平台： </label>
             <select id="tradePlatformSearch" name="tradePlatformSearch" style="width:160px;">
                 <option value="0"> -- 全部平台 -- </option>
-                <option value="platform">${amsPlatforms}</option>
+                <c:forEach var="platform" items="${amsPlatforms}">
+                    <option value="${platform.platformId}">${platform.platformName}</option>
+                </c:forEach>
             </select>
             <div class="btn-panel" onclick="dialog('${basePath}/ams/broker/create','添加证券','')" style="display: inline-block;margin-left:20px;">
                 <a class="btn icon-plus addstockcom btn-primary" style="margin-bottom: 0;" >添加证券公司</a>
@@ -30,7 +32,7 @@
     </div>
     <table id="table"></table>
 </div>
-<jsp:include page="/resources/inc/js_list.jsp" flush="true"/>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
 
 
@@ -70,11 +72,10 @@
     // 格式化操作按钮
 
     function actionFormatter(value, row, index) {
-        var arr = [];
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.brokerId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
 
-            "<a class='selected' href='javascript:;' onclick=deleteAction('/ams/broker/delete/',"+arr.push(row.brokerId)+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+            "<a class='selected' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
 
         ].join('');
     }
@@ -99,7 +100,7 @@
     }
 */
 
-  /*  // 删除
+    // 删除
     var deleteDialog;
     function deleteAction() {
         var rows = $table.bootstrapTable('getSelections');
@@ -133,7 +134,7 @@
                             }
                             $.ajax({
                                 type: 'GET',
-                                url: '${basePath}/ams/broker/delete/' + ids.join("-"), /!*!/manage/permission/delete*!/
+                                url: '${basePath}/ams/broker/delete/' + ids.join("-"), /*/manage/permission/delete*/
                                 success: function(result) {
                                     if (result.code != 1) {
                                         if (result.data instanceof Array) {
@@ -197,7 +198,7 @@
                 }
             });
         }
-    }*/
+    }
 </script>
 </body>
 </html>
