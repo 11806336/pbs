@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
+    <jsp:include page="${basePath}/resources/inc/head.jsp" flush="true"/>
     <!--二级选项卡-->
-    <link href="../../../../resources/css/tab2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/css/tab2.css" rel="stylesheet"/>
 </head>
 <body>
 <section style="height:100%;">
@@ -30,13 +30,13 @@
     </div>
     <div class="content_main">
         <div id="iframe__manage_new_product" class="iframe cur">
-            <iframe class="tab_iframe" src="create_product.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="${basePath}/product/create/createProduct" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe__manage_setAccount_index" class="iframe">
-            <iframe class="tab_iframe" src="product_account_settings.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="${basePath}/account/create/accountSettings" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
     </div>
 </section>
-<jsp:include page="/resources/inc/tabJS.jsp" flush="true"/>
+<jsp:include page="${basePath}/resources/inc/tabJS.jsp" flush="true"/>
 </body>
 </html>

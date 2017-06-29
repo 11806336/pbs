@@ -8,15 +8,22 @@
     <result column="product_type" jdbcType="BIT" property="productType" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="product_manager" jdbcType="VARCHAR" property="productManager" />
+    <result column="product_supervisor" jdbcType="VARCHAR" property="productSupervisor" />
     <result column="product_status" jdbcType="BIT" property="productStatus" />
-    <result column="right_id" jdbcType="BIGINT" property="rightId" />
+    <result column="product_share_source" jdbcType="BIT" property="productShareSource" />
+    <result column="start_date" jdbcType="BIGINT" property="startDate" />
+    <result column="end_date" jdbcType="BIGINT" property="endDate" />
+    <result column="product_shares" jdbcType="INTEGER" property="productShares" />
+    <result column="product_desc" jdbcType="VARCHAR" property="productDesc" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="o32_id" jdbcType="BIGINT" property="o32Id" />
   </resultMap>
   <sql id="Base_Column_List">
-    product_id, company_id, product_name, product_type, product_code, product_manager, 
-    product_status, right_id, create_time, update_time, operator_id
+    product_id, company_id, product_name, product_type, product_code, product_manager, product_supervisor
+    product_status, product_share_source, start_date, end_date, product_shares, product_desc, 
+    create_time, update_time, operator_id ,o32_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -30,13 +37,18 @@
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProduct">
     insert into ams_product (product_id, company_id, product_name, 
-      product_type, product_code, product_manager, 
-      product_status, right_id, create_time, 
-      update_time, operator_id)
+      product_type, product_code, product_manager,product_supervisor
+      product_status, product_share_source, start_date, 
+      end_date, product_shares, product_desc, 
+      create_time, update_time, operator_id,o32_id
+      )
     values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, 
-      #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, #{productManager,jdbcType=VARCHAR}, 
-      #{productStatus,jdbcType=BIT}, #{rightId,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, 
-      #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
+      #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, #{productManager,jdbcType=VARCHAR},
+      #{productSupervisor,jdbcType=VARCHAR}, #{productStatus,jdbcType=BIT}, #{productShareSource,jdbcType=BIT},
+       #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productShares,jdbcType=INTEGER},
+        #{productDesc,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+         #{operatorId,jdbcType=BIGINT},#{o32Id,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProduct">
     insert into ams_product
@@ -59,11 +71,26 @@
       <if test="productManager != null">
         product_manager,
       </if>
+      <if test="productSupervisor != null">
+        product_supervisor,
+      </if>
       <if test="productStatus != null">
         product_status,
       </if>
-      <if test="rightId != null">
-        right_id,
+      <if test="productShareSource != null">
+        product_share_source,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="productShares != null">
+        product_shares,
+      </if>
+      <if test="productDesc != null">
+        product_desc,
       </if>
       <if test="createTime != null">
         create_time,
@@ -73,6 +100,9 @@
       </if>
       <if test="operatorId != null">
         operator_id,
+      </if>
+      <if test="o32Id != null">
+        o32_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -94,11 +124,26 @@
       <if test="productManager != null">
         #{productManager,jdbcType=VARCHAR},
       </if>
+      <if test="productSupervisor != null">
+        #{productSupervisor,jdbcType=VARCHAR},
+      </if>
       <if test="productStatus != null">
         #{productStatus,jdbcType=BIT},
       </if>
-      <if test="rightId != null">
-        #{rightId,jdbcType=BIGINT},
+      <if test="productShareSource != null">
+        #{productShareSource,jdbcType=BIT},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=BIGINT},
+      </if>
+      <if test="productShares != null">
+        #{productShares,jdbcType=INTEGER},
+      </if>
+      <if test="productDesc != null">
+        #{productDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=BIGINT},
@@ -108,6 +153,9 @@
       </if>
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="o32Id != null">
+        #{o32Id,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -129,11 +177,26 @@
       <if test="productManager != null">
         product_manager = #{productManager,jdbcType=VARCHAR},
       </if>
+      <if test="productSupervisor != null">
+        product_supervisor = #{productSupervisor,jdbcType=VARCHAR},
+      </if>
       <if test="productStatus != null">
         product_status = #{productStatus,jdbcType=BIT},
       </if>
-      <if test="rightId != null">
-        right_id = #{rightId,jdbcType=BIGINT},
+      <if test="productShareSource != null">
+        product_share_source = #{productShareSource,jdbcType=BIT},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=BIGINT},
+      </if>
+      <if test="productShares != null">
+        product_shares = #{productShares,jdbcType=INTEGER},
+      </if>
+      <if test="productDesc != null">
+        product_desc = #{productDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=BIGINT},
@@ -141,8 +204,8 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=BIGINT},
       </if>
-      <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=BIGINT},
+      <if test="o32Id != null">
+        o32_id = #{o32Id,jdbcType=BIGINT},
       </if>
     </set>
     where product_id = #{productId,jdbcType=BIGINT}
@@ -154,11 +217,17 @@
       product_type = #{productType,jdbcType=BIT},
       product_code = #{productCode,jdbcType=VARCHAR},
       product_manager = #{productManager,jdbcType=VARCHAR},
+      product_supervisor = #{productSupervisor,jdbcType=VARCHAR},
       product_status = #{productStatus,jdbcType=BIT},
-      right_id = #{rightId,jdbcType=BIGINT},
+      product_share_source = #{productShareSource,jdbcType=BIT},
+      start_date = #{startDate,jdbcType=BIGINT},
+      end_date = #{endDate,jdbcType=BIGINT},
+      product_shares = #{productShares,jdbcType=INTEGER},
+      product_desc = #{productDesc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       operator_id = #{operatorId,jdbcType=BIGINT}
+      o32_id = #{o32Id,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
   <insert id="insertIntoAmsProductSnaps">
@@ -167,11 +236,11 @@
 
   <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.Map">
     SELECT
-      ap.product_id,ap.product_name, ap.product_type, ap.product_code,
-      ap.product_manager,ap.product_status, ap.create_time,
+      ap.product_id,ap.product_name, ap.product_type, ap.product_code, ap.product_manager,ap.product_supervisor,
+      ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,ap.end_date,ap.product_shares,ap.product_desc,ap.o32_id
       uu.realname,
-      apd.product_net_value,apd.net_asset_value,apd.product_shares,apd.stock_total_assets,
-      apd.security_total_value,apd.stock_total_value,apd.short_total_value
+      apd.product_net_value, apd.net_asset_value, apd.stock_total_assets, apd.security_total_value,
+      apd.stock_total_value, apd.short_total_value
     FROM
       ams_product ap
     LEFT JOIN ams_product_detail apd ON ap.product_id = apd.product_id

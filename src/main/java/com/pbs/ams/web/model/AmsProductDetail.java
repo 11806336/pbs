@@ -33,13 +33,6 @@ public class AmsProductDetail implements Serializable {
     private BigDecimal netAssetValue;
 
     /**
-     * 产品份额
-     *
-     * @mbg.generated
-     */
-    private Integer productShares;
-
-    /**
      * 证券总资产
      *
      * @mbg.generated
@@ -120,14 +113,6 @@ public class AmsProductDetail implements Serializable {
 
     public void setNetAssetValue(BigDecimal netAssetValue) {
         this.netAssetValue = netAssetValue;
-    }
-
-    public Integer getProductShares() {
-        return productShares;
-    }
-
-    public void setProductShares(Integer productShares) {
-        this.productShares = productShares;
     }
 
     public BigDecimal getStockTotalAssets() {

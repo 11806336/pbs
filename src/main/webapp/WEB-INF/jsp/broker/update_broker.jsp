@@ -11,17 +11,17 @@
 <head>
     <meta charset="UTF-8">
     <title>经纪公司</title>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="${basePath}/resources/pbs-admin/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
 
-    <link rel="stylesheet" href="${basePath}/resources/pbs-admin/css/create_broker.css">
-    <script src="${basePath}/resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-    <script src="${basePath}/resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-    <script src="${basePath}/resources/pbs-admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <link rel="stylesheet" href="${basePath}/resources/css/create_broker.css">
+    <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
+    <script src="${basePath}/resources/plugins/select2/js/select2.min.js"></script>
+    <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <div id="content">
@@ -31,7 +31,6 @@
             <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
             <div class="controls">
                 <select name="platformId" id="platformId">
-                    <option value="">---请选择---</option>
                     <c:forEach var="platform" items="${amsPlatforms}">
                         <option value="${platform.platformId}">${platform.platformName}</option>
                     </c:forEach>
@@ -83,7 +82,6 @@
         </form>
     </div>
 </div>
-
 <script>
     //下拉框选择
     $("#platform_add").select2({

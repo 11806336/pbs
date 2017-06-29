@@ -8,7 +8,7 @@ public class AmsProductAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Long productAccountId;
+    private Long productTradeAccountId;
 
     /**
      * 产品ID
@@ -22,16 +22,16 @@ public class AmsProductAccount implements Serializable {
      *
      * @mbg.generated
      */
-    private Long stockAccountId;
+    private Long tradeAccountId;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getProductAccountId() {
-        return productAccountId;
+    public Long getProductTradeAccountId() {
+        return productTradeAccountId;
     }
 
-    public void setProductAccountId(Long productAccountId) {
-        this.productAccountId = productAccountId;
+    public void setProductTradeAccountId(Long productTradeAccountId) {
+        this.productTradeAccountId = productTradeAccountId;
     }
 
     public Long getProductId() {
@@ -42,11 +42,11 @@ public class AmsProductAccount implements Serializable {
         this.productId = productId;
     }
 
-    public Long getStockAccountId() {
-        return stockAccountId;
+    public Long getTradeAccountId() {
+        return tradeAccountId;
     }
 
-    public void setStockAccountId(Long stockAccountId) {
-        this.stockAccountId = stockAccountId;
+    public void setTradeAccountId(Long tradeAccountId) {
+        this.tradeAccountId = tradeAccountId;
     }
 }

@@ -3,6 +3,7 @@ package com.pbs.ams.common.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.constant.GeneratorEnum;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -94,7 +95,6 @@ public class MybatisGeneratorUtil {
 				context.put("package_name", GeneratorEnum.PACKAGE_NAME.getValue());
 				context.put("model", modelName);
 				context.put("ctime", ctime);
-//				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICE_VM.getValue(), service, context);
 				System.out.println(service);
 			}
@@ -106,7 +106,6 @@ public class MybatisGeneratorUtil {
 				context.put("model", modelName);
 				context.put("mapper", StringUtil.toLowerCaseFirstOne(modelName));
 				context.put("ctime", ctime);
-//				context.put("snaps", snaps);
 				VelocityUtil.generate(GeneratorEnum.SERVICEIMPL_VM.getValue(), serviceImpl, context);
 				System.out.println(serviceImpl);
 			}
@@ -116,14 +115,18 @@ public class MybatisGeneratorUtil {
 
 	/**
 	 * 走你
+	 * @create_service: 传参1则生成service 否则不生成
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 
-		Map<String, String> map2 = Maps.newHashMap();
-		map2.put("table_name","ams_platform");
-		map2.put("snaps","snaps");
-		lstTables.add(map2);
+		Map<String, String> map1 = Maps.newHashMap();
+		map1.put("table_name","ams_trade_account");
+		map1.put("create_service","1");
+		lstTables.add(map1);
+		Map<String, String> map7 = Maps.newHashMap();
+		map7.put("table_name","ams_product_account");
+		lstTables.add(map7);
 
 		MybatisGeneratorUtil.generator(lstTables);
 	}

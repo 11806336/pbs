@@ -2,8 +2,10 @@ package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
+import com.pbs.ams.web.mappers.AmsProductAccountMapper;
 import com.pbs.ams.web.mappers.AmsProductMapper;
 import com.pbs.ams.web.model.AmsProduct;
+import com.pbs.ams.web.model.AmsProductAccount;
 import com.pbs.ams.web.service.AmsProductService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -29,6 +31,8 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Autowired
     private AmsProductMapper amsProductMapper;
 
+    @Autowired
+    private AmsProductAccountMapper amsProductAccountMapper;
 
         @Override
         public int deleteByPrimaryKey(Long id) {
@@ -120,7 +124,7 @@ public class AmsProductServiceImpl  implements AmsProductService {
                         continue;
                     }
                     Long id = Long.parseLong(idStr);
-//                    count += amsStockAccountMapper.deleteByPrimaryKey(id);
+                    count += amsProductMapper.deleteByPrimaryKey(id);
                 }
                 return count;
                 } catch (Exception e) {
@@ -140,7 +144,7 @@ public class AmsProductServiceImpl  implements AmsProductService {
         public int insertToAmsProductSnaps() {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            //return amsProductMapper.insertToAmsProductSnaps();
+//            return amsProductMapper.insertToAmsProductSnaps();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -156,6 +160,11 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Override
     public int selectProductWithDetailCount(Map map){
         return amsProductMapper.selectProductWithDetailCount(map);
+    }
+
+    @Override
+    public int insertAmsProductAccount(AmsProductAccount amsProductAccount) {
+        return amsProductAccountMapper.insert(amsProductAccount);
     }
 
 }
