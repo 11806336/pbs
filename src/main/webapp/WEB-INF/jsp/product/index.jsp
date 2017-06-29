@@ -18,7 +18,7 @@
             </div>
             <div class="btn-panel" style="float:left;">
                 <a class="btn icon-plus addstockcom btn-primary btnRefresh" href="#">立即更新</a>
-                <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('/manage/product/create','新建产品')">新建产品</a>
+                <shiro:hasPermission name="ams:product:create"><a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('/product/create/tab','新建产品')">新建产品</a></shiro:hasPermission>
                 <a class="btn icon-plus addstockcom btn-primary btnExport" href="#">导出数据</a>
             </div>
         </div>

@@ -62,12 +62,7 @@
         <javaClientGenerator targetPackage="com.pbs.ams.web.mappers" targetProject="/Users/TiAmo/Workspaces/ZIZHOU/ams_work/pbs-ams-management/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
-                    <table tableName="ams_product" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
-                    <table tableName="ams_market" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
-                    <table tableName="ams_stock" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
-                    <table tableName="ams_stock_holding" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
-                    <table tableName="ams_stock_account" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+                    <table tableName="ams_trade_account" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
                     <table tableName="ams_product_account" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
-                    <table tableName="ams_product_detail" domainObjectName="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
             </context>
 </generatorConfiguration>

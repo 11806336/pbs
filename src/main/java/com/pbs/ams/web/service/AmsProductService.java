@@ -1,6 +1,7 @@
 package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsProduct;
+import com.pbs.ams.web.model.AmsProductAccount;
 
 import java.util.List;
 import java.util.Map;
@@ -40,4 +41,11 @@ public interface AmsProductService{
      * @return
      */
     int selectProductWithDetailCount(Map map);
+
+    /**
+     * This method is used to bind Account and Product
+     * @param amsProductAccount
+     * @return
+     */
+    int insertAmsProductAccount(AmsProductAccount amsProductAccount);
 }
