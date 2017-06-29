@@ -1,15 +1,17 @@
 package com.pbs.ams.web.mappers;
 
-import com.pbs.ams.web.model.*;
+import com.pbs.ams.web.model.AmsBroker;
+import com.pbs.ams.web.model.AmsBrokerSnaps;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AmsBrokerMapper  {
 
-    long countByExample(AmsBrokerExample example);
+    long countByExample(AmsBroker record);
 
-    int deleteByExample(AmsBrokerExample example);
+    int deleteByExample(AmsBroker record);
 
     int deleteByPrimaryKey(Long brokerId);
 
@@ -17,13 +19,13 @@ public interface AmsBrokerMapper  {
 
     int insertSelective(AmsBroker record);
 
-    List<AmsBroker> selectByExample(AmsBrokerExample example);
+    List<AmsBroker> selectByExample(Map params);
 
     AmsBroker selectByPrimaryKey(Long brokerId);
 
-    int updateByExampleSelective(@Param("record") AmsBroker record, @Param("example") AmsBrokerExample example);
+    int updateByExampleSelective(@Param("record") AmsBroker record);
 
-    int updateByExample(@Param("record") AmsBroker record, @Param("example") AmsBrokerExample example);
+    int updateByExample(@Param("record") AmsBroker record);
 
     int updateByPrimaryKeySelective(AmsBroker record);
 
