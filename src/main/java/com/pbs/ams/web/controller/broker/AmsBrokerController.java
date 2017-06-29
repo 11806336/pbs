@@ -70,21 +70,12 @@ public class AmsBrokerController extends BaseController {
         params.put("search",search);
         params.put("sort",sort);
         params.put("order",order);
-        /*if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            amsBroker.setOrderByClause(sort + " " + order);
-        }
-        if (StringUtils.isNotBlank(search)) {
-                amsBroker.andBrokerNameLike("%" + search + "%");
-        }*/
-        /*if(platformId!=null){
-            amsBrokerExample.or().andPlatformIdEqualTo(platformId);
-
-        }*/
         List<AmsBroker> rows = amsBrokerService.selectByExample(params);
- //       long total = amsBrokerService.countByExample(params);
+        AmsBroker amsBroker=new AmsBroker();
+        long total = amsBrokerService.countByExample(amsBroker);
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
-//        result.put("total", total);
+        result.put("total", total);
         return result;
     }
     @ApiOperation(value = "新增券商")

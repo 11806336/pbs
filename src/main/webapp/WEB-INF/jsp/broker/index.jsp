@@ -70,10 +70,11 @@
     // 格式化操作按钮
 
     function actionFormatter(value, row, index) {
+        var arr = [];
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.brokerId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
 
-            "<a class='selected' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+            "<a class='selected' href='javascript:;' onclick=deleteAction('/ams/broker/delete/',"+arr.push(row.brokerId)+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
 
         ].join('');
     }
@@ -98,7 +99,7 @@
     }
 */
 
-    // 删除
+  /*  // 删除
     var deleteDialog;
     function deleteAction() {
         var rows = $table.bootstrapTable('getSelections');
@@ -132,7 +133,7 @@
                             }
                             $.ajax({
                                 type: 'GET',
-                                url: '${basePath}/ams/broker/delete/' + ids.join("-"), /*/manage/permission/delete*/
+                                url: '${basePath}/ams/broker/delete/' + ids.join("-"), /!*!/manage/permission/delete*!/
                                 success: function(result) {
                                     if (result.code != 1) {
                                         if (result.data instanceof Array) {
@@ -196,7 +197,7 @@
                 }
             });
         }
-    }
+    }*/
 </script>
 </body>
 </html>

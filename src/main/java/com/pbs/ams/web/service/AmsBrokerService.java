@@ -28,7 +28,7 @@ public interface AmsBrokerService{
      * @return
      */
     @Autowired
-    public List<AmsBroker> selectByExample(Map params);
+    public List<AmsBroker> selectByExample(Map<String, Object> params);
 
     /**
      *

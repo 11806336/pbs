@@ -11,6 +11,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
 
     private static Logger _log = LoggerFactory.getLogger(AmsBrokerServiceImpl.class);
 
+    @Autowired
     private AmsBrokerMapper amsBrokerMapper;
 
     public Object getMapper() { return amsBrokerMapper; }
@@ -48,7 +50,7 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
     /**
      * 查询列表
      */
-    public List<AmsBroker> selectByExample(Map params){
+    public List<AmsBroker> selectByExample(Map<String, Object> params){
         return amsBrokerMapper.selectByExample(params);
     }
 

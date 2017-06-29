@@ -2,8 +2,6 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsMarket;
 
-
-
 public interface AmsMarketMapper {
     int deleteByPrimaryKey(Long marketId);
 

@@ -17,3 +17,11 @@
 <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
 <link href="${basePath}/resources/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
 <link href="${basePath}/resources/css/common.css" rel="stylesheet"/>
+
+<!--dialog样式-->
+<link rel="stylesheet" href="../plugins/layer/css/layer.css">
+
+<!--选择时间-->
+<link rel="stylesheet" href="../plugins/My97DatePicker/skin/WdatePicker.css">
+
+

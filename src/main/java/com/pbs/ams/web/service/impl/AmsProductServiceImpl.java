@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * AmsProductService实现
 * Created by ams on 2017/6/28.
@@ -132,6 +135,7 @@ public class AmsProductServiceImpl  implements AmsProductService {
         * MANDATORY:该方法只能在一个已存在的事务中执行.
         * @return
         */
+        @Override
         @Transactional(propagation = Propagation.MANDATORY)
         public int insertToAmsProductSnaps() {
         try {
@@ -143,5 +147,15 @@ public class AmsProductServiceImpl  implements AmsProductService {
             DynamicDataSource.clearDataSource();
             return 0;
         }
+
+    @Override
+    public List<Map> selectProductWithDetail(Map map){
+        return amsProductMapper.selectProductWithDetail(map);
+    }
+
+    @Override
+    public int selectProductWithDetailCount(Map map){
+        return amsProductMapper.selectProductWithDetailCount(map);
+    }
 
 }

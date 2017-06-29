@@ -5,8 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>产品管理</title>
-
-    <link rel="import" href="${basePath}/resources/inc/css_list.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
@@ -27,7 +26,7 @@
     <table id="table"></table>
 </div>
 
-<link rel="import" href="${basePath}/resources/inc/js_list.jsp">
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 
 <script src="${basePath}/resources/js/public.js"></script>
 <script src="${basePath}/resources/js/Timer.js"></script>
@@ -53,8 +52,7 @@
         {field: 'security_total_value', title: '证券总市值'},
         {field: 'stock_total_value', title: '股票总市值'},
         {field: 'short_total_value', title: '空单总市值'},
-        {field: 'other_rights', title: '其他权益'},
-        {field: 'operator_id', title: '创建人'},
+        {field: 'realname', title: '创建人'},
         {field: 'create_time', title: '创建时间'},
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
@@ -74,12 +72,10 @@
         for (var i in rows) {
             ids.push(rows[i].productId);
         }
-        function actionFormatter(value, row, index) {
-            return [
-                "<a class='selected' href='javascript:;' onclick=dialog('/manage/product/edit','编辑',"+row.productId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-                "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
-            ].join('');
-        }
+        return [
+            "<a class='selected' href='javascript:;' onclick=dialog('/manage/product/edit','编辑',"+row.productId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+        ].join('');
     }
 </script>
 </body>
