@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<<<<<<< HEAD
+<%@ include file="../base/tag.jsp" %>
+=======
 
+>>>>>>> refs/remotes/origin/master
 <!DOCTYPE html>
 <html lang="en">
 <head>

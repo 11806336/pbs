@@ -11,7 +11,6 @@ import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.UpmsCompany;
-import com.pbs.ams.web.model.UpmsCompanyExample;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
@@ -26,9 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 公司controller
@@ -46,7 +43,7 @@ public class UpmsCompanyController extends BaseController {
     @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "/company/company.jsp";
+        return "/company/index.jsp";
     }
 
     @ApiOperation(value = "公司列表")
@@ -66,22 +63,17 @@ public class UpmsCompanyController extends BaseController {
         if (obj != null) {
             upmsUser = (UpmsUser) session.getAttribute("user");
         }
-        UpmsCompanyExample upmsCompanyExample = new UpmsCompanyExample();
-        upmsCompanyExample.setOffset(offset);
-        upmsCompanyExample.setLimit(limit);
-        if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            upmsCompanyExample.setOrderByClause(sort + " " + order);
-        }
-        if (StringUtils.isNotBlank(search)) {//根据公司名称进行模糊查询
-            upmsCompanyExample.or().andCompanyNameLike("%" + search + "%");
-        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        params.put("companyName", search);//search暂时为公司名
         if (upmsUser != null) {
             if (!upmsUser.isSuperUser()) {//如果是超级管理员的话查询全部，否则带上公司进行查询
-                upmsCompanyExample.or().andCompanyIdEqualTo(upmsUser.getCompanyId());
+                params.put("companyId", upmsUser.getCompanyId());
             }
         }
-        List<UpmsCompany> rows = upmsCompanyService.selectByExample(upmsCompanyExample);
-        long total = upmsCompanyService.countByExample(upmsCompanyExample);
+        List<UpmsCompany> rows = upmsCompanyService.listCompanies(params);
+        long total = upmsCompanyService.countCompany(params);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", rows);
         result.put("total", total);
@@ -93,8 +85,16 @@ public class UpmsCompanyController extends BaseController {
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
-        int count = upmsCompanyService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if (StringUtils.isNotEmpty(ids)) {
+            String[] companyIds = ids.split(",");
+            List<Long> idList = new ArrayList<Long>();
+            for (String id : companyIds) {
+                idList.add(Long.parseLong(id));
+            }
+            int count = upmsCompanyService.deleteCompany(idList);
+            return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        }
+        return 0;
     }
 
 
@@ -121,7 +121,7 @@ public class UpmsCompanyController extends BaseController {
         upmsCompany.setCreateTime(time);
         Long id = IdGeneratorUtil.getKey("upms_company");
         upmsCompany.setCompanyId(id);//获取公司id
-        int count = upmsCompanyService.insertSelective(upmsCompany);
+        int count = upmsCompanyService.insertCompany(upmsCompany);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
@@ -130,7 +130,7 @@ public class UpmsCompanyController extends BaseController {
     @RequiresPermissions("upms:company:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
-        UpmsCompany company = upmsCompanyService.selectByPrimaryKey(id);
+        UpmsCompany company = upmsCompanyService.getCompany(id);
         modelMap.put("company", company);
         return "/company/update_company.jsp";
     }
@@ -149,7 +149,7 @@ public class UpmsCompanyController extends BaseController {
             return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
         upmsCompany.setCompanyId(id);
-        int count = upmsCompanyService.updateByPrimaryKeySelective(upmsCompany);
+        int count = upmsCompanyService.updateCompany(upmsCompany);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 }

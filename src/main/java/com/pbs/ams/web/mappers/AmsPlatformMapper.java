@@ -10,7 +10,7 @@ public interface AmsPlatformMapper {
 
     int deleteByExample(AmsPlatformExample example);
 
-    int deleteByPrimaryKey(Integer platformId);
+    int deleteByPrimaryKey(Long platformId);
 
     int insert(AmsPlatform record);
 
@@ -18,7 +18,7 @@ public interface AmsPlatformMapper {
 
     List<AmsPlatform> selectByExample(AmsPlatformExample example);
 
-    AmsPlatform selectByPrimaryKey(Integer platformId);
+    AmsPlatform selectByPrimaryKey(Long platformId);
 
     int updateByExampleSelective(@Param("record") AmsPlatform record, @Param("example") AmsPlatformExample example);
 

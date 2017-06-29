@@ -1,35 +1,68 @@
 package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.UpmsCompany;
-import com.pbs.ams.web.model.UpmsCompanyExample;
-import com.pbs.ams.web.model.UpmsCompanySnaps;
-import org.apache.ibatis.annotations.Param;
+import com.pbs.ams.web.model.UpmsCompanySnapshot;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * 基金公司mapper
+ */
 public interface UpmsCompanyMapper {
 
-    long countByExample(UpmsCompanyExample example);
+    /**
+     * 根据id删除批量公司
+     * @param ids 公司id
+     * @return
+     */
+    int deleteCompany(List<Long> ids);
 
-    int deleteByExample(UpmsCompanyExample example);
+    /**
+     * 根据id删除公司
+     * @param id 公司id
+     * @return
+     */
+    int deleteCompanyById(long id);
 
-    int deleteByPrimaryKey(Long companyId);
+    /**
+     * 新增公司
+     * @param company 公司实体
+     * @return
+     */
+    int insertCompany(UpmsCompany company);
 
-    int insert(UpmsCompany record);
+    /**
+     * 根据id查询单条记录
+     * @param id 公司id
+     * @return
+     */
+    UpmsCompany getCompany(Long id);
 
-    int insertSelective(UpmsCompany record);
+    /**
+     *更新公司
+     * @param company
+     * @return
+     */
+    int updateCompany(UpmsCompany company);
 
-    List<UpmsCompany> selectByExample(UpmsCompanyExample example);
+    /**
+     * 根据条件获取公司列表
+     * @return
+     */
+    List<UpmsCompany> listCompanies(Map<String, Object> params);
 
-    UpmsCompany selectByPrimaryKey(Long companyId);
+    /**
+     * 向快照表中插入数据
+     * @return
+     */
+    int insertSnapshot(UpmsCompanySnapshot snapshot);
 
-    int updateByExampleSelective(@Param("record") UpmsCompany record, @Param("example") UpmsCompanyExample example);
-
-    int updateByExample(@Param("record") UpmsCompany record, @Param("example") UpmsCompanyExample example);
-
-    int updateByPrimaryKeySelective(UpmsCompany record);
-
-    int updateByPrimaryKey(UpmsCompany record);
-
-    int insertSnapshotSelective(UpmsCompanySnaps upmsCompanySnaps);
+    /**
+     * 根据条件获取公司总数
+     * @param params
+     * @return
+     */
+    int countCompany(Map<String, Object> params);
 }

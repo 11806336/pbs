@@ -11,79 +11,33 @@
 <head>
     <meta charset="UTF-8">
     <title>经纪公司</title>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/pbs-admin/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="${basePath}/resources/pbs-admin/css/public.css">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body>
-<div id="content">
+<div id="main">
     <div id="searchDiv">
         <div class="form-group">
             <label for="tradePlatformSearch">交易平台： </label>
-            <select id="tradePlatformSearch" name="tradePlatformSearch" onchange="searchByPlatFormId();">
+            <select id="tradePlatformSearch" name="tradePlatformSearch" style="width:160px;">
                 <option value="0"> -- 全部平台 -- </option>
                 <c:forEach var="platform" items="${amsPlatforms}">
-                    <option value="${platform.platformId}" id="platformId">${platform.platformName}</option>
+                    <option value="${platform.platformId}">${platform.platformName}</option>
                 </c:forEach>
             </select>
-            <div class="btn-panel" onclick="createAction('${basePath}/ams/broker/create','添加证券')">
-                <a class="btn icon-plus addstockcom btn-primary" >添加证券公司</a>
+            <div class="btn-panel" onclick="dialog('${basePath}/ams/broker/create','添加证券','')" style="display: inline-block;margin-left:20px;">
+                <a class="btn icon-plus addstockcom btn-primary" style="margin-bottom: 0;" >添加证券公司</a>
             </div>
-        </div>
-        <div id="toolbar">
-            <shiro:hasPermission name="upms:organization:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction('${basePath}/ams/broker/create','添加证券')"><i class="zmdi zmdi-plus"></i> 新增公司</a></shiro:hasPermission>
-            <shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;" onclick=""><i class="zmdi zmdi-edit"></i> 编辑公司</a></shiro:hasPermission>
-            <shiro:hasPermission name="upms:organization:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除公司</a></shiro:hasPermission>
         </div>
     </div>
     <table id="table"></table>
 </div>
-<!--<div id="iframe">
-    <iframe src="" frameborder="0"></iframe>
-</div>-->
-<script src="${basePath}/resources/pbs-admin/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/select2/js/select2.min.js"></script>
-<script src="${basePath}/resources/pbs-admin/plugins/layer/js/layer.js"></script>
-<jsp:include page="/resources/inc/footer.jsp" flush="true"/>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
 
-    $("#tradePlatformSearch").select2();
+
     var $table = $('#table');
 
-    $(function() {
-        // bootstrap table初始化
-        $table.bootstrapTable({
-            url: '${basePath}/ams/broker/queryAmsBroker',
-            height: getHeight(),
-            striped: true,
-            search: true,
-            showRefresh: true,
-            showColumns: true,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            detailView: true,
-            detailFormatter: 'detailFormatter',
-            pagination: true,
-            paginationLoop: false,
-            sidePagination: 'server',
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: 'brokerId',
-            maintainSelected: true,
-            toolbar: '#toolbar',
-            columns:dataColumns,
-        });
-    });
     function searchByPlatFormId() {
         var a = $('#tradePlatformSearch option:selected') .val();
         $('#table').bootstrapTable(
@@ -95,32 +49,6 @@
     }
     function getHeight() {
         return $(window).height() - 20;
-    }
-
-    // 格式化图标
-    function iconFormatter(value, row, index) {
-        return '<i class="' + value + '"></i>';
-    }
-    // 格式化类型
-    function typeFormatter(value, row, index) {
-        if (value == 1) {
-            return '目录';
-        }
-        if (value == 2) {
-            return '菜单';
-        }
-        if (value == 3) {
-            return '按钮';
-        }
-        return '-';
-    }
-    // 格式化状态
-    function statusFormatter(value, row, index) {
-        if (value == 1) {
-            return '<span class="label label-success">正常</span>';
-        } else {
-            return '<span class="label label-default">锁定</span>';
-        }
     }
     //列配置项
     var dataColumns=[
@@ -145,27 +73,15 @@
 
     function actionFormatter(value, row, index) {
         return [
-            "<a class='selected' href='javascript:;' onclick=updateAction('/ams/broker/edit','编辑',"+row.brokerId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.brokerId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
 
             "<a class='selected' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
 
         ].join('');
     }
-    // 新增
-    var createAction;
-    function createAction(url,title) {//调用弹窗，需要传标题和url
-        layer.open({
-            type: 2,
-            title:title,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: url,
-            shadeClose:true,
-            moveOut:true
-        });
-    }
 
+
+/*
     var rows = $table.bootstrapTable('getSelections');
     // 编辑
     var updateAction;
@@ -182,6 +98,7 @@
             moveOut:true
         });
     }
+*/
 
     // 删除
     var deleteDialog;
