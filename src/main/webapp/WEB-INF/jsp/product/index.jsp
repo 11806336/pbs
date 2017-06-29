@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,13 +68,13 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         var rows = $table.bootstrapTable('getSelections');
-        ids = new Array();
+        var ids = [];
         for (var i in rows) {
             ids.push(rows[i].productId);
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/manage/product/edit','编辑',"+row.productId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+            "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
         ].join('');
     }
 </script>

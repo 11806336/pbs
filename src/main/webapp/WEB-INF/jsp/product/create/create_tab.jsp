@@ -1,12 +1,13 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
     <!--二级选项卡-->
-    <link href="../../../resources/css/tab2.css" rel="stylesheet"/>
+    <link href="../../../../resources/css/tab2.css" rel="stylesheet"/>
 </head>
 <body>
 <section style="height:100%;">
@@ -25,12 +26,6 @@
             <li id="tab__manage_setAccount_index" data-index="_manage_setAccount_index" class="">
                 <a class="waves-effect waves-light">账号设置</a>
             </li>
-            <li id="tab__manage_other_interests" data-index="_manage_other_interests" class="">
-                <a class="waves-effect waves-light">其他权益设置</a>
-            </li>
-            <li id="tab__manage_setTransaction" data-index="_manage_setTransaction" class="">
-                <a class="waves-effect waves-light">交易设置</a>
-            </li>
         </ul>
     </div>
     <div class="content_main">
@@ -40,15 +35,8 @@
         <div id="iframe__manage_setAccount_index" class="iframe">
             <iframe class="tab_iframe" src="product_account_settings.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
-        <div id="iframe__manage_other_interests" class="iframe">
-            <iframe class="tab_iframe" src="product_other_settings.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
-        </div>
-        <div id="iframe__manage_setTransaction" class="iframe">
-            <iframe class="tab_iframe" src="product_trade_settings.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
-        </div>
     </div>
 </section>
-
-<link rel="import" href="../../../resources/inc/js_tab_list.html">
+<jsp:include page="/resources/inc/tabJS.jsp" flush="true"/>
 </body>
 </html>
