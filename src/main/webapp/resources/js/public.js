@@ -58,6 +58,7 @@ function statusFormatter(value, row, index) {
 // 新增
 var createDialog;
 function createAction(url,title) {
+    //url地址，title标题
     createDialog = $.dialog({
         animationSpeed: 300,
         title: title,
@@ -70,7 +71,8 @@ function createAction(url,title) {
 }
 // 编辑
 var updateDialog;
-function updateAction(obj,url) {
+function updateAction(obj,url,idField) {
+    //obj ===this,url地址，idField主键
     var rows = $table.bootstrapTable('getSelections');
     //找到主键Id
     var Id=$(obj).parent().parent().find(".bs-checkbox ").find("input").val();
@@ -94,7 +96,7 @@ function updateAction(obj,url) {
             updateDialog = $.dialog({
                 animationSpeed: 300,
                 title: '编辑组织',
-                content: url + rows[0].organizationId,
+                content: url + rows[0][idField],
                 onContentReady: function () {
                     initMaterialInput();
                     $('select').select2();
@@ -119,16 +121,15 @@ function updateAction(obj,url) {
 }
 // 删除
 var deleteDialog;
-function deleteAction(obj,url,dField) {
-    // console.log(url);
-    // console.log(dField);
+function deleteAction(obj,url,idField) {
+    //obj ===this,url地址，idField主键
     var rows = $table.bootstrapTable('getSelections');
+    //Id主键
     var Id = $(obj).parent().parent().find(".bs-checkbox ").find("input").val();
-    // console.log(Id);
+    console.log(Id);
     var ids = new Array();//删除的数组
     //"判断单个删除还是批量删除
     var delete_type = $(obj).attr("data-deleteTpye");
-    console.log(delete_type);
     if(delete_type === "批量删除"){
         if (rows.length == 0) {
             $.confirm({
@@ -146,7 +147,7 @@ function deleteAction(obj,url,dField) {
             return false;
         }
         for (var i in rows) {
-            ids.push(rows[i][dField]);
+            ids.push(rows[i][idField]);
         }
     } else {
         ids.push(Id);
@@ -163,7 +164,7 @@ function deleteAction(obj,url,dField) {
                 action: function () {
                     $.ajax({
                         type: 'get',
-                        url:'${basePath}'+url+"/" + ids.join("-"),
+                        url:url+"/" + ids.join("-"),
                         success: function (result) {
                             if (result.code != 1) {
                                 if (result.data instanceof Array) {
@@ -227,8 +228,9 @@ function deleteAction(obj,url,dField) {
         }
     });
 }
-
-function dialog(url,title,id) {//调用弹窗，需要传标题和url
+//调用弹窗，需要传标题和url
+function dialog(url,title,id) {
+    //url地址，title标题，id~
     layer.open({
         type: 2,
         title:title,

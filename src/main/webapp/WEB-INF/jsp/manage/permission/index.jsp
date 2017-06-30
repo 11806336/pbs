@@ -19,7 +19,7 @@
 <div id="main">
 	<div id="toolbar">
 		<shiro:hasPermission name="upms:permission:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction('url:${basePath}/manage/permission/create','新增权限')"><i class="zmdi zmdi-plus"></i> 新增权限</a></shiro:hasPermission>
-		<shiro:hasPermission name="upms:permission:update"><a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="updateAction(this)"><i class="zmdi zmdi-edit"></i> 编辑权限</a></shiro:hasPermission>
+		<shiro:hasPermission name="upms:permission:update"><a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="updateAction(this,'url:${basePath}/manage/permission/update/','permissionId')"><i class="zmdi zmdi-edit"></i> 编辑权限</a></shiro:hasPermission>
 		<shiro:hasPermission name="upms:permission:delete"><a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'/manage/permission/delete','permissionId')"><i class="zmdi zmdi-close"></i> 删除权限</a></shiro:hasPermission>
 	</div>
 	<table id="table"></table>
@@ -55,60 +55,9 @@ var showColumns = true;
 // 格式化操作按钮
 function actionFormatter(value, row, index) {
     return [
-		'<a class="update" href="javascript:;" data-update="表格内" onclick="updateAction(this)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+		'<a class="update" href="javascript:;" data-update="表格内" onclick="updateAction(this,'+"'url:${basePath}/manage/permission/update/'"+",'permissionId'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
 		'<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'${basePath}/manage/permission/delete/'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
     ].join('');
-}
-
-// 编辑
-var updateDialog;
-function updateAction(obj) {
-	var rows = $table.bootstrapTable('getSelections');
-    //找到主键Id
-    var Id=$(obj).parent().parent().find(".bs-checkbox ").find("input").val();
-    var dataUpdate=$(obj).attr("data-update");
-    //判断是表格内行后面的按钮还是右上角的编辑文字
-    if(dataUpdate === "表格外"){
-        if (rows.length != 1) {
-            $.confirm({
-                title: false,
-                content: '请选择一条记录！',
-                autoClose: 'cancel|3000',
-                backgroundDismiss: true,
-                buttons: {
-                    cancel: {
-                        text: '取消',
-                        btnClass: 'waves-effect waves-button'
-                    }
-                }
-            });
-        } else {
-            updateDialog = $.dialog({
-                animationSpeed: 300,
-                title: '编辑权限',
-                content: 'url:${basePath}/manage/permission/update/' + rows[0].permissionId,
-                onContentReady: function () {
-                    initMaterialInput();
-                    $('select').select2();
-                    initType();
-                    initSelect2();
-                }
-            });
-        }
-	}else {
-        updateDialog = $.dialog({
-            animationSpeed: 300,
-            title: '编辑权限',
-            content: 'url:${basePath}/manage/permission/update/' + Id,
-            onContentReady: function () {
-                initMaterialInput();
-                $('select').select2();
-                initType();
-                initSelect2();
-            }
-        });
-	}
-
 }
 </script>
 </body>

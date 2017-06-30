@@ -19,9 +19,9 @@
 <body>
 <div id="main">
 	<div id="toolbar">
-		<shiro:hasPermission name="upms:user:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a></shiro:hasPermission>
-		<shiro:hasPermission name="upms:user:update"><a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a></shiro:hasPermission>
-		<shiro:hasPermission name="upms:user:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除用户</a></shiro:hasPermission>
+		<shiro:hasPermission name="upms:user:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction('url:${basePath}/manage/user/create','新增用户')"><i class="zmdi zmdi-plus"></i> 新增用户</a></shiro:hasPermission>
+		<shiro:hasPermission name="upms:user:update"><a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="updateAction(this,'url:${basePath}/manage/user/update/','userId')"><i class="zmdi zmdi-edit"></i> 编辑用户</a></shiro:hasPermission>
+		<shiro:hasPermission name="upms:user:delete"><a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/manage/user/delete/','userId')"><i class="zmdi zmdi-close"></i> 删除用户</a></shiro:hasPermission>
 		<shiro:hasPermission name="upms:user:organization"><a class="waves-effect waves-button" href="javascript:;" onclick="organizationAction()"><i class="zmdi zmdi-accounts-list"></i> 用户组织</a></shiro:hasPermission>
 		<shiro:hasPermission name="upms:user:role"><a class="waves-effect waves-button" href="javascript:;" onclick="roleAction()"><i class="zmdi zmdi-accounts"></i> 用户角色</a></shiro:hasPermission>
 		<shiro:hasPermission name="upms:user:permission"><a class="waves-effect waves-button" href="javascript:;" onclick="permissionAction()"><i class="zmdi zmdi-key"></i> 用户权限</a></shiro:hasPermission>
@@ -31,48 +31,34 @@
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
 var $table = $('#table');
-$(function() {
-	// bootstrap table初始化
-	$table.bootstrapTable({
-		url: '${basePath}/manage/user/list',
-		height: getHeight(),
-		striped: true,
-		search: true,
-		showRefresh: true,
-		showColumns: true,
-		minimumCountColumns: 2,
-		clickToSelect: true,
-		detailView: true,
-		detailFormatter: 'detailFormatter',
-		pagination: true,
-		paginationLoop: false,
-		sidePagination: 'server',
-		silentSort: false,
-		smartDisplay: false,
-		escape: true,
-		searchOnEnterKey: true,
-		idField: 'userId',
-		maintainSelected: true,
-		toolbar: '#toolbar',
-		columns: [
-			{field: 'ck', checkbox: true},
-			{field: 'userId', title: '编号', sortable: true, align: 'center'},
-            {field: 'username', title: '帐号'},
-			{field: 'realname', title: '姓名'},
-			{field: 'avatar', title: '头像', align: 'center', formatter: 'avatarFormatter'},
-			{field: 'phone', title: '电话'},
-			{field: 'email', title: '邮箱'},
-			{field: 'sex', title: '性别', formatter: 'sexFormatter'},
-			{field: 'locked', title: '状态', sortable: true, align: 'center', formatter: 'lockedFormatter'},
-			{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
-		]
-	});
-});
+//列配置项
+var dataColumns = [
+    {field: 'ck', checkbox: true},
+    {field: 'userId', title: '编号', sortable: true, align: 'center'},
+    {field: 'username', title: '帐号'},
+    {field: 'realname', title: '姓名'},
+    {field: 'avatar', title: '头像', align: 'center', formatter: 'avatarFormatter'},
+    {field: 'phone', title: '电话'},
+    {field: 'email', title: '邮箱'},
+    {field: 'sex', title: '性别', formatter: 'sexFormatter'},
+    {field: 'locked', title: '状态', sortable: true, align: 'center', formatter: 'lockedFormatter'},
+    {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
+];
+//数据url
+var url_json = '${basePath}/manage/user/list';
+//设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+var sidePagination = 'server';
+//指定主键列
+var idField = 'userId';
+//右上角刷新搜索
+var search = true;
+var showRefresh = true;
+var showColumns = true;
 // 格式化操作按钮
 function actionFormatter(value, row, index) {
     return [
-		'<a class="update" href="javascript:;" onclick="updateAction()" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-		'<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+		'<a class="update" href="javascript:;" onclick="updateAction(this,'+"'url:${basePath}/manage/user/update/'"+",'userId'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+		'<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'${basePath}/manage/user/delete/',"+"'userId'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
     ].join('');
 }
 // 格式化图标
@@ -95,145 +81,6 @@ function lockedFormatter(value, row, index) {
 		return '<span class="label label-default">锁定</span>';
 	} else {
 		return '<span class="label label-success">正常</span>';
-	}
-}
-// 新增
-var createDialog;
-function createAction() {
-	createDialog = $.dialog({
-		animationSpeed: 300,
-		title: '新增用户',
-		content: 'url:${basePath}/manage/user/create',
-		onContentReady: function () {
-			initMaterialInput();
-		}
-	});
-}
-// 编辑
-var updateDialog;
-function updateAction() {
-	var rows = $table.bootstrapTable('getSelections');
-	if (rows.length != 1) {
-		$.confirm({
-			title: false,
-			content: '请选择一条记录！',
-			autoClose: 'cancel|3000',
-			backgroundDismiss: true,
-			buttons: {
-				cancel: {
-					text: '取消',
-					btnClass: 'waves-effect waves-button'
-				}
-			}
-		});
-	} else {
-		updateDialog = $.dialog({
-			animationSpeed: 300,
-			title: '编辑用户',
-			content: 'url:${basePath}/manage/user/update/' + rows[0].userId,
-			onContentReady: function () {
-				initMaterialInput();
-			}
-		});
-	}
-}
-// 删除
-var deleteDialog;
-function deleteAction() {
-	var rows = $table.bootstrapTable('getSelections');
-	if (rows.length == 0) {
-		$.confirm({
-			title: false,
-			content: '请至少选择一条记录！',
-			autoClose: 'cancel|3000',
-			backgroundDismiss: true,
-			buttons: {
-				cancel: {
-					text: '取消',
-					btnClass: 'waves-effect waves-button'
-				}
-			}
-		});
-	} else {
-		deleteDialog = $.confirm({
-			type: 'red',
-			animationSpeed: 300,
-			title: false,
-			content: '确认删除该用户吗？',
-			buttons: {
-				confirm: {
-					text: '确认',
-					btnClass: 'waves-effect waves-button',
-					action: function () {
-						var ids = new Array();
-						for (var i in rows) {
-							ids.push(rows[i].userId);
-						}
-						$.ajax({
-							type: 'get',
-							url: '${basePath}/manage/user/delete/' + ids.join("-"),
-							success: function(result) {
-								if (result.code != 1) {
-									if (result.data instanceof Array) {
-										$.each(result.data, function(index, value) {
-											$.confirm({
-												theme: 'dark',
-												animation: 'rotateX',
-												closeAnimation: 'rotateX',
-												title: false,
-												content: value.errorMsg,
-												buttons: {
-													confirm: {
-														text: '确认',
-														btnClass: 'waves-effect waves-button waves-light'
-													}
-												}
-											});
-										});
-									} else {
-										$.confirm({
-											theme: 'dark',
-											animation: 'rotateX',
-											closeAnimation: 'rotateX',
-											title: false,
-											content: result.data.errorMsg,
-											buttons: {
-												confirm: {
-													text: '确认',
-													btnClass: 'waves-effect waves-button waves-light'
-												}
-											}
-										});
-									}
-								} else {
-									deleteDialog.close();
-									$table.bootstrapTable('refresh');
-								}
-							},
-							error: function(XMLHttpRequest, textStatus, errorThrown) {
-								$.confirm({
-									theme: 'dark',
-									animation: 'rotateX',
-									closeAnimation: 'rotateX',
-									title: false,
-									content: textStatus,
-									buttons: {
-										confirm: {
-											text: '确认',
-											btnClass: 'waves-effect waves-button waves-light'
-										}
-									}
-								});
-							}
-						});
-					}
-				},
-				cancel: {
-					text: '取消',
-					btnClass: 'waves-effect waves-button'
-				}
-			}
-		});
 	}
 }
 // 用户组织

@@ -19,8 +19,8 @@
 <div id="main">
 	<div id="toolbar">
 		<shiro:hasPermission name="upms:organization:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction('url:${basePath}/manage/organization/create','新增组织')"><i class="zmdi zmdi-plus"></i> 新增组织</a></shiro:hasPermission>
-		<shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="updateAction(this,'url:${basePath}/manage/organization/update/')"><i class="zmdi zmdi-edit"></i> 编辑组织</a></shiro:hasPermission>
-		<shiro:hasPermission name="upms:organization:delete"><a class="waves-effect waves-button" data-deleteTpye="批量删除" href="javascript:;" onclick="deleteAction(this,'/manage/organization/delete','organizationId')"><i class="zmdi zmdi-close"></i> 删除组织</a></shiro:hasPermission>
+		<shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="updateAction(this,'url:${basePath}/manage/organization/update/','organizationId')"><i class="zmdi zmdi-edit"></i> 编辑组织</a></shiro:hasPermission>
+		<shiro:hasPermission name="upms:organization:delete"><a class="waves-effect waves-button" data-deleteTpye="批量删除" href="javascript:;" onclick="deleteAction(this,'${basePath}/manage/organization/delete/','organizationId')"><i class="zmdi zmdi-close"></i> 删除组织</a></shiro:hasPermission>
 	</div>
 	<table id="table"></table>
 </div>
@@ -48,8 +48,8 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         return [
-            '<a class="update" href="javascript:;" data-update="表格内" onclick="updateAction(this,'+"'url:${basePath}/manage/organization/update/'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-            '<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'/manage/organization/delete'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+            '<a class="update" href="javascript:;" data-update="表格内" onclick="updateAction(this,'+"'url:${basePath}/manage/organization/update/',"+"''"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+            '<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'${basePath}/manage/organization/delete/',"+"'organizationId'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
     }
 </script>
