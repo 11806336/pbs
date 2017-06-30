@@ -1,30 +1,45 @@
 package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsPlatform;
-import com.pbs.ams.web.model.AmsPlatformExample;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 public interface AmsPlatformMapper {
-    long countByExample(AmsPlatformExample example);
+    int deleteByPrimaryKey(Long id);
 
-    int deleteByExample(AmsPlatformExample example);
-
-    int deleteByPrimaryKey(Long platformId);
+    int deleteByPrimaryKeys(String ids);
 
     int insert(AmsPlatform record);
 
     int insertSelective(AmsPlatform record);
 
-    List<AmsPlatform> selectByExample(AmsPlatformExample example);
+    AmsPlatform selectByPrimaryKey(Long id);
 
-    AmsPlatform selectByPrimaryKey(Long platformId);
-
-    int updateByExampleSelective(@Param("record") AmsPlatform record, @Param("example") AmsPlatformExample example);
-
-    int updateByExample(@Param("record") AmsPlatform record, @Param("example") AmsPlatformExample example);
+    int updateByPrimaryKey(AmsPlatform record);
 
     int updateByPrimaryKeySelective(AmsPlatform record);
 
-    int updateByPrimaryKey(AmsPlatform record);
+    int insertToAmsPlatformSnaps();
+
+    /**
+     * This method is used to get PageList data.
+     * @param map
+     * @return
+     */
+    List<Map> selectPlatformWithDetail(Map map);
+
+    /**
+     * This method is used to get PageListTotalSize
+     * @param map
+     * @return
+     */
+    int selectPlatformWithDetailCount(Map map);
+
+    /**
+     * This method is used to bind AmsPlatform and AmsBroker
+     * @param amsPlatform
+     * @return
+     */
+    //int insertAmsBroker(AmsPlatform amsPlatform);
 }

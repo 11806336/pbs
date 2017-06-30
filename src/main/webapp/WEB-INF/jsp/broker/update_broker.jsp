@@ -27,58 +27,61 @@
 <div id="content">
     <div>
         <form id="updateForm">
-        <div class="control-group">
-            <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
-            <div class="controls">
-                <select name="platformId" id="platformId">
-                    <c:forEach var="platform" items="${amsPlatforms}">
-                        <option value="${platform.platformId}">${platform.platformName}</option>
-                    </c:forEach>
-                </select>
-                <span for="platform_add" class="hint">请选择平台</span>
+            <div class="control-group">
+                <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
+                <div class="controls">
+                    <select name="platformId" id="platformId" >
+                        <c:forEach var="platform" items="${amsPlatforms}">
+                                <option value="${platform.platform_id}" <c:if test='${amsBrokers.platformId == platform.platform_id}'> selected='selected' </c:if>>
+                                        ${platform.platform_name}
+                                </option>
+                        </c:forEach>
+                    </select>
+                    <span for="platform_add" class="hint">请选择平台</span>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <label for="brokerName" class="control-label"><em class="rqd">*</em>期货公司：</label>
-            <div class="controls">
-                <input type="text" id="brokerName" name="brokerName" value="${amsBrokers.brokerName}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入名称</span>
+            <div class="control-group">
+                <label for="brokerName" class="control-label"><em class="rqd">*</em>期货公司：</label>
+                <div class="controls">
+                    <input type="text" id="brokerName" name="brokerName" value="${amsBrokers.brokerName}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+
+                    <span class="tipsError">请输入名称</span>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <label for="brokerAbbrName" class="control-label"><em class="rqd">*</em>缩写名称：</label>
-            <div class="controls">
-                <input type="text" maxlength="8" id="brokerAbbrName" name="brokerAbbrName" onfocus="importName1(this)" onblur="importName2(this)"  value="${amsBrokers.brokerId}">
-                <span class="tipsError">请输入缩写名称</span>
+            <div class="control-group">
+                <label for="brokerAbbrName" class="control-label"><em class="rqd">*</em>缩写名称：</label>
+                <div class="controls">
+                    <input type="text" maxlength="8" id="brokerAbbrName" name="brokerAbbrName" onfocus="importName1(this)" onblur="importName2(this)"  value="${amsBrokers.brokerId}">
+                    <span class="tipsError">请输入缩写名称</span>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <label for="verificationCode" class="control-label">客户端认证码：</label>
-            <div class="controls">
-                <input type="text" maxlength="20" id="verificationCode" name="verification" value="">
-                <span class="tipsError" style="display: none; padding-left: 10px">请输入长度不超过20位的数字串</span>
+            <div class="control-group">
+                <label for="verificationCode" class="control-label">客户端认证码：</label>
+                <div class="controls">
+                    <input type="text" maxlength="20" id="verificationCode" name="verification" value="">
+                    <span class="tipsError" style="display: none; padding-left: 10px">请输入长度不超过20位的数字串</span>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group ">
-            <label  class="control-label">日盘启动时间：</label>
-            <input type="text" name="day_begin" id="day_begin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
-            <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
-            <span for="day_endDate" class="error" style="display: none;"></span>
-        </div>
+            <div class="control-group ">
+                <label  class="control-label">日盘启动时间：</label>
+                <input type="text" name="day_begin" id="day_begin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+                <span style="display: inline-block;margin:0 10px;">至</span>
+                <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
+                <span for="day_endDate" class="error" style="display: none;"></span>
+            </div>
 
-        <div class="control-group">
-            <label  class="control-label">夜盘启动时间：</label>
-            <input type="text" name="night_startDate" id="night_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="20:00:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
-            <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="night_endDate" id="night_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="01:00:00" style="background-color: #fff;cursor:pointer">
-            <span for="night_endDate" class="error" style="display: none;"></span>
-        </div>
-        <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
+            <div class="control-group">
+                <label  class="control-label">夜盘启动时间：</label>
+                <input type="text" name="night_startDate" id="night_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="20:00:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+                <span style="display: inline-block;margin:0 10px;">至</span>
+                <input type="text" name="night_endDate" id="night_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="01:00:00" style="background-color: #fff;cursor:pointer">
+                <span for="night_endDate" class="error" style="display: none;"></span>
+            </div>
+            <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
         </form>
     </div>
 </div>
@@ -87,6 +90,7 @@
     $("#platform_add").select2({
         minimumResultsForSearch: -1
     });
+
     //选择交易平台，提示
     $(document).on("change","#platform_add",function () {
         if($(this).val()){

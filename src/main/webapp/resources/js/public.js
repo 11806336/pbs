@@ -85,9 +85,8 @@ function updateAction(url,title,id) {
 }
 // 删除
 var deleteDialog;
-function deleteAction(url,id) {
-    var ids = [];
-    ids.push(ids);
+function deleteAction(url,ids) {
+    alert(ids);
     var rows = $table.bootstrapTable('getSelections');
     if (rows.length == 0) {
         $.confirm({
@@ -116,7 +115,7 @@ function deleteAction(url,id) {
 
                         $.ajax({
                             type: 'get',
-                            url: '${basePath}'+url+"/"+ ids.join("-"),  /*/manage/permission/delete*/
+                            url: '${basePath}'+url+"/"+ ids,  /*/manage/permission/delete*/
                             success: function(result) {
                                 if (result.code != 1) {
                                     if (result.data instanceof Array) {

@@ -10,20 +10,20 @@
     product_trade_account_id, product_id, trade_account_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from ams_product_account
-    where product_trade_account_id = #{productTradeAccountId,jdbcType=LONG}
+    where product_trade_account_id = #{productTradeAccountId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_product_account
-    where product_trade_account_id = #{productTradeAccountId,jdbcType=LONG}
+    where product_trade_account_id = #{productTradeAccountId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductAccount">
-    insert into ams_product_account (product_trade_account_id, product_id, 
-      trade_account_id)
-    values (#{productTradeAccountId,jdbcType=LONG}, #{productId,jdbcType=LONG}, 
-      #{tradeAccountId,jdbcType=LONG})
+    insert into ams_product_account (product_trade_account_id, product_id,
+    trade_account_id)
+    values (#{productTradeAccountId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
+    #{tradeAccountId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProductAccount">
     insert into ams_product_account
@@ -40,13 +40,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="productTradeAccountId != null">
-        #{productTradeAccountId,jdbcType=LONG},
+        #{productTradeAccountId,jdbcType=BIGINT},
       </if>
       <if test="productId != null">
-        #{productId,jdbcType=LONG},
+        #{productId,jdbcType=BIGINT},
       </if>
       <if test="tradeAccountId != null">
-        #{tradeAccountId,jdbcType=LONG},
+        #{tradeAccountId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -54,19 +54,19 @@
     update ams_product_account
     <set>
       <if test="productId != null">
-        product_id = #{productId,jdbcType=LONG},
+        product_id = #{productId,jdbcType=BIGINT},
       </if>
       <if test="tradeAccountId != null">
-        trade_account_id = #{tradeAccountId,jdbcType=LONG},
+        trade_account_id = #{tradeAccountId,jdbcType=BIGINT},
       </if>
     </set>
-    where product_trade_account_id = #{productTradeAccountId,jdbcType=LONG}
+    where product_trade_account_id = #{productTradeAccountId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsProductAccount">
     update ams_product_account
-    set product_id = #{productId,jdbcType=LONG},
-      trade_account_id = #{tradeAccountId,jdbcType=LONG}
-    where product_trade_account_id = #{productTradeAccountId,jdbcType=LONG}
+    set product_id = #{productId,jdbcType=BIGINT},
+      trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
+    where product_trade_account_id = #{productTradeAccountId,jdbcType=BIGINT}
   </update>
   <insert id="insertIntoAmsProductAccountSnaps">
     insert into ams_product_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product_account as tb where product_trade_account_id= #{product_trade_account_id}

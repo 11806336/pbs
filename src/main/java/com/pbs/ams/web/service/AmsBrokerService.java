@@ -1,61 +1,67 @@
 package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsBroker;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.pbs.ams.web.model.AmsBrokerSnaps;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * AmsBrokerService接口
- * Created by ams on 2017/6/22.
- */
+* AmsBrokerService接口
+* Created by ams on 2017/6/29.
+*/
 public interface AmsBrokerService{
 
-    int insertToSnaps();
+    int deleteByPrimaryKey(Long id);
 
+    int insert(AmsBroker record);
     /**
-     *
-     * @param amsBroker  新增券商
+     * 根据id删除券商
+     * @param ids 券商id
      * @return
      */
-    @Autowired
-    public int insertSelective(AmsBroker amsBroker);
+    int deleteByPrimaryKeys(String ids);
 
     /**
-     *
-     * @param params  券商列表
+     * 新增公司
+     * @param record 券商实体
      * @return
      */
-    @Autowired
-    public List<AmsBroker> selectByExample(Map<String, Object> params);
-
-
-    public AmsBroker selectByPrimaryKey(Long id);
+    int insertSelective(AmsBroker record);
 
     /**
-     *
-     * @param amsBroker    券商数量
+     * 根据id查询单条记录
+     * @param id 券商id
      * @return
      */
-    @Autowired
-    public long countByExample(AmsBroker amsBroker);
+    AmsBroker selectByPrimaryKey(Long id);
 
     /**
-     *
-     * @param amsBroker    编辑券商
+     *编辑券商
+     * @param record
      * @return
      */
-
-    @Autowired
-    public int updateByPrimaryKeySelective(AmsBroker amsBroker);
-
+    int updateByPrimaryKeySelective(AmsBroker record);
 
     /**
-     *
-     * @param ids        删除券商
+     * 向快照表中插入数据
      * @return
      */
-    public int deleteByPrimaryKeys(String ids);
+    int insertToAmsBrokerSnaps(AmsBrokerSnaps amsBrokerSnaps);
+
+    /**
+     * This method is used to get PageList data.
+     * @param map
+     * @return
+     */
+    List<Map> selectBrokerWithDetail(Map map);/**/
+
+    /**
+     * This method is used to get PageListTotalSize
+     * @param map
+     * @return
+     */
+    int selectBrokerWithDetailCount(Map map);/**/
+
 
 }
