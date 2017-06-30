@@ -35,7 +35,7 @@
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
     var $table = $('#table');
-    function onPropertyChange() {
+    function selectByPlatformId () {
         var platformId = $('#tradePlatformSearch option:selected') .val();
         if(platformId){
             $('#table').bootstrapTable(
