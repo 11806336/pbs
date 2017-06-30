@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>账号设置</title>
-
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
-
-    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <jsp:include page="${basePath}/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
@@ -30,7 +27,7 @@
     <table id="accountTable"></table>
 </div>
 
-<link rel="import" href="../../../resources/inc/js_list.jsp">
+<jsp:include page="${basePath}/resources/inc/tabJS.jsp" flush="true"/>
 <script>
     //下拉框选择
     $("#tradePlatformSearch").select2({
@@ -38,7 +35,7 @@
     });
 
     var $table = $('#accountTable');
-    var url_json = "../../../resources/data/product_account.json";
+    var url_json = "${basePath}/resources/data/product_account.json";
 
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},

@@ -56,7 +56,7 @@ var showColumns = true;
 function actionFormatter(value, row, index) {
     return [
 		'<a class="update" href="javascript:;" data-update="表格内" onclick="updateAction(this)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-		'<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'/manage/permission/delete'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+		'<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'${basePath}/manage/permission/delete/'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
     ].join('');
 }
 

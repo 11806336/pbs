@@ -6,13 +6,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>公司管理</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../resources/css/public.css">
+    <jsp:include page="/resources/inc/head.jsp"/>
+    <link rel="stylesheet" href="${basePath}/resources/css/public.css">
 </head>
 <body>
 <div id="content">
@@ -25,14 +20,7 @@
     </div>
     <table id="table"></table>
 </div>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
-<script src="../../../resources/plugins/layer/js/layer.js"></script>
-<script src="../../../resources/js/public.js"></script>
+<jsp:include page="/resources/inc/foot.jsp"/>
 <script>
     function panel(url, title) {//调用弹窗，需要传标题和url
         layer.open({
@@ -96,9 +84,11 @@
         var ids = [id];
         $.ajax({
             type: 'get',
-            url: '${basePath}/company/delete' + '/' + ids.join("-"),
+            url: '${basePath}/company/delete' + '/' + ids.join(),
             success: function(result) {
-                console.info(JSON.parse(result));
+                if (result.message == "success") {
+                    alert("删除成功！");
+                }
             }
          });
     }

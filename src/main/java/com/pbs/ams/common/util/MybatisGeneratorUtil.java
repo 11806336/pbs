@@ -119,30 +119,14 @@ public class MybatisGeneratorUtil {
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
-//
-//		Map<String, String> map1 = Maps.newHashMap();
-//		map1.put("table_name","ams_product");
-//		map1.put("create_service","1");
-//		lstTables.add(map1);
-//		Map<String, String> map2 = Maps.newHashMap();
-//		map2.put("table_name","ams_market");
-//		lstTables.add(map2);
-//		Map<String, String> map3 = Maps.newHashMap();
-//		map3.put("table_name","ams_stock");
-//		lstTables.add(map3);
-//		Map<String, String> map4 = Maps.newHashMap();
-//		map4.put("table_name","ams_stock_holding");
-//		lstTables.add(map4);
-//		Map<String, String> map5 = Maps.newHashMap();
-//		map5.put("table_name","ams_stock_account");
-//		map5.put("create_service","1");
-//		lstTables.add(map5);
-//		Map<String, String> map6 = Maps.newHashMap();
-//		map6.put("table_name","ams_product_account");
-//		lstTables.add(map6);
-//		Map<String, String> map7 = Maps.newHashMap();
-//		map7.put("table_name","ams_product_detail");
-//		lstTables.add(map7);
+
+		Map<String, String> map1 = Maps.newHashMap();
+		map1.put("table_name","ams_trade_account");
+		map1.put("create_service","1");
+		lstTables.add(map1);
+		Map<String, String> map7 = Maps.newHashMap();
+		map7.put("table_name","ams_product_account");
+		lstTables.add(map7);
 
 		MybatisGeneratorUtil.generator(lstTables);
 	}

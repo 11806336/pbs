@@ -1,40 +1,61 @@
 package com.pbs.ams.web.service;
 
-import com.pbs.ams.common.base.BaseService;
 import com.pbs.ams.web.model.AmsBroker;
-import com.pbs.ams.web.model.AmsBrokerExample;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * AmsBrokerService接口
  * Created by ams on 2017/6/22.
  */
-public interface AmsBrokerService extends BaseService<AmsBroker, AmsBrokerExample> {
+public interface AmsBrokerService{
 
     int insertToSnaps();
 
-   /* *//**
-     * 添加经纪公司
-     *//*
+    /**
+     *
+     * @param amsBroker  新增券商
+     * @return
+     */
     @Autowired
     public int insertSelective(AmsBroker amsBroker);
 
-    *//**
-     * 查询列表
-     *//*
+    /**
+     *
+     * @param params  券商列表
+     * @return
+     */
     @Autowired
-    public List<AmsBroker> selectByExample(AmsBrokerExample amsBrokerExample);
+    public List<AmsBroker> selectByExample(Map<String, Object> params);
 
-    *//**
-     * 查询数量
-     *//*
+
+    public AmsBroker selectByPrimaryKey(Long id);
+
+    /**
+     *
+     * @param amsBroker    券商数量
+     * @return
+     */
     @Autowired
-    public long countByExample(AmsBrokerExample amsBrokerExample);
+    public long countByExample(AmsBroker amsBroker);
 
-    *//**
-     * 修改
-     *//*
+    /**
+     *
+     * @param amsBroker    编辑券商
+     * @return
+     */
+
     @Autowired
-    public int updateByPrimaryKeySelective(AmsBroker amsBroker);*/
+    public int updateByPrimaryKeySelective(AmsBroker amsBroker);
 
+
+    /**
+     *
+     * @param ids        删除券商
+     * @return
+     */
+    public int deleteByPrimaryKeys(String ids);
 
 }

@@ -5,7 +5,7 @@
     <title>查询产品</title>
     <link rel="import" href="../../../resources/inc/css_list.jsp">
     <!--二级选项卡-->
-    <link href="../../../resources/css/tab2.css" rel="stylesheet"/>
+    <link href="../../../../resources/css/tab2.css" rel="stylesheet"/>
 </head>
 <body>
 <section style="height:100%;">
@@ -20,9 +20,6 @@
             <!-- li的id 和 data-index 和它对应的iframe 的值后半段一定要一样-->
             <li id="tab__query_product_overview" data-index="_query_product_overview" class="cur">
                 <a class="waves-effect waves-light">总览</a>
-            </li>
-            <li id="tab__query_product_trend" data-index="_query_product_trend" class="">
-                <a class="waves-effect waves-light">走势</a>
             </li>
             <li id="tab__query_product_directive" data-index="_query_product_directive" class="">
                 <a class="waves-effect waves-light">指令</a>
@@ -40,10 +37,7 @@
     </div>
     <div class="content_main">
         <div id="iframe__query_product_overview" class="iframe cur">
-            <iframe class="tab_iframe" src="product_account_overview.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
-        </div>
-        <div id="iframe__query_product_trend" class="iframe">
-            <iframe class="tab_iframe" src="" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="../product_account_overview.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe__query_product_directive" class="iframe">
             <iframe class="tab_iframe" src="product_directive_overview.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
@@ -59,15 +53,15 @@
         </div>
     </div>
 </section>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../resources/plugins/waves-0.7.5/waves.min.js"></script>
-<script src="../../../resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="../../../resources/plugins/device.min.js"></script>
-<script src="../../../resources/plugins/fullPage/jquery.fullPage.min.js"></script>
-<script src="../../../resources/plugins/fullPage/jquery.jdirk.min.js"></script>
-<script src="../../../resources/plugins/jquery.cookie.js"></script>
+<script src="../../../../resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="../../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="../../../../resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="../../../../resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../../../resources/plugins/device.min.js"></script>
+<script src="../../../../resources/plugins/fullPage/jquery.fullPage.min.js"></script>
+<script src="../../../../resources/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script src="../../../../resources/plugins/jquery.cookie.js"></script>
 
-<script src="../../../resources/js/admin.js"></script>
+<script src="../../../../resources/js/admin.js"></script>
 </body>
 </html>

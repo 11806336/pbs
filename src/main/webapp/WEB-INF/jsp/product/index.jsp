@@ -1,4 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<<<<<<< HEAD
+<%@ include file="../base/tag.jsp" %>
+=======
+
+>>>>>>> refs/remotes/origin/master
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +22,7 @@
             </div>
             <div class="btn-panel" style="float:left;">
                 <a class="btn icon-plus addstockcom btn-primary btnRefresh" href="#">立即更新</a>
-                <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('/manage/product/create','新建产品')">新建产品</a>
+                <shiro:hasPermission name="ams:product:create"><a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('/product/create/tab','新建产品')">新建产品</a></shiro:hasPermission>
                 <a class="btn icon-plus addstockcom btn-primary btnExport" href="#">导出数据</a>
             </div>
         </div>
@@ -67,13 +72,13 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         var rows = $table.bootstrapTable('getSelections');
-        ids = new Array();
+        var ids = [];
         for (var i in rows) {
             ids.push(rows[i].productId);
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/manage/product/edit','编辑',"+row.productId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+            "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
         ].join('');
     }
 </script>

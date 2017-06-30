@@ -68,7 +68,6 @@ function createAction(url,title) {
         }
     });
 }
-
 // 编辑
 var updateDialog;
 function updateAction(obj,url) {
@@ -242,92 +241,3 @@ function dialog(url,title,id) {//调用弹窗，需要传标题和url
 /**共有的js文件
  * Created by Administrator on 2017/5/27.
  */
-/*function new_deleteAction(obj) {
-    var rows = $table.bootstrapTable('getSelections');
-    var Id = $(obj).parent().parent().find(".bs-checkbox ").find("input").val();
-    var ids = new Array();//删除的数组
-    //"判断单个删除还是批量删除
-    var delete_type = $(obj).attr("data-deleteType");
-    if(delete_type === "batch"){
-        for (var i in rows) {
-            ids.push(rows[i].systemId);
-        }
-    } else {
-        ids.push(Id);
-    }
-    deleteDialog = $.confirm({
-        type: 'red',
-        animationSpeed: 300,
-        title: false,
-        content: '确认删除该系统吗？',
-        buttons: {
-            confirm: {
-                text: '确认',
-                btnClass: 'waves-effect waves-button',
-                action: function () {
-                    $.ajax({
-                        type: 'get',
-                        url: '${basePath}/manage/system/delete/' + ids.join("-"),
-                        success: function (result) {
-                            if (result.code != 1) {
-                                if (result.data instanceof Array) {
-                                    $.each(result.data, function (index, value) {
-                                        $.confirm({
-                                            theme: 'dark',
-                                            animation: 'rotateX',
-                                            closeAnimation: 'rotateX',
-                                            title: false,
-                                            content: value.errorMsg,
-                                            buttons: {
-                                                confirm: {
-                                                    text: '确认',
-                                                    btnClass: 'waves-effect waves-button waves-light'
-                                                }
-                                            }
-                                        });
-                                    });
-                                } else {
-                                    $.confirm({
-                                        theme: 'dark',
-                                        animation: 'rotateX',
-                                        closeAnimation: 'rotateX',
-                                        title: false,
-                                        content: result.data.errorMsg,
-                                        buttons: {
-                                            confirm: {
-                                                text: '确认',
-                                                btnClass: 'waves-effect waves-button waves-light'
-                                            }
-                                        }
-                                    });
-                                }
-                            } else {
-                                deleteDialog.close();
-                                $table.bootstrapTable('refresh');
-                            }
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            $.confirm({
-                                theme: 'dark',
-                                animation: 'rotateX',
-                                closeAnimation: 'rotateX',
-                                title: false,
-                                content: textStatus,
-                                buttons: {
-                                    confirm: {
-                                        text: '确认',
-                                        btnClass: 'waves-effect waves-button waves-light'
-                                    }
-                                }
-                            });
-                        }
-                    });
-                }
-            },
-            cancel: {
-                text: '取消',
-                btnClass: 'waves-effect waves-button'
-            }
-        }
-    });
-}*/

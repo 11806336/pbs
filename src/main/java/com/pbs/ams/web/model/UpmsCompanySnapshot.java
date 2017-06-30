@@ -2,7 +2,14 @@ package com.pbs.ams.web.model;
 
 import java.io.Serializable;
 
-public class UpmsCompany implements Serializable {
+public class UpmsCompanySnapshot implements Serializable {
+    /**
+     * 快照时间
+     *
+     * @mbg.generated
+     */
+    private Long snapsTime;
+
     /**
      * 公司id
      *
@@ -88,6 +95,14 @@ public class UpmsCompany implements Serializable {
     private Long updateTime;
 
     private static final long serialVersionUID = 1L;
+
+    public Long getSnapsTime() {
+        return snapsTime;
+    }
+
+    public void setSnapsTime(Long snapsTime) {
+        this.snapsTime = snapsTime;
+    }
 
     public Long getCompanyId() {
         return companyId;
@@ -184,4 +199,5 @@ public class UpmsCompany implements Serializable {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+
 }
