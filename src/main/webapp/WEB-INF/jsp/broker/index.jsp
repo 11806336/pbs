@@ -34,10 +34,7 @@
 </div>
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
-
-
     var $table = $('#table');
-
     function onPropertyChange() {
         var platformId = $('#tradePlatformSearch option:selected') .val();
         if(platformId){
@@ -86,11 +83,6 @@
     // 格式化操作按钮
 
     function actionFormatter(value, row, index) {
-
-        var rows = $table.bootstrapTable('getSelections');
-        var ids = [];
-        ids.push(row.broker_id);
-
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+")" +
             " data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
@@ -98,25 +90,6 @@
         ].join('');
     }
     
-
-/*
-    var rows = $table.bootstrapTable('getSelections');
-    // 编辑
-    var updateAction;
-    function updateAction(url,title,id){
-        var updateurl = "${basePath}/ams/broker/edit/"+id;
-        layer.open({
-            type: 2,
-            title:title,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: updateurl,
-            shadeClose:true,
-            moveOut:true
-        });
-    }
-*/
 
     // 删除
     var deleteDialog;
@@ -148,7 +121,7 @@
                         action: function () {
                             var ids = new Array();
                             for (var i in rows) {
-                                ids.push(rows[i].brokerId);
+                                ids.push(rows[i].broker_id);
                             }
                             $.ajax({
                                 type: 'GET',

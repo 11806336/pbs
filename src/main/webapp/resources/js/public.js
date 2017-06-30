@@ -58,10 +58,11 @@ function statusFormatter(value, row, index) {
 // 新增
 var createDialog;
 function createAction(url,title) {
+    //url地址，title标题
     createDialog = $.dialog({
         animationSpeed: 300,
         title: title,
-        content: 'url:${basePath}'+url, /*/manage/permission/create'*/
+        content:url, /*/manage/permission/create'*/
         onContentReady: function () {
             initMaterialInput();
             $('select').select2();
@@ -70,77 +71,110 @@ function createAction(url,title) {
 }
 // 编辑
 var updateDialog;
-function updateAction(url,title,id) {
-    updateDialog = $.dialog({
-        animationSpeed: 300,
-        title: title,
-        content: 'url:${basePath}'+url +"/"+ id,
-        onContentReady: function () {
-            initMaterialInput();
-            $('select').select2();
-            initType();
-            initSelect2();
+function updateAction(obj,url,idField) {
+    //obj ===this,url地址，idField主键
+    var rows = $table.bootstrapTable('getSelections');
+    //找到主键Id
+    var Id=$(obj).parent().parent().find(".bs-checkbox ").find("input").val();
+    var dataUpdate=$(obj).attr("data-update");
+    //判断是表格内行后面的按钮还是右上角的编辑文字
+    if(dataUpdate === "表格外"){
+        if (rows.length != 1) {
+            $.confirm({
+                title: false,
+                content: '请选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        } else {
+            updateDialog = $.dialog({
+                animationSpeed: 300,
+                title: '编辑组织',
+                content: url + rows[0][idField],
+                onContentReady: function () {
+                    initMaterialInput();
+                    $('select').select2();
+                    initType();
+                    initSelect2();
+                }
+            });
         }
-    });
+    }else{
+        updateDialog = $.dialog({
+            animationSpeed: 300,
+            title: '编辑组织',
+            content: url + Id,
+            onContentReady: function () {
+                initMaterialInput();
+                $('select').select2();
+                initType();
+                initSelect2();
+            }
+        });
+    }
 }
 // 删除
 var deleteDialog;
-function deleteAction(url,ids) {
-    alert(ids);
+function deleteAction(obj,url,idField) {
+    //obj ===this,url地址，idField主键
     var rows = $table.bootstrapTable('getSelections');
-    if (rows.length == 0) {
-        $.confirm({
-            title: false,
-            content: '请至少选择一条记录！',
-            autoClose: 'cancel|3000',
-            backgroundDismiss: true,
-            buttons: {
-                cancel: {
-                    text: '取消',
-                    btnClass: 'waves-effect waves-button'
+    //Id主键
+    var Id = $(obj).parent().parent().find(".bs-checkbox ").find("input").val();
+    console.log(Id);
+    var ids = new Array();//删除的数组
+    //"判断单个删除还是批量删除
+    var delete_type = $(obj).attr("data-deleteTpye");
+    if(delete_type === "批量删除"){
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
                 }
-            }
-        });
+            });
+            return false;
+        }
+        for (var i in rows) {
+            ids.push(rows[i][idField]);
+        }
     } else {
-        deleteDialog = $.confirm({
-            type: 'red',
-            animationSpeed: 300,
-            title: false,
-            content: '确认删除吗？',
-            buttons: {
-                confirm: {
-                    text: '确认',
-                    btnClass: 'waves-effect waves-button',
-                    action: function () {
-
-                        $.ajax({
-                            type: 'get',
-                            url: '${basePath}'+url+"/"+ ids,  /*/manage/permission/delete*/
-                            success: function(result) {
-                                if (result.code != 1) {
-                                    if (result.data instanceof Array) {
-                                        $.each(result.data, function(index, value) {
-                                            $.confirm({
-                                                theme: 'dark',
-                                                animation: 'rotateX',
-                                                closeAnimation: 'rotateX',
-                                                title: false,
-                                                content: value.errorMsg,
-                                                buttons: {
-                                                    confirm: {
-                                                        text: '确认',
-                                                        btnClass: 'waves-effect waves-button waves-light'
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    } else {
+        ids.push(Id);
+    }
+    deleteDialog = $.confirm({
+        type: 'red',
+        animationSpeed: 300,
+        title: false,
+        content: '确认删除该系统吗？',
+        buttons: {
+            confirm: {
+                text: '确认',
+                btnClass: 'waves-effect waves-button',
+                action: function () {
+                    $.ajax({
+                        type: 'get',
+                        url:url+"/" + ids.join("-"),
+                        success: function (result) {
+                            if (result.code != 1) {
+                                if (result.data instanceof Array) {
+                                    $.each(result.data, function (index, value) {
                                         $.confirm({
                                             theme: 'dark',
                                             animation: 'rotateX',
                                             closeAnimation: 'rotateX',
                                             title: false,
-                                            content: result.data.errorMsg,
+                                            content: value.errorMsg,
                                             buttons: {
                                                 confirm: {
                                                     text: '确认',
@@ -148,39 +182,55 @@ function deleteAction(url,ids) {
                                                 }
                                             }
                                         });
-                                    }
+                                    });
                                 } else {
-                                    deleteDialog.close();
-                                    $table.bootstrapTable('refresh');
-                                }
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                $.confirm({
-                                    theme: 'dark',
-                                    animation: 'rotateX',
-                                    closeAnimation: 'rotateX',
-                                    title: false,
-                                    content: textStatus,
-                                    buttons: {
-                                        confirm: {
-                                            text: '确认',
-                                            btnClass: 'waves-effect waves-button waves-light'
+                                    $.confirm({
+                                        theme: 'dark',
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        content: result.data.errorMsg,
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
+                            } else {
+                                deleteDialog.close();
+                                $table.bootstrapTable('refresh');
                             }
-                        });
-                    }
-                },
-                cancel: {
-                    text: '取消',
-                    btnClass: 'waves-effect waves-button'
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            $.confirm({
+                                theme: 'dark',
+                                animation: 'rotateX',
+                                closeAnimation: 'rotateX',
+                                title: false,
+                                content: textStatus,
+                                buttons: {
+                                    confirm: {
+                                        text: '确认',
+                                        btnClass: 'waves-effect waves-button waves-light'
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
+            },
+            cancel: {
+                text: '取消',
+                btnClass: 'waves-effect waves-button'
             }
-        });
-    }
+        }
+    });
 }
-function dialog(url,title,id) {//调用弹窗，需要传标题和url
+//调用弹窗，需要传标题和url
+function dialog(url,title,id) {
+    //url地址，title标题，id~
     layer.open({
         type: 2,
         title:title,

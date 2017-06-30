@@ -10,7 +10,7 @@
     product_trade_account_id, product_id, trade_account_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from ams_product_account
     where product_trade_account_id = #{productTradeAccountId,jdbcType=BIGINT}
@@ -20,10 +20,10 @@
     where product_trade_account_id = #{productTradeAccountId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductAccount">
-    insert into ams_product_account (product_trade_account_id, product_id,
-    trade_account_id)
-    values (#{productTradeAccountId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
-    #{tradeAccountId,jdbcType=BIGINT})
+    insert into ams_product_account (product_trade_account_id, product_id, 
+      trade_account_id)
+    values (#{productTradeAccountId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{tradeAccountId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProductAccount">
     insert into ams_product_account
