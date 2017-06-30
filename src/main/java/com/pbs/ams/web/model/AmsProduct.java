@@ -39,6 +39,13 @@ public class AmsProduct implements Serializable {
     private String productCode;
 
     /**
+     * 产品管理人
+     *
+     * @mbg.generated
+     */
+    private String productSupervisor;
+
+    /**
      * 产品经理
      *
      * @mbg.generated
@@ -53,11 +60,39 @@ public class AmsProduct implements Serializable {
     private Boolean productStatus;
 
     /**
-     * 其他权益ID
+     * 产品份额来源,1:自定义,2:032读取
      *
      * @mbg.generated
      */
-    private Long rightId;
+    private Boolean productShareSource;
+
+    /**
+     * 产品开始时间
+     *
+     * @mbg.generated
+     */
+    private Long startDate;
+
+    /**
+     * 产品结束时间
+     *
+     * @mbg.generated
+     */
+    private Long endDate;
+
+    /**
+     * 产品份额
+     *
+     * @mbg.generated
+     */
+    private Integer productShares;
+
+    /**
+     * 备注
+     *
+     * @mbg.generated
+     */
+    private String productDesc;
 
     /**
      * 创建时间
@@ -79,6 +114,14 @@ public class AmsProduct implements Serializable {
      * @mbg.generated
      */
     private Long operatorId;
+
+    /**
+     * O32ID
+     *
+     * @mbg.generated
+     */
+    private Long o32Id;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -130,6 +173,14 @@ public class AmsProduct implements Serializable {
         this.productManager = productManager;
     }
 
+    public String getProductSupervisor() {
+        return productSupervisor;
+    }
+
+    public void setProductSupervisor(String productSupervisor) {
+        this.productSupervisor = productSupervisor;
+    }
+
     public Boolean getProductStatus() {
         return productStatus;
     }
@@ -138,12 +189,44 @@ public class AmsProduct implements Serializable {
         this.productStatus = productStatus;
     }
 
-    public Long getRightId() {
-        return rightId;
+    public Boolean getProductShareSource() {
+        return productShareSource;
     }
 
-    public void setRightId(Long rightId) {
-        this.rightId = rightId;
+    public void setProductShareSource(Boolean productShareSource) {
+        this.productShareSource = productShareSource;
+    }
+
+    public Long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Long startDate) {
+        this.startDate = startDate;
+    }
+
+    public Long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Long endDate) {
+        this.endDate = endDate;
+    }
+
+    public Integer getProductShares() {
+        return productShares;
+    }
+
+    public void setProductShares(Integer productShares) {
+        this.productShares = productShares;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
     }
 
     public Long getCreateTime() {
@@ -168,5 +251,13 @@ public class AmsProduct implements Serializable {
 
     public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
+    }
+
+    public Long getO32Id() {
+        return o32Id;
+    }
+
+    public void setO32Id(Long o32Id) {
+        this.o32Id = o32Id;
     }
 }

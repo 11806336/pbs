@@ -125,7 +125,7 @@
     $(document).on("click","#saveBrokerBtn",function () {
          $.ajax({
          type: 'GET',
-         url: '${basePath}/manage/broker/save' ,
+         url: '${basePath}/ams/broker/save' ,
          data:$('#addForm').serialize(),
          success: function (data) {
          console.info(data);

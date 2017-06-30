@@ -7,8 +7,10 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.base.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.AmsProduct;
+import com.pbs.ams.web.model.AmsProductAccount;
 import com.pbs.ams.web.service.AmsProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,18 +67,28 @@ public class AmsProductController extends BaseController{
         return result;
     }
 
-    @ApiOperation(value = "新增产品")
+    @ApiOperation(value = "新增产品导航")
     @RequiresPermissions("ams:product:create")
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/create/tab", method = RequestMethod.GET)
     public String create() {
-        return "/product/create.jsp";
+        return "/product/create/tab.jsp";
     }
+
+
+
+    @ApiOperation(value = "新增产品页")
+    @RequiresPermissions("ams:product:create")
+    @RequestMapping(value = "/createProduct", method = RequestMethod.GET)
+    public String createProduct() {
+        return "/product/create/create_product.jsp";
+    }
+
 
     @ApiOperation(value = "新增产品")
     @RequiresPermissions("ams:product:create")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Object create(AmsProduct amsProduct) {
+    public Object create(AmsProduct amsProduct,String startDate,String endDate) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsProduct.getProductName(), new LengthValidator(1, 20, "名称"))
                 .doValidate()
@@ -89,6 +101,30 @@ public class AmsProductController extends BaseController{
         int count = amsProductService.insertSelective(amsProduct);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
+
+
+
+
+    @ApiOperation(value = "设置账号页")
+    @RequiresPermissions("ams:product:create")
+    @RequestMapping(value = "/accountSettings", method = RequestMethod.GET)
+    public String accountSettings() {
+        return "/product/create/product_account_settings.jsp";
+    }
+
+
+
+    @ApiOperation(value = "绑定账号")
+    @RequiresPermissions("ams:product:create")
+    @ResponseBody
+    @RequestMapping(value = "/bindAccount", method = RequestMethod.GET)
+    public int bindAccount(AmsProductAccount amsProductAccount) {
+        Long id = IdGeneratorUtil.getKey("ams_product_account");
+        amsProductAccount.setProductTradeAccountId(id);
+        return amsProductService.insertAmsProductAccount(amsProductAccount);
+    }
+
+
 //
 //
 //    @ApiOperation(value = "修改组织")

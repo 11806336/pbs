@@ -1,51 +1,31 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>公司管理</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/layer/css/layer.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../resources/css/public.css">
+    <jsp:include page="/resources/inc/head.jsp"/>
+    <link rel="stylesheet" href="${basePath}/resources/css/public.css">
 </head>
 <body>
 <div id="content">
     <div style="position: absolute;top:10px;z-index: 111;">
-        <shiro:hasPermission name="upms:t:t">
-        <div class="btn-panel" onclick="panel('${basePath}/company/create','添加新公司')" style="display: inline-block;">
-            <a class="btn icon-plus addstockcom btn-primary" href="#">添加新公司</a>
-        </div>
+        <shiro:hasPermission name="upms:company:create">
+            <a class="waves-effect waves-button" href="javascript:;" onclick="createOrEditCompany('/company/create','添加公司')"><i class="zmdi zmdi-edit"></i>添加公司</a>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="upms:company:update">
+            <a class="waves-effect waves-button" href="javascript:;" onclick="createOrEditCompany('/company/update','编辑公司',1)"><i class="zmdi zmdi-edit"></i>编辑公司</a>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="upms:company:delete">
+            <a class="waves-effect waves-button" href="javascript:;" onclick="batchDelete()"><i class="zmdi zmdi-edit"></i>删除公司</a>
         </shiro:hasPermission>
     </div>
     <table id="table"></table>
 </div>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="../../../resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="../../../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
-<script src="../../../resources/plugins/layer/js/layer.js"></script>
-<script src="../../../resources/js/public.js"></script>
+<jsp:include page="/resources/inc/foot.jsp"/>
 <script>
-    function panel(url, title) {//调用弹窗，需要传标题和url
-        layer.open({
-            type: 2,
-            title: title,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: url,
-            shadeClose: true,
-            moveOut: true
-        });
-    }
     var $table = $('#table');
     //列配置项
     var dataColumns = [
@@ -82,12 +62,39 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         return [
-            '<a class="update" href="javascript:;" onclick="panel(' + "'${basePath}/company/update/" + row.companyId + "'," + "'编辑公司'" + ')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-          //  '<a class="delete" href="javascript:;" onclick="deleteAction('+"'${basePath}/company/delete/'" + "," + row.companyId + ')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+            '<a class="update" href="javascript:;" onclick="createOrEditCompany(' + "'${basePath}/company/update'," + "'编辑公司'" + ',1)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
             '<a class="delete" href="javascript:;" onclick="del(' + row.companyId + ')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
     }
-
+    /**
+     * 新建/编辑公司
+     * url:请求地址
+     * title：窗口title
+     * flag:用来区分是新增还是编辑，方便判断
+     */
+    function createOrEditCompany(url, title, flag) {
+        if (flag) {//如果是编辑判断是否只选择了一条
+            var rows = $table.bootstrapTable('getSelections');
+            if (rows.length > 1) {
+                alert("请只选择一行！");
+                return;
+            } else if (rows.length == 0) {
+                alert("请先选择要编辑的行！");
+                return;
+            }
+            url = url + "/" + rows[0].companyId;
+        }
+        layer.open({
+            type: 2,
+            title: title,
+            area: ['700px', '430px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: url,
+            shadeClose: true,
+            moveOut: true
+        });
+    }
     /**
      * 通过操作列删除单个公司
      * @param id
@@ -96,9 +103,11 @@
         var ids = [id];
         $.ajax({
             type: 'get',
-            url: '${basePath}/company/delete' + '/' + ids.join("-"),
+            url: '${basePath}/company/delete' + '/' + ids.join(),
             success: function(result) {
-                console.info(JSON.parse(result));
+                if (result.message == "success") {
+                    alert("删除成功！");
+                }
             }
          });
     }
@@ -107,17 +116,15 @@
      */
     function batchDelete() {
         var rows = $table.bootstrapTable('getSelections');
-        if (rows) {
-
+        if (rows.length > 0) {
             var ids = new Array();
             for (var i in rows) {
                 ids.push(rows[i].companyId);
             }
             $.ajax({
                 type: 'get',
-                url: '${basePath}/company/delete/' + ids.join("-"),
+                url: '${basePath}/company/delete/' + ids.join(),
                 success: function(result) {
-                    console.info(JSON.parse(result));
                     if (result.message == 'success') {//说明删除成功
                         alert("删除成功！");
                     } else {

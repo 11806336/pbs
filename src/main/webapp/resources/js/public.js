@@ -120,6 +120,7 @@ function updateAction(obj,url) {
 }
 // 删除
 var deleteDialog;
+<<<<<<< HEAD
 function deleteAction(obj,url,dField) {
     // console.log(url);
     // console.log(dField);
@@ -142,6 +143,22 @@ function deleteAction(obj,url,dField) {
                         text: '取消',
                         btnClass: 'waves-effect waves-button'
                     }
+=======
+function deleteAction(url,id) {
+    var ids = [];
+    ids.push(ids);
+    var rows = $table.bootstrapTable('getSelections');
+    if (rows.length == 0) {
+        $.confirm({
+            title: false,
+            content: '请至少选择一条记录！',
+            autoClose: 'cancel|3000',
+            backgroundDismiss: true,
+            buttons: {
+                cancel: {
+                    text: '取消',
+                    btnClass: 'waves-effect waves-button'
+>>>>>>> c9c3dca833df091d2208fedde92dbe5a6d980fec
                 }
             });
             return false;
@@ -150,6 +167,7 @@ function deleteAction(obj,url,dField) {
             ids.push(rows[i][dField]);
         }
     } else {
+<<<<<<< HEAD
         ids.push(Id);
     }
     deleteDialog = $.confirm({
@@ -169,6 +187,41 @@ function deleteAction(obj,url,dField) {
                             if (result.code != 1) {
                                 if (result.data instanceof Array) {
                                     $.each(result.data, function (index, value) {
+=======
+        deleteDialog = $.confirm({
+            type: 'red',
+            animationSpeed: 300,
+            title: false,
+            content: '确认删除吗？',
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'waves-effect waves-button',
+                    action: function () {
+
+                        $.ajax({
+                            type: 'get',
+                            url: '${basePath}'+url+"/"+ ids.join("-"),  /*/manage/permission/delete*/
+                            success: function(result) {
+                                if (result.code != 1) {
+                                    if (result.data instanceof Array) {
+                                        $.each(result.data, function(index, value) {
+                                            $.confirm({
+                                                theme: 'dark',
+                                                animation: 'rotateX',
+                                                closeAnimation: 'rotateX',
+                                                title: false,
+                                                content: value.errorMsg,
+                                                buttons: {
+                                                    confirm: {
+                                                        text: '确认',
+                                                        btnClass: 'waves-effect waves-button waves-light'
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    } else {
+>>>>>>> c9c3dca833df091d2208fedde92dbe5a6d980fec
                                         $.confirm({
                                             theme: 'dark',
                                             animation: 'rotateX',

@@ -9,14 +9,12 @@ import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.AmsBroker;
-import com.pbs.ams.web.model.AmsBrokerExample;
 import com.pbs.ams.web.model.AmsPlatform;
 import com.pbs.ams.web.model.AmsPlatformExample;
 import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsPlatformService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,26 +63,16 @@ public class AmsBrokerController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "order") String order
-//            @RequestParam(required = false) Long platformId
     ) {
-        AmsBrokerExample amsBrokerExample = new AmsBrokerExample();
-        amsBrokerExample.setOffset(offset);
-        amsBrokerExample.setLimit(limit);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("offset", offset);
         params.put("limit", limit);
-        if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            amsBrokerExample.setOrderByClause(sort + " " + order);
-        }
-        if (StringUtils.isNotBlank(search)) {
-                amsBrokerExample.or().andBrokerNameLike("%" + search + "%");
-        }
-        /*if(platformId!=null){
-            amsBrokerExample.or().andPlatformIdEqualTo(platformId);
-
-        }*/
-        List<AmsBroker> rows = amsBrokerService.selectByExample(amsBrokerExample);
-        long total = amsBrokerService.countByExample(amsBrokerExample);
+        params.put("search",search);
+        params.put("sort",sort);
+        params.put("order",order);
+        List<AmsBroker> rows = amsBrokerService.selectByExample(params);
+        AmsBroker amsBroker=new AmsBroker();
+        long total = amsBrokerService.countByExample(amsBroker);
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
         result.put("total", total);
@@ -130,10 +118,11 @@ public class AmsBrokerController extends BaseController {
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
+
     @ApiOperation(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id, ModelMap modelMap,HttpServletRequest request) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap, HttpServletRequest request) {
         AmsBroker amsBroker=amsBrokerService.selectByPrimaryKey(id);
         modelMap.put("amsBrokers",amsBroker);
         AmsPlatformExample amsPlatformExample = new AmsPlatformExample();
@@ -141,6 +130,7 @@ public class AmsBrokerController extends BaseController {
         request.setAttribute("amsPlatforms",amsPlatforms);
         return "/broker/update_broker.jsp";
     }
+
 
 
     @ApiOperation(value = "编辑券商")

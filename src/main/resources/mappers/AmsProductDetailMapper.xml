@@ -6,7 +6,6 @@
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
     <result column="product_net_value" jdbcType="DECIMAL" property="productNetValue" />
     <result column="net_asset_value" jdbcType="DECIMAL" property="netAssetValue" />
-    <result column="product_shares" jdbcType="INTEGER" property="productShares" />
     <result column="stock_total_assets" jdbcType="DECIMAL" property="stockTotalAssets" />
     <result column="security_total_value" jdbcType="DECIMAL" property="securityTotalValue" />
     <result column="stock_total_value" jdbcType="DECIMAL" property="stockTotalValue" />
@@ -16,9 +15,8 @@
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    product_id, company_id, product_net_value, net_asset_value, product_shares, stock_total_assets, 
-    security_total_value, stock_total_value, short_total_value, create_time, update_time, 
-    operator_id
+    product_id, company_id, product_net_value, net_asset_value, stock_total_assets, security_total_value, 
+    stock_total_value, short_total_value, create_time, update_time, operator_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -32,15 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductDetail">
     insert into ams_product_detail (product_id, company_id, product_net_value, 
-      net_asset_value, product_shares, stock_total_assets, 
-      security_total_value, stock_total_value, short_total_value, 
-      create_time, update_time, operator_id
-      )
+      net_asset_value, stock_total_assets, security_total_value, 
+      stock_total_value, short_total_value, create_time, 
+      update_time, operator_id)
     values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productNetValue,jdbcType=DECIMAL}, 
-      #{netAssetValue,jdbcType=DECIMAL}, #{productShares,jdbcType=INTEGER}, #{stockTotalAssets,jdbcType=DECIMAL}, 
-      #{securityTotalValue,jdbcType=DECIMAL}, #{stockTotalValue,jdbcType=DECIMAL}, #{shortTotalValue,jdbcType=DECIMAL}, 
-      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
-      )
+      #{netAssetValue,jdbcType=DECIMAL}, #{stockTotalAssets,jdbcType=DECIMAL}, #{securityTotalValue,jdbcType=DECIMAL}, 
+      #{stockTotalValue,jdbcType=DECIMAL}, #{shortTotalValue,jdbcType=DECIMAL}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProductDetail">
     insert into ams_product_detail
@@ -56,9 +52,6 @@
       </if>
       <if test="netAssetValue != null">
         net_asset_value,
-      </if>
-      <if test="productShares != null">
-        product_shares,
       </if>
       <if test="stockTotalAssets != null">
         stock_total_assets,
@@ -95,9 +88,6 @@
       <if test="netAssetValue != null">
         #{netAssetValue,jdbcType=DECIMAL},
       </if>
-      <if test="productShares != null">
-        #{productShares,jdbcType=INTEGER},
-      </if>
       <if test="stockTotalAssets != null">
         #{stockTotalAssets,jdbcType=DECIMAL},
       </if>
@@ -133,9 +123,6 @@
       <if test="netAssetValue != null">
         net_asset_value = #{netAssetValue,jdbcType=DECIMAL},
       </if>
-      <if test="productShares != null">
-        product_shares = #{productShares,jdbcType=INTEGER},
-      </if>
       <if test="stockTotalAssets != null">
         stock_total_assets = #{stockTotalAssets,jdbcType=DECIMAL},
       </if>
@@ -165,7 +152,6 @@
     set company_id = #{companyId,jdbcType=BIGINT},
       product_net_value = #{productNetValue,jdbcType=DECIMAL},
       net_asset_value = #{netAssetValue,jdbcType=DECIMAL},
-      product_shares = #{productShares,jdbcType=INTEGER},
       stock_total_assets = #{stockTotalAssets,jdbcType=DECIMAL},
       security_total_value = #{securityTotalValue,jdbcType=DECIMAL},
       stock_total_value = #{stockTotalValue,jdbcType=DECIMAL},
