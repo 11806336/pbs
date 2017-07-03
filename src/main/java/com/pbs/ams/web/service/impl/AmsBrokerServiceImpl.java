@@ -1,6 +1,5 @@
 package com.pbs.ams.web.service.impl;
 
-import com.pbs.ams.common.annotation.BaseService;
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
 import com.pbs.ams.web.mappers.AmsBrokerMapper;
@@ -13,19 +12,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * AmsBrokerService实现
- * Created by ams on 2017/6/22.
+ * AmsProductService实现
+ * Created by ams on 2017/6/28.
  */
 @Service
-@Transactional
-@BaseService
+@Transactional(rollbackFor = Exception.class)
 public class AmsBrokerServiceImpl implements AmsBrokerService {
 
     private static Logger _log = LoggerFactory.getLogger(AmsBrokerServiceImpl.class);
@@ -36,40 +36,60 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
     public Object getMapper() { return amsBrokerMapper; }
 
 
-    public int insertToSnaps(){
-        return 1;
+    @Override
+    public int deleteByPrimaryKey(Long id) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsBrokerMapper.deleteByPrimaryKey(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DynamicDataSource.clearDataSource();
+        return 0;
     }
 
-    /**
-     * 添加经纪公司
-     */
-    public int insertSelective(AmsBroker amsBroker){
-        return amsBrokerMapper.insertSelective(amsBroker);
+
+    @Override
+    public int insert(AmsBroker amsBroker) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsBrokerMapper.insert(amsBroker);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DynamicDataSource.clearDataSource();
+        return 0;
     }
 
-    /**
-     * 查询列表
-     */
-    public List<AmsBroker> selectByExample(Map<String, Object> params){
-        return amsBrokerMapper.selectByExample(params);
+
+    @Override
+    public int insertSelective(AmsBroker amsBroker) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsBrokerMapper.insertSelective(amsBroker);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DynamicDataSource.clearDataSource();
+        return 0;
     }
 
-    /**
-     * 查询数量
-     */
-    public long countByExample(AmsBroker amsBroker){
-        return amsBrokerMapper.countByExample(amsBroker);
+
+    @Override
+    public AmsBroker selectByPrimaryKey(Long id) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsBrokerMapper.selectByPrimaryKey(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DynamicDataSource.clearDataSource();
+        return null;
     }
-    /**
-     * 通过ID查询
-     */
-    public AmsBroker selectByPrimaryKey(Long id){
-        return amsBrokerMapper.selectByPrimaryKey(id);
-    }
-    /**
-     * 修改
-     */
-    public int updateByPrimaryKeySelective(AmsBroker amsBroker){
+
+
+    @Override
+    public int updateByPrimaryKeySelective(AmsBroker amsBroker) {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
             int result = 0;
@@ -82,9 +102,9 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
                 AmsBrokerSnaps snaps = new AmsBrokerSnaps();
                 PropertyUtils.copyProperties(snaps, ams);
                 snaps.setSnapsTime(System.currentTimeMillis());
-                    int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
-                    if (insertResult == 0) {
-                        new RuntimeException();
+                int insertResult = amsBrokerMapper.insertToAmsBrokerSnaps(snaps);
+                if (insertResult == 0) {
+                    new RuntimeException();
                 }
                 result = amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
             }
@@ -97,11 +117,6 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
     }
 
 
-    /**
-     * 删除操作
-     * @param ids 主键id
-     * @return
-     */
     @Override
     public int deleteByPrimaryKeys(String ids) {
         try {
@@ -124,7 +139,7 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
                     AmsBrokerSnaps snaps = new AmsBrokerSnaps();
                     PropertyUtils.copyProperties(snaps, amsBroker);
                     snaps.setSnapsTime(System.currentTimeMillis());
-                    int insertResult = amsBrokerMapper.insertSnapshotSelective(snaps);
+                    int insertResult = amsBrokerMapper.insertToAmsBrokerSnaps(snaps);
                     if (insertResult == 0) {
                         new RuntimeException();
                     }
@@ -139,5 +154,34 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
         }
         DynamicDataSource.clearDataSource();
         return 0;
+    }
+
+
+    /**
+     * MANDATORY:该方法只能在一个已存在的事务中执行.
+     *
+     * @return
+     */
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public int insertToAmsBrokerSnaps(AmsBrokerSnaps amsBrokerSnaps) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsBrokerMapper.insertToAmsBrokerSnaps(amsBrokerSnaps);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
+
+    @Override
+    public List<Map> selectBrokerWithDetail(Map map) {
+        return amsBrokerMapper.selectBrokerWithDetail(map);
+    }
+
+    @Override
+    public int selectBrokerWithDetailCount(Map map) {
+        return amsBrokerMapper.selectBrokerWithDetailCount(map);
     }
 }

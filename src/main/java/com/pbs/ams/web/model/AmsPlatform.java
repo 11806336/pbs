@@ -60,13 +60,6 @@ public class AmsPlatform implements Serializable {
     private Long updateTime;
 
     /**
-     * 快照时间
-     *
-     * @mbg.generated
-     */
-    private Long snapsTime;
-
-    /**
      * 操作人ID
      *
      * @mbg.generated
@@ -139,80 +132,11 @@ public class AmsPlatform implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getSnapsTime() {
-        return snapsTime;
-    }
-
-    public void setSnapsTime(Long snapsTime) {
-        this.snapsTime = snapsTime;
-    }
-
     public Long getOperatorId() {
         return operatorId;
     }
 
     public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", platformId=").append(platformId);
-        sb.append(", platformLogo=").append(platformLogo);
-        sb.append(", platformName=").append(platformName);
-        sb.append(", platformAbbrName=").append(platformAbbrName);
-        sb.append(", platformType=").append(platformType);
-        sb.append(", creditable=").append(creditable);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", snapsTime=").append(snapsTime);
-        sb.append(", operatorId=").append(operatorId);
-        sb.append("]");
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        AmsPlatform other = (AmsPlatform) that;
-        return (this.getPlatformId() == null ? other.getPlatformId() == null : this.getPlatformId().equals(other.getPlatformId()))
-            && (this.getPlatformLogo() == null ? other.getPlatformLogo() == null : this.getPlatformLogo().equals(other.getPlatformLogo()))
-            && (this.getPlatformName() == null ? other.getPlatformName() == null : this.getPlatformName().equals(other.getPlatformName()))
-            && (this.getPlatformAbbrName() == null ? other.getPlatformAbbrName() == null : this.getPlatformAbbrName().equals(other.getPlatformAbbrName()))
-            && (this.getPlatformType() == null ? other.getPlatformType() == null : this.getPlatformType().equals(other.getPlatformType()))
-            && (this.getCreditable() == null ? other.getCreditable() == null : this.getCreditable().equals(other.getCreditable()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getSnapsTime() == null ? other.getSnapsTime() == null : this.getSnapsTime().equals(other.getSnapsTime()))
-            && (this.getOperatorId() == null ? other.getOperatorId() == null : this.getOperatorId().equals(other.getOperatorId()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getPlatformId() == null) ? 0 : getPlatformId().hashCode());
-        result = prime * result + ((getPlatformLogo() == null) ? 0 : getPlatformLogo().hashCode());
-        result = prime * result + ((getPlatformName() == null) ? 0 : getPlatformName().hashCode());
-        result = prime * result + ((getPlatformAbbrName() == null) ? 0 : getPlatformAbbrName().hashCode());
-        result = prime * result + ((getPlatformType() == null) ? 0 : getPlatformType().hashCode());
-        result = prime * result + ((getCreditable() == null) ? 0 : getCreditable().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getSnapsTime() == null) ? 0 : getSnapsTime().hashCode());
-        result = prime * result + ((getOperatorId() == null) ? 0 : getOperatorId().hashCode());
-        return result;
     }
 }

@@ -19,10 +19,10 @@
     <div id="searchDiv">
         <div class="form-group">
             <label for="tradePlatformSearch">交易平台： </label>
-            <select id="tradePlatformSearch" name="tradePlatformSearch" style="width:160px;">
-                <option value="0"> -- 全部平台 -- </option>
+            <select id="tradePlatformSearch" name="tradePlatformSearch" onchange="selectByPlatformId()" style="width:160px;">
+                <option value=""> -- 全部平台 -- </option>
                 <c:forEach var="platform" items="${amsPlatforms}">
-                    <option value="${platform.platformId}">${platform.platformName}</option>
+                        <option value="${platform.platform_id}">${platform.platform_name}</option>
                 </c:forEach>
             </select>
             <div class="btn-panel" onclick="dialog('${basePath}/ams/broker/create','添加证券','')" style="display: inline-block;margin-left:20px;">
@@ -34,18 +34,24 @@
 </div>
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
-
-
     var $table = $('#table');
-
-    function searchByPlatFormId() {
-        var a = $('#tradePlatformSearch option:selected') .val();
-        $('#table').bootstrapTable(
-            "refresh",
-            {
-                url:"${basePath}/ams/broker/queryAmsBroker?platformId="+a
-            }
-        )
+    function selectByPlatformId () {
+        var platformId = $('#tradePlatformSearch option:selected') .val();
+        if(platformId){
+            $('#table').bootstrapTable(
+                "refresh",
+                {
+                    url:"${basePath}/ams/broker/queryAmsBroker?platformId="+platformId
+                }
+            )
+        }else{
+            $('#table').bootstrapTable(
+                "refresh",
+                {
+                    url:"${basePath}/ams/broker/queryAmsBroker"
+                }
+            )
+        }
     }
     function getHeight() {
         return $(window).height() - 20;
@@ -53,9 +59,14 @@
     //列配置项
     var dataColumns=[
         {field: 'ck', checkbox: true},
-        {field: 'brokerName', title: '券商名称'},
-        {field: 'amsPlatform.platformName', title: '交易平台'},
-        {field: 'brokerAbbrName', title: '缩写名称'},
+        {field: 'broker_id', title: '券商ID'},
+        {field: 'broker_name', title: '券商名称'},
+        {field: 'platform_name', title: '交易平台'},
+        {field: 'broker_abbr_name', title: '缩写名称'},
+        {field: 'day_begin', title: '日盘开始时间'},
+        {field: 'day_end', title: '日盘结束时间'},
+        {field: 'create_time', title: '创建时间'},
+        {field: 'update_time', title: '修改时间'},
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     //数据url
@@ -63,7 +74,7 @@
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='server';
     //指定主键列
-    var idField='brokerName';
+    var idField='brokerId';
 
     //右上角刷新搜索
     var search=true;
@@ -73,32 +84,12 @@
 
     function actionFormatter(value, row, index) {
         return [
-            "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.brokerId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-
-            "<a class='selected' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
-
+            "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+")" +
+            " data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
         ].join('');
     }
-
-
-/*
-    var rows = $table.bootstrapTable('getSelections');
-    // 编辑
-    var updateAction;
-    function updateAction(url,title,id){
-        var updateurl = "${basePath}/ams/broker/edit/"+id;
-        layer.open({
-            type: 2,
-            title:title,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: updateurl,
-            shadeClose:true,
-            moveOut:true
-        });
-    }
-*/
+    
 
     // 删除
     var deleteDialog;
@@ -130,11 +121,11 @@
                         action: function () {
                             var ids = new Array();
                             for (var i in rows) {
-                                ids.push(rows[i].brokerId);
+                                ids.push(rows[i].broker_id);
                             }
                             $.ajax({
                                 type: 'GET',
-                                url: '${basePath}/ams/broker/delete/' + ids.join("-"), /*/manage/permission/delete*/
+                                url: '${basePath}/ams/broker/delete/' + ids[i], /*!/manage/permission/delete*/
                                 success: function(result) {
                                     if (result.code != 1) {
                                         if (result.data instanceof Array) {

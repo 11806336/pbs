@@ -25,41 +25,28 @@
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
 var $table = $('#table');
-$(function() {
-	// bootstrap table初始化
-	$table.bootstrapTable({
-		url: '${basePath}/manage/session/list',
-		height: getHeight(),
-		striped: true,
-		search: false,
-		showRefresh: true,
-		showColumns: true,
-		minimumCountColumns: 2,
-		clickToSelect: true,
-		detailView: true,
-		detailFormatter: 'detailFormatter',
-		pagination: true,
-		paginationLoop: false,
-		sidePagination: 'server',
-		silentSort: false,
-		smartDisplay: false,
-		escape: true,
-		searchOnEnterKey: true,
-		idField: 'id',
-		maintainSelected: true,
-		toolbar: '#toolbar',
-		columns: [
-			{field: 'ck', checkbox: true},
-			{field: 'id', title: '编号', sortable: true, align: 'center'},
-			{field: 'startTimestamp', title: '创建时间', sortable: true, align: 'center'},
-			{field: 'lastAccessTime', title: '最后访问时间'},
-			{field: 'expired', title: '是否过期', align: 'center'},
-			{field: 'host', title: '访问者IP', align: 'center'},
-			{field: 'userAgent', title: '用户标识', align: 'center'},
-			{field: 'status', title: '状态', align: 'center', formatter: 'statusFormatter'}
-		]
-	});
-});
+//列配置项
+var dataColumns = [
+    {field: 'ck', checkbox: true},
+    {field: 'id', title: '编号', sortable: true, align: 'center'},
+    {field: 'startTimestamp', title: '创建时间', sortable: true, align: 'center'},
+    {field: 'lastAccessTime', title: '最后访问时间'},
+    {field: 'expired', title: '是否过期', align: 'center'},
+    {field: 'host', title: '访问者IP', align: 'center'},
+    {field: 'userAgent', title: '用户标识', align: 'center'},
+    {field: 'status', title: '状态', align: 'center', formatter: 'statusFormatter'}
+];
+
+//数据url
+var url_json = '${basePath}/manage/session/list';
+//设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+var sidePagination = 'server';
+//指定主键列
+var idField = 'id';
+//右上角刷新搜索
+var search = true;
+var showRefresh = true;
+var showColumns = true;
 // 格式化状态
 function statusFormatter(value, row, index) {
 	if (value == 'on_line') {

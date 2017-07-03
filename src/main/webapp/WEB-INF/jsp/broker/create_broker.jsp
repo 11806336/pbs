@@ -33,7 +33,7 @@
                 <select name="platformId" id="platformId">
                     <option value="0">---请选择---</option>
                     <c:forEach var="platform" items="${amsPlatforms}">
-                        <option value="${platform.platformId}">${platform.platformName}</option>
+                        <option value="${platform.platform_id}">${platform.platform_name}</option>
                     </c:forEach>
                 </select>
                 <span for="platform_add" class="hint">请选择平台</span>
@@ -66,9 +66,9 @@
 
         <div class="control-group ">
             <label  class="control-label">日盘启动时间：</label>
-            <input type="text" name="day_begin" id="day_begin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+            <input type="text" name="day_begin" id="dayBegin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
             <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
+            <input type="text" name="day_end" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
             <span for="day_endDate" class="error" style="display: none;"></span>
         </div>
 

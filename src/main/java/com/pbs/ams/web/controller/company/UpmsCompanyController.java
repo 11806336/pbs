@@ -117,8 +117,6 @@ public class UpmsCompanyController extends BaseController {
         if (!result.isSuccess()) {
             return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
-        long time = System.currentTimeMillis();
-        upmsCompany.setCreateTime(time);
         Long id = IdGeneratorUtil.getKey("upms_company");
         upmsCompany.setCompanyId(id);//获取公司id
         int count = upmsCompanyService.insertCompany(upmsCompany);
