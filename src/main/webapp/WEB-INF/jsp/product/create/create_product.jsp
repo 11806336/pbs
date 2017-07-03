@@ -1,14 +1,26 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>新建产品</title>
-    <jsp:include page="${basePath}/resources/inc/head.jsp" flush="true"/>
-
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link rel="stylesheet" href="${basePath}/resources/css/create_broker.css">
 </head>
 <body>
 <div id="main">
-<form>
+<form id="create_form" action="${basePath}/product/create"  method="post" onsubmit = "return submit();">
     <div class="control-group">
         <label for="productName" class="control-label"><em class="rqd">*</em>产品名称：</label>
         <div class="controls">
@@ -18,14 +30,25 @@
         </div>
     </div>
     <div class="control-group">
+        <label for="companyList" class="control-label"><em class="rqd">*</em>经纪公司：</label>
+        <div class="controls">
+            <select name="companyId" id="companyList">
+                <option value="0"> ---请选择--- </option>
+                <c:forEach var="comp" items="${upmsCompanies}">
+                    <option value="${comp.companyId}">${comp.companyName}</option>
+                </c:forEach>
+            </select>
+            <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
+        </div>
+    </div>
+    <div class="control-group">
         <label class="control-label" for="productType"><em class="rqd">*</em>产品类型：</label>
-        <input type="hidden" id="productType" name="productType" value="1">
         <div class="controls">
             <label class="radio inline" style="min-width:60px;">
-                <input checked="checked" type="radio" name="types" value="1"> 普通基金
+                <input checked="checked" type="radio" name="productType" id="productType" value="1"> 普通基金
             </label>
             <label class="radio inline" style="min-width:60px;">
-                <input type="radio" name="types" value="2"> 分级基金
+                <input type="radio" name="productType" value="2"> 分级基金
             </label>
             <span class="tipsError" style="display: inline-block;top:4px;">保存后不可更改</span>
         </div>
@@ -54,22 +77,21 @@
     </div>
     <div class="control-group">
         <label class="control-label">产品起止日期：</label>
-        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmssSSS'})" type="text" name="startDate" value="" id="startDate" class="required">
+        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="startDate" value="" id="startDate" class="required">
         <span for="startDate" class="error" style="display: none;"></span>
         <span style="display: inline-block;margin:0 10px;">至</span>
-        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmssSSS'})" type="text" name="endDate" id="endDate" class="required" onblur="funBlur(this)">
+        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="endDate" id="endDate" class="required" onblur="funBlur(this)">
         <span for="endDate" class="tipsError">起始日期不能大于结束日期</span>
         <span class="tipsError" style="display: inline-block;">(修改需重启服务生效)</span>
     </div>
     <div class="control-group">
-        <label class="control-label" for="productSharesSource">产品总份额来源：</label>
-        <input type="hidden" id="productSharesSource" name="productSharesSource" value="1">
+        <label class="control-label" for="productShareSource">产品总份额来源：</label>
         <div class="controls">
             <label class="radio inline" style="min-width:60px;">
-                <input class="productSharesSource" checked="checked" type="radio" name="productSharesSource" value="1">自定义
+                <input class="productShareSource" checked="checked" type="radio" name="productShareSource" id="productShareSource" value="1">自定义
             </label>
             <label class="radio inline" style="min-width:60px;">
-                <input class="productSharesSource" type="radio" name="productSharesSource" value="2"> O32读取
+                <input class="productShareSource" type="radio" name="productShareSource" id="productShareSource" value="2"> O32读取
             </label>
             <br>
         </div>
@@ -87,25 +109,36 @@
     <div class="control-group radioShow" id="read" style="display: none;">
         <label class="control-label" for="o32_id">O32 ID：</label>
         <div class="controls">
-            <input type="text" name="o32_id" id="o32_id" class="" maxlength="10">
+            <input type="text" name="o32Id" id="o32_id" class="" maxlength="10">
             <span class="tipsError"></span>
         </div>
     </div>
-
     <div class="control-group">
-        <label class="control-label" for="desc">备注：</label>
+        <label class="control-label" for="productStatus"><em class="rqd">*</em>产品状态：</label>
         <div class="controls">
-            <textarea id="desc" style="width:440px;" rows="10" cols="40" name="desc"></textarea>
+            <label class="radio inline" style="min-width:60px;">
+                <input checked="checked" type="radio" name="productStatus" id="productStatus" value="1"> 启用
+            </label>
+            <label class="radio inline" style="min-width:60px;">
+                <input type="radio" name="productStatus" id="productStatus" value="0"> 禁用
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="productDesc">备注：</label>
+        <div class="controls">
+            <textarea id="productDesc" style="width:440px;" rows="10" cols="40" name="productDesc"></textarea>
             <span class="tips-warning"></span>
             <span class="tipsError"></span>
         </div>
     </div>
-    <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
+    <input type="submit" class="btn btn-info" id="" value="提交">
 </form>
 </div>
 <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
 <script>
+
     //提示
     function funBlur(obj) {
         if (!$(obj).val()) {
@@ -121,8 +154,8 @@
         }
     });
     //单选按钮
-    $(document).on("change", ".productSharesSource", function () {
-        var val = $("input[name='productSharesSource']:checked").val();
+    $(document).on("change", ".productShareSource", function () {
+        var val = $("input[name='productShareSource']:checked").val();
         $(".radioShow").hide();
         if (val == 1) {
             $("#custom").show();
@@ -130,6 +163,26 @@
             $("#read").show();
         }
     });
+
+    function submit(){
+        var create_form = $("#create_form");
+        $.ajax({
+            type: 'POST',
+            url: create_form.action(),
+            data: create_form.serialize(),
+            success: function (data) {
+                if (data.message == 'success') {
+                    alert("保存成功！");
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                }
+            } ,
+            error: function () {
+                alert("保存失败！");
+            }
+
+        });
+    }
 </script>
 </body>
 </html>

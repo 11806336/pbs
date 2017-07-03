@@ -17,9 +17,9 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->
-    <mvc:annotation-driven >
+    <mvc:annotation-driven/>
 
-    </mvc:annotation-driven>
+    <mvc:default-servlet-handler/>
 
     <!-- 启动包扫描功能，以便注册带有@Controller、@service、@repository、@Component等注解的类成为spring的bean -->
     <context:component-scan base-package="com.pbs.ams.web" />
@@ -41,7 +41,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <!-- Jsp视图 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="1"/>
-        <property name="prefix" value="/WEB-INF/jsp"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=""/>
         <property name="contentType" value="text/html; charset=utf-8"/>
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

@@ -1,6 +1,7 @@
 package com.pbs.ams.web.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class AmsProduct implements Serializable {
     /**
@@ -29,7 +30,7 @@ public class AmsProduct implements Serializable {
      *
      * @mbg.generated
      */
-    private Boolean productType;
+    private Integer productType;
 
     /**
      * 产品代码
@@ -57,14 +58,14 @@ public class AmsProduct implements Serializable {
      *
      * @mbg.generated
      */
-    private Boolean productStatus;
+    private Integer productStatus;
 
     /**
      * 产品份额来源,1:自定义,2:032读取
      *
      * @mbg.generated
      */
-    private Boolean productShareSource;
+    private Integer productShareSource;
 
     /**
      * 产品开始时间
@@ -85,7 +86,7 @@ public class AmsProduct implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer productShares;
+    private BigDecimal productShares;
 
     /**
      * 备注
@@ -149,11 +150,11 @@ public class AmsProduct implements Serializable {
         this.productName = productName;
     }
 
-    public Boolean getProductType() {
+    public Integer getProductType() {
         return productType;
     }
 
-    public void setProductType(Boolean productType) {
+    public void setProductType(Integer productType) {
         this.productType = productType;
     }
 
@@ -181,19 +182,19 @@ public class AmsProduct implements Serializable {
         this.productSupervisor = productSupervisor;
     }
 
-    public Boolean getProductStatus() {
+    public Integer getProductStatus() {
         return productStatus;
     }
 
-    public void setProductStatus(Boolean productStatus) {
+    public void setProductStatus(Integer productStatus) {
         this.productStatus = productStatus;
     }
 
-    public Boolean getProductShareSource() {
+    public Integer getProductShareSource() {
         return productShareSource;
     }
 
-    public void setProductShareSource(Boolean productShareSource) {
+    public void setProductShareSource(Integer productShareSource) {
         this.productShareSource = productShareSource;
     }
 
@@ -213,11 +214,11 @@ public class AmsProduct implements Serializable {
         this.endDate = endDate;
     }
 
-    public Integer getProductShares() {
+    public BigDecimal getProductShares() {
         return productShares;
     }
 
-    public void setProductShares(Integer productShares) {
+    public void setProductShares(BigDecimal productShares) {
         this.productShares = productShares;
     }
 

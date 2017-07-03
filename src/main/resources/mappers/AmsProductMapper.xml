@@ -13,7 +13,7 @@
     <result column="product_share_source" jdbcType="BIT" property="productShareSource" />
     <result column="start_date" jdbcType="BIGINT" property="startDate" />
     <result column="end_date" jdbcType="BIGINT" property="endDate" />
-    <result column="product_shares" jdbcType="INTEGER" property="productShares" />
+    <result column="product_shares" jdbcType="DECIMAL" property="productShares" />
     <result column="product_desc" jdbcType="VARCHAR" property="productDesc" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
@@ -45,8 +45,8 @@
     values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, 
       #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, #{productManager,jdbcType=VARCHAR},
       #{productSupervisor,jdbcType=VARCHAR}, #{productStatus,jdbcType=BIT}, #{productShareSource,jdbcType=BIT},
-       #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productShares,jdbcType=INTEGER},
-        #{productDesc,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+       #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productShares,jdbcType=DECIMAL},
+        #{productDesc,jdbcType=VARCHAR},CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED), #{updateTime,jdbcType=BIGINT},
          #{operatorId,jdbcType=BIGINT},#{o32Id,jdbcType=BIGINT}
       )
   </insert>
@@ -140,13 +140,13 @@
         #{endDate,jdbcType=BIGINT},
       </if>
       <if test="productShares != null">
-        #{productShares,jdbcType=INTEGER},
+        #{productShares,jdbcType=DECIMAL},
       </if>
       <if test="productDesc != null">
         #{productDesc,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
+      <if test="createTime == null">
+        CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=BIGINT},
@@ -193,7 +193,7 @@
         end_date = #{endDate,jdbcType=BIGINT},
       </if>
       <if test="productShares != null">
-        product_shares = #{productShares,jdbcType=INTEGER},
+        product_shares = #{productShares,jdbcType=DECIMAL},
       </if>
       <if test="productDesc != null">
         product_desc = #{productDesc,jdbcType=VARCHAR},
@@ -201,8 +201,8 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
+      <if test="updateTime == null">
+        update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       </if>
       <if test="o32Id != null">
         o32_id = #{o32Id,jdbcType=BIGINT},
@@ -222,10 +222,10 @@
       product_share_source = #{productShareSource,jdbcType=BIT},
       start_date = #{startDate,jdbcType=BIGINT},
       end_date = #{endDate,jdbcType=BIGINT},
-      product_shares = #{productShares,jdbcType=INTEGER},
+      product_shares = #{productShares,jdbcType=DECIMAL},
       product_desc = #{productDesc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
+      update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       operator_id = #{operatorId,jdbcType=BIGINT}
       o32_id = #{o32Id,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
@@ -237,7 +237,7 @@
   <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.Map">
     SELECT
       ap.product_id,ap.product_name, ap.product_type, ap.product_code, ap.product_manager,ap.product_supervisor,
-      ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,ap.end_date,ap.product_shares,ap.product_desc,ap.o32_id
+      ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,ap.end_date,ap.product_shares,ap.product_desc,ap.o32_id,
       uu.realname,
       apd.product_net_value, apd.net_asset_value, apd.stock_total_assets, apd.security_total_value,
       apd.stock_total_value, apd.short_total_value
@@ -245,10 +245,16 @@
       ams_product ap
     LEFT JOIN ams_product_detail apd ON ap.product_id = apd.product_id
     LEFT JOIN upms_user uu ON ap.operator_id = uu.user_id
-    <if test="search != null">
-    WHERE
-      ap.product_name LIKE %#{search}%
-    </if>
+
+    <where>
+      <if test="search != null">
+        ap.product_name LIKE %#{search}%
+      </if>
+      <if test="companyId != null and companyId != ''">
+        and ap.company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+    </where>
+
     ORDER BY
       ap.product_id ASC
     LIMIT #{offset},#{limit}
@@ -259,10 +265,14 @@
     FROM
       ams_product ap
     LEFT JOIN ams_product_detail apd ON ap.product_id = apd.product_id
-    <if test="search != null">
-    WHERE
-      ap.product_name LIKE %#{search}%
-    </if>
+    <where>
+      <if test="search != null">
+        ap.product_name LIKE %#{search}%
+      </if>
+      <if test="companyId != null and companyId != ''">
+        and ap.company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+    </where>
   </select>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

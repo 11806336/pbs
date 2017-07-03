@@ -2,7 +2,6 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsProductAccount;
 
-
 public interface AmsProductAccountMapper {
     int deleteByPrimaryKey(Long productTradeAccountId);
 

@@ -3,9 +3,12 @@ package com.pbs.ams.common.base;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.util.PropertiesFileUtil;
+import com.pbs.ams.web.model.UpmsUser;
 import org.apache.commons.beanutils.BeanMap;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.session.InvalidSessionException;
+import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -92,5 +95,16 @@ public abstract class BaseController {
 			}
 		}
 		return lstMap;
+	}
+
+	/**
+	 * this method is used to getCurrentUser By Session(Shiro).
+	 * @return
+	 */
+	public UpmsUser getCurrentUser(){
+		//获取session,取当前用户
+		Session session = SecurityUtils.getSubject().getSession();
+		UpmsUser upmsUser = (UpmsUser) session.getAttribute("user");
+		return upmsUser;
 	}
 }

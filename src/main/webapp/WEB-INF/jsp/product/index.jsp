@@ -1,15 +1,12 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<<<<<<< HEAD
-<%@ include file="../base/tag.jsp" %>
-=======
 
->>>>>>> refs/remotes/origin/master
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>产品管理</title>
     <jsp:include page="/resources/inc/head.jsp" flush="true"/>
+    <link rel="stylesheet" href="${basePath}/resources/css/public.css">
 </head>
 <body>
 <div id="main">
@@ -22,7 +19,9 @@
             </div>
             <div class="btn-panel" style="float:left;">
                 <a class="btn icon-plus addstockcom btn-primary btnRefresh" href="#">立即更新</a>
-                <shiro:hasPermission name="ams:product:create"><a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('/product/create/tab','新建产品')">新建产品</a></shiro:hasPermission>
+                <%--<shiro:hasPermission name="ams:product:create">--%>
+                    <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('${basePath}/product/createProduct','新建产品','')">新建产品</a>
+                <%--</shiro:hasPermission>--%>
                 <a class="btn icon-plus addstockcom btn-primary btnExport" href="#">导出数据</a>
             </div>
         </div>
@@ -81,6 +80,7 @@
             "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
         ].join('');
     }
+
 </script>
 </body>
 </html>

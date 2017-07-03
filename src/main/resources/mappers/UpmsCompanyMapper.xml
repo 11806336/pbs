@@ -198,6 +198,15 @@
     #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
     CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))
   </insert>
+
+  <!--根据公司id查询单个公司-->
+  <select id="selectCompanyByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+      uc.company_id,uc.company_name
+    from upms_company uc
+    left join upms_company_user ucu on uc.company_id = ucu.company_id
+    where ucu.user_id = #{userId}
+  </select>
   <!-- end snapshot-->
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

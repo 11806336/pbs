@@ -108,4 +108,9 @@ public class UpmsCompanyServiceImpl implements UpmsCompanyService {
     public int countCompany(Map<String, Object> params) {
         return upmsCompanyMapper.countCompany(params);
     }
+
+    @Override
+    public List<UpmsCompany> selectCompanyByUserId(Long userId) {
+        return upmsCompanyMapper.selectCompanyByUserId(userId);
+    }
 }

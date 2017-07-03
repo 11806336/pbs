@@ -65,4 +65,12 @@ public interface UpmsCompanyMapper {
      * @return
      */
     int countCompany(Map<String, Object> params);
+
+    /**
+     * select company permissions for current users
+     * @param userId
+     * @return List<UpmsCompany>
+     * @author TiAmo.
+     */
+    List<UpmsCompany> selectCompanyByUserId(Long userId);
 }

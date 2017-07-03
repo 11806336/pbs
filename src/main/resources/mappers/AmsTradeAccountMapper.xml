@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.AmsTradeAccountMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeAccount">
+    <id column="trade_account_id" jdbcType="BIGINT" property="tradeAccountId" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="trade_account_type" jdbcType="BIT" property="tradeAccountType" />
+    <result column="trade_account" jdbcType="BIGINT" property="tradeAccount" />
+    <result column="trade_account_name" jdbcType="VARCHAR" property="tradeAccountName" />
+    <result column="trade_account_password" jdbcType="VARCHAR" property="tradeAccountPassword" />
+    <result column="broker_id" jdbcType="BIGINT" property="brokerId" />
+    <result column="trade_account_status" jdbcType="VARCHAR" property="tradeAccountStatus" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    trade_account_id, company_id, trade_account_type, trade_account, trade_account_name, 
+    trade_account_password, broker_id, trade_account_status, create_time, update_time, 
+    operator_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ams_trade_account
+    where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ams_trade_account
+    where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
+    insert into ams_trade_account (trade_account_id, company_id, trade_account_type, 
+      trade_account, trade_account_name, trade_account_password, 
+      broker_id, trade_account_status, create_time, 
+      update_time, operator_id)
+    values (#{tradeAccountId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{tradeAccountType,jdbcType=BIT}, 
+      #{tradeAccount,jdbcType=BIGINT}, #{tradeAccountName,jdbcType=VARCHAR}, #{tradeAccountPassword,jdbcType=VARCHAR}, 
+      #{brokerId,jdbcType=BIGINT}, #{tradeAccountStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
+    insert into ams_trade_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tradeAccountId != null">
+        trade_account_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="tradeAccountType != null">
+        trade_account_type,
+      </if>
+      <if test="tradeAccount != null">
+        trade_account,
+      </if>
+      <if test="tradeAccountName != null">
+        trade_account_name,
+      </if>
+      <if test="tradeAccountPassword != null">
+        trade_account_password,
+      </if>
+      <if test="brokerId != null">
+        broker_id,
+      </if>
+      <if test="tradeAccountStatus != null">
+        trade_account_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tradeAccountId != null">
+        #{tradeAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAccountType != null">
+        #{tradeAccountType,jdbcType=BIT},
+      </if>
+      <if test="tradeAccount != null">
+        #{tradeAccount,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAccountName != null">
+        #{tradeAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeAccountPassword != null">
+        #{tradeAccountPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerId != null">
+        #{brokerId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAccountStatus != null">
+        #{tradeAccountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
+    update ams_trade_account
+    <set>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAccountType != null">
+        trade_account_type = #{tradeAccountType,jdbcType=BIT},
+      </if>
+      <if test="tradeAccount != null">
+        trade_account = #{tradeAccount,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAccountName != null">
+        trade_account_name = #{tradeAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeAccountPassword != null">
+        trade_account_password = #{tradeAccountPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerId != null">
+        broker_id = #{brokerId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAccountStatus != null">
+        trade_account_status = #{tradeAccountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
+    update ams_trade_account
+    set company_id = #{companyId,jdbcType=BIGINT},
+      trade_account_type = #{tradeAccountType,jdbcType=BIT},
+      trade_account = #{tradeAccount,jdbcType=BIGINT},
+      trade_account_name = #{tradeAccountName,jdbcType=VARCHAR},
+      trade_account_password = #{tradeAccountPassword,jdbcType=VARCHAR},
+      broker_id = #{brokerId,jdbcType=BIGINT},
+      trade_account_status = #{tradeAccountStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      operator_id = #{operatorId,jdbcType=BIGINT}
+    where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
+  </update>
+  <insert id="insertIntoAmsTradeAccountSnaps">
+    insert into ams_trade_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_account as tb where trade_account_id= #{trade_account_id}
+  </insert>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
