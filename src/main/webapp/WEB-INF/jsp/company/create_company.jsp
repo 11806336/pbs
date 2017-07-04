@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>创建公司</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../resources/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
+    <link rel="stylesheet" href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css">
 
-    <link rel="stylesheet" href="../../../resources/css/create_broker.css">
+    <link rel="stylesheet" href="${basePath}/resources/css/common.css">
 </head>
 <body>
-<div id="content">
-    <div>
+<div id="main">
         <div class="control-group">
             <label for="company_name" class="control-label"><em class="rqd">*</em>公司名称：</label>
             <div class="controls">
@@ -67,10 +69,10 @@
             </div>
         </div>
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
-    </div>
 </div>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/My97DatePicker/WdatePicker.js"></script>
+<script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
+<script src="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <script>
     function importName1(obj) {
         if(!$(obj).val()){
@@ -127,13 +129,13 @@
             } ,
             success: function (data) {
                 if (data.message == 'success') {
-                    alert("保存成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
+                    window.parent.refresh();
                 }
             } ,
             error: function () {
-
+                alert("error");
             }
 
         });
