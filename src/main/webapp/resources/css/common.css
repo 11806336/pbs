@@ -163,3 +163,7 @@ p.block-heading, a.block-heading, .block-heading a {
     font-style: normal;
 }
 .form-control {height:30.65px;}
+/*添加经纪公司页面css调整*/
+#dayBegin,#dayEnd,#nightStartDate,#nightEndDate {background-color: #fff;cursor:pointer;}
+#dayBegin,#nightStartDate {margin-right: 5px;}
+#dayEnd ,#nightEndDate{margin-left: 5px;}

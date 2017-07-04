@@ -85,7 +85,7 @@
         }
     }
     //实时监控input框
-    $(document).on("input","#company_name,#company_phone,#company_address,#operator_id",function () {
+    $(document).on("input","input",function () {
         if($(this).val()){
             $(this).next().hide();
         }else {
