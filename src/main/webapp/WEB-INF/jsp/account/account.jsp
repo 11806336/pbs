@@ -16,7 +16,6 @@
 <body>
 <div id="main">
     <div id="searchDiv">
-        <input type="text" id="query" class="form-control" style="width:220px;font-size: 12px;" placeholder="请输入主账号,按Enter查询">
         <div class="btn-panel">
             <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="dialog('/account/create','添加证券账号','')">添加证券账号</a>
             <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="">导出全部持仓</a>
@@ -55,7 +54,7 @@
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination = 'server';
     //指定主键列
-    var idField = 'stockId';
+    var idField = 'trade_account_id';
     //右上角刷新搜索
     var search = true;
     var showRefresh = true;
@@ -63,15 +62,15 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         var rows = $table.bootstrapTable('getSelections');
-        console.log( row.stockId);
+        console.log( row.trade_account_id);
         ids = new Array();
         for (var i in rows) {
-            ids.push(rows[i].stockId);
+            ids.push(rows[i].trade_account_id);
         }
         return [
-            "<a class='selected' href='javascript:;' onclick=updateAction('/manage/permission/update','编辑'," + row.stockId + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='selected' href='javascript:;' onclick=dialog('/account/update','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
             "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('inquire/tab.html','账号详情') data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
-            "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update'," + ids + ") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','trade_account_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
 </script>

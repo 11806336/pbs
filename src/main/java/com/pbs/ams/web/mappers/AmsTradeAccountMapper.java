@@ -21,4 +21,6 @@ public interface AmsTradeAccountMapper {
     List<Map> selectTradeAccoutWithDetail(Map map);
 
     int selectTradeAccoutWithDetailCount(Map map);
+
+    int insertIntoAmsTradeAccountSnaps(AmsTradeAccount record);
 }

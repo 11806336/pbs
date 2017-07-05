@@ -63,6 +63,7 @@
       #{brokerId,jdbcType=BIGINT}, #{tradeAccountStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
   </insert>
+  <!--添加账号-->
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     insert into ams_trade_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -90,12 +91,8 @@
       <if test="tradeAccountStatus != null">
         trade_account_status,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
         update_time,
-      </if>
       <if test="operatorId != null">
         operator_id,
       </if>
@@ -125,17 +122,14 @@
       <if test="tradeAccountStatus != null">
         #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
+  <!--更新账号-->
   <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     update ams_trade_account
     <set>
@@ -161,31 +155,16 @@
         trade_account_status = #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=BIGINT},
+        create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
+        update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       <if test="operatorId != null">
         operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
     </set>
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
-    update ams_trade_account
-    set company_id = #{companyId,jdbcType=BIGINT},
-      trade_account_type = #{tradeAccountType,jdbcType=BIT},
-      trade_account = #{tradeAccount,jdbcType=BIGINT},
-      trade_account_name = #{tradeAccountName,jdbcType=VARCHAR},
-      trade_account_password = #{tradeAccountPassword,jdbcType=VARCHAR},
-      broker_id = #{brokerId,jdbcType=BIGINT},
-      trade_account_status = #{tradeAccountStatus,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
-      operator_id = #{operatorId,jdbcType=BIGINT}
-    where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
-  </update>
+
   <insert id="insertIntoAmsTradeAccountSnaps">
     insert into ams_trade_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_account as tb where trade_account_id= #{trade_account_id}
   </insert>

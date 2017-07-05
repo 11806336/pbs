@@ -12,42 +12,39 @@ import java.util.Map;
 */
 public interface AmsBrokerService{
 
-    int deleteByPrimaryKey(Long id);
-
-    int insert(AmsBroker record);
     /**
      * 根据id删除券商
      * @param ids 券商id
      * @return
      */
-    int deleteByPrimaryKeys(String ids);
+    int deleteByPrimaryKeys(List<Long> ids);/**/
 
     /**
-     * 新增公司
+     * 新增券商
      * @param record 券商实体
      * @return
      */
-    int insertSelective(AmsBroker record);
+    int insertSelective(AmsBroker record);/**/
 
     /**
      * 根据id查询单条记录
      * @param id 券商id
      * @return
      */
-    AmsBroker selectByPrimaryKey(Long id);
+    AmsBroker selectByPrimaryKey(Long id);/**/
 
     /**
      *编辑券商
      * @param record
      * @return
      */
-    int updateByPrimaryKeySelective(AmsBroker record);
+    int updateByPrimaryKeySelective(AmsBroker record);/**/
 
     /**
      * 向快照表中插入数据
      * @return
      */
-    int insertToAmsBrokerSnaps(AmsBrokerSnaps amsBrokerSnaps);
+    int insertToAmsBrokerSnaps(AmsBrokerSnaps amsBrokerSnaps);/**/
 
     /**
      * This method is used to get PageList data.

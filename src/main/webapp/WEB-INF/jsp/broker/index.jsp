@@ -81,7 +81,7 @@
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='server';
     //指定主键列
-    var idField='brokerId';
+    var idField='broker_id';
 
     //右上角刷新搜索
     var search=true;
@@ -91,112 +91,12 @@
 
     function actionFormatter(value, row, index) {
         return [
-            "<a class='update' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+")" +
-            " data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a> ",
-            " <a class='delete' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+            "<a class='update' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a> ",
+            " <a class='delete' href='javascript:;' onclick=deleteAction(this,'/ams/broker/delete','broker_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
         ].join('');
     }
     
 
-    // 删除
-    var deleteDialog;
-    function deleteAction() {
-        var rows = $table.bootstrapTable('getSelections');
-        if (rows.length == 0) {
-            $.confirm({
-                title: false,
-                content: '请至少选择一条记录！',
-                autoClose: 'cancel|3000',
-                backgroundDismiss: true,
-                buttons: {
-                    cancel: {
-                        text: '取消',
-                        btnClass: 'waves-effect waves-button'
-                    }
-                }
-            });
-        } else {
-            deleteDialog = $.confirm({
-                type: 'red',
-                animationSpeed: 300,
-                title: false,
-                content: '确认删除吗？',
-                buttons: {
-                    confirm: {
-                        text: '确认',
-                        btnClass: 'waves-effect waves-button',
-                        action: function () {
-                            var ids = new Array();
-                            for (var i in rows) {
-                                ids.push(rows[i].broker_id);
-                            }
-                            $.ajax({
-                                type: 'GET',
-                                url: '${basePath}/ams/broker/delete/' + ids[i], /*!/manage/permission/delete*/
-                                success: function(result) {
-                                    if (result.code != 1) {
-                                        if (result.data instanceof Array) {
-                                            $.each(result.data, function(index, value) {
-                                                $.confirm({
-                                                    theme: 'dark',
-                                                    animation: 'rotateX',
-                                                    closeAnimation: 'rotateX',
-                                                    title: false,
-                                                    content: value.errorMsg,
-                                                    buttons: {
-                                                        confirm: {
-                                                            text: '确认',
-                                                            btnClass: 'waves-effect waves-button waves-light'
-                                                        }
-                                                    }
-                                                });
-                                            });
-                                        } else {
-                                            $.confirm({
-                                                theme: 'dark',
-                                                animation: 'rotateX',
-                                                closeAnimation: 'rotateX',
-                                                title: false,
-                                                content: result.data.errorMsg,
-                                                buttons: {
-                                                    confirm: {
-                                                        text: '确认',
-                                                        btnClass: 'waves-effect waves-button waves-light'
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    } else {
-                                        deleteDialog.close();
-                                        $table.bootstrapTable('refresh');
-                                    }
-                                },
-                                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                    $.confirm({
-                                        theme: 'dark',
-                                        animation: 'rotateX',
-                                        closeAnimation: 'rotateX',
-                                        title: false,
-                                        content: textStatus,
-                                        buttons: {
-                                            confirm: {
-                                                text: '确认',
-                                                btnClass: 'waves-effect waves-button waves-light'
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    },
-                    cancel: {
-                        text: '取消',
-                        btnClass: 'waves-effect waves-button'
-                    }
-                }
-            });
-        }
-    }
 </script>
 </body>
 </html>

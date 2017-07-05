@@ -32,7 +32,7 @@ public interface AmsPlatformService {
      * @param map
      * @return
      */
-    List<Map> selectPlatformWithDetail(Map map);
+    List<Map> selectPlatformWithDetail(Map map);/**/
 
     /**
      * This method is used to get PageListTotalSize

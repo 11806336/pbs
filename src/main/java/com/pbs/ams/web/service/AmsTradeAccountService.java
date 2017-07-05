@@ -1,6 +1,7 @@
 package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsTradeAccount;
+import com.pbs.ams.web.model.AmsTradeAccountSnaps;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public interface AmsTradeAccountService{
 
     int deleteByPrimaryKey(Long id);
 
-    int deleteByPrimaryKeys(String ids);
+    int deleteByPrimaryKeys(List<Long> ids);
 
     int insert(AmsTradeAccount record);
 
@@ -25,7 +26,7 @@ public interface AmsTradeAccountService{
 
     int updateByPrimaryKeySelective(AmsTradeAccount record);
 
-    int insertToAmsTradeAccountSnaps();
+    int insertToAmsTradeAccountSnaps(AmsTradeAccountSnaps amsTradeAccountSnaps);
 
     List<Map> selectTradeAccoutWithDetail(Map map);
 
