@@ -19,12 +19,14 @@
     broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name, 
     creditable, day_begin, day_end, create_time, update_time, operator_id
   </sql>
+  <!--根据ID查询券商-->
   <select id="selectByPrimaryKey" parameterType="java.lang.Long"  resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from ams_broker
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </select>
+  <!--ams_broker and ams_platform 关联查询-->
   <select id="selectBrokerWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
     SELECT ab.broker_id,ab.broker_type,ab.platform_id, ab.broker_abbr_name,ab.broker_logo,ab.broker_name,
     ab.creditable,ab.day_begin,ab.day_end,ab.create_time,ab.update_time, ab.operator_id,ap.platform_name
@@ -40,14 +42,14 @@
       <if test="offset == null"> limit ${limit} </if>
     </if>
   </select>
-  <select id="selectBrokerAndPlatform" resultType="java.util.Map" parameterType="java.lang.Object">
+  <!--<select id="selectBrokerAndPlatform" resultType="java.util.Map" parameterType="java.lang.Object">
     SELECT ab.broker_id,ab.broker_type,ab.platform_id, ab.broker_abbr_name,ab.broker_logo,ab.broker_name,
     ab.creditable,ab.day_begin,ab.day_end,ab.create_time,ab.update_time, ab.operator_id,ap.platform_name
     FROM ams_broker ab LEFT JOIN ams_platform ap ON 1 = 1
     <if test="platformId!=null">
       and ab.platform_id = #{platformId,jdbcType=BIGINT}
     </if>
-  </select>
+  </select>-->
   <select id="selectBrokerWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
     SELECT
     COUNT(1)
@@ -58,11 +60,12 @@
       </where>
     </if>
   </select>
+  <!--根据ID删除-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_broker
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsBroker">
+  <!--<insert id="insert" parameterType="com.pbs.ams.web.model.AmsBroker">
     insert into ams_broker (broker_id, broker_type, platform_id,
       broker_abbr_name, broker_logo, broker_name,
       creditable, day_begin, day_end,
@@ -73,7 +76,8 @@
       #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
       )
-  </insert>
+  </insert>-->
+  <!--新增券商-->
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsBroker">
     insert into ams_broker
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -148,21 +152,43 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsBroker">
     update ams_broker
-    set broker_type = #{brokerType,jdbcType=INTEGER},
-    platform_id = #{platformId,jdbcType=BIGINT},
-    broker_abbr_name = #{brokerAbbrName,jdbcType=VARCHAR},
-    broker_logo = #{brokerLogo,jdbcType=VARCHAR},
-    broker_name = #{brokerName,jdbcType=VARCHAR},
-    creditable = #{creditable,jdbcType=BIT},
-    day_begin = #{dayBegin,jdbcType=BIGINT},
-    day_end = #{dayEnd,jdbcType=BIGINT},
-    create_time = #{createTime,jdbcType=BIGINT},
-    update_time = #{updateTime,jdbcType=BIGINT},
-    operator_id = #{operatorId,jdbcType=BIGINT},
-    CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
+    <set>
+      <if test="brokerType != null">
+        broker_type = #{brokerType,jdbcType=INTEGER},
+      </if>
+      <if test="platformId != null">
+        platform_id = #{platformId,jdbcType=BIGINT},
+      </if>
+      <if test="brokerAbbrName != null">
+        broker_abbr_name = #{brokerAbbrName,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerLogo != null">
+        broker_logo = #{brokerLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerName != null">
+        broker_name = #{brokerName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditable != null">
+        creditable = #{creditable,jdbcType=BIT},
+      </if>
+      <if test="dayBegin != null">
+        day_begin = #{dayBegin,jdbcType=BIGINT},
+      </if>
+      <if test="dayEnd != null">
+        day_end = #{dayEnd,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      </if>
+        update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+    </set>
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsBroker">
+  <!--更新券商-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsBroker">
     update ams_broker
     set broker_type = #{brokerType,jdbcType=INTEGER},
       platform_id = #{platformId,jdbcType=BIGINT},
@@ -177,88 +203,20 @@
       operator_id = #{operatorId,jdbcType=BIGINT},
       CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
     where broker_id = #{brokerId,jdbcType=BIGINT}
-  </update>
+  </update>-->
 
-
+<!--插入快照-->
   <insert id="insertToAmsBrokerSnaps" parameterType="com.pbs.ams.web.model.AmsBrokerSnaps">
-    insert into ams_broker_snaps
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="brokerId != null">
-        broker_id,
-      </if>
-      <if test="brokerType != null">
-        broker_type,
-      </if>
-      <if test="platformId != null">
-        platform_id,
-      </if>
-      <if test="brokerAbbrName != null">
-        broker_abbr_name,
-      </if>
-      <if test="brokerLogo != null">
-        broker_logo,
-      </if>
-      <if test="brokerName != null">
-        broker_name,
-      </if>
-      <if test="creditable != null">
-        creditable,
-      </if>
-      <if test="dayBegin != null">
-        day_begin,
-      </if>
-      <if test="dayEnd != null">
-        day_end,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="snapsTime != null">
-        snaps_time,
-      </if>
-      <if test="operatorId != null">
-        #{operatorId,jdbcType=BIGINT},
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="brokerId != null">
-        #{brokerId,jdbcType=BIGINT},
-      </if>
-      <if test="brokerType != null">
-        #{brokerType,jdbcType=VARCHAR},
-      </if>
-      <if test="platformId != null">
-        #{platformId,jdbcType=BIGINT},
-      </if>
-      <if test="brokerAbbrName != null">
-        #{brokerAbbrName,jdbcType=BIGINT},
-      </if>
-      <if test="brokerLogo != null">
-        #{brokerLogo,jdbcType=INTEGER},
-      </if>
-      <if test="brokerName != null">
-        #{brokerName,jdbcType=VARCHAR},
-      </if>
-      <if test="creditable != null">
-        #{creditable,jdbcType=VARCHAR},
-      </if>
-      <if test="dayBegin != null">
-        #{dayBegin,jdbcType=VARCHAR},
-      </if>
-      <if test="dayEnd != null">
-        #{dayEnd,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
-      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
-    </trim>
+     insert into ams_broker_snaps (broker_id, broker_type, platform_id,
+      broker_abbr_name, broker_logo, broker_name,
+      creditable, day_begin, day_end,
+      create_time, update_time, operator_id,snaps_time
+      )
+    values (#{brokerId,jdbcType=BIGINT}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=BIGINT},
+      #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR},
+      #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT},
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))
   </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>
