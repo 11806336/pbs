@@ -91,6 +91,7 @@ public class AmsBrokerController extends BaseController {
         if (!result.isSuccess()) {
             return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
+        amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
