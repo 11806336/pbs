@@ -18,10 +18,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -104,8 +101,6 @@ public class AmsTradeAccountController extends BaseController {
         request.setAttribute("amsBrokers",amsBrokers);
         return "/account/create_account_base.jsp";
     }
-
-
     /**
      *
      * @param amsTradeAccount
@@ -125,30 +120,28 @@ public class AmsTradeAccountController extends BaseController {
 //        }
 
         Long tradeAccountId = IdGeneratorUtil.getKey("ams_trade_account");
+        amsTradeAccount.setTradeAccountId(tradeAccountId);
         Long companyId=getCurrentUser().getCompanyId();
         if (companyId==null){
             amsTradeAccount.setCompanyId((long)0);
         }
-        amsTradeAccount.setTradeAccountId(tradeAccountId);
         amsTradeAccount.setTradeAccountType(true);
-        long time = System.currentTimeMillis();
-        amsTradeAccount.setCreateTime(time);
-        amsTradeAccount.setUpdateTime(time);
-        amsTradeAccount.setOperatorId((long)0);
+        amsTradeAccount.setOperatorId(getCurrentUser().getUserId());
         int count = amsTradeAccountService.insertSelective(amsTradeAccount);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
 
-//    @ApiOperation(value = "修改账号")
-//    @RequiresPermissions("upms:account:update")
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-//    public String update(@PathVariable("id") long id, ModelMap modelMap) {
-//        AmsStockAccount amsStockAccount = amsStockAccountService.selectByPrimaryKey(id);
-//        modelMap.put("amsStockAccount", amsStockAccount);
-//        return "/company/update_company.jsp";
-//    }
-//
+    @ApiOperation(value = "修改账号")
+    @RequiresPermissions("upms:account:update")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable("id") long id, HttpServletRequest request) {
+        AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
+        Map<String, Object> params = Maps.newHashMap();
+        request.setAttribute("amsStockAccount", amsTradeAccount);
+        return "/account/update_account_base.jsp";
+    }
+
 //    @ApiOperation(value = "修改账号")
 //    @RequiresPermissions("upms:account:update")
 //    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)

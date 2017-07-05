@@ -9,17 +9,13 @@ import java.util.Map;
 public interface AmsBrokerMapper {
     int deleteByPrimaryKey(Long brokerId);
 
-    int deleteByPrimaryKey(String brokerId);
-
-    int insert(AmsBroker record);
+    int deleteByPrimaryKeys(List<Long> ids);
 
     int insertSelective(AmsBroker record);
 
     AmsBroker selectByPrimaryKey(Long brokerId);
 
     int updateByPrimaryKeySelective(AmsBroker record);
-
-    int updateByPrimaryKey(AmsBroker record);
 
     List<Map> selectBrokerWithDetail(Map map);
 

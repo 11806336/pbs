@@ -41,7 +41,7 @@
         </div>
 
         <div class="control-group">
-            <label for="brokerName" class="control-label"><em class="rqd">*</em>期货公司：</label>
+            <label for="brokerName" class="control-label"><em class="rqd">*</em>券商名称：</label>
             <div class="controls">
                 <input type="text" id="brokerName" name="brokerName" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入名称</span>
@@ -56,29 +56,15 @@
             </div>
         </div>
 
-        <div class="control-group">
-            <label for="verificationCode" class="control-label">客户端认证码：</label>
-            <div class="controls">
-                <input type="text" maxlength="20" id="verificationCode" name="verification" value="">
-                <span class="tipsError" style="display: none; padding-left: 10px">请输入长度不超过20位的数字串</span>
-            </div>
-        </div>
-
         <div class="control-group ">
             <label  class="control-label">日盘启动时间：</label>
-            <input type="text" name="day_begin" id="dayBegin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;">
+            <input type="text" name="dayBegin" id="dayBegin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;">
             <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="day_end" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
+            <input type="text" name="dayEnd" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
             <span for="day_endDate" class="error" style="display: none;"></span>
         </div>
 
-        <div class="control-group">
-            <label  class="control-label">夜盘启动时间：</label>
-            <input type="text" name="night_startDate" id="night_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="20:00:00" style="background-color: #fff;cursor:pointer;">
-            <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="night_endDate" id="night_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="01:00:00" style="background-color: #fff;cursor:pointer">
-            <span for="night_endDate" class="error" style="display: none;"></span>
-        </div>
+
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
         </form>
     </div>

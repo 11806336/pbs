@@ -63,6 +63,7 @@
       #{brokerId,jdbcType=BIGINT}, #{tradeAccountStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
   </insert>
+  <!--添加账号-->
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     insert into ams_trade_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -90,12 +91,8 @@
       <if test="tradeAccountStatus != null">
         trade_account_status,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
         update_time,
-      </if>
       <if test="operatorId != null">
         operator_id,
       </if>
@@ -125,12 +122,8 @@
       <if test="tradeAccountStatus != null">
         #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
       </if>

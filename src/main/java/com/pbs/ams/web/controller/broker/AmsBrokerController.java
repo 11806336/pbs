@@ -15,6 +15,7 @@ import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsPlatformService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -93,6 +95,7 @@ public class AmsBrokerController extends BaseController {
         }
         amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
+        System.out.println(amsBroker.getDayBegin());
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
@@ -104,8 +107,16 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
-        int count=amsBrokerService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if (StringUtils.isNotEmpty(ids)) {
+            String[] brokerIds = ids.split("-");
+            List<Long> idList = new ArrayList<Long>();
+            for (String id : brokerIds) {
+                idList.add(Long.parseLong(id));
+            }
+            int count = amsBrokerService.deleteByPrimaryKeys(idList);
+            return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        }
+        return 0;
     }
 
 
