@@ -26,8 +26,8 @@
         <div class="controls">
             <select  name="platformId" id="platformId">
                 <option value="0">---请选择---</option>
-                <c:forEach var="amsPlatform" items="${amsPlatforms}">
-                    <option value="${amsPlatform.platform_id}">${amsPlatform.platform_name}</option>
+                <c:forEach var="amsProducts" items="${amsProducts}">
+                    <option value="${amsProducts.product_id}">${amsProducts.product_name}</option>
                 </c:forEach>
             </select>
         </div>

@@ -4,8 +4,9 @@ import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
 import com.pbs.ams.web.mappers.AmsTradeAccountMapper;
 import com.pbs.ams.web.model.AmsTradeAccount;
+import com.pbs.ams.web.model.AmsTradeAccountSnaps;
 import com.pbs.ams.web.service.AmsTradeAccountService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -107,27 +109,31 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
         }
 
         @Override
-        public int deleteByPrimaryKeys(String ids) {
-            try {
-                if (StringUtils.isBlank(ids)) {
-                    return 0;
-                }
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                String[] idArray = ids.split("-");
+        public int deleteByPrimaryKeys(List<Long> ids) {
+            if (null != ids && ids.size() >0) {
                 int count = 0;
-                for (String idStr : idArray) {
-                    if (StringUtils.isBlank(idStr)) {
-                        continue;
+                for (long id : ids) {
+                    //先做查询再去删除原表数据和插入快照
+                    AmsTradeAccount amsTradeAccount = amsTradeAccountMapper.selectByPrimaryKey(id);
+                    if (amsTradeAccount != null) {
+                        AmsTradeAccountSnaps amsTradeAccountSnaps = new AmsTradeAccountSnaps();
+                        try {
+                            PropertyUtils.copyProperties(amsTradeAccountSnaps, amsTradeAccount);
+                            //向快照表插入数据
+                            int snapshotResult = amsTradeAccountMapper.insertIntoAmsTradeAccountSnaps(amsTradeAccount);
+                            count += amsTradeAccountMapper.deleteByPrimaryKey(id);
+                        } catch (IllegalAccessException e) {//checkException
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    Long id = Long.parseLong(idStr);
-                    count += amsTradeAccountMapper.deleteByPrimaryKey(id);
                 }
                 return count;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                DynamicDataSource.clearDataSource();
-                return 0;
+            }
+            return 0;
         }
 
 
@@ -137,7 +143,7 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
         */
         @Override
         @Transactional(propagation = Propagation.MANDATORY)
-        public int insertToAmsTradeAccountSnaps() {
+        public int insertToAmsTradeAccountSnaps(AmsTradeAccountSnaps amsTradeAccountSnaps) {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
             //return amsTradeAccountMapper.insertToAmsTradeAccountSnaps();
