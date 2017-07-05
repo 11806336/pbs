@@ -189,12 +189,13 @@ public class AmsProductController extends BaseController{
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         if (StringUtils.isNotEmpty(ids)) {
-            String[] productIds = ids.split(",");
+            int count = 0;
+            String[] productIds = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
             for (String id : productIds) {
                 idList.add(Long.parseLong(id));
+                count = amsProductService.deleteByPrimaryKeys(id);
             }
-            int count = amsProductService.deleteByPrimaryKeys(ids);
             return new UpmsResult(UpmsResultConstant.SUCCESS, count);
         }
         return 0;
