@@ -8,10 +8,11 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.base.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.UpmsResultConstant;
-import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
-import com.pbs.ams.web.model.*;
+import com.pbs.ams.web.model.AmsProduct;
+import com.pbs.ams.web.model.UpmsCompany;
+import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.AmsProductService;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
@@ -22,10 +23,11 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +104,7 @@ public class AmsProductController extends BaseController{
     @ApiOperation(value = "新增产品")
     @RequiresPermissions("ams:product:read")
     @ResponseBody
-    @RequestMapping(value = "/create", method = RequestMethod.POST ,produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "/create", method = RequestMethod.POST )
     public Object create(HttpServletRequest request,AmsProduct amsProduct) {
         //获取session,取当前用户
         Session session = SecurityUtils.getSubject().getSession();
@@ -124,15 +126,15 @@ public class AmsProductController extends BaseController{
 
 
 
-    //    @ApiOperation(value = "新增产品导航")
+//    @ApiOperation(value = "新增产品导航")
 //    @RequiresPermissions("ams:product:create")
 //    @RequestMapping(value = "/create/tab", method = RequestMethod.GET)
 //    public String create() {
 //        return "/product/create/tab.jsp";
 //    }
-
-
-
+//
+//
+//
 //    @ApiOperation(value = "设置账号页")
 //    @RequiresPermissions("ams:product:create")
 //    @RequestMapping(value = "/accountSettings", method = RequestMethod.GET)
@@ -153,31 +155,48 @@ public class AmsProductController extends BaseController{
 //    }
 
 
-//
-//
-//    @ApiOperation(value = "修改组织")
-//    @RequiresPermissions("ams:product:update")
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-//    public String update(@PathVariable("id") long id, ModelMap modelMap) {
-//        AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-//        modelMap.put("amsProduct", amsProduct);
-//        return  "/product/update";
-//    }
-//
-//    @ApiOperation(value = "修改组织")
-//    @RequiresPermissions("ams:product:update")
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Object update(@PathVariable("id") long id, AmsProduct amsProduct) {
-//        ComplexResult result = FluentValidator.checkAll()
-//                .on(amsProduct.getProductName(), new LengthValidator(1, 20, "名称"))
-//                .doValidate()
-//                .result(ResultCollectors.toComplex());
-//        if (!result.isSuccess()) {
-//            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
-//        }
-//        amsProduct.setProductId(id);
-//        int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
-//        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
-//    }
+
+
+    @ApiOperation(value = "修改组织")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable("id") long id, ModelMap modelMap) {
+        AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
+        modelMap.put("amsProduct", amsProduct);
+        return  "/product/edit/update_product.jsp";
+    }
+
+    @ApiOperation(value = "修改组织")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public Object update(@PathVariable("id") long id, AmsProduct amsProduct) {
+        ComplexResult result = FluentValidator.checkAll()
+                .on(amsProduct.getProductName(), new LengthValidator(1, 20, "名称"))
+                .doValidate()
+                .result(ResultCollectors.toComplex());
+        if (!result.isSuccess()) {
+            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+        }
+        amsProduct.setProductId(id);
+        int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
+        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+    }
+
+    @ApiOperation(value = "删除组织")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object delete(@PathVariable("ids") String ids) {
+        if (StringUtils.isNotEmpty(ids)) {
+            String[] productIds = ids.split(",");
+            List<Long> idList = new ArrayList<Long>();
+            for (String id : productIds) {
+                idList.add(Long.parseLong(id));
+            }
+            int count = amsProductService.deleteByPrimaryKeys(ids);
+            return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        }
+        return 0;
+    }
 }

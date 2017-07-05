@@ -20,11 +20,11 @@
 </head>
 <body>
 <div id="main">
-<form id="create_form">
+<form id="update_form">
     <div class="control-group">
         <label for="productName" class="control-label"><em class="rqd">*</em>产品名称：</label>
         <div class="controls">
-            <input type="text" id="productName" name="productName" value="" onblur="funBlur(this)" maxlength="25">
+            <input type="text" id="productName" name="productName" value="${amsProduct.productName}" onblur="funBlur(this)" maxlength="25">
             <span class="tipsError">请输入产品名称</span>
             <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
         </div>
@@ -35,7 +35,7 @@
             <select name="companyId" id="companyList">
                 <option value="0"> ---请选择--- </option>
                 <c:forEach var="comp" items="${upmsCompanies}">
-                    <option value="${comp.companyId}">${comp.companyName}</option>
+                    <option value="${comp.companyId}" <c:if test='${amsProduct.productId == comp.companyId}'> selected='selected' </c:if>>${comp.companyName}</option>
                 </c:forEach>
             </select>
             <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
@@ -56,7 +56,7 @@
     <div class="control-group">
         <label for="productCode" class="control-label"><em class="rqd">*</em>产品代码：</label>
         <div class="controls">
-            <input type="text" id="productCode" name="productCode" value="" onblur="funBlur(this)">
+            <input type="text" id="productCode" name="productCode" value="${amsProduct.productCode}" onblur="funBlur(this)">
             <span class="tipsError">请输入产品代码</span>
             <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
         </div>
@@ -64,23 +64,23 @@
     <div class="control-group">
         <label for="productSupervisor" class="control-label">产品管理人：</label>
         <div class="controls">
-            <input type="text" id="productSupervisor" name="productSupervisor" value="" onblur="funBlur(this)" maxlength="25">
+            <input type="text" id="productSupervisor" name="productSupervisor" value="${amsProduct.productSupervisor}" onblur="funBlur(this)" maxlength="25">
             <span class="tipsError">请输入产品管理人</span>
         </div>
     </div>
     <div class="control-group">
         <label for="productManager" class="control-label">产品经理：</label>
         <div class="controls">
-            <input type="text" id="productManager" name="productManager" value="" onblur="funBlur(this)" maxlength="25">
+            <input type="text" id="productManager" name="productManager" value="${amsProduct.productManager}" onblur="funBlur(this)" maxlength="25">
             <span class="tipsError">请输入产品经理</span>
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">产品起止日期：</label>
-        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="startDate" value="" id="startDate" class="required">
+        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="startDate" value="${amsProduct.startDate}" id="startDate" class="required">
         <span for="startDate" class="error" style="display: none;"></span>
         <span style="display: inline-block;margin:0 10px;">至</span>
-        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="endDate" id="endDate" class="required" onblur="funBlur(this)">
+        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="endDate" value="${amsProduct.endDate}" id="endDate" class="required" onblur="funBlur(this)">
         <span for="endDate" class="tipsError">起始日期不能大于结束日期</span>
         <span class="tipsError" style="display: inline-block;">(修改需重启服务生效)</span>
     </div>
@@ -132,7 +132,7 @@
             <span class="tipsError"></span>
         </div>
     </div>
-    <input type="button" class="btn btn-info" onclick="submitForm()" value="提交"/>
+    <input type="button" id="saveBrokerBtn" class="btn btn-info" onclick="submitForm()" value="提交"/>
 </form>
 </div>
 <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
@@ -163,28 +163,23 @@
             $("#read").show();
         }
     });
-
-    function submitForm(){
-        var create_form = $("#create_form");
+    //保存产品
+    $(document).on("click","#saveBrokerBtn",function () {
         $.ajax({
             type: 'POST',
-            url: '${basePath}/product/create',
-            data: create_form.serialize(),
-            ContentType: 'application/json',
+            url: '${basePath}/product/update/${amsProduct.productId}',
+            data: $('#update_form').serialize(),
             success: function (data) {
-                alert("保存成功！");
+                console.info(data);
                 if (data.message == 'success') {
-                    alert("保存成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                 }
             } ,
             error: function () {
-                alert("保存失败！");
             }
-
         });
-    }
+    });
 </script>
 </body>
 </html>

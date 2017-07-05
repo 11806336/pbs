@@ -46,8 +46,8 @@
       #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, #{productManager,jdbcType=VARCHAR},
       #{productSupervisor,jdbcType=VARCHAR}, #{productStatus,jdbcType=BIT}, #{productShareSource,jdbcType=BIT},
        #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productShares,jdbcType=DECIMAL},
-        #{productDesc,jdbcType=VARCHAR},CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED), #{updateTime,jdbcType=BIGINT},
-         #{operatorId,jdbcType=BIGINT},#{o32Id,jdbcType=BIGINT}
+        #{productDesc,jdbcType=VARCHAR},CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+         #{updateTime,jdbcType=BIGINT},#{operatorId,jdbcType=BIGINT},#{o32Id,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProduct">
@@ -92,9 +92,7 @@
       <if test="productDesc != null">
         product_desc,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
       <if test="updateTime != null">
         update_time,
       </if>

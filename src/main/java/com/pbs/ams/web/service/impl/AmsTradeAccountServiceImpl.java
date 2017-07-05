@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * AmsTradeAccountService实现
 * Created by ams on 2017/6/29.
@@ -144,5 +147,13 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             DynamicDataSource.clearDataSource();
             return 0;
         }
+    @Override
+    public List<Map> selectTradeAccoutWithDetail(Map map) {
+        return amsTradeAccountMapper.selectTradeAccoutWithDetail(map);
+    }
 
+    @Override
+    public int selectTradeAccoutWithDetailCount(Map map) {
+        return amsTradeAccountMapper.selectTradeAccoutWithDetailCount(map);
+    }
 }

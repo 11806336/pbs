@@ -2,6 +2,9 @@ package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsTradeAccount;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * AmsTradeAccountService接口
 * Created by ams on 2017/6/29.
@@ -23,4 +26,8 @@ public interface AmsTradeAccountService{
     int updateByPrimaryKeySelective(AmsTradeAccount record);
 
     int insertToAmsTradeAccountSnaps();
+
+    List<Map> selectTradeAccoutWithDetail(Map map);
+
+    int selectTradeAccoutWithDetailCount(Map map);
 }

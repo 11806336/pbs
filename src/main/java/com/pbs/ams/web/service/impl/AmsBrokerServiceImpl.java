@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 /**
- * AmsProductService实现
+ * AmsBrokerService实现
  * Created by ams on 2017/6/28.
  */
 @Service

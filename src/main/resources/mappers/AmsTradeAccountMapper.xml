@@ -25,6 +25,30 @@
     from ams_trade_account
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </select>
+
+  <select id="selectTradeAccoutWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+    SELECT trade_account_id, company_id, trade_account_type, trade_account, trade_account_name,
+    trade_account_password, broker_id, trade_account_status, create_time, update_time,operator_id
+    FROM ams_trade_account where 1 = 1
+    <if test="search!=null">
+      and trade_account_name LIKE CONCAT('%','${search}','%' )
+    </if>
+    <if test="limit != null">
+      <if test="offset != null"> limit ${offset}, ${limit} </if>
+      <if test="offset == null"> limit ${limit} </if>
+    </if>
+  </select>
+  <select id="selectTradeAccoutWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM ams_trade_account
+    <if test="search!=null">
+      <where>
+        trade_account_name LIKE CONCAT('%','${search}','%' )
+      </where>
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_trade_account
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}

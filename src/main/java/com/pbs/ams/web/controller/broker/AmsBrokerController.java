@@ -73,7 +73,6 @@ public class AmsBrokerController extends BaseController {
     @RequiresPermissions("ams:broker:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
-        AmsPlatform amsPlatform = new AmsPlatform();
         Map<String, Object> params = Maps.newHashMap();
         List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
         request.setAttribute("amsPlatforms",amsPlatforms);
@@ -94,8 +93,6 @@ public class AmsBrokerController extends BaseController {
         }
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
-        long time = System.currentTimeMillis();
-        amsBroker.setCreateTime(time);
         int count = amsBrokerService.insertSelective(amsBroker);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }

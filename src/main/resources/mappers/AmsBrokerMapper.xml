@@ -40,6 +40,14 @@
       <if test="offset == null"> limit ${limit} </if>
     </if>
   </select>
+  <select id="selectBrokerAndPlatform" resultType="java.util.Map" parameterType="java.lang.Object">
+    SELECT ab.broker_id,ab.broker_type,ab.platform_id, ab.broker_abbr_name,ab.broker_logo,ab.broker_name,
+    ab.creditable,ab.day_begin,ab.day_end,ab.create_time,ab.update_time, ab.operator_id,ap.platform_name
+    FROM ams_broker ab LEFT JOIN ams_platform ap ON 1 = 1
+    <if test="platformId!=null">
+      and ab.platform_id = #{platformId,jdbcType=BIGINT}
+    </if>
+  </select>
   <select id="selectBrokerWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
     SELECT
     COUNT(1)
@@ -55,14 +63,14 @@
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsBroker">
-    insert into ams_broker (broker_id, broker_type, platform_id, 
-      broker_abbr_name, broker_logo, broker_name, 
-      creditable, day_begin, day_end, 
+    insert into ams_broker (broker_id, broker_type, platform_id,
+      broker_abbr_name, broker_logo, broker_name,
+      creditable, day_begin, day_end,
       create_time, update_time, operator_id
       )
-    values (#{brokerId,jdbcType=BIGINT}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=BIGINT}, 
-      #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR}, 
-      #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT}, 
+    values (#{brokerId,jdbcType=BIGINT}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=BIGINT},
+      #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR},
+      #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
       )
   </insert>
@@ -96,15 +104,11 @@
       <if test="dayEnd != null">
         day_end,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
       <if test="operatorId != null">
         operator_id,
       </if>
+      create_time,
+      update_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="brokerId != null">
@@ -134,54 +138,28 @@
       <if test="dayEnd != null">
         #{dayEnd,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
       </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsBroker">
     update ams_broker
-    <set>
-      <if test="brokerType != null">
-        broker_type = #{brokerType,jdbcType=INTEGER},
-      </if>
-      <if test="platformId != null">
-        platform_id = #{platformId,jdbcType=BIGINT},
-      </if>
-      <if test="brokerAbbrName != null">
-        broker_abbr_name = #{brokerAbbrName,jdbcType=VARCHAR},
-      </if>
-      <if test="brokerLogo != null">
-        broker_logo = #{brokerLogo,jdbcType=VARCHAR},
-      </if>
-      <if test="brokerName != null">
-        broker_name = #{brokerName,jdbcType=VARCHAR},
-      </if>
-      <if test="creditable != null">
-        creditable = #{creditable,jdbcType=BIT},
-      </if>
-      <if test="dayBegin != null">
-        day_begin = #{dayBegin,jdbcType=BIGINT},
-      </if>
-      <if test="dayEnd != null">
-        day_end = #{dayEnd,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
-      <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=BIGINT},
-      </if>
-    </set>
+    set broker_type = #{brokerType,jdbcType=INTEGER},
+    platform_id = #{platformId,jdbcType=BIGINT},
+    broker_abbr_name = #{brokerAbbrName,jdbcType=VARCHAR},
+    broker_logo = #{brokerLogo,jdbcType=VARCHAR},
+    broker_name = #{brokerName,jdbcType=VARCHAR},
+    creditable = #{creditable,jdbcType=BIT},
+    day_begin = #{dayBegin,jdbcType=BIGINT},
+    day_end = #{dayEnd,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=BIGINT},
+    update_time = #{updateTime,jdbcType=BIGINT},
+    operator_id = #{operatorId,jdbcType=BIGINT},
+    CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsBroker">
@@ -196,7 +174,8 @@
       day_end = #{dayEnd,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
-      operator_id = #{operatorId,jdbcType=BIGINT}
+      operator_id = #{operatorId,jdbcType=BIGINT},
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED)
     where broker_id = #{brokerId,jdbcType=BIGINT}
   </update>
 
@@ -240,7 +219,9 @@
       <if test="snapsTime != null">
         snaps_time,
       </if>
-
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="brokerId != null">
