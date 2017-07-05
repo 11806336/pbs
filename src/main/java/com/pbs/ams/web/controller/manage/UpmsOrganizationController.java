@@ -3,9 +3,9 @@ package com.pbs.ams.web.controller.manage;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.UpmsOrganization;
 import com.pbs.ams.web.model.UpmsOrganizationExample;
@@ -87,12 +87,12 @@ public class UpmsOrganizationController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         long time = System.currentTimeMillis();
         upmsOrganization.setCtime(time);
         int count = upmsOrganizationService.insertSelective(upmsOrganization);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "删除组织")
@@ -101,7 +101,7 @@ public class UpmsOrganizationController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsOrganizationService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "修改组织")
@@ -123,11 +123,11 @@ public class UpmsOrganizationController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         upmsOrganization.setOrganizationId(id);
         int count = upmsOrganizationService.updateByPrimaryKeySelective(upmsOrganization);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 }

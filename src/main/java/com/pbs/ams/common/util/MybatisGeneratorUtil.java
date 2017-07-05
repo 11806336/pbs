@@ -3,7 +3,6 @@ package com.pbs.ams.common.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.constant.GeneratorEnum;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

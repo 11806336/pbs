@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.UpmsRole;
 import com.pbs.ams.web.model.UpmsRoleExample;
@@ -88,7 +88,7 @@ public class UpmsRoleController extends BaseController {
                     .andRoleIdEqualTo(id);
             upmsRolePermissionService.deleteByExample(upmsRolePermissionExample);
         }
-        return new UpmsResult(UpmsResultConstant.SUCCESS, datas.size());
+        return new UpmsResult(StatusCode.SUCCESS, datas.size());
     }
 
     @ApiOperation(value = "角色列表")
@@ -137,13 +137,13 @@ public class UpmsRoleController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         long time = System.currentTimeMillis();
         upmsRole.setCtime(time);
         upmsRole.setOrders(time);
         int count = upmsRoleService.insertSelective(upmsRole);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "删除角色")
@@ -152,7 +152,7 @@ public class UpmsRoleController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsRoleService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "修改角色")
@@ -175,11 +175,11 @@ public class UpmsRoleController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         upmsRole.setRoleId(id);
         int count = upmsRoleService.updateByPrimaryKeySelective(upmsRole);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 }

@@ -5,10 +5,9 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
-import com.pbs.ams.common.util.DateUtil;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.*;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,10 +114,10 @@ public class AmsProductController extends BaseController{
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         int count = amsProductService.insertSelective(amsProduct);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 
@@ -174,10 +172,10 @@ public class AmsProductController extends BaseController{
 //                .doValidate()
 //                .result(ResultCollectors.toComplex());
 //        if (!result.isSuccess()) {
-//            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+//            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
 //        }
 //        amsProduct.setProductId(id);
 //        int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
-//        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+//        return new UpmsResult(StatusCode.SUCCESS, count);
 //    }
 }

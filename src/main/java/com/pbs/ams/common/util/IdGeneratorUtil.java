@@ -1,6 +1,5 @@
 package com.pbs.ams.common.util;
 
-import com.pbs.ams.web.service.SysSequenceService;
 import com.pbs.ams.web.service.impl.SysSequenceServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 

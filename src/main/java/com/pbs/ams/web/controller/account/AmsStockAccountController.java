@@ -4,9 +4,9 @@
 //import com.baidu.unbiz.fluentvalidator.ComplexResult;
 //import com.baidu.unbiz.fluentvalidator.FluentValidator;
 //import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-//import com.pbs.ams.common.base.BaseController;
+//import com.pbs.ams.web.controller.BaseController;
 //import com.pbs.ams.common.constant.UpmsResult;
-//import com.pbs.ams.common.constant.UpmsResultConstant;
+//import com.pbs.ams.common.constant.StatusCode;
 //import com.pbs.ams.common.util.IdGeneratorUtil;
 //import com.pbs.ams.common.validator.LengthValidator;
 //import com.pbs.ams.web.model.AmsStockAccount;
@@ -93,7 +93,7 @@
 //    @ResponseBody
 //    public Object delete(@PathVariable("ids") String ids) {
 //        int count = amsStockAccountService.deleteByPrimaryKeys(ids);
-//        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+//        return new UpmsResult(StatusCode.SUCCESS, count);
 //    }
 //
 //
@@ -114,14 +114,14 @@
 //                .doValidate()
 //                .result(ResultCollectors.toComplex());
 //        if (!result.isSuccess()) {
-//            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+//            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
 //        }
 //        long time = System.currentTimeMillis();
 //        amsStockAccount.setCreateTime(time);
 //        Long id = IdGeneratorUtil.getKey("upms_company");
 //        amsStockAccount.setCompanyId(id);//获取账号id
 //        int count = amsStockAccountService.insertSelective(amsStockAccount);
-//        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+//        return new UpmsResult(StatusCode.SUCCESS, count);
 //    }
 //
 //
@@ -145,10 +145,10 @@
 //                .doValidate()
 //                .result(ResultCollectors.toComplex());
 //        if (!result.isSuccess()) {
-//            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+//            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
 //        }
 //        amsStockAccount.setStockAccountId(id);
 //        int count = amsStockAccountService.updateByPrimaryKeySelective(amsStockAccount);
-//        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+//        return new UpmsResult(StatusCode.SUCCESS, count);
 //    }
 //}
