@@ -31,7 +31,7 @@
                         <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('${basePath}/ams/broker/create','添加证券','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加证券公司</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:delete">
-                        <a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/ams/broker/delete','broker_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除公司</a>
+                        <a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/ams/broker/delete','broker_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除证券公司</a>
                     </shiro:hasPermission>
                 </div>
             </div>
