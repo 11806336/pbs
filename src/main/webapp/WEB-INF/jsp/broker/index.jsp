@@ -16,19 +16,26 @@
 </head>
 <body>
 <div id="main">
-    <div id="searchDiv">
-        <div class="form-group">
-            <label for="tradePlatformSearch">交易平台： </label>
-            <select id="tradePlatformSearch" name="tradePlatformSearch" onchange="selectByPlatformId()" style="width:160px;">
-                <option value=""> -- 全部平台 -- </option>
-                <c:forEach var="platform" items="${amsPlatforms}">
-                        <option value="${platform.platform_id}">${platform.platform_name}</option>
-                </c:forEach>
-            </select>
-            <div class="btn-panel" onclick="dialog('${basePath}/ams/broker/create','添加证券','')" style="display: inline-block;margin-left:20px;">
-                <a class="btn icon-plus addstockcom btn-primary" style="margin-bottom: 0;" >添加证券公司</a>
+    <div id="toolbar">
+        <shiro:hasPermission name="upms:company:create">
+            <div id="searchDiv">
+                <div class="form-group">
+                    <label for="tradePlatformSearch">交易平台： </label>
+                    <select id="tradePlatformSearch" name="tradePlatformSearch" onchange="selectByPlatformId()" style="width:160px;">
+                        <option value=""> -- 全部平台 -- </option>
+                        <c:forEach var="platform" items="${amsPlatforms}">
+                            <option value="${platform.platform_id}">${platform.platform_name}</option>
+                        </c:forEach>
+                    </select>
+                    <shiro:hasPermission name="upms:company:create">
+                        <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('${basePath}/ams/broker/create','添加证券','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加证券公司</a>
+                    </shiro:hasPermission>
+                   <%-- <shiro:hasPermission name="upms:company:delete">
+                        <a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/ams/broker/delete','broker_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除公司</a>
+                    </shiro:hasPermission>--%>
+                </div>
             </div>
-        </div>
+        </shiro:hasPermission>
     </div>
     <table id="table"></table>
 </div>
@@ -84,9 +91,9 @@
 
     function actionFormatter(value, row, index) {
         return [
-            "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+")" +
-            " data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='delete' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+            "<a class='update' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+")" +
+            " data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a> ",
+            " <a class='delete' href='javascript:;' onclick=deleteAction() data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
         ].join('');
     }
     

@@ -66,7 +66,7 @@
 
         <div class="control-group ">
             <label  class="control-label">日盘启动时间：</label>
-            <input type="text" name="day_begin" id="dayBegin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+            <input type="text" name="day_begin" id="dayBegin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;">
             <span style="display: inline-block;margin:0 10px;">至</span>
             <input type="text" name="day_end" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
             <span for="day_endDate" class="error" style="display: none;"></span>
@@ -74,7 +74,7 @@
 
         <div class="control-group">
             <label  class="control-label">夜盘启动时间：</label>
-            <input type="text" name="night_startDate" id="night_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="20:00:00" style="background-color: #fff;cursor:pointer;margin-left: 20px">
+            <input type="text" name="night_startDate" id="night_startDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="20:00:00" style="background-color: #fff;cursor:pointer;">
             <span style="display: inline-block;margin:0 10px;">至</span>
             <input type="text" name="night_endDate" id="night_endDate" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="01:00:00" style="background-color: #fff;cursor:pointer">
             <span for="night_endDate" class="error" style="display: none;"></span>
