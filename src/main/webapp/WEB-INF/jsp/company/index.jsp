@@ -7,25 +7,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>公司管理</title>
     <jsp:include page="/resources/inc/head.jsp"/>
-    <link rel="stylesheet" href="${basePath}/resources/css/public.css">
 </head>
 <body>
-<div id="content">
-    <div style="position: absolute;top:10px;z-index: 111;">
+<div id="main">
+    <div id="toolbar">
         <shiro:hasPermission name="upms:company:create">
-            <a class="waves-effect waves-button" href="javascript:;" onclick="createOrEditCompany('/company/create','添加公司')"><i class="zmdi zmdi-edit"></i>添加公司</a>
+            <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('${basePath}/company/create','添加公司','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加公司</a>
         </shiro:hasPermission>
         <shiro:hasPermission name="upms:company:update">
-            <a class="waves-effect waves-button" href="javascript:;" onclick="createOrEditCompany('/company/update','编辑公司',1)"><i class="zmdi zmdi-edit"></i>编辑公司</a>
+            <a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="dialogUpdate(this,'${basePath}/company/update/','编辑公司','companyId')"><i class="zmdi zmdi-edit"></i>&nbsp;编辑公司</a>
         </shiro:hasPermission>
         <shiro:hasPermission name="upms:company:delete">
-            <a class="waves-effect waves-button" href="javascript:;" onclick="batchDelete()"><i class="zmdi zmdi-edit"></i>删除公司</a>
+            <a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/company/delete','companyId')"><i class="zmdi zmdi-close"></i>&nbsp;删除公司</a>
         </shiro:hasPermission>
     </div>
     <table id="table"></table>
 </div>
 <jsp:include page="/resources/inc/foot.jsp"/>
 <script>
+    <%--删除--%>
+    //deleteAction(obj,url,idField)
+    <%--编辑--%>
+    //updateAction(obj,url,idField)
+    <%--新增--%>
+    //createAction(url,title)
+    <%--调用弹出--%>
+    //dialog(url,title,id)
     var $table = $('#table');
     //列配置项
     var dataColumns = [
@@ -38,7 +45,7 @@
         {field: 'companyFax', title: '公司传真'},
         {field: 'createTime', title: '创建时间'},
         {field: 'updateTime', title: '修改时间'},
-        {field: 'descriptoin', title: '备注'},
+        {field: 'description', title: '备注'},
         {
             field: 'action',
             title: '操作',
@@ -62,79 +69,74 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         return [
-            '<a class="update" href="javascript:;" onclick="createOrEditCompany(' + "'${basePath}/company/update'," + "'编辑公司'" + ',1)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-            '<a class="delete" href="javascript:;" onclick="del(' + row.companyId + ')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+            '<a class="update" href="javascript:;" onclick="dialogUpdate(this,' + "'${basePath}/company/update/'," + "'编辑公司'" +",'companyId'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+            '<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'${basePath}/company/delete'"+",'companyId'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
     }
-    /**
-     * 新建/编辑公司
-     * url:请求地址
-     * title：窗口title
-     * flag:用来区分是新增还是编辑，方便判断
-     */
-    function createOrEditCompany(url, title, flag) {
-        if (flag) {//如果是编辑判断是否只选择了一条
-            var rows = $table.bootstrapTable('getSelections');
-            if (rows.length > 1) {
-                alert("请只选择一行！");
-                return;
-            } else if (rows.length == 0) {
-                alert("请先选择要编辑的行！");
-                return;
-            }
-            url = url + "/" + rows[0].companyId;
-        }
-        layer.open({
-            type: 2,
-            title: title,
-            area: ['700px', '430px'],
-            fixed: false, //不固定
-            maxmin: true,
-            content: url,
-            shadeClose: true,
-            moveOut: true
-        });
-    }
-    /**
-     * 通过操作列删除单个公司
-     * @param id
-     */
-    function del(id) {
-        var ids = [id];
-        $.ajax({
-            type: 'get',
-            url: '${basePath}/company/delete' + '/' + ids.join(),
-            success: function(result) {
-                if (result.message == "success") {
-                    alert("删除成功！");
-                }
-            }
-         });
-    }
-    /**
-     * 批量删除公司
-     */
-    function batchDelete() {
+    //编辑行的id;
+    var row_id='';
+    //编辑
+    function dialogUpdate(obj,url,title,id) {
+        //判断是表格外还是表格内
+        var dataUpdate=$(obj).attr("data-update");
         var rows = $table.bootstrapTable('getSelections');
-        if (rows.length > 0) {
-            var ids = new Array();
-            for (var i in rows) {
-                ids.push(rows[i].companyId);
-            }
-            $.ajax({
-                type: 'get',
-                url: '${basePath}/company/delete/' + ids.join(),
-                success: function(result) {
-                    if (result.message == 'success') {//说明删除成功
-                        alert("删除成功！");
-                    } else {
-                        alert("删除失败！");
+        if(dataUpdate){
+            if(rows.length != 1){
+                $.confirm({
+                    title: false,
+                    content: '请选择一条记录！',
+                    autoClose: 'cancel|3000',
+                    backgroundDismiss: true,
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            btnClass: 'waves-effect waves-button'
+                        }
                     }
-                }
+                });
+            }else{
+                row_id=rows[0][id];
+                layer.open({
+                    type: 2,
+                    title: title,
+                    area: ['700px', '430px'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    content: url+rows[0][id],
+                    shadeClose: true,
+                    moveOut: true
+                });
+            }
+        }else {
+            var Id=$(obj).parent().parent().find(".bs-checkbox ").find("input").val();
+            row_id=Id;
+            layer.open({
+                type: 2,
+                title: title,
+                area: ['700px', '430px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: url+Id,
+                shadeClose: true,
+                moveOut: true
             });
-        } else {
-            alert("请先选择要删除的行！");
         }
+    }
+    //编辑后刷新
+    function refresh() {
+        $.confirm({
+            title: false,
+            content: '操作成功！',
+            autoClose: 'cancel|3000',
+            backgroundDismiss: true,
+            buttons: {
+                cancel: {
+                    text: '取消',
+                    btnClass: 'waves-effect waves-button'
+                }
+            }
+        });
+        $("#table").bootstrapTable('refresh');
     }
 </script>
 </body>

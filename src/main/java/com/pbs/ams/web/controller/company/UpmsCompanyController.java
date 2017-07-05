@@ -86,7 +86,7 @@ public class UpmsCompanyController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         if (StringUtils.isNotEmpty(ids)) {
-            String[] companyIds = ids.split(",");
+            String[] companyIds = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
             for (String id : companyIds) {
                 idList.add(Long.parseLong(id));
