@@ -95,7 +95,6 @@ public class AmsBrokerController extends BaseController {
         }
         amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
-        System.out.println(amsBroker.getDayBegin());
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
         return new UpmsResult(StatusCode.SUCCESS, count);

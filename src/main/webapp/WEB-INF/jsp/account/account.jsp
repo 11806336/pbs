@@ -69,8 +69,8 @@
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/account/update','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('inquire/tab.html','账号详情') data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
-            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','trade_account_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
+            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','tradeAccountId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
 </script>

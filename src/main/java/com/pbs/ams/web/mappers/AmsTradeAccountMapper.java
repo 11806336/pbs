@@ -1,12 +1,15 @@
 package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsTradeAccount;
+import com.pbs.ams.web.model.AmsTradeAccountSnaps;
 
 import java.util.List;
 import java.util.Map;
 
 public interface AmsTradeAccountMapper {
     int deleteByPrimaryKey(Long tradeAccountId);
+
+    int deleteByPrimaryKeys(List<Long> ids);
 
     int insert(AmsTradeAccount record);
 
@@ -22,5 +25,5 @@ public interface AmsTradeAccountMapper {
 
     int selectTradeAccoutWithDetailCount(Map map);
 
-    int insertIntoAmsTradeAccountSnaps(AmsTradeAccount record);
+    int insertIntoAmsTradeAccountSnaps(AmsTradeAccountSnaps snaps);
 }

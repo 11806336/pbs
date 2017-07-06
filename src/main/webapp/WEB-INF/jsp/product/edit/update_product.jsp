@@ -11,12 +11,10 @@
     <meta charset="UTF-8">
     <title>新建产品</title>
     <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
-    <link rel="stylesheet" href="${basePath}/resources/css/create_broker.css">
+    <link rel="stylesheet" href="${basePath}/resources/css/common.css">
 </head>
 <body>
 <div id="main">
@@ -117,10 +115,10 @@
         <label class="control-label" for="productStatus"><em class="rqd">*</em>产品状态：</label>
         <div class="controls">
             <label class="radio inline" style="min-width:60px;">
-                <input checked="checked" type="radio" name="productStatus" id="productStatus" value="1"> 启用
+                <input checked="checked" type="radio" name="productStatus" id="useStatus" value="1"> 启用
             </label>
             <label class="radio inline" style="min-width:60px;">
-                <input type="radio" name="productStatus" id="productStatus" value="0"> 禁用
+                <input type="radio" name="productStatus" id="nouseStatus" value="0"> 禁用
             </label>
         </div>
     </div>
@@ -138,7 +136,6 @@
 <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
 <script>
-
     //提示
     function funBlur(obj) {
         if (!$(obj).val()) {
