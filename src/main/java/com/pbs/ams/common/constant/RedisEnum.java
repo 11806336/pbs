@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Generator自动代码生成参数枚举
+ * Redis参数枚举
  * @author TiAmo
  */
 public enum RedisEnum {

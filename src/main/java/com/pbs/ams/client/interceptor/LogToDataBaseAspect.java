@@ -27,11 +27,12 @@ import java.lang.reflect.Method;
 /**
  * 日志记录AOP实现
  * Created by ams on 2017/3/14.
+ * 该切面的切点是在SpringMVC中配置,所以不能@Component注入.
  */
 @Aspect
-public class LogAspect {
+public class LogToDataBaseAspect {
 
-	private static Logger _log = LoggerFactory.getLogger(LogAspect.class);
+	private static Logger _log = LoggerFactory.getLogger(LogToDataBaseAspect.class);
 
 	// 开始时间
 	private long startTime = 0L;

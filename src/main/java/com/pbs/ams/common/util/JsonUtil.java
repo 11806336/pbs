@@ -1,5 +1,6 @@
-package com.pbs.ams.common;
+package com.pbs.ams.common.util;
 
+import com.pbs.ams.common.constant.Constants;
 import com.pbs.ams.common.base.BaseResult;
 import com.pbs.ams.common.constant.StatusCode;
 import net.sf.json.JSONObject;

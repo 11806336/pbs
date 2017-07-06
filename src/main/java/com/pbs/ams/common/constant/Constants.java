@@ -1,4 +1,4 @@
-package com.pbs.ams.common;
+package com.pbs.ams.common.constant;
 
 /**
  * Created by liupeng on 2015/5/28.

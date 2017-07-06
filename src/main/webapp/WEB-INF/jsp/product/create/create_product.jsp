@@ -172,7 +172,6 @@
             data: create_form.serialize(),
             ContentType: 'application/json',
             success: function (data) {
-                alert("保存成功！");
                 if (data.message == 'success') {
                     alert("保存成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引

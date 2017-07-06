@@ -8,14 +8,18 @@ import org.springframework.context.annotation.PropertySource;
  * Created by whb on 2017/7/4.
  */
 @Configuration
-@PropertySource("classpath:pbs.properties")
+@PropertySource("classpath:prod.properties")
 public class AmsPropertiesHandler {
-    @Value("${jdbc_url}")
-    public  String jdbcUrl; //这里变量不能定义成static
 
-    @Value("${jdbc_username}")
+    @Value("jdbc.driver")
+    public String jdbcDriver;
+
+    @Value("${jdbc.url}")
+    public  String jdbcUrl;
+
+    @Value("${jdbc.username}")
     public  String username;
 
-    @Value("${jdbc_password}")
+    @Value("${jdbc.password}")
     public  String password;
 }

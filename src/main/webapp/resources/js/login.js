@@ -36,7 +36,7 @@ function login() {
 
 		},
 		success: function(json){
-			if (json.code == 1) {
+			if (json.code == "1") {
 				location.href = json.data;
 			} else {
 				alert(json.data);
