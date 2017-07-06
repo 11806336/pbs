@@ -13,11 +13,12 @@
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="is_login" jdbcType="INTEGER" property="isLogin" />
   </resultMap>
   <sql id="Base_Column_List">
     trade_account_id, company_id, trade_account_type, trade_account, trade_account_name, 
     trade_account_password, broker_id, trade_account_status, create_time, update_time, 
-    operator_id
+    operator_id,is_login
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
