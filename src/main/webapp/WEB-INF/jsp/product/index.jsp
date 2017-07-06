@@ -12,7 +12,7 @@
     <div id="toolbar">
         <div id="searchDiv">
             <div class="form-group">
-                <div class="countdown" style="float:left;">
+                <div class="countdown">
                     <span class="countText">距离前次更新</span>
                     <em></em>
                     <span class="load"></span>
@@ -45,14 +45,6 @@
 <script src="${basePath}/resources/js/Loader.js"></script>
 <script src="${basePath}/resources/js/timer2.js"></script>
 <script>
-    <%--删除--%>
-    //deleteAction(obj,url,idField)
-    <%--编辑--%>
-    //updateAction(obj,url,idField)
-    <%--新增--%>
-    //createAction(url,title)
-    <%--调用弹出--%>
-    //dialog(url,title,id)
     var $table = $('#table');
     //json数据
     var url_json = "${basePath}/product/list";

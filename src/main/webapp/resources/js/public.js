@@ -1,3 +1,12 @@
+// <%--删除--%>
+//deleteAction(obj,url,idField)
+// <%--编辑--%>
+//updateAction(obj,url,idField)
+// <%--新增--%>
+//createAction(url,title)
+// <%--调用弹出--%>
+//dialog(url,title,id)
+
 $(function() {
     // bootstrap table初始化，必须有的参数，url_json 数据地址。sidePagination设置在哪里进行分页，client和server。
     // idField指定主键列。search、showRefresh、showColumns右上角刷新搜索

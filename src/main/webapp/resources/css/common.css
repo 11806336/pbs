@@ -142,14 +142,18 @@ p.block-heading, a.block-heading, .block-heading a {
 .form-control {display: inline-block!important;width:185px!important;}
 /*倒计时刷新*/
 #searchDiv .countdown {
+    position: relative;
+    top:2.5px;
+    left:0;
     display: inline-block;
     margin-right: 15px;
+    float:left;
     color: #f00;
     border: 1px solid #f00;
     background-color: #ffeeee;
     padding: 0 10px;
     vertical-align: middle;
-    line-height: 30px;
+    line-height: 28px;
 }
 /*#searchDiv .countdown.load{background: url("/media/modules/images/loading.gif") no-repeat scroll 3px 3px #ffeeee;padding-left: 26px;}*/
 #searchDiv .countdown .load {
