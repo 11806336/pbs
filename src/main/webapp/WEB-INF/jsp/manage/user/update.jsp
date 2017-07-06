@@ -12,6 +12,17 @@
 			<label for="username">帐号</label>
 			<input id="username" type="text" class="form-control" name="username" maxlength="20" value="${user.username}">
 		</div>
+		<div class="control-group">
+			<label for="companyId" class="control-label">所属公司：</label>
+			<div class="controls">
+				<select name="companyId" id="companyId">
+					<option value="0">---请选择---</option>
+					<c:forEach var="company" items="${upmsCompanies}">
+						<option value="${company.companyId}" <c:if test='${company.companyId == user.companyId}'> selected='selected' </c:if>>${company.companyName}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="realname">姓名</label>
 			<input id="realname" type="text" class="form-control" name="realname" maxlength="20" value="${user.realname}">

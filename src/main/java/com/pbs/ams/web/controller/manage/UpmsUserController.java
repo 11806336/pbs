@@ -5,12 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.util.MD5Util;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.common.validator.NotNullValidator;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.web.model.*;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
@@ -18,8 +18,6 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -54,6 +52,9 @@ public class UpmsUserController extends BaseController {
 
     @Autowired
     private UpmsUserPermissionService upmsUserPermissionService;
+
+    @Autowired
+    private UpmsCompanyService UpmsCompanyService;
 
     @ApiOperation(value = "用户首页")
     @RequiresPermissions("upms:user:read")
@@ -101,7 +102,7 @@ public class UpmsUserController extends BaseController {
                 upmsUserOrganizationService.insertSelective(upmsUserOrganization);
             }
         }
-        return new UpmsResult(UpmsResultConstant.SUCCESS, "");
+        return new UpmsResult(StatusCode.SUCCESS, "");
     }
 
     @ApiOperation(value = "用户角色")
@@ -143,7 +144,7 @@ public class UpmsUserController extends BaseController {
                 upmsUserRoleService.insertSelective(upmsUserRole);
             }
         }
-        return new UpmsResult(UpmsResultConstant.SUCCESS, "");
+        return new UpmsResult(StatusCode.SUCCESS, "");
     }
 
     @ApiOperation(value = "用户权限")
@@ -179,7 +180,7 @@ public class UpmsUserController extends BaseController {
                 upmsUserPermissionService.deleteByExample(upmsUserPermissionExample);
             }
         }
-        return new UpmsResult(UpmsResultConstant.SUCCESS, datas.size());
+        return new UpmsResult(StatusCode.SUCCESS, datas.size());
     }
 
     @ApiOperation(value = "用户列表")
@@ -215,7 +216,17 @@ public class UpmsUserController extends BaseController {
     @ApiOperation(value = "新增用户")
     @RequiresPermissions("upms:user:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create() {
+    public String create(ModelMap modelMap) {
+        UpmsUser user = getCurrentUser();
+        if (user != null) {
+            List<UpmsCompany> upmsCompanies;
+            Map<String, Object> params = new HashMap<String, Object>();
+            if (!user.isSuperUser()) {//判断是否是超级管理员
+                params.put("companyId", user.getCompanyId());
+            }
+            upmsCompanies = UpmsCompanyService.listCompanies(params);
+            modelMap.addAttribute("upmsCompanies", upmsCompanies);
+        }
         return "/manage/user/create.jsp";
     }
 
@@ -231,7 +242,7 @@ public class UpmsUserController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         long time = System.currentTimeMillis();
         String salt = UUID.randomUUID().toString().replaceAll("-", "");
@@ -241,7 +252,7 @@ public class UpmsUserController extends BaseController {
         int count = upmsUserService.insertSelective(upmsUser);
         upmsUser = upmsUserService.insert2(upmsUser);
         _log.info("新增用户，主键：userId={}", upmsUser.getUserId());
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "删除用户")
@@ -250,7 +261,7 @@ public class UpmsUserController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsUserService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "修改用户")
@@ -259,6 +270,8 @@ public class UpmsUserController extends BaseController {
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsUser user = upmsUserService.selectByPrimaryKey(id);
         modelMap.put("user", user);
+        List<UpmsCompany> upmsCompanies = UpmsCompanyService.listCompanies(null);//暂时查询全部
+        modelMap.addAttribute("upmsCompanies", upmsCompanies);
         return "/manage/user/update.jsp";
     }
 
@@ -273,13 +286,13 @@ public class UpmsUserController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         // 不允许直接改密码
         upmsUser.setPassword(null);
         upmsUser.setUserId(id);
         int count = upmsUserService.updateByPrimaryKeySelective(upmsUser);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 }

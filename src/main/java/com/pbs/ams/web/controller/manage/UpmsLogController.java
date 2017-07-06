@@ -2,9 +2,9 @@ package com.pbs.ams.web.controller.manage;
 
 
 
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.web.model.UpmsLog;
 import com.pbs.ams.web.model.UpmsLogExample;
 import com.pbs.ams.web.service.UpmsLogService;
@@ -12,8 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -75,7 +73,7 @@ public class UpmsLogController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsLogService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 }

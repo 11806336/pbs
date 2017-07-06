@@ -40,10 +40,10 @@ function login() {
 				location.href = json.data;
 			} else {
 				alert(json.data);
-				if (10101 == json.code) {
+				if ("Service_30006" == json.code) {
 					$('#username').focus();
 				}
-				if (10102 == json.code) {
+				if ("Service_30007" == json.code) {
 					$('#password').focus();
 				}
 			}

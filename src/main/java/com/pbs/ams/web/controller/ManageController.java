@@ -1,6 +1,5 @@
 package com.pbs.ams.web.controller;
 
-import com.pbs.ams.common.base.BaseController;
 import com.pbs.ams.web.model.UpmsPermission;
 import com.pbs.ams.web.model.UpmsSystem;
 import com.pbs.ams.web.model.UpmsSystemExample;

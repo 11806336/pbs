@@ -16,6 +16,17 @@
 			<label for="password">密码</label>
 			<input id="password" type="text" class="form-control" name="password" maxlength="32">
 		</div>
+		<div class="control-group">
+			<label for="companyId" class="control-label"><em class="rqd">*</em>所属公司：</label>
+			<div class="controls">
+				<select name="companyId" id="companyId">
+					<option value="0">---请选择---</option>
+					<c:forEach var="company" items="${upmsCompanies}">
+						<option value="${company.companyId}">${company.companyName}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="realname">姓名</label>
 			<input id="realname" type="text" class="form-control" name="realname" maxlength="20">

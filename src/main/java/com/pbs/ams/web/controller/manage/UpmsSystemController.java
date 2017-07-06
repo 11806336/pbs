@@ -3,10 +3,10 @@ package com.pbs.ams.web.controller.manage;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.web.model.UpmsSystem;
 import com.pbs.ams.web.model.UpmsSystemExample;
 import com.pbs.ams.web.service.*;
@@ -14,8 +14,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -90,13 +88,13 @@ public class UpmsSystemController extends BaseController {
 				.doValidate()
 				.result(ResultCollectors.toComplex());
 		if (!result.isSuccess()) {
-			return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+			return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
 		}
 		long time = System.currentTimeMillis();
 		upmsSystem.setCtime(time);
 		upmsSystem.setOrders(time);
 		int count = upmsSystemService.insertSelective(upmsSystem);
-		return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+		return new UpmsResult(StatusCode.SUCCESS, count);
 	}
 
 	@ApiOperation(value = "删除系统")
@@ -105,7 +103,7 @@ public class UpmsSystemController extends BaseController {
 	@ResponseBody
 	public Object delete(@PathVariable("ids") String ids) {
 		int count = upmsSystemService.deleteByPrimaryKeys(ids);
-		return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+		return new UpmsResult(StatusCode.SUCCESS, count);
 	}
 
 	@ApiOperation(value = "修改系统")
@@ -128,11 +126,11 @@ public class UpmsSystemController extends BaseController {
 				.doValidate()
 				.result(ResultCollectors.toComplex());
 		if (!result.isSuccess()) {
-			return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+			return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
 		}
 		upmsSystem.setSystemId(id);
 		int count = upmsSystemService.updateByPrimaryKeySelective(upmsSystem);
-		return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+		return new UpmsResult(StatusCode.SUCCESS, count);
 	}
 
 }
