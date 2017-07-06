@@ -25,6 +25,30 @@
     from ams_trade_account
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </select>
+
+  <select id="selectTradeAccoutWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+    SELECT trade_account_id, company_id, trade_account_type, trade_account, trade_account_name,
+    trade_account_password, broker_id, trade_account_status, create_time, update_time,operator_id
+    FROM ams_trade_account where 1 = 1
+    <if test="search!=null">
+      and trade_account_name LIKE CONCAT('%','${search}','%' )
+    </if>
+    <if test="limit != null">
+      <if test="offset != null"> limit ${offset}, ${limit} </if>
+      <if test="offset == null"> limit ${limit} </if>
+    </if>
+  </select>
+  <select id="selectTradeAccoutWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM ams_trade_account
+    <if test="search!=null">
+      <where>
+        trade_account_name LIKE CONCAT('%','${search}','%' )
+      </where>
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_trade_account
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
@@ -39,6 +63,7 @@
       #{brokerId,jdbcType=BIGINT}, #{tradeAccountStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
   </insert>
+  <!--添加账号-->
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     insert into ams_trade_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -66,12 +91,8 @@
       <if test="tradeAccountStatus != null">
         trade_account_status,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
         update_time,
-      </if>
       <if test="operatorId != null">
         operator_id,
       </if>
@@ -101,12 +122,8 @@
       <if test="tradeAccountStatus != null">
         #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
       </if>

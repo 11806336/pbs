@@ -1,4 +1,4 @@
-package com.pbs.ams.common.aspect;
+package com.pbs.ams.client.interceptor;
 
 import net.sf.json.JSONArray;
 import org.aspectj.lang.JoinPoint;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class LogAspect {
+public class MyLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("@annotation(com.pbs.common.annotation.Log)")
+    @Pointcut("@annotation(com.pbs.ams.common.annotation.Log)")
     private void cut() { }
 
     @Before("cut()")

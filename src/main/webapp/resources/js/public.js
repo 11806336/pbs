@@ -1,5 +1,6 @@
 $(function() {
-    // bootstrap table初始化
+    // bootstrap table初始化，必须有的参数，url_json 数据地址。sidePagination设置在哪里进行分页，client和server。
+    // idField指定主键列。search、showRefresh、showColumns右上角刷新搜索
     $table.bootstrapTable({
         url:url_json,
         datatype:'json',
@@ -58,7 +59,7 @@ function statusFormatter(value, row, index) {
 // 新增
 var createDialog;
 function createAction(url,title) {
-    //url地址，title标题
+    //需要传的参数url地址，title标题
     createDialog = $.dialog({
         animationSpeed: 300,
         title: title,
@@ -72,11 +73,12 @@ function createAction(url,title) {
 // 编辑
 var updateDialog;
 function updateAction(obj,url,idField) {
-    //obj ===this,url地址，idField主键
+    //需要传的参数，obj ===this,url地址，idField主键
     var rows = $table.bootstrapTable('getSelections');
     //找到主键Id
-    var Id=$(obj).parent().parent().find(".bs-checkbox ").find("input").val();
-    var dataUpdate=$(obj).attr("data-update");
+    var Id = $(obj).parent().parent().find(".bs-checkbox ").find("input").val();
+    //表格外的编辑按钮有个自定义属性 data-update = "表格外"
+    var dataUpdate = $(obj).attr("data-update");
     //判断是表格内行后面的按钮还是右上角的编辑文字
     if(dataUpdate === "表格外"){
         if (rows.length != 1) {
@@ -122,14 +124,15 @@ function updateAction(obj,url,idField) {
 // 删除
 var deleteDialog;
 function deleteAction(obj,url,idField) {
-    //obj ===this,url地址，idField主键
+    //需要传的参数。obj === this,url地址，idField主键
     var rows = $table.bootstrapTable('getSelections');
-    //Id主键
+    //单行删除Id主键
     var Id = $(obj).parent().parent().find(".bs-checkbox ").find("input").val();
-    console.log(Id);
-    var ids = new Array();//删除的数组
+    //删除的数组
+    var ids = new Array();
     //"判断单个删除还是批量删除
     var delete_type = $(obj).attr("data-deleteTpye");
+    //批量删除按钮标签有个自定义属性 data-deleteTpye = "批量删除"
     if(delete_type === "批量删除"){
         if (rows.length == 0) {
             $.confirm({
@@ -156,7 +159,7 @@ function deleteAction(obj,url,idField) {
         type: 'red',
         animationSpeed: 300,
         title: false,
-        content: '确认删除该系统吗？',
+        content: '确认删除吗？',
         buttons: {
             confirm: {
                 text: '确认',
@@ -228,9 +231,8 @@ function deleteAction(obj,url,idField) {
         }
     });
 }
-//调用弹窗，需要传标题和url
+//调用弹窗，需要传url地址，title标题，id~
 function dialog(url,title,id) {
-    //url地址，title标题，id~
     layer.open({
         type: 2,
         title:title,

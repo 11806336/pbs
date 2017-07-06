@@ -20,8 +20,9 @@
             <div class="btn-panel" style="float:left;">
                 <a class="btn icon-plus addstockcom btn-primary btnRefresh" href="#">立即更新</a>
                 <%--<shiro:hasPermission name="ams:product:create">--%>
-                    <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('${basePath}/product/createProduct','新建产品','')">新建产品</a>
-                <%--</shiro:hasPermission>--%>
+                <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="dialog('${basePath}/product/createProduct','新建产品','')">新建产品</a>
+                <a class="btn icon-plus addstockcom btn-primary btnCreate" href="#" onclick="batchDelete()">删除产品</a>
+            <%--</shiro:hasPermission>--%>
                 <a class="btn icon-plus addstockcom btn-primary btnExport" href="#">导出数据</a>
             </div>
         </div>
@@ -76,11 +77,35 @@
             ids.push(rows[i].productId);
         }
         return [
-            "<a class='selected' href='javascript:;' onclick=dialog('/manage/product/edit','编辑',"+row.productId+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='search' href='javascript:;' onclick=dialog('/manage/product/query','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
+            "<a class='selected' href='javascript:;' onclick=dialog('/product/edit/','编辑',"+row.product_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='search' href='javascript:;' onclick=dialog('/product/query/','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
         ].join('');
     }
-
+    /**
+     * 批量删除公司
+     */
+    function batchDelete() {
+        var rows = $table.bootstrapTable('getSelections');
+        if (rows.length > 0) {
+            var ids = new Array();
+            for (var i in rows) {
+                ids.push(rows[i].product_id);
+            }
+            $.ajax({
+                type: 'get',
+                url: '${basePath}/product/delete/' + ids.join(),
+                success: function(result) {
+                    if (result.message == 'success') {//说明删除成功
+                        alert("删除成功！");
+                    } else {
+                        alert("删除失败！");
+                    }
+                }
+            });
+        } else {
+            alert("请先选择要删除的行！");
+        }
+    }
 </script>
 </body>
 </html>

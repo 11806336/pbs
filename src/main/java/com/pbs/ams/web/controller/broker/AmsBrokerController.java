@@ -4,9 +4,9 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Maps;
-import com.pbs.ams.common.constant.StatusCode;
-import com.pbs.ams.web.controller.BaseController;
+import com.pbs.ams.common.base.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
+import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.AmsBroker;
@@ -15,6 +15,7 @@ import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsPlatformService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -73,7 +75,6 @@ public class AmsBrokerController extends BaseController {
     @RequiresPermissions("ams:broker:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
-        AmsPlatform amsPlatform = new AmsPlatform();
         Map<String, Object> params = Maps.newHashMap();
         List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
         request.setAttribute("amsPlatforms",amsPlatforms);
@@ -90,14 +91,14 @@ public class AmsBrokerController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
         }
+        amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
+        System.out.println(amsBroker.getDayBegin());
         amsBroker.setBrokerId(id);
-        long time = System.currentTimeMillis();
-        amsBroker.setCreateTime(time);
         int count = amsBrokerService.insertSelective(amsBroker);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 
 
@@ -106,8 +107,16 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
-        int count=amsBrokerService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        if (StringUtils.isNotEmpty(ids)) {
+            String[] brokerIds = ids.split("-");
+            List<Long> idList = new ArrayList<Long>();
+            for (String id : brokerIds) {
+                idList.add(Long.parseLong(id));
+            }
+            int count = amsBrokerService.deleteByPrimaryKeys(idList);
+            return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        }
+        return 0;
     }
 
 
@@ -136,12 +145,12 @@ public class AmsBrokerController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.SUCCESS, result.getErrors());
+            return new UpmsResult(UpmsResultConstant.SUCCESS, result.getErrors());
         }
         amsBroker.setBrokerId(id);
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
         int count = amsBrokerService.updateByPrimaryKeySelective(amsBroker);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }
 }

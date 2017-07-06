@@ -21,49 +21,11 @@
 <body>
 <div id="main">
     <form id="create_form">
-    <div class="control-group">
-        <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
-        <div class="controls">
-            <select  name="platformId" id="platformId">
-                <option value="0">---请选择---</option>
-                <c:forEach var="amsPlatform" items="${amsPlatforms}">
-                    <option value="${amsPlatform.platform_id}">${amsPlatform.platform_name}</option>
-                </c:forEach>
-            </select>
-        </div>
-    </div>
-    <div class="control-group">
-        <label for="platformId" class="control-label"><em class="rqd">*</em>证券公司：</label>
-        <div class="controls">
-            <select name="brokerId" id="brokerId">
-                <option value="0">---请选择---</option>
-                <c:forEach var="amsBroker" items="${amsBrokers}">
-                    <option value="${amsBroker.broker_id}">${amsBroker.broker_name}</option>
-                </c:forEach>
-            </select>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label for="tradeAccount" class="control-label"><em class="rqd">*</em>资金账号：</label>
-        <div class="controls">
-            <input type="text" id="tradeAccount" name="tradeAccount" value="" onblur="" maxlength="25"><span class="tipsError"
-                                                                                             style="display: none; padding-left: 10px">请输入账号</span>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label for="tradeAccountName" class="control-label"><em class="rqd">*</em>证券账号名称：</label>
-        <div class="controls">
-            <input type="text" id="tradeAccountName" name="tradeAccountName" value="" onblur="" maxlength="25"><span class="tipsError"
-                                                                                                                 style="display: none; padding-left: 10px">请输入名称</span>
-        </div>
-    </div>
 
     <div class="control-group">
         <label for="tradeAccountPassword" class="control-label"><em class="rqd">*</em>密码：</label>
         <div class="controls">
-            <input type="password" maxlength="8" id="tradeAccountPassword" name="tradeAccountPassword" value=""> <span class="tipsError"
+            <input type="password" maxlength="8" id="tradeAccountPassword" name="tradeAccountPassword" value="${amsStockAccount.tradeAccountPassword}"> <span class="tipsError"
                                                                                                style="display: none; padding-left: 10px">请输入长度超过8位的字符串</span>
         </div>
     </div>
@@ -71,7 +33,7 @@
     <div class="control-group">
         <label for="passwordCheck" class="control-label">确认密码：</label>
         <div class="controls">
-            <input type="password" maxlength="20" id="passwordCheck" name="passwordCheck" value=""> <span
+            <input type="password" maxlength="20" id="passwordCheck" name="passwordCheck" value="${amsStockAccount.tradeAccountPassword}"> <span
                 class="tipsError" style="display: none; padding-left: 10px">请输入长度超过8位的字符串</span>
         </div>
     </div>
@@ -80,7 +42,7 @@
         <div class="radio radio-inline radio-success" id="trade_account_status" name="trade_account_status">
             <input id="status_1" type="radio" name="status" value="1" checked>
             <label for="status_1">正常 </label>
-            <input id="status_0" type="radio" name="status" value="-1">
+            <input id="status_0" type="radio" name="status" value="0">
             <label for="status_0">锁定 </label>
         </div>
     </div>

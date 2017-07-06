@@ -62,7 +62,7 @@
 						</form>
 					</ul>
 				</li>
-				<li class="dropdown">
+				<%--<li class="dropdown">
 					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
 						<i class="him-icon zmdi zmdi-dropbox"></i>
 					</a>
@@ -77,7 +77,7 @@
 							</li>
 						</c:forEach>
 					</ul>
-				</li>
+				</li>--%>
 				<li class="dropdown">
 					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
 						<i class="him-icon zmdi zmdi-more-vert"></i>

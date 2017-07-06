@@ -1,9 +1,16 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>指令</title>
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
+    <link rel="import" href="${basePath}/resources/inc/head.jsp">
 </head>
 <body>
 <div id="main">
@@ -20,10 +27,10 @@
 
     <table id="directiveTable"></table>
 </div>
-<link rel="import" href="../../../resources/inc/js_list.jsp">
+<link rel="import" href="${basePath}/resources/inc/foot.jsp">
 <script>
     var $table = $('#directiveTable');
-    var url_json = "../../../resources/data/product_directive.json";
+    var url_json = "${basePath}/resources/data/product_directive.json";
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
         {field: 'directiveId', title: '指令ID'},

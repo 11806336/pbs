@@ -4,6 +4,7 @@ package com.pbs.ams.common;
  * Created by liupeng on 2015/5/28.
  */
 public final class Constants {
+    
     public static final String COMPANY_NAME = "ruixin";
     public static final String RUIXIN_PRODUCT_GUID = "37a9857a-83b6-4d05-a500-d72222e2a84f";
     public static final int MIN_HASH_LENGTH = 10;

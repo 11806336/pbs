@@ -147,8 +147,9 @@ p.block-heading, a.block-heading, .block-heading a {
     color: #f00;
     border: 1px solid #f00;
     background-color: #ffeeee;
-    padding: 6px 10px;
+    padding: 0 10px;
     vertical-align: middle;
+    line-height: 30px;
 }
 /*#searchDiv .countdown.load{background: url("/media/modules/images/loading.gif") no-repeat scroll 3px 3px #ffeeee;padding-left: 26px;}*/
 #searchDiv .countdown .load {
@@ -163,3 +164,7 @@ p.block-heading, a.block-heading, .block-heading a {
     font-style: normal;
 }
 .form-control {height:30.65px;}
+/*添加经纪公司页面css调整*/
+/*#dayBegin,#dayEnd,#nightStartDate,#nightEndDate {background-color: #fff;cursor:pointer;}*/
+/*#dayBegin,#nightStartDate {margin-right: 5px;}*/
+/*#dayEnd ,#nightEndDate{margin-left: 5px;}*/

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @PropertySource("classpath:pbs.properties")
-public class PbsProperties {
+public class AmsPropertiesHandler {
     @Value("${jdbc_url}")
     public  String jdbcUrl; //这里变量不能定义成static
 

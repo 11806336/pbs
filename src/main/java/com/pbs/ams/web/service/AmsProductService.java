@@ -28,6 +28,7 @@ public interface AmsProductService{
 
     int insertToAmsProductSnaps();
 
+
     /**
      * This method is used to get PageList data.
      * @param map
