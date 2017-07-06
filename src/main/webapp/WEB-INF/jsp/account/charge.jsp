@@ -1,16 +1,23 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>手续费</title>
-
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <div id="main">
     <table id="table"></table>
 </div>
-<link rel="import" href="../../../resources/inc/js_list.jsp">
 <script>
     var $table = $('#table');
     //列配置项
@@ -30,7 +37,7 @@
     //数据url
     var url_json="../../../resources/data/charge.json";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination='client';
+    var sidePagination='server';
     //指定主键列
     var idField='chargeId';
     //右上角刷新搜索

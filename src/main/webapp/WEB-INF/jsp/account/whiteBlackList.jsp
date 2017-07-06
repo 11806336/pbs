@@ -1,14 +1,22 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>账号</title>
-    <link href="../../../resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
-    <link href="../../../resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../../resources/css/create_broker.css">
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/css/common.css">
 
 </head>
 <body>
@@ -146,7 +154,5 @@
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 导出黑白名单 ">
     </div>
 </div>
-<script src="../../../resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="../../../resources/plugins/select2/js/select2.min.js"></script>
 </body>
 </html>
