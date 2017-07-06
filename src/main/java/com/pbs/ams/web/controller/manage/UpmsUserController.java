@@ -53,6 +53,9 @@ public class UpmsUserController extends BaseController {
     @Autowired
     private UpmsUserPermissionService upmsUserPermissionService;
 
+    @Autowired
+    private UpmsCompanyService UpmsCompanyService;
+
     @ApiOperation(value = "用户首页")
     @RequiresPermissions("upms:user:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -213,7 +216,17 @@ public class UpmsUserController extends BaseController {
     @ApiOperation(value = "新增用户")
     @RequiresPermissions("upms:user:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create() {
+    public String create(ModelMap modelMap) {
+        UpmsUser user = getCurrentUser();
+        if (user != null) {
+            List<UpmsCompany> upmsCompanies;
+            Map<String, Object> params = new HashMap<String, Object>();
+            if (!user.isSuperUser()) {//判断是否是超级管理员
+                params.put("companyId", user.getCompanyId());
+            }
+            upmsCompanies = UpmsCompanyService.listCompanies(params);
+            modelMap.addAttribute("upmsCompanies", upmsCompanies);
+        }
         return "/manage/user/create.jsp";
     }
 
@@ -257,6 +270,8 @@ public class UpmsUserController extends BaseController {
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsUser user = upmsUserService.selectByPrimaryKey(id);
         modelMap.put("user", user);
+        List<UpmsCompany> upmsCompanies = UpmsCompanyService.listCompanies(null);//暂时查询全部
+        modelMap.addAttribute("upmsCompanies", upmsCompanies);
         return "/manage/user/update.jsp";
     }
 

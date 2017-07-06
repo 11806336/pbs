@@ -60,7 +60,7 @@
     $(document).on("click","#saveBrokerBtn",function () {
         $.ajax({
             type: 'POST',
-            url: '${basePath}/account/save',
+            url: '${basePath}/account/update/${amsStockAccount.tradeAccountId}',
             data: $('#create_form').serialize(),
             success: function (data) {
                 console.info(data);
