@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Generator自动代码生成参数枚举
+ * 系统级常量枚举
  * @author TiAmo
  */
 public enum UpmsEnum {

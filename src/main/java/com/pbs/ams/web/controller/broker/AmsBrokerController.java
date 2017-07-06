@@ -4,11 +4,11 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Maps;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsBroker;
 import com.pbs.ams.web.model.AmsPlatform;
 import com.pbs.ams.web.service.AmsBrokerService;
@@ -91,13 +91,13 @@ public class AmsBrokerController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 
@@ -113,7 +113,7 @@ public class AmsBrokerController extends BaseController {
                 idList.add(Long.parseLong(id));
             }
             int count = amsBrokerService.deleteByPrimaryKeys(idList);
-            return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+            return new UpmsResult(StatusCode.SUCCESS, count);
         }
         return 0;
     }
@@ -144,12 +144,12 @@ public class AmsBrokerController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.SUCCESS, result.getErrors());
+            return new UpmsResult(StatusCode.SUCCESS, result.getErrors());
         }
         amsBroker.setBrokerId(id);
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
         int count = amsBrokerService.updateByPrimaryKeySelective(amsBroker);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 }

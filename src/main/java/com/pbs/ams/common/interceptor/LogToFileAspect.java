@@ -1,4 +1,4 @@
-package com.pbs.ams.client.interceptor;
+package com.pbs.ams.common.interceptor;
 
 import net.sf.json.JSONArray;
 import org.aspectj.lang.JoinPoint;
@@ -12,10 +12,11 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by whb on 2017/6/28.
+ * 本切面的切点是注解指定所以只能用@Component注入管理.
  */
 @Component
 @Aspect
-public class MyLogAspect {
+public class LogToFileAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

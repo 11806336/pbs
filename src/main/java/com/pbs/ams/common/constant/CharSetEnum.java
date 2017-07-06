@@ -3,6 +3,10 @@ package com.pbs.ams.common.constant;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 编码枚举.
+ * @author TiAmo
+ */
 public enum CharSetEnum {
 
     UTF8("UTF-8"),

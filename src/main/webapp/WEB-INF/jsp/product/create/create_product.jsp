@@ -11,12 +11,10 @@
     <meta charset="UTF-8">
     <title>新建产品</title>
     <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
-    <link rel="stylesheet" href="${basePath}/resources/css/create_broker.css">
+    <link rel="stylesheet" href="${basePath}/resources/css/common.css">
 </head>
 <body>
 <div id="main">
@@ -26,7 +24,7 @@
         <div class="controls">
             <input type="text" id="productName" name="productName" value="" onblur="funBlur(this)" maxlength="25">
             <span class="tipsError">请输入产品名称</span>
-            <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
+            <span class="tipsError">保存后不可更改</span>
         </div>
     </div>
     <div class="control-group">
@@ -38,7 +36,7 @@
                     <option value="${comp.companyId}">${comp.companyName}</option>
                 </c:forEach>
             </select>
-            <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
+            <span class="tipsError">保存后不可更改</span>
         </div>
     </div>
     <div class="control-group">
@@ -50,7 +48,7 @@
             <label class="radio inline" style="min-width:60px;">
                 <input type="radio" name="productType" value="2"> 分级基金
             </label>
-            <span class="tipsError" style="display: inline-block;top:4px;">保存后不可更改</span>
+            <span class="tipsError">保存后不可更改</span>
         </div>
     </div>
     <div class="control-group">
@@ -58,7 +56,7 @@
         <div class="controls">
             <input type="text" id="productCode" name="productCode" value="" onblur="funBlur(this)">
             <span class="tipsError">请输入产品代码</span>
-            <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
+            <span class="tipsError">保存后不可更改</span>
         </div>
     </div>
     <div class="control-group">
@@ -78,11 +76,11 @@
     <div class="control-group">
         <label class="control-label">产品起止日期：</label>
         <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="startDate" value="" id="startDate" class="required">
-        <span for="startDate" class="error" style="display: none;"></span>
+        <span for="startDate" class="error"></span>
         <span style="display: inline-block;margin:0 10px;">至</span>
         <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="endDate" id="endDate" class="required" onblur="funBlur(this)">
         <span for="endDate" class="tipsError">起始日期不能大于结束日期</span>
-        <span class="tipsError" style="display: inline-block;">(修改需重启服务生效)</span>
+        <span class="tipsError">(修改需重启服务生效)</span>
     </div>
     <div class="control-group">
         <label class="control-label" for="productShareSource">产品总份额来源：</label>
@@ -101,7 +99,7 @@
         <label class="control-label" for="productShares">产品总份额：</label>
         <div class="controls">
             <input type="text" name="productShares" value="0.000" id="productShares" class="" maxlength="17">
-            <span for="productShares" class="error" style="display: none;">小数位数不能超过 3 位!</span>
+            <span for="productShares" class="error">小数位数不能超过 3 位!</span>
             <span class="tipsError"></span>
         </div>
     </div>
@@ -172,7 +170,6 @@
             data: create_form.serialize(),
             ContentType: 'application/json',
             success: function (data) {
-                alert("保存成功！");
                 if (data.message == 'success') {
                     alert("保存成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引

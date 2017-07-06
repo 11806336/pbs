@@ -2,7 +2,7 @@ package com.pbs.ams.common.constant;
 
 /**
  * Created by whb on 2017/6/28.
- * 状态码
+ * 状态码枚举类.
  */
 public enum StatusCode {
     //

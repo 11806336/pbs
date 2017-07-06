@@ -5,11 +5,12 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.pbs.ams.common.base.BaseController;
+import com.pbs.ams.common.annotation.Log;
+import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.constant.UpmsResultConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsProduct;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsUser;
@@ -38,8 +39,7 @@ import java.util.Map;
 @Controller
 @Api(value = "产品管理", description = "产品管理")
 @RequestMapping(value = "/product")
-
-public class AmsProductController extends BaseController{
+public class AmsProductController extends BaseController {
 
     @Autowired
     private AmsProductService amsProductService;
@@ -52,6 +52,7 @@ public class AmsProductController extends BaseController{
     public String index() {
         return "/product/index.jsp";
     }
+
 
     @ApiOperation(value = "产品列表")
     @RequiresPermissions("ams:product:read")
@@ -100,7 +101,7 @@ public class AmsProductController extends BaseController{
         return "/product/create/create_product.jsp";
     }
 
-
+    @Log
     @ApiOperation(value = "新增产品")
     @RequiresPermissions("ams:product:read")
     @ResponseBody
@@ -118,10 +119,10 @@ public class AmsProductController extends BaseController{
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         int count = amsProductService.insertSelective(amsProduct);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
 
@@ -176,11 +177,11 @@ public class AmsProductController extends BaseController{
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(UpmsResultConstant.INVALID_LENGTH, result.getErrors());
+            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         amsProduct.setProductId(id);
         int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
     @ApiOperation(value = "删除组织")
@@ -189,14 +190,13 @@ public class AmsProductController extends BaseController{
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         if (StringUtils.isNotEmpty(ids)) {
-            int count = 0;
-            String[] productIds = ids.split("-");
+            String[] productIds = ids.split(",");
             List<Long> idList = new ArrayList<Long>();
             for (String id : productIds) {
                 idList.add(Long.parseLong(id));
-                count = amsProductService.deleteByPrimaryKeys(id);
             }
-            return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+            int count = amsProductService.deleteByPrimaryKeys(ids);
+            return new UpmsResult(StatusCode.SUCCESS, count);
         }
         return 0;
     }

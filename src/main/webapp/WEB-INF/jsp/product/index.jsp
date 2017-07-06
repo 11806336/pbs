@@ -12,23 +12,23 @@
     <div id="toolbar">
         <div id="searchDiv">
             <div class="form-group">
-                <div class="countdown" style="float:left;">
+                <div class="countdown">
                     <span class="countText">距离前次更新</span>
                     <em></em>
                     <span class="load"></span>
                 </div>
                 <div class="btn-panel" style="float:left;">
                     <shiro:hasPermission name="upms:company:refresh">
-                        <a class="aves-effect waves-button btnRefresh" href="#"><i class="zmdi zmdi-refresh"></i>&nbsp;立即更新</a>
+                        <a class="waves-effect waves-button btnRefresh" href="#"><i class="zmdi zmdi-refresh"></i>&nbsp;立即更新</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:create">
-                        <a class="aves-effect waves-button btnCreate" href="#" onclick="dialog('${basePath}/product/createProduct','新建产品','')"><i class="zmdi zmdi-plus"></i>&nbsp;新建产品</a>
+                        <a class="waves-effect waves-button btnCreate" href="#" onclick="dialog('${basePath}/product/createProduct','新建产品','')"><i class="zmdi zmdi-plus"></i>&nbsp;新建产品</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:close">
-                        <a class="aves-effect waves-button btnCreate" href="#" data-deleteTpye = "批量删除" onclick="deleteAction(this,'${basePath}/product/delete','product_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除产品</a>
+                        <a class="waves-effect waves-button btnCreate" href="#" data-deleteTpye = "批量删除" onclick="deleteAction(this,'${basePath}/product/delete','product_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除产品</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:returned">
-                        <a class="aves-effect waves-button btnExport" href="#"><i class="zmdi zmdi-assignment-returned"></i>&nbsp;导出数据</a>
+                        <a class="waves-effect waves-button btnExport" href="#"><i class="zmdi zmdi-assignment-returned"></i>&nbsp;导出数据</a>
                     </shiro:hasPermission>
                 </div>
             </div>
@@ -45,14 +45,6 @@
 <script src="${basePath}/resources/js/Loader.js"></script>
 <script src="${basePath}/resources/js/timer2.js"></script>
 <script>
-    <%--删除--%>
-    //deleteAction(obj,url,idField)
-    <%--编辑--%>
-    //updateAction(obj,url,idField)
-    <%--新增--%>
-    //createAction(url,title)
-    <%--调用弹出--%>
-    //dialog(url,title,id)
     var $table = $('#table');
     //json数据
     var url_json = "${basePath}/product/list";
@@ -96,6 +88,25 @@
             "<a class='selected' href='javascript:;' onclick=dialog('/product/edit/','编辑',"+row.product_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
             "<a class='search' href='javascript:;' onclick=dialog('/product/query/','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
            ].join('');
+    }
+    //添加、编辑后成功后刷新
+    // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //parent.layer.close(index);
+    //window.parent.refresh();
+    function refresh() {
+        $.confirm({
+            title: false,
+            content: '操作成功！',
+            autoClose: 'cancel|3000',
+            backgroundDismiss: true,
+            buttons: {
+                cancel: {
+                    text: '取消',
+                    btnClass: 'waves-effect waves-button'
+                }
+            }
+        });
+        $("#table").bootstrapTable('refresh');
     }
 </script>
 </body>

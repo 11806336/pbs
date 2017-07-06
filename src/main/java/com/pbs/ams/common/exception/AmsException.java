@@ -4,7 +4,7 @@ import com.pbs.ams.common.constant.StatusCode;
 
 /**
  * Created by whb on 2017/7/3.
- * pbs异常类
+ * Exception统一在Service层处理
  */
 public class AmsException extends Exception{
 
