@@ -1,11 +1,19 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
     <!--二级选项卡-->
-    <link href="../../../resources/css/tab2.css" rel="stylesheet"/>
+    <link href="/resources/css/tab2.css" rel="stylesheet"/>
 </head>
 <body>
 <section style="height:100%;">
@@ -42,6 +50,6 @@
     </div>
 </section>
 
-<link rel="import" href="../../../resources/inc/js_tab_list.html">
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 </body>
 </html>

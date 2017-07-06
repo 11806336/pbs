@@ -22,9 +22,9 @@
 <div id="main">
     <form id="create_form">
     <div class="control-group">
-        <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
+        <label for="productId" class="control-label"><em class="rqd">*</em>产品列表：</label>
         <div class="controls">
-            <select  name="platformId" id="platformId">
+            <select  name="productId" id="productId">
                 <option value="0">---请选择---</option>
                 <c:forEach var="amsProducts" items="${amsProducts}">
                     <option value="${amsProducts.product_id}">${amsProducts.product_name}</option>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="control-group">
-        <label for="platformId" class="control-label"><em class="rqd">*</em>证券公司：</label>
+        <label for="brokerId" class="control-label"><em class="rqd">*</em>证券公司：</label>
         <div class="controls">
             <select name="brokerId" id="brokerId">
                 <option value="0">---请选择---</option>
@@ -80,7 +80,7 @@
         <div class="radio radio-inline radio-success" id="trade_account_status" name="trade_account_status">
             <input id="status_1" type="radio" name="status" value="1" checked>
             <label for="status_1">正常 </label>
-            <input id="status_0" type="radio" name="status" value="-1">
+            <input id="status_0" type="radio" name="status" value="0">
             <label for="status_0">锁定 </label>
         </div>
     </div>

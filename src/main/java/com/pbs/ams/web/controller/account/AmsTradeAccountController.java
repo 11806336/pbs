@@ -9,7 +9,6 @@ import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.web.model.AmsTradeAccount;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.AmsBrokerService;
-import com.pbs.ams.web.service.AmsPlatformService;
 import com.pbs.ams.web.service.AmsProductService;
 import com.pbs.ams.web.service.AmsTradeAccountService;
 import io.swagger.annotations.Api;
@@ -41,9 +40,6 @@ public class AmsTradeAccountController extends BaseController {
     private AmsTradeAccountService amsTradeAccountService;
 
     @Autowired
-    private AmsPlatformService amsPlatformService;
-
-    @Autowired
     private AmsBrokerService amsBrokerService;
 
     @Autowired
@@ -63,9 +59,7 @@ public class AmsTradeAccountController extends BaseController {
     public Object list(
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
-            @RequestParam(required = false, defaultValue = "", value = "search") String search,
-            @RequestParam(required = false, value = "sort") String sort,
-            @RequestParam(required = false, value = "order") String order, HttpServletRequest request) {
+            @RequestParam(required = false, defaultValue = "", value = "search") String search) {
         //获取session,取当前用户
         Session session = SecurityUtils.getSubject().getSession();
         Object obj = session.getAttribute("user");
@@ -172,5 +166,14 @@ public class AmsTradeAccountController extends BaseController {
         amsTradeAccount.setTradeAccountId(id);
         int count = amsTradeAccountService.updateByPrimaryKeySelective(amsTradeAccount);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+    }
+
+    @ApiOperation(value = "修改账号")
+    @RequiresPermissions("upms:account:read")
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String details(@PathVariable("id") long id, HttpServletRequest request) {
+        AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
+        request.setAttribute("amsStockAccount", amsTradeAccount);
+        return "/account/tab.jsp";
     }
 }

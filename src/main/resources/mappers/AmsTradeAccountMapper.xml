@@ -88,6 +88,9 @@
       <if test="brokerId != null">
         broker_id,
       </if>
+      <if test="productId != null">
+        product_id,
+      </if>
       <if test="tradeAccountStatus != null">
         trade_account_status,
       </if>
@@ -118,6 +121,9 @@
       </if>
       <if test="brokerId != null">
         #{brokerId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
       </if>
       <if test="tradeAccountStatus != null">
         #{tradeAccountStatus,jdbcType=VARCHAR},
@@ -151,6 +157,9 @@
       <if test="brokerId != null">
         broker_id = #{brokerId,jdbcType=BIGINT},
       </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
       <if test="tradeAccountStatus != null">
         trade_account_status = #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
@@ -166,7 +175,7 @@
   </update>
 
   <insert id="insertIntoAmsTradeAccountSnaps">
-    insert into ams_trade_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_account as tb where trade_account_id= #{trade_account_id}
+    insert into ams_trade_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_account as tb where trade_account_id= #{tradeAccountId}
   </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

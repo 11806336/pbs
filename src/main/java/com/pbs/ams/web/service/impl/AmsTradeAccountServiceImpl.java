@@ -31,7 +31,6 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
     @Autowired
     private AmsTradeAccountMapper amsTradeAccountMapper;
 
-
         @Override
         public int deleteByPrimaryKey(Long id) {
             try {
@@ -43,7 +42,6 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             DynamicDataSource.clearDataSource();
             return 0;
         }
-
 
         @Override
         public int insert(AmsTradeAccount amsTradeAccount) {
@@ -69,7 +67,6 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             return 0;
         }
 
-
         @Override
         public AmsTradeAccount selectByPrimaryKey(Long id) {
             try {
@@ -82,7 +79,6 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             return null;
         }
 
-
         @Override
         public int updateByPrimaryKeySelective(AmsTradeAccount amsTradeAccount) {
             try {
@@ -94,7 +90,6 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             DynamicDataSource.clearDataSource();
             return 0;
         }
-
 
         @Override
         public int updateByPrimaryKey(AmsTradeAccount amsTradeAccount) {
@@ -120,7 +115,7 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
                         try {
                             PropertyUtils.copyProperties(amsTradeAccountSnaps, amsTradeAccount);
                             //向快照表插入数据
-                            int snapshotResult = amsTradeAccountMapper.insertIntoAmsTradeAccountSnaps(amsTradeAccount);
+                            int snapshotResult = amsTradeAccountMapper.insertIntoAmsTradeAccountSnaps(amsTradeAccountSnaps);
                             count += amsTradeAccountMapper.deleteByPrimaryKey(id);
                         } catch (IllegalAccessException e) {//checkException
                             e.printStackTrace();
@@ -136,7 +131,6 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             return 0;
         }
 
-
         /**
         * MANDATORY:该方法只能在一个已存在的事务中执行.
         * @return
@@ -146,13 +140,13 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
         public int insertToAmsTradeAccountSnaps(AmsTradeAccountSnaps amsTradeAccountSnaps) {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            //return amsTradeAccountMapper.insertToAmsTradeAccountSnaps();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             DynamicDataSource.clearDataSource();
             return 0;
         }
+
     @Override
     public List<Map> selectTradeAccoutWithDetail(Map map) {
         return amsTradeAccountMapper.selectTradeAccoutWithDetail(map);

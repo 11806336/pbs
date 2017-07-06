@@ -53,6 +53,13 @@ public class AmsTradeAccount implements Serializable {
     private Long brokerId;
 
     /**
+     * 证券公司ID
+     *
+     * @mbg.generated
+     */
+    private Long productId;
+
+    /**
      * 账号状态
      *
      * @mbg.generated
@@ -136,6 +143,14 @@ public class AmsTradeAccount implements Serializable {
 
     public void setBrokerId(Long brokerId) {
         this.brokerId = brokerId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getTradeAccountStatus() {
