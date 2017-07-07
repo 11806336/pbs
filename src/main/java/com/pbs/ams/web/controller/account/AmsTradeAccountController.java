@@ -21,6 +21,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -190,29 +191,31 @@ public class AmsTradeAccountController extends BaseController {
     @ApiOperation(value = "导出数据")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public String exportExcel(HttpServletRequest request,
-                              HttpServletResponse response,
-                              AmsTradeAccount amsTradeAccount){
-        String tableName=amsTradeAccount.getTableName();
+    public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> params = Maps.newHashMap();
         List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = ExcelUtil.createSheet(workbook, "证券帐号");
-        Map<String, Object> account = rows.get(0);
-        Object[][] value = new Object[rows.size()][account.size()];
-        for (int i = 0; i < rows.size(); i ++) {
-            Map<String, Object> ac = rows.get(i);
-            for (int j = 0; j < account.size(); j ++) {
-                for (Iterator it = ac.entrySet().iterator(); it.hasNext();) {
-                    value[i][j] = it.next();
-                    it.remove();
-                    break;
+        if (rows != null) {//当查询出结果的时候
+            int rowSize = rows.size();//行数
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet sheet = ExcelUtil.createSheet(workbook, "证券帐号");
+            Map<String, Object> account = rows.get(0);//取出一个方便长度的计算
+            final int cellSize = account.size();//单元格数
+            Object[][] value = new Object[rowSize][cellSize];//初始化一个二维数组
+            for (int i = 0; i < rowSize; i ++) {
+                Map<String, Object> ac = rows.get(i);
+                for (int j = 0; j < cellSize; j ++) {
+                    for (Iterator<Map.Entry<String, Object>> it = ac.entrySet().iterator(); it.hasNext();) {
+                        Map.Entry<String, Object> entry = it.next();
+                        value[i][j] = entry.getValue();
+                        it.remove();
+                        break;
+                    }
                 }
-            }
 
+            }
+            ExcelUtil.writeArrayToExcel(sheet, rowSize, cellSize, value);
+            ExcelUtil.writeWorkbook(workbook, "E://3.xlsx");
         }
-        ExcelUtil.writeArrayToExcel(sheet, rows.size(), 11, value);
-        ExcelUtil.writeWorkbook(workbook, "D://3.xlsx");
         return null;
     }
 }
