@@ -97,7 +97,7 @@
             //company_phone=$("#company_phone").val(),//公司电话
             company_address=$("#company_address").val(),//公司地址
             company_fax=$("#company_fax").val(),//公司传真
-            comments=$("#comments").val();//备注
+            description=$("#comments").val();//备注
         if(company_name == "" || /^\s*$/g.test(company_name)){
             alert("请正确输入公司名称");
             return false;
@@ -122,10 +122,11 @@
                 "operatorId":operator_id,
              //   "companyPhone":company_phone,
                 "companyAddress":company_address,
-                "companyFax":company_fax
+                "companyFax":company_fax,
+                "description":description
             } ,
             success: function (data) {
-                if (data.message == 'success') {
+                if (data.message == '成功') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();

@@ -128,7 +128,7 @@
                 "description":description
             } ,
             success: function (data) {
-                if (data.message == 'success') {
+                if (data.message == '成功') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();
