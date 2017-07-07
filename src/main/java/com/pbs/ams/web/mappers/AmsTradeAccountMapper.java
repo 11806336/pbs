@@ -9,8 +9,6 @@ import java.util.Map;
 public interface AmsTradeAccountMapper {
     int deleteByPrimaryKey(Long tradeAccountId);
 
-    int deleteByPrimaryKeys(List<Long> ids);
-
     int insert(AmsTradeAccount record);
 
     int insertSelective(AmsTradeAccount record);

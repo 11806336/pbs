@@ -56,14 +56,15 @@
             </div>
         </div>
 
-        <div class="control-group ">
-            <label  class="control-label">日盘启动时间：</label>
-            <input type="text" name="dayBegin" id="dayBegin" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="08:30:00" style="background-color: #fff;cursor:pointer;">
-            <span style="display: inline-block;margin:0 10px;">至</span>
-            <input type="text" name="dayEnd" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="15:30:00" style="background-color: #fff;cursor:pointer">
-            <span for="day_endDate" class="error" style="display: none;"></span>
-        </div>
-
+        <%--<div class="control-group ">--%>
+            <%--<label  class="control-label">日盘启动时间：</label>--%>
+            <%--<input type="text" name="dayBegin" id="dayBegin" readonly="readonly" onblur="a();" onclick="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d',onpicking:function(dp){--%>
+                <%--$dp.$('dayBegin').value=$dp.cal.getP('H');return true;}--%>
+                <%--});" value="" style="background-color: #fff;cursor:pointer;">--%>
+            <%--<span style="display: inline-block;margin:0 10px;">至</span>--%>
+            <%--<input type="text" name="dayEnd" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer">--%>
+            <%--<span for="day_endDate" class="error" style="display: none;"></span>--%>
+        <%--</div>--%>
 
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
         </form>
@@ -71,10 +72,25 @@
 </div>
 
 <script>
+    var dayBegin=document.getElementById("dayBegin");
+//    var a=dayBegin.toString();
+//    a.replace(":","");
+//    alert(a);
     //下拉框选择
     $("#platform_add").select2({
         minimumResultsForSearch: -1
     });
+//    function a(){
+//        alert(1)
+//    }
+    function pickedFunc() {
+        $dp.$('dayBegin').value=$dp.cal.getP('H');
+//        $dp.$('d523_M').value=$dp.cal.getP('M');
+//        $dp.$('d523_d').value=$dp.cal.getP('d');
+//        $dp.$('d523_HH').value=$dp.cal.getP('H');
+//        $dp.$('d523_mm').value=$dp.cal.getP('m');
+//        $dp.$('d523_ss').value=$dp.cal.getP('s');
+    }
     //选择交易平台，提示
     $(document).on("change","#platform_add",function () {
         if($(this).val()){

@@ -2,10 +2,11 @@ package com.pbs.ams.web.controller.account;
 
 
 import com.google.common.collect.Maps;
-import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsResult;
+import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsTradeAccount;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.AmsBrokerService;
@@ -14,6 +15,8 @@ import com.pbs.ams.web.service.AmsTradeAccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
@@ -22,10 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 账号controller
@@ -168,7 +168,7 @@ public class AmsTradeAccountController extends BaseController {
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
-    @ApiOperation(value = "修改账号")
+    @ApiOperation(value = "账号详情")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") long id, HttpServletRequest request) {
@@ -183,6 +183,28 @@ public class AmsTradeAccountController extends BaseController {
         if (null != iframeName) {
             return "/account/" + iframeName + ".jsp";
         }
+        return null;
+    }
+
+    @ApiOperation(value = "导出数据")
+    @RequiresPermissions("upms:account:read")
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public List<AmsTradeAccount> getAllAccount(String filename){
+        Map<String, Object> params = Maps.newHashMap();
+        List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = ExcelUtil.createSheet(workbook, "证券帐号");
+        Map<String, Object> account = rows.get(0);
+        Object[][] value = new Object[rows.size()][account.size()];
+        for (int i = 0; i < rows.size(); i ++) {
+            Map<String, Object> ac = rows.get(i);
+            for (int j = 0; j < account.size(); j ++) {
+                value[i][j] = account.entrySet();
+                
+            }
+        }
+        ExcelUtil.writeArrayToExcel(sheet, rows.size(), 11, value);
+        ExcelUtil.writeWorkbook(workbook, "D://1.xlsx");
         return null;
     }
 }

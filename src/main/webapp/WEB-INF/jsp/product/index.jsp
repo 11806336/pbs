@@ -86,7 +86,7 @@
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/product/edit/','编辑',"+row.product_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
-            "<a class='search' href='javascript:;' onclick=dialog('/product/query/','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
+            "<a class='search' href='javascript:;' onclick=dialog('/product/create/tab','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
            ].join('');
     }
     //添加、编辑后成功后刷新

@@ -5,10 +5,8 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.constant.UpmsResult;
-import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsProduct;
@@ -52,7 +50,6 @@ public class AmsProductController extends BaseController {
     public String index() {
         return "/product/index.jsp";
     }
-
 
     @ApiOperation(value = "产品列表")
     @RequiresPermissions("ams:product:read")
@@ -101,7 +98,7 @@ public class AmsProductController extends BaseController {
         return "/product/create/create_product.jsp";
     }
 
-    @Log
+
     @ApiOperation(value = "新增产品")
     @RequiresPermissions("ams:product:read")
     @ResponseBody
@@ -111,8 +108,8 @@ public class AmsProductController extends BaseController {
         Session session = SecurityUtils.getSubject().getSession();
         UpmsUser upmsUser = (UpmsUser) session.getAttribute("user");
         if (upmsUser != null) {
-            amsProduct.setProductId(IdGeneratorUtil.getKey("ams_product"));
             amsProduct.setOperatorId(upmsUser.getUserId());
+            amsProduct.setO32Id(upmsUser.getUserId());
         }
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsProduct.getProductName(), new LengthValidator(1, 20, "产品名称"))
@@ -179,7 +176,6 @@ public class AmsProductController extends BaseController {
         if (!result.isSuccess()) {
             return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
-        amsProduct.setProductId(id);
         int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
@@ -190,12 +186,13 @@ public class AmsProductController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         if (StringUtils.isNotEmpty(ids)) {
+            int count = 0;
             String[] productIds = ids.split(",");
             List<Long> idList = new ArrayList<Long>();
             for (String id : productIds) {
                 idList.add(Long.parseLong(id));
+                count = amsProductService.deleteByPrimaryKeys(id);
             }
-            int count = amsProductService.deleteByPrimaryKeys(ids);
             return new UpmsResult(StatusCode.SUCCESS, count);
         }
         return 0;

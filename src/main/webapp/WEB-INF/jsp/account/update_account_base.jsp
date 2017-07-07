@@ -39,10 +39,14 @@
     </div>
 
     <div class="radio">
-        <div class="radio radio-inline radio-success" id="trade_account_status" name="trade_account_status">
-            <input id="status_1" type="radio" name="status" value="1" checked>
+        <div class="radio radio-inline radio-success" >
+            <input id="status_1" type="radio" name="tradeAccountStatus" value="1"
+                   <c:if test="${amsStockAccount.tradeAccountStatus=='1'}">checked
+            </c:if>>
             <label for="status_1">正常 </label>
-            <input id="status_0" type="radio" name="status" value="0">
+            <input id="status_0" type="radio" name="tradeAccountStatus" value="0"
+                   <c:if test="${amsStockAccount.tradeAccountStatus=='0'}">checked
+            </c:if>>
             <label for="status_0">锁定 </label>
         </div>
     </div>

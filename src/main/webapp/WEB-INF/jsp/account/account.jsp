@@ -18,7 +18,7 @@
     <div id="searchDiv">
         <div class="btn-panel">
             <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="dialog('/account/create','添加证券账号','')">添加证券账号</a>
-            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="">导出全部持仓</a>
+            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="expot();">导出全部持仓</a>
         </div>
     </div>
     <table id="table"></table>
@@ -69,9 +69,18 @@
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/account/update','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','详情'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
             "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','tradeAccountId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
+    }
+    function expot() {
+        $.ajax({
+           url:"/account/export",
+            type:'post',
+            success : function(){
+alert(1)
+            }
+        });
     }
 </script>
 </body>
