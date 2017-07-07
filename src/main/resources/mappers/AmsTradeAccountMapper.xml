@@ -181,5 +181,5 @@
     CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
     tb.* from ams_trade_account as tb where trade_account_id= #{tradeAccountId}
   </insert>
-  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+ <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />-->
 </mapper>
