@@ -245,22 +245,10 @@ public class ExcelUtil {
         try {
             fos=new FileOutputStream(f);
             wb.write(fos);
-            int dialog = JOptionPane.showConfirmDialog(null,
-                    f.getName()+"导出成功！是否打开？",
-                    "温馨提示", JOptionPane.YES_NO_OPTION);
-            if (dialog == JOptionPane.YES_OPTION) {
+        } catch (Exception e) {
 
-                Runtime.getRuntime().exec("cmd /c start \"\" \"" + fileName + "\"");
-            }
-
-
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "导入数据前请关闭工作表");
-
-        } catch ( Exception e) {
-            JOptionPane.showMessageDialog(null, "没有进行筛选");
-
-        } finally{
+        }
+         finally{
             try {
                 if(fos!=null){
                     fos.close();
