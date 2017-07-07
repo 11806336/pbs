@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -189,7 +190,10 @@ public class AmsTradeAccountController extends BaseController {
     @ApiOperation(value = "导出数据")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public List<AmsTradeAccount> getAllAccount(String filename){
+    public String exportExcel(HttpServletRequest request,
+                              HttpServletResponse response,
+                              AmsTradeAccount amsTradeAccount){
+        String tableName=amsTradeAccount.getTableName();
         Map<String, Object> params = Maps.newHashMap();
         List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -199,12 +203,16 @@ public class AmsTradeAccountController extends BaseController {
         for (int i = 0; i < rows.size(); i ++) {
             Map<String, Object> ac = rows.get(i);
             for (int j = 0; j < account.size(); j ++) {
-                value[i][j] = account.entrySet();
-                
+                for (Iterator it = ac.entrySet().iterator(); it.hasNext();) {
+                    value[i][j] = it.next();
+                    it.remove();
+                    break;
+                }
             }
+
         }
         ExcelUtil.writeArrayToExcel(sheet, rows.size(), 11, value);
-        ExcelUtil.writeWorkbook(workbook, "D://1.xlsx");
+        ExcelUtil.writeWorkbook(workbook, "D://3.xlsx");
         return null;
     }
 }

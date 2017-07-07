@@ -1,6 +1,8 @@
 package com.pbs.ams.web.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AmsTradeAccount implements Serializable {
     /**
@@ -86,7 +88,17 @@ public class AmsTradeAccount implements Serializable {
      */
     private Integer isLogin;
 
+    private String tableName;
+
     private static final long serialVersionUID = 1L;
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
     public Long getTradeAccountId() {
         return tradeAccountId;
@@ -182,5 +194,16 @@ public class AmsTradeAccount implements Serializable {
 
     public void setIsLogin(Integer isLogin) {
         this.isLogin = isLogin;
+    }
+
+    public Map<String, Object> getMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (null != this.getTableName() && !"".equals(this.getTableName())) {
+            map.put("goodsTitles", this.getTableName());
+        }
+        if (null != this.getTradeAccountType() && !"".equals(this.getTradeAccountType())) {
+            map.put("maskTitles", this.getTradeAccountType());
+        }
+        return map;
     }
 }
