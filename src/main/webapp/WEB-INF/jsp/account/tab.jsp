@@ -56,7 +56,7 @@
     </div>
     <div class="content_main">
         <div id="iframe_setAccountInfo" class="iframe cur">
-            <iframe class="tab_iframe" src="/account/details/tab/create_account_base" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/account/details/tab/update_account_base" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe_setWhiteBlackList" class="iframe">
             <iframe class="tab_iframe" src="/account/details/tab/whiteBlackList" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
