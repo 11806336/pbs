@@ -12,7 +12,6 @@
     <meta charset="UTF-8">
     <title>经纪公司</title>
     <jsp:include page="/resources/inc/head.jsp" flush="true"/>
-    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="main">
@@ -91,12 +90,26 @@
 
     function actionFormatter(value, row, index) {
         return [
-            "<a class='update' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a> ",
-            " <a class='delete' href='javascript:;' onclick=deleteAction(this,'/ams/broker/delete','broker_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+            "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
+            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/ams/broker/delete','broker_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
         ].join('');
     }
-    
-
+    //编辑修改后刷新
+    function refresh() {
+        $.confirm({
+            title: false,
+            content: '操作成功！',
+            autoClose: 'cancel|3000',
+            backgroundDismiss: true,
+            buttons: {
+                cancel: {
+                    text: '确定',
+                    btnClass: 'waves-effect waves-button'
+                }
+            }
+        });
+        $("#table").bootstrapTable('refresh');
+    }
 </script>
 </body>
 </html>

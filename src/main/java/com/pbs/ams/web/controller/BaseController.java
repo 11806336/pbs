@@ -2,7 +2,9 @@ package com.pbs.ams.web.controller;
 
 import com.google.common.collect.Lists;
 import com.pbs.ams.common.util.PropertiesFileUtil;
+import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.model.UpmsUser;
+import com.pbs.ams.web.service.UpmsCompanyUserService;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
@@ -27,6 +30,9 @@ public abstract class BaseController {
 	protected Logger _log = LoggerFactory.getLogger(this.getClass());
 
 	protected static String prefix = "/manage";
+
+	@Resource
+	private UpmsCompanyUserService upmsCompanyUserService;
 
 	/**
 	 * 统一异常处理
@@ -105,5 +111,20 @@ public abstract class BaseController {
 		Session session = SecurityUtils.getSubject().getSession();
 		UpmsUser upmsUser = (UpmsUser) session.getAttribute("user");
 		return upmsUser;
+	}
+
+	/**
+	 * this method is used to get current user`s company by id.
+	 * @return
+	 */
+	public List<UpmsCompanyUser> getCompanyByUserId(){
+		//获取session,取当前用户
+		Session session = SecurityUtils.getSubject().getSession();
+		UpmsUser upmsUser = (UpmsUser) session.getAttribute("user");
+		if (upmsUser != null) {
+			return upmsCompanyUserService.getCompaniesByUserId(upmsUser.getUserId());
+		} else {
+			return null;
+		}
 	}
 }

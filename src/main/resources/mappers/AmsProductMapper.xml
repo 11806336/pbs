@@ -93,9 +93,7 @@
         product_desc,
       </if>
         create_time,
-      <if test="updateTime != null">
         update_time,
-      </if>
       <if test="operatorId != null">
         operator_id,
       </if>
@@ -143,12 +141,8 @@
       <if test="productDesc != null">
         #{productDesc,jdbcType=VARCHAR},
       </if>
-      <if test="createTime == null">
         CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
+        CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
       </if>

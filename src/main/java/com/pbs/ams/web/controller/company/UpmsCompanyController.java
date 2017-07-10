@@ -11,6 +11,7 @@ import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.model.UpmsCompany;
+import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
@@ -69,7 +70,12 @@ public class UpmsCompanyController extends BaseController {
         params.put("companyName", search);//search暂时为公司名
         if (upmsUser != null) {
             if (!upmsUser.isSuperUser()) {//如果是超级管理员的话查询全部，否则带上公司进行查询
-                params.put("companyId", upmsUser.getCompanyId());
+                List<UpmsCompanyUser> upmsCompanies = getCompanyByUserId();
+                List<Long> companyIds = new ArrayList<Long>();//用来存放公司id
+                for (UpmsCompanyUser companyUser : upmsCompanies) {
+                    companyIds.add(companyUser.getCompanyId());
+                }
+                params.put("companyIds", companyIds);
             }
         }
         List<UpmsCompany> rows = upmsCompanyService.listCompanies(params);

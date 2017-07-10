@@ -81,13 +81,27 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
 
         @Override
         public int updateByPrimaryKeySelective(AmsTradeAccount amsTradeAccount) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsTradeAccountMapper.updateByPrimaryKeySelective(amsTradeAccount);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (null != amsTradeAccount) {
+                //先做查询再去更新原表数据和插入快照
+                AmsTradeAccount oldamsTradeAccount = amsTradeAccountMapper.selectByPrimaryKey(amsTradeAccount.getTradeAccountId());
+                if (null != oldamsTradeAccount) {
+                    AmsTradeAccountSnaps amsTradeAccountSnaps = new AmsTradeAccountSnaps();
+                    try {
+                        PropertyUtils.copyProperties(amsTradeAccountSnaps, oldamsTradeAccount);
+                        //向快照表插入数据
+                        int snapshotResult = amsTradeAccountMapper.insertIntoAmsTradeAccountSnaps(amsTradeAccountSnaps);
+                        if (snapshotResult > 0) {//当插入成功后再更新原数据
+                            return amsTradeAccountMapper.updateByPrimaryKeySelective(amsTradeAccount);
+                        }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            DynamicDataSource.clearDataSource();
             return 0;
         }
 

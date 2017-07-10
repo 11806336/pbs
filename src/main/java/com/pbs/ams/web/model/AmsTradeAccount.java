@@ -1,6 +1,8 @@
 package com.pbs.ams.web.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AmsTradeAccount implements Serializable {
     /**
@@ -53,13 +55,6 @@ public class AmsTradeAccount implements Serializable {
     private Long brokerId;
 
     /**
-     * 证券公司ID
-     *
-     * @mbg.generated
-     */
-    private Long productId;
-
-    /**
      * 账号状态
      *
      * @mbg.generated
@@ -86,8 +81,24 @@ public class AmsTradeAccount implements Serializable {
      * @mbg.generated
      */
     private Long operatorId;
+    /**
+     * 登录状态  0:未登录1：登录
+     *
+     * @mbg.generated
+     */
+    private Integer isLogin;
+
+    private String tableName;
 
     private static final long serialVersionUID = 1L;
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
     public Long getTradeAccountId() {
         return tradeAccountId;
@@ -145,14 +156,6 @@ public class AmsTradeAccount implements Serializable {
         this.brokerId = brokerId;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public String getTradeAccountStatus() {
         return tradeAccountStatus;
     }
@@ -183,5 +186,24 @@ public class AmsTradeAccount implements Serializable {
 
     public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
+    }
+
+    public Integer getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(Integer isLogin) {
+        this.isLogin = isLogin;
+    }
+
+    public Map<String, Object> getMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (null != this.getTableName() && !"".equals(this.getTableName())) {
+            map.put("goodsTitles", this.getTableName());
+        }
+        if (null != this.getTradeAccountType() && !"".equals(this.getTradeAccountType())) {
+            map.put("maskTitles", this.getTradeAccountType());
+        }
+        return map;
     }
 }

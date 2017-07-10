@@ -13,12 +13,15 @@
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="is_login" jdbcType="INTEGER" property="isLogin" />
   </resultMap>
   <sql id="Base_Column_List">
     trade_account_id, company_id, trade_account_type, trade_account, trade_account_name, 
     trade_account_password, broker_id, trade_account_status, create_time, update_time, 
-    operator_id
+    operator_id,is_login
   </sql>
+
+  <!--根据ID查询单条记录-->
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -26,18 +29,21 @@
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </select>
 
+  <!--查询账号列表-->
   <select id="selectTradeAccoutWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
     SELECT trade_account_id, company_id, trade_account_type, trade_account, trade_account_name,
     trade_account_password, broker_id, trade_account_status, create_time, update_time,operator_id
     FROM ams_trade_account where 1 = 1
     <if test="search!=null">
-      and trade_account_name LIKE CONCAT('%','${search}','%' )
+      and trade_account_name LIKE CONCAT('%','${search}','%')
     </if>
     <if test="limit != null">
       <if test="offset != null"> limit ${offset}, ${limit} </if>
       <if test="offset == null"> limit ${limit} </if>
     </if>
   </select>
+
+  <!--查询条目数-->
   <select id="selectTradeAccoutWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
     SELECT
     COUNT(1)
@@ -49,10 +55,12 @@
     </if>
   </select>
 
+  <!--根据ID删除账号-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_trade_account
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     insert into ams_trade_account (trade_account_id, company_id, trade_account_type, 
       trade_account, trade_account_name, trade_account_password, 
@@ -63,6 +71,7 @@
       #{brokerId,jdbcType=BIGINT}, #{tradeAccountStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
   </insert>
+
   <!--添加账号-->
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     insert into ams_trade_account
@@ -87,9 +96,6 @@
       </if>
       <if test="brokerId != null">
         broker_id,
-      </if>
-      <if test="productId != null">
-        product_id,
       </if>
       <if test="tradeAccountStatus != null">
         trade_account_status,
@@ -122,9 +128,6 @@
       <if test="brokerId != null">
         #{brokerId,jdbcType=BIGINT},
       </if>
-      <if test="productId != null">
-        #{productId,jdbcType=BIGINT},
-      </if>
       <if test="tradeAccountStatus != null">
         #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
@@ -135,7 +138,8 @@
       </if>
     </trim>
   </insert>
-  <!--更新账号-->
+
+  <!--编辑账号-->
   <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
     update ams_trade_account
     <set>
@@ -157,9 +161,6 @@
       <if test="brokerId != null">
         broker_id = #{brokerId,jdbcType=BIGINT},
       </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=BIGINT},
-      </if>
       <if test="tradeAccountStatus != null">
         trade_account_status = #{tradeAccountStatus,jdbcType=VARCHAR},
       </if>
@@ -174,8 +175,11 @@
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </update>
 
+<!--向快照表中添加数据-->
   <insert id="insertIntoAmsTradeAccountSnaps">
-    insert into ams_trade_account_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_account as tb where trade_account_id= #{tradeAccountId}
+    insert into ams_trade_account_snaps SELECT
+    CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+    tb.* from ams_trade_account as tb where trade_account_id= #{tradeAccountId}
   </insert>
-  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+ <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />-->
 </mapper>

@@ -8,45 +8,45 @@ public class UpmsCompanyUser implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer companyUserId;
+    private Long companyUserId;
 
     /**
      * 公司ID
      *
      * @mbg.generated
      */
-    private Integer companyId;
+    private Long companyId;
 
     /**
      * 用户ID
      *
      * @mbg.generated
      */
-    private Integer userId;
+    private Long userId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getCompanyUserId() {
+    public Long getCompanyUserId() {
         return companyUserId;
     }
 
-    public void setCompanyUserId(Integer companyUserId) {
+    public void setCompanyUserId(Long companyUserId) {
         this.companyUserId = companyUserId;
     }
 
-    public Integer getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

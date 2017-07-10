@@ -11,14 +11,21 @@
 <head>
     <meta charset="UTF-8">
     <title>证券账号管理页</title>
+    <link rel="stylesheet" href="${basePath}/resources/css/ace.css">
     <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
-    <div id="searchDiv">
-        <div class="btn-panel">
-            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="dialog('/account/create','添加证券账号','')">添加证券账号</a>
-            <a class="btn icon-plus addstockcom btn-primary" href="#" onclick="">导出全部持仓</a>
+    <div id="toolbar">
+        <div id="searchDiv">
+            <div class="btn-panel">
+                <shiro:hasPermission name="upms:company:create">
+                    <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('/account/create','添加证券账号','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加证券账号</a>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="upms:company:delete">
+                    <a class="waves-effect waves-button" href="javascript:;" onclick="expot();"><i class="zmdi zmdi-assignment-returned"></i>&nbsp;导出全部持仓</a>
+                </shiro:hasPermission>
+            </div>
         </div>
     </div>
     <table id="table"></table>
@@ -39,6 +46,14 @@
         {field: 'create_time', title: '创建时间'},
         {field: 'update_time', title: '修改时间'},
         {field: 'operator_id', title: '创建人'},
+        {
+            field: 'action',
+            title: '设置',
+            align: 'center',
+            formatter: 'set',
+            events: 'actionEvents',
+            clickToSelect: false
+        },
         {
             field: 'action',
             title: '操作',
@@ -69,9 +84,33 @@
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/account/update','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
+            "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','详情'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
             "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','tradeAccountId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
+    }
+    function expot() {
+        $.ajax({
+           url:"/account/export",
+            type:'post',
+            success : function(){
+                alert(1)
+            }
+        });
+    }
+    //格式化设置开关按钮
+    function set(value, row, index) {
+        return [
+            '<label> ' +
+            '<input onchange="open_close(this)" name="switch-field-1" checked="checked" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
+            '<span class="lbl"></span>' +
+            ' </label>'
+        ].join('');
+    }
+    //启用、停用开关按钮的方法
+    function open_close(obj) {
+        //obj==this; status状态，值为turn为启用，为false就是停用
+        var status=$(obj).context.checked;
+        alert(status);
     }
 </script>
 </body>

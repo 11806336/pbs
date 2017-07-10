@@ -65,15 +65,15 @@ public class AmsBrokerServiceImpl implements AmsBrokerService {
     public int updateByPrimaryKeySelective(AmsBroker amsBroker) {
         if (null != amsBroker) {
             //先做查询再去更新原表数据和插入快照
-            AmsBroker amsbroker = amsBrokerMapper.selectByPrimaryKey(amsBroker.getBrokerId());
-            if (null != amsbroker) {
+            AmsBroker oriAmsbroker = amsBrokerMapper.selectByPrimaryKey(amsBroker.getBrokerId());
+            if (null != oriAmsbroker) {
                 AmsBrokerSnaps amsBrokerSnaps = new AmsBrokerSnaps();
                 try {
-                    PropertyUtils.copyProperties(amsBrokerSnaps, amsbroker);
+                    PropertyUtils.copyProperties(amsBrokerSnaps, oriAmsbroker);
                     //向快照表插入数据
                     int snapshotResult = amsBrokerMapper.insertToAmsBrokerSnaps(amsBrokerSnaps);
                     if (snapshotResult > 0) {//当插入成功后再更新原数据
-                        return amsBrokerMapper.updateByPrimaryKeySelective(amsbroker);
+                        return amsBrokerMapper.updateByPrimaryKeySelective(amsBroker);
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();

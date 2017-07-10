@@ -16,6 +16,23 @@
     <link href="/resources/css/tab2.css" rel="stylesheet"/>
 </head>
 <body>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
+<script>
+    $(document).on('click', '.tabs li', function() {
+        // 切换选项卡
+        $('.tabs li').removeClass('cur');
+        $(this).addClass('cur');
+        // 切换iframe
+        $('.tab_iframe').removeClass('cur');
+        $('.iframe').hide();
+        $('#iframe_' + $(this).data('index')).addClass('cur');
+        $('#iframe_' + $(this).data('index')).show();
+    });
+    // iframe高度自适应
+    function changeFrameHeight(ifm) {
+        ifm.height = document.documentElement.clientHeight - 118;
+    }
+</script>
 <section style="height:100%;">
     <div class="content_tab" style="background-color: #333;">
         <div class="tab_left">
@@ -39,17 +56,15 @@
     </div>
     <div class="content_main">
         <div id="iframe_setAccountInfo" class="iframe cur">
-            <iframe class="tab_iframe" src="create_account_base.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/account/details/tab/create_account_base" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe_setWhiteBlackList" class="iframe">
-            <iframe class="tab_iframe" src="whiteBlackList.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/account/details/tab/whiteBlackList" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe_setCharge" class="iframe">
-            <iframe class="tab_iframe" src="charge.html" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/account/details/tab/charge" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
     </div>
 </section>
-
-<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 </body>
 </html>

@@ -86,6 +86,12 @@ public class AmsTradeAccountSnaps implements Serializable {
      * @mbg.generated
      */
     private Long operatorId;
+    /**
+     * 登录状态  0:未登录1：登录
+     *
+     * @mbg.generated
+     */
+    private Integer isLogin;
 
     private static final long serialVersionUID = 1L;
 
@@ -183,5 +189,13 @@ public class AmsTradeAccountSnaps implements Serializable {
 
     public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
+    }
+
+    public Integer getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(Integer isLogin) {
+        this.isLogin = isLogin;
     }
 }

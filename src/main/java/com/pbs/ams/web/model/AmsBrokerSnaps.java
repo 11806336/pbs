@@ -55,7 +55,7 @@ public class AmsBrokerSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Boolean creditable;
+    private Integer creditable;
 
     /**
      * 日盘开始时间
@@ -159,11 +159,11 @@ public class AmsBrokerSnaps implements Serializable {
         this.brokerName = brokerName;
     }
 
-    public Boolean getCreditable() {
+    public Integer getCreditable() {
         return creditable;
     }
 
-    public void setCreditable(Boolean creditable) {
+    public void setCreditable(Integer creditable) {
         this.creditable = creditable;
     }
 

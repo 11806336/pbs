@@ -8,16 +8,8 @@
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <div id="createDialog" class="crudDialog">
 	<form id="createForm" method="post">
-		<div class="form-group">
-			<label for="username">帐号</label>
-			<input id="username" type="text" class="form-control" name="username" maxlength="20">
-		</div>
-		<div class="form-group">
-			<label for="password">密码</label>
-			<input id="password" type="text" class="form-control" name="password" maxlength="32">
-		</div>
 		<div class="control-group">
-			<label for="companyId" class="control-label"><em class="rqd">*</em>所属公司：</label>
+			<label for="companyId" class="control-label control-label2"><em class="rqd">*</em>所属公司：</label>
 			<div class="controls">
 				<select name="companyId" id="companyId">
 					<option value="0">---请选择---</option>
@@ -26,6 +18,14 @@
 					</c:forEach>
 				</select>
 			</div>
+		</div>
+		<div class="form-group">
+			<label for="username">帐号</label>
+			<input id="username" type="text" class="form-control" name="username" maxlength="20">
+		</div>
+		<div class="form-group">
+			<label for="password">密码</label>
+			<input id="password" type="text" class="form-control" name="password" maxlength="32">
 		</div>
 		<div class="form-group">
 			<label for="realname">姓名</label>

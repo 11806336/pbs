@@ -56,6 +56,7 @@ body .jconfirm{z-index: 999;}
 /*#content {width:100%;margin:0 auto;!*height:500px;*!}
 #content>div {padding:20px 0;!*border:1px solid red;*!}*/
 .control-label {float: left;margin-right: 10px;width:100px;text-align: right;padding-top: 5px;}
+.control-label2 {width:auto;}
 .rqd {
     color: #f00;
     font-style: normal;
@@ -172,3 +173,5 @@ p.block-heading, a.block-heading, .block-heading a {
 /*#dayBegin,#dayEnd,#nightStartDate,#nightEndDate {background-color: #fff;cursor:pointer;}*/
 /*#dayBegin,#nightStartDate {margin-right: 5px;}*/
 /*#dayEnd ,#nightEndDate{margin-left: 5px;}*/
+/*select2调整*/
+#searchDiv .select2-container {position: relative;top:4px;}
