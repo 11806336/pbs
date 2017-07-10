@@ -43,7 +43,7 @@ public class AmsPlatform implements Serializable {
      *
      * @mbg.generated
      */
-    private Boolean creditable;
+    private Integer creditable;
 
     /**
      * 创建时间
@@ -108,11 +108,11 @@ public class AmsPlatform implements Serializable {
         this.platformType = platformType;
     }
 
-    public Boolean getCreditable() {
+    public Integer getCreditable() {
         return creditable;
     }
 
-    public void setCreditable(Boolean creditable) {
+    public void setCreditable(Integer creditable) {
         this.creditable = creditable;
     }
 
