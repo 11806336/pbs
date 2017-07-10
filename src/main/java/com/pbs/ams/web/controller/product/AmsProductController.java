@@ -6,8 +6,8 @@ import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
@@ -119,10 +119,10 @@ public class AmsProductController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+            return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         int count = amsProductService.insertSelective(amsProduct);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
 
@@ -177,11 +177,11 @@ public class AmsProductController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+            return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         amsProduct.setProductId(id);
         int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
     @ApiOperation(value = "删除组织")
@@ -196,7 +196,7 @@ public class AmsProductController extends BaseController {
                 idList.add(Long.parseLong(id));
             }
             int count = amsProductService.deleteByPrimaryKeys(ids);
-            return new UpmsResult(StatusCode.SUCCESS, count);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
         }
         return 0;
     }

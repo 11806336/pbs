@@ -11,7 +11,7 @@ public class AmsException extends Exception{
     private StatusCode statusCode;
 
     public AmsException(StatusCode statusCode) {
-        super(statusCode.getMsg());
+        super(statusCode.getMessage());
         this.statusCode = statusCode;
     }
 

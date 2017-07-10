@@ -51,7 +51,7 @@ public class JsonUtil {
         {
             if(!json.has(params[i])||json.get(params[i])==null){
                 baseResult.setCode(StatusCode.PARAM_ERROR.getCode());
-                baseResult.setMessage(StatusCode.PARAM_ERROR.getMsg()+"缺少参数："+params[i]);
+                baseResult.setMessage(StatusCode.PARAM_ERROR.getMessage()+"缺少参数："+params[i]);
                 return json;
             }
         }
@@ -60,7 +60,7 @@ public class JsonUtil {
 
     public static void setStatus(BaseResult baseResult,StatusCode statusCode){
         baseResult.setCode(statusCode.getCode());
-        baseResult.setMessage(statusCode.getMsg());
+        baseResult.setMessage(statusCode.getMessage());
     }
 
     public static String encryptPassword(String password, String salt) {

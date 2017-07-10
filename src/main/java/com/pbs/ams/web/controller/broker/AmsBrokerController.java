@@ -4,8 +4,8 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Maps;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
@@ -58,18 +58,18 @@ public class AmsBrokerController extends BaseController {
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search,
             HttpServletRequest request){
-            String platformId=request.getParameter("platformId");
-            Map<String, Object> params = Maps.newHashMap();
-            params.put("offset", offset);
-            params.put("limit", limit);
-            params.put("search",search);
-            params.put("platformId",platformId);
-            List<Map> rows = amsBrokerService.selectBrokerWithDetail(params);
-            long total = amsBrokerService.selectBrokerWithDetailCount(params);
-            Map<String, Object> result = Maps.newHashMap();
-            result.put("rows", rows);
-            result.put("total", total);
-            return result;
+        String platformId=request.getParameter("platformId");
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        params.put("search",search);
+        params.put("platformId",platformId);
+        List<Map> rows = amsBrokerService.selectBrokerWithDetail(params);
+        long total = amsBrokerService.selectBrokerWithDetailCount(params);
+        Map<String, Object> result = Maps.newHashMap();
+        result.put("rows", rows);
+        result.put("total", total);
+        return result;
     }
     @ApiOperation(value = "新增券商")
     @RequiresPermissions("ams:broker:create")
@@ -91,13 +91,13 @@ public class AmsBrokerController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+            return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
 
@@ -113,7 +113,7 @@ public class AmsBrokerController extends BaseController {
                 idList.add(Long.parseLong(id));
             }
             int count = amsBrokerService.deleteByPrimaryKeys(idList);
-            return new UpmsResult(StatusCode.SUCCESS, count);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
         }
         return 0;
     }
@@ -144,12 +144,12 @@ public class AmsBrokerController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.SUCCESS, result.getErrors());
+            return new ResultSet(StatusCode.ERROR_NONE, result.getErrors());
         }
         amsBroker.setBrokerId(id);
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
         int count = amsBrokerService.updateByPrimaryKeySelective(amsBroker);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 }

@@ -3,7 +3,7 @@ package com.pbs.ams.web.controller.manage;
 
 
 import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.common.constant.UpmsResult;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.web.model.UpmsLog;
 import com.pbs.ams.web.model.UpmsLogExample;
@@ -73,7 +73,7 @@ public class UpmsLogController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsLogService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
 }

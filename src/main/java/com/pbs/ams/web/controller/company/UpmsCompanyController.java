@@ -5,8 +5,8 @@ package com.pbs.ams.web.controller.company;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
@@ -92,7 +92,7 @@ public class UpmsCompanyController extends BaseController {
                 idList.add(Long.parseLong(id));
             }
             int count = upmsCompanyService.deleteCompany(idList);
-            return new UpmsResult(StatusCode.SUCCESS, count);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
         }
         return 0;
     }
@@ -115,12 +115,12 @@ public class UpmsCompanyController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+            return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         Long id = IdGeneratorUtil.getKey("upms_company");
         upmsCompany.setCompanyId(id);//获取公司id
         int count = upmsCompanyService.insertCompany(upmsCompany);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
 
@@ -144,10 +144,10 @@ public class UpmsCompanyController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+            return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
         }
         upmsCompany.setCompanyId(id);
         int count = upmsCompanyService.updateCompany(upmsCompany);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 }

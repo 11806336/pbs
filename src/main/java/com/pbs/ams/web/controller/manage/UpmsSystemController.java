@@ -3,9 +3,9 @@ package com.pbs.ams.web.controller.manage;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.validator.LengthValidator;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.web.model.UpmsSystem;
 import com.pbs.ams.web.model.UpmsSystemExample;
@@ -88,13 +88,13 @@ public class UpmsSystemController extends BaseController {
 				.doValidate()
 				.result(ResultCollectors.toComplex());
 		if (!result.isSuccess()) {
-			return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+			return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
 		}
 		long time = System.currentTimeMillis();
 		upmsSystem.setCtime(time);
 		upmsSystem.setOrders(time);
 		int count = upmsSystemService.insertSelective(upmsSystem);
-		return new UpmsResult(StatusCode.SUCCESS, count);
+		return new ResultSet(StatusCode.ERROR_NONE, count);
 	}
 
 	@ApiOperation(value = "删除系统")
@@ -103,7 +103,7 @@ public class UpmsSystemController extends BaseController {
 	@ResponseBody
 	public Object delete(@PathVariable("ids") String ids) {
 		int count = upmsSystemService.deleteByPrimaryKeys(ids);
-		return new UpmsResult(StatusCode.SUCCESS, count);
+		return new ResultSet(StatusCode.ERROR_NONE, count);
 	}
 
 	@ApiOperation(value = "修改系统")
@@ -126,11 +126,11 @@ public class UpmsSystemController extends BaseController {
 				.doValidate()
 				.result(ResultCollectors.toComplex());
 		if (!result.isSuccess()) {
-			return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+			return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
 		}
 		upmsSystem.setSystemId(id);
 		int count = upmsSystemService.updateByPrimaryKeySelective(upmsSystem);
-		return new UpmsResult(StatusCode.SUCCESS, count);
+		return new ResultSet(StatusCode.ERROR_NONE, count);
 	}
 
 }

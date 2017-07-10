@@ -2,8 +2,8 @@ package com.pbs.ams.web.controller;
 
 import com.pbs.ams.client.shiro.session.UpmsSession;
 import com.pbs.ams.client.shiro.session.UpmsSessionDao;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.UpmsEnum;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.RedisUtil;
 import com.pbs.ams.web.model.UpmsSystemExample;
@@ -105,10 +105,10 @@ public class SSOController extends BaseController {
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("rememberMe");
         if (StringUtils.isBlank(username)) {
-            return new UpmsResult(StatusCode.EMPTY_USERNAME, "帐号不能为空！");
+            return new ResultSet(StatusCode.EMPTY_USERNAME, "帐号不能为空！");
         }
         if (StringUtils.isBlank(password)) {
-            return new UpmsResult(StatusCode.EMPTY_PASSWORD, "密码不能为空！");
+            return new ResultSet(StatusCode.EMPTY_PASSWORD, "密码不能为空！");
         }
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
@@ -127,11 +127,11 @@ public class SSOController extends BaseController {
                 }
                 subject.login(usernamePasswordToken);
             } catch (UnknownAccountException e) {
-                return new UpmsResult(StatusCode.INVALID_USERNAME, "帐号不存在！");
+                return new ResultSet(StatusCode.INVALID_USERNAME, "帐号不存在！");
             } catch (IncorrectCredentialsException e) {
-                return new UpmsResult(StatusCode.INVALID_PASSWORD, "密码错误！");
+                return new ResultSet(StatusCode.INVALID_PASSWORD, "密码错误！");
             } catch (LockedAccountException e) {
-                return new UpmsResult(StatusCode.INVALID_ACCOUNT, "帐号已锁定！");
+                return new ResultSet(StatusCode.INVALID_ACCOUNT, "帐号已锁定！");
             }
             // 更新session状态
             upmsSessionDao.updateStatus(sessionId, UpmsSession.OnlineStatus.on_line);
@@ -147,9 +147,9 @@ public class SSOController extends BaseController {
         // 回跳登录前地址
         String backurl = request.getParameter("backurl");
         if (StringUtils.isBlank(backurl)) {
-            return new UpmsResult(StatusCode.SUCCESS, "/manage/index");
+            return new ResultSet(StatusCode.ERROR_NONE, "/manage/index");
         } else {
-            return new UpmsResult(StatusCode.SUCCESS, backurl);
+            return new ResultSet(StatusCode.ERROR_NONE, backurl);
         }
     }
 
@@ -160,9 +160,9 @@ public class SSOController extends BaseController {
         String codeParam = request.getParameter("code");
         String code = RedisUtil.get(UpmsEnum.AMS_UPMS_SERVER_CODE.getString() + "_" + codeParam);
         if (StringUtils.isBlank(codeParam) || !codeParam.equals(code)) {
-            new UpmsResult(StatusCode.FAILED, "无效code");
+            new ResultSet(StatusCode.INVALID_CODE, "无效code");
         }
-        return new UpmsResult(StatusCode.SUCCESS, code);
+        return new ResultSet(StatusCode.ERROR_NONE, code);
     }
 
     @ApiOperation(value = "退出登录")

@@ -27,6 +27,12 @@ public class BaseResult implements Serializable{
         this.message = message;
         this.data = data;
     }
+
+    public BaseResult(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public BaseResult(){
 
     }
