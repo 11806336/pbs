@@ -6,7 +6,7 @@
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
     <result column="manager_id" jdbcType="BIGINT" property="managerId" />
-    <result column="manager_phone" jdbcType="INTEGER" property="managerPhone" />
+    <result column="manager_phone" jdbcType="VARCHAR" property="managerPhone" />
     <result column="manager_address" jdbcType="VARCHAR" property="managerAddress" />
     <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
     <result column="company_fax" jdbcType="VARCHAR" property="companyFax" />
@@ -164,7 +164,7 @@
         manager_id = #{managerId,jdbcType=BIGINT},
       </if>
       <if test="managerPhone != null">
-        manager_phone = #{managerPhone,jdbcType=INTEGER},
+        manager_phone = #{managerPhone,jdbcType=VARCHAR},
       </if>
       <if test="managerAddress != null">
         manager_address = #{managerAddress,jdbcType=VARCHAR},
@@ -196,7 +196,7 @@
     description, create_time, update_time,
     snaps_time)
     values (#{companyId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{operatorId,jdbcType=BIGINT},
-    #{managerId,jdbcType=BIGINT}, #{managerPhone,jdbcType=INTEGER}, #{managerAddress,jdbcType=VARCHAR},
+    #{managerId,jdbcType=BIGINT}, #{managerPhone,jdbcType=VARCHAR}, #{managerAddress,jdbcType=VARCHAR},
     #{companyAddress,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, #{managerEmail,jdbcType=VARCHAR},
     #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
     CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))

@@ -5,6 +5,7 @@ package com.pbs.ams.web.controller.company;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
+import com.pbs.ams.common.util.ValidateUtil;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.StatusCode;
@@ -21,11 +22,15 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -116,17 +121,19 @@ public class UpmsCompanyController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(UpmsCompany upmsCompany) {
-        ComplexResult result = FluentValidator.checkAll()
-                .on(upmsCompany.getCompanyName(), new LengthValidator(1, 20, "名称"))
-                .doValidate()
-                .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+        if (!ValidateUtil.verifyLength(upmsCompany.getCompanyName(), 1, 20)) {
+            return new UpmsResult(StatusCode.INVALID_LENGTH, "公司名长度不符合要求！");
         }
-        Long id = IdGeneratorUtil.getKey("upms_company");
-        upmsCompany.setCompanyId(id);//获取公司id
-        int count = upmsCompanyService.insertCompany(upmsCompany);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        UpmsUser user = getCurrentUser();
+        if (user != null) {
+            Long id = IdGeneratorUtil.getKey("upms_company");
+            upmsCompany.setCompanyId(id);//获取公司id
+            upmsCompany.setOperatorId(user.getUserId());
+            int count = upmsCompanyService.insertCompany(upmsCompany);
+            return new UpmsResult(StatusCode.SUCCESS, count);
+        } else {
+            return new UpmsResult(StatusCode.FAILED, "新增公司出错！");
+        }
     }
 
 
@@ -155,5 +162,12 @@ public class UpmsCompanyController extends BaseController {
         upmsCompany.setCompanyId(id);
         int count = upmsCompanyService.updateCompany(upmsCompany);
         return new UpmsResult(StatusCode.SUCCESS, count);
+    }
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, true));
     }
 }
