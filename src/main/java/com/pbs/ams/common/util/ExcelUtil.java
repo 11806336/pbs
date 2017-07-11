@@ -11,9 +11,7 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import javax.swing.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -24,8 +22,6 @@ import java.io.IOException;
  * */
 public class ExcelUtil {
 
-
-
     /**
      * 功能：创建HSSFSheet工作簿
      * @param     wb    HSSFWorkbook
@@ -34,9 +30,9 @@ public class ExcelUtil {
      */
     public static HSSFSheet createSheet(HSSFWorkbook wb,String sheetName){
         HSSFSheet sheet=wb.createSheet(sheetName);
-        sheet.setDefaultColumnWidth(12);
-        sheet.setGridsPrinted(false);
-        sheet.setDisplayGridlines(false);
+        sheet.setDefaultColumnWidth(12);   //设置默认行高
+        sheet.setGridsPrinted(false);      //是否显示边框
+        sheet.setDisplayGridlines(false);   //是否在查看器中显示网格线
         return sheet;
     }
 
@@ -134,6 +130,7 @@ public class ExcelUtil {
         Row row[]=new HSSFRow[rows];
         Cell cell[]=new HSSFCell[cells];
 
+
         for(int i=0;i<row.length;i++){
             row[i]=sheet.createRow(i);
 
@@ -147,17 +144,32 @@ public class ExcelUtil {
         }
     }
 
-
-
-    /**
-     * 功能：多行多列导入到Excel并且设置标题栏格式
-     */
-    public static void writeArrayToExcel(HSSFWorkbook wb,HSSFSheet sheet,int rows,int cells,Object [][]value){
+    public static HSSFSheet arrayToExcel(HSSFSheet sheet, int rows, int cells, Object [][]value){
 
         Row row[]=new HSSFRow[rows];
         Cell cell[]=new HSSFCell[cells];
 
+        for(int i=0;i<row.length;i++){
+            row[i]=sheet.createRow(i);
 
+
+            for(int j=0;j<cell.length;j++){
+                cell[j]=row[i].createCell(j);
+                cell[j].setCellValue(convertString(value[i][j]));
+
+            }
+
+        }
+        return sheet;
+    }
+
+    /**
+     * 功能：多行多列导入到Excel并且设置标题栏格式
+     */
+    public static void writeArrayToExcel(String[] title,HSSFWorkbook wb,HSSFSheet sheet,int rows,int cells,Object [][]value){
+
+        Row row[]=new HSSFRow[rows];
+        Cell cell[]=new HSSFCell[cells];
         HSSFCellStyle ztStyle =  (HSSFCellStyle)wb.createCellStyle();
 
         Font ztFont = wb.createFont();
@@ -170,8 +182,12 @@ public class ExcelUtil {
         ztStyle.setFont(ztFont);
 
         for(int i=0;i<row.length;i++){
-            row[i]=sheet.createRow(i);
-
+            row[i]=sheet.createRow(i+1);
+            HSSFRow row0 =sheet.createRow(0);
+            for (int j = 0; j < title.length; j++) {    //标题
+                HSSFCell c0 = row0.createCell(j);
+                c0.setCellValue(title[j]);
+            }
 
             for(int j=0;j<cell.length;j++){
                 cell[j]=row[i].createCell(j);

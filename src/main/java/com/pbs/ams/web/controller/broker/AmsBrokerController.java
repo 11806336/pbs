@@ -85,7 +85,9 @@ public class AmsBrokerController extends BaseController {
     @RequiresPermissions("ams:broker:create")
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public Object create(AmsBroker amsBroker) {
+    public Object create(AmsBroker amsBroker,String day_begin,String day_end) {
+        long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
+        long dayEnd =Long.valueOf(day_end.replaceAll(":",""));
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
                 .doValidate()
@@ -93,6 +95,8 @@ public class AmsBrokerController extends BaseController {
         if (!result.isSuccess()) {
             return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
         }
+        amsBroker.setDayBegin(dayBegin);
+        amsBroker.setDayEnd(dayEnd);
         amsBroker.setOperatorId(getCurrentUser().getUserId());
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
@@ -146,7 +150,6 @@ public class AmsBrokerController extends BaseController {
         if (!result.isSuccess()) {
             return new UpmsResult(StatusCode.SUCCESS, result.getErrors());
         }
-        amsBroker.setBrokerId(id);
         long time = System.currentTimeMillis();
         amsBroker.setCreateTime(time);
         int count = amsBrokerService.updateByPrimaryKeySelective(amsBroker);

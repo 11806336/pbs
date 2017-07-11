@@ -21,7 +21,35 @@
 <body>
 <div id="main">
     <form id="create_form">
-
+        <%--<div class="control-group">
+            <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
+            <div class="controls">
+                <select  name="platformId" id="platformId">
+                    <c:forEach var="amsProduct" items="${amsProducts}">
+                        <option value="${amsProduct.product_id}">${amsProduct.product_name}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>--%>
+        <div class="control-group">
+            <label for="brokerId" class="control-label"><em class="rqd">*</em>证券公司：</label>
+            <div class="controls">
+                <select name="brokerId" id="brokerId">
+                    <c:forEach var="amsBrokers" items="${amsBrokers}">
+                        <option value="${amsBrokers.broker_id}" <c:if
+                                test='${amsBrokers.broker_id == amsStockAccount.brokerId}'> selected='selected' </c:if>>${amsBrokers.broker_name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="tradeAccountName" class="control-label"><em class="rqd">*</em>证券账号名称：</label>
+            <div class="controls">
+                <input type="text" id="tradeAccountName" name="tradeAccountName" value="${amsStockAccount.tradeAccountName}" onblur="" maxlength="25"><span class="tipsError"
+                                                                                                                                                            style="display: none; padding-left: 10px">请输入名称</span>
+            </div>
+        </div>
     <div class="control-group">
         <label for="tradeAccountPassword" class="control-label"><em class="rqd">*</em>密码：</label>
         <div class="controls">

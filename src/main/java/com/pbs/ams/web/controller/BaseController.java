@@ -127,4 +127,18 @@ public abstract class BaseController {
 			return null;
 		}
 	}
+	/**
+	 * this method is used to change 0 to 1 or 1 to 0.
+	 * @return
+	 */
+
+	public int getStatus(int status){
+		int newStatus;
+		if (status== 1){
+			newStatus = 0;
+		}else{
+			newStatus = 1;
+		}
+		return  newStatus;
+	}
 }

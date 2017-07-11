@@ -104,7 +104,32 @@ public class AmsTradeAccountServiceImpl  implements AmsTradeAccountService {
             }
             return 0;
         }
-
+    @Override
+    public int updateAccountStatusById(Long id, Integer status) {
+        if (null != id) {
+            //先做查询再去更新原表数据和插入快照
+            AmsTradeAccount oldamsTradeAccount = amsTradeAccountMapper.selectByPrimaryKey(id);
+            if (null != oldamsTradeAccount){
+                AmsTradeAccountSnaps amsTradeAccountSnaps = new AmsTradeAccountSnaps();
+                try {
+                    PropertyUtils.copyProperties(amsTradeAccountSnaps, oldamsTradeAccount);
+                    //向快照表插入数据
+                    int snapshotResult = amsTradeAccountMapper.insertIntoAmsTradeAccountSnaps(amsTradeAccountSnaps);
+                    if (snapshotResult > 0) {//当插入成功后再更新原数据
+                        oldamsTradeAccount.setTradeAccountStatus(String.valueOf(status));
+                        return amsTradeAccountMapper.updateByPrimaryKeySelective(oldamsTradeAccount);
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 0;
+    }
         @Override
         public int updateByPrimaryKey(AmsTradeAccount amsTradeAccount) {
             try {

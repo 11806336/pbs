@@ -12,9 +12,11 @@ import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsProductService;
 import com.pbs.ams.web.service.AmsTradeAccountService;
+import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
@@ -44,6 +46,8 @@ public class AmsTradeAccountController extends BaseController {
     @Autowired
     private AmsBrokerService amsBrokerService;
 
+    @Autowired
+    private UpmsCompanyService upmsCompanyService;
     @Autowired
     private AmsProductService amsProductService;
 
@@ -148,6 +152,10 @@ public class AmsTradeAccountController extends BaseController {
     public String update(@PathVariable("id") long id, HttpServletRequest request) {
         AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
         Map<String, Object> params = Maps.newHashMap();
+        List<Map> amsProducts = amsProductService.selectProductWithDetail(params);
+        List<Map> amsBrokers =amsBrokerService.selectBrokerWithDetail(params);
+        request.setAttribute("amsProducts",amsProducts);
+        request.setAttribute("amsBrokers",amsBrokers);
         request.setAttribute("amsStockAccount", amsTradeAccount);
         return "/account/update_account_base.jsp";
     }
@@ -170,6 +178,24 @@ public class AmsTradeAccountController extends BaseController {
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
+    @ApiOperation(value = "更改账号状态")
+    @RequiresPermissions("upms:account:update")
+    @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateAccountStatus(@PathVariable("id") Long id, Integer status) {
+        if (null != id && null != status) {
+            if (status == 1) {
+                status = 0;
+            } else {
+                status = 1;
+            }
+        }
+        AmsTradeAccount amsTradeAccount = new AmsTradeAccount();
+        amsTradeAccount.setTradeAccountId(id);
+        int count = amsTradeAccountService.updateAccountStatusById(id, status);
+        return new UpmsResult(StatusCode.SUCCESS, count);
+    }
+
     @ApiOperation(value = "账号详情")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
@@ -181,12 +207,13 @@ public class AmsTradeAccountController extends BaseController {
     @ApiOperation(value = "返回不同的tab页")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/details/tab/{iframeName}", method = RequestMethod.GET)
-    public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName) {
+    public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName){
         if (null != iframeName) {
             return "/account/" + iframeName + ".jsp";
         }
         return null;
     }
+
 
     @ApiOperation(value = "导出数据")
     @RequiresPermissions("upms:account:read")
@@ -196,10 +223,10 @@ public class AmsTradeAccountController extends BaseController {
         List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
         if (rows != null) {//当查询出结果的时候
             int rowSize = rows.size();//行数
-            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFWorkbook workbook = new HSSFWorkbook();//创建excel文件
             HSSFSheet sheet = ExcelUtil.createSheet(workbook, "证券帐号");
-            Map<String, Object> account = rows.get(0);//取出一个方便长度的计算
-            final int cellSize = account.size();//单元格数
+            Map<String, Object> account = rows.get(0);//取出第一行  方便长度的计算
+            final int cellSize = account.size();//单元格数   字段
             Object[][] value = new Object[rowSize][cellSize];//初始化一个二维数组
             for (int i = 0; i < rowSize; i ++) {
                 Map<String, Object> ac = rows.get(i);
@@ -211,10 +238,11 @@ public class AmsTradeAccountController extends BaseController {
                         break;
                     }
                 }
-
             }
-            ExcelUtil.writeArrayToExcel(sheet, rowSize, cellSize, value);
-            ExcelUtil.writeWorkbook(workbook, "E://3.xlsx");
+            HSSFRow row0 =sheet.createRow(0);
+            String[] title = {"证券ID","公司ID","账号类型","证券资金账号","账号名称","证券公司ID","状态","创建时间","修改时间","创建人"};
+            ExcelUtil.writeArrayToExcel(title,workbook,sheet, rowSize, cellSize, value);
+            ExcelUtil.writeWorkbook(workbook, "D://3.xls");
         }
         return null;
     }

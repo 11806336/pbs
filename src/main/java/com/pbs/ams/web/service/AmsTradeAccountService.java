@@ -47,6 +47,13 @@ public interface AmsTradeAccountService{
     int updateByPrimaryKeySelective(AmsTradeAccount record);
 
     /**
+     * 修改账号状态
+     * @param id 账号id
+     * @param status 账号状态
+     * @return
+     */
+    int updateAccountStatusById(Long id, Integer status);
+    /**
      * 向快照表中插入数据
      * @return
      */

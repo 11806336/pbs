@@ -28,7 +28,7 @@
                         <a class="waves-effect waves-button btnCreate" href="#" data-deleteTpye = "批量删除" onclick="deleteAction(this,'${basePath}/product/delete','product_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除产品</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:returned">
-                        <a class="waves-effect waves-button btnExport" href="#"><i class="zmdi zmdi-assignment-returned"></i>&nbsp;导出数据</a>
+                        <a class="waves-effect waves-button btnExport" href="#" onclick="expot();"><i class="zmdi zmdi-assignment-returned" ></i>&nbsp;导出全部数据</a>
                     </shiro:hasPermission>
                 </div>
             </div>
@@ -85,9 +85,25 @@
             ids.push(rows[i].productId);
         }
         return [
-            "<a class='selected' href='javascript:;' onclick=dialog('/product/edit/','编辑',"+row.product_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
-            "<a class='search' href='javascript:;' onclick=dialog('/product/create/tab','详情',"+row.productId+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
+            "<a class='selected' href='javascript:;' onclick=dialog('/product/edit','编辑',"+row.product_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
+            "<a class='search' href='javascript:;' onclick=dialog('/product/details','详情',"+row.product_id+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
            ].join('');
+    }
+//导出功能
+    function expot() {
+        if(confirm("确定导出？")){
+            $.ajax({
+                url:"/product/export",
+                type:'post',
+                success : function(){
+                    alert("导出成功")
+                }
+            });
+        }
+        else
+        {
+            alert("取消成功");
+        }
     }
     //添加、编辑后成功后刷新
     // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
@@ -108,6 +124,8 @@
         });
         $("#table").bootstrapTable('refresh');
     }
+
+
 </script>
 </body>
 </html>

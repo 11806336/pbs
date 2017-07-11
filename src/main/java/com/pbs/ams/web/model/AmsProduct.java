@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 public class AmsProduct implements Serializable {
 
+    private Long productId;
     /**
      * 公司ID
      *
@@ -119,6 +120,14 @@ public class AmsProduct implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
     public Long getCompanyId() {
         return companyId;
