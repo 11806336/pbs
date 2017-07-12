@@ -168,4 +168,9 @@ public class AmsProductServiceImpl  implements AmsProductService {
         return amsProductAccountMapper.insert(amsProductAccount);
     }
 
+    @Override
+    public List<Map> selectProduct(Map<String, Object> paramMaps) {
+
+        return amsProductMapper.selectProduct(paramMaps);
+    }
 }
