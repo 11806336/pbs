@@ -22,4 +22,5 @@ public interface AmsProductMapper {
 
     int selectProductWithDetailCount(Map map);
 
+    List<Map> selectProduct(Map<String, Object> paramMaps);
 }
