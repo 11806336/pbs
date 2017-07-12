@@ -130,6 +130,7 @@
             <span class="tipsError"></span>
         </div>
     </div>
+    <input type="hidden" name="productId" value="${amsProduct.productId}">
     <input type="button" id="saveBrokerBtn" class="btn btn-info" onclick="submitForm()" value="提交"/>
 </form>
 </div>

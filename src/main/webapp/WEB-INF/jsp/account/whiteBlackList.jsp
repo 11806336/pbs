@@ -21,11 +21,11 @@
 </head>
 <body>
 <div id="main" style="padding:10px 20px;">
-    <div class="block" id="tradeServerDiv" style="width: 500px;float: left;">
+    <div class="block" id="tradeServerBlack" style="width: 500px;float: left;">
         <a href="javascript:void(0);" class="block-heading">黑名单</a>
         <div class="block-body">
             <div class="container" style="float:left;width:100px;">
-                <div id="code" class="modal hide fade in" style="display: none; ">
+                <div id="code1" class="modal hide fade in" style="display: none; ">
                     <div class="modal-header">
                         <a class="close" data-dismiss="modal">×</a>
                         <h3>添加</h3>
@@ -78,6 +78,12 @@
                     <th width="80">是否全局</th>
                     <th width="80">操作</th>
                 </tr>
+                <tr>
+                   <c:forEach items="amsStockBlackWhiteList" var="amsStockBlackWhite">
+                       <td>${amsStockBlackWhite.blackWhiteId}</td>
+                   </c:forEach>
+                </tr>
+
                 </thead>
                 <tbody>
                 </tbody>

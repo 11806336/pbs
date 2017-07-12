@@ -43,7 +43,17 @@
             </select>
         </div>
     </div>
-
+        <div class="control-group">
+            <label for="companyId" class="control-label"><em class="rqd">*</em>公司列表：</label>
+            <div class="controls">
+                <select  name="companyId" id="companyId">
+                    <option value="0">---请选择---</option>
+                    <c:forEach var="upmsCompany" items="${upmsCompany}">
+                        <option value="${upmsCompany.companyId}">${upmsCompany.companyName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
     <div class="control-group">
         <label for="tradeAccount" class="control-label"><em class="rqd">*</em>资金账号：</label>
         <div class="controls">
