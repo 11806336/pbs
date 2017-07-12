@@ -19,6 +19,17 @@
 				</select>
 			</div>
 		</div>
+		<div class="control-group">
+			<label for="companyId" class="control-label control-label2"><em class="rqd">*</em>关联产品：</label>
+			<div class="controls">
+				<select name="productId" id="product_id">
+					<option value="0">---请选择---</option>
+					<c:forEach var="product" items="${products}">
+						<option value="${product.product_id}">${product.product_name}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="username">帐号</label>
 			<input id="username" type="text" class="form-control" name="username" maxlength="20">

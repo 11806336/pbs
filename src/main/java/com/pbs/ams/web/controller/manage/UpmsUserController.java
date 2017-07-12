@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
+import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.util.MD5Util;
 import com.pbs.ams.common.validator.LengthValidator;
@@ -55,6 +56,12 @@ public class UpmsUserController extends BaseController {
 
     @Autowired
     private UpmsCompanyService UpmsCompanyService;
+
+    @Autowired
+    private AmsProductService amsProductService;
+
+    @Autowired
+    private AmsProductUserService amsProductUserService;
 
     @ApiOperation(value = "用户首页")
     @RequiresPermissions("upms:user:read")
@@ -225,7 +232,10 @@ public class UpmsUserController extends BaseController {
                 params.put("companyId", user.getCompanyId());
             }
             upmsCompanies = UpmsCompanyService.listCompanies(params);
-            modelMap.addAttribute("upmsCompanies", upmsCompanies);
+            Map<String, Object> productParams = new HashMap<String, Object>();
+            List<Map> products = amsProductService.selectProductWithDetail(productParams);
+            modelMap.addAttribute("products", products);//产品
+            modelMap.addAttribute("upmsCompanies", upmsCompanies);//公司
         }
         return "/manage/user/create.jsp";
     }
@@ -234,7 +244,7 @@ public class UpmsUserController extends BaseController {
     @RequiresPermissions("upms:user:create")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Object create(UpmsUser upmsUser) {
+    public Object create(UpmsUser upmsUser, Long productId) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsUser.getUsername(), new LengthValidator(1, 20, "帐号"))
                 .on(upmsUser.getPassword(), new LengthValidator(5, 32, "密码"))
@@ -250,7 +260,15 @@ public class UpmsUserController extends BaseController {
         upmsUser.setPassword(MD5Util.MD5(upmsUser.getPassword() + upmsUser.getSalt()));
         upmsUser.setCtime(time);
         int count = upmsUserService.insertSelective(upmsUser);
-        upmsUser = upmsUserService.insert2(upmsUser);
+//        upmsUser = upmsUserService.insert2(upmsUser);
+        if (count > 0 && productId != null) {
+            AmsProductUser amsProductUser = new AmsProductUser();
+            amsProductUser.setProductId(productId);
+            amsProductUser.setUserId(upmsUser.getUserId());
+            long id = IdGeneratorUtil.getKey("ams_product_user", 100);
+            amsProductUser.setProductUserId(id);
+            amsProductUserService.insertSelective(amsProductUser);
+        }
         _log.info("新增用户，主键：userId={}", upmsUser.getUserId());
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
@@ -270,8 +288,15 @@ public class UpmsUserController extends BaseController {
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
         UpmsUser user = upmsUserService.selectByPrimaryKey(id);
         modelMap.put("user", user);
-        List<UpmsCompany> upmsCompanies = UpmsCompanyService.listCompanies(null);//暂时查询全部
+        Map<String, Object> params = new HashMap<String, Object>();
+        List<UpmsCompany> upmsCompanies = UpmsCompanyService.listCompanies(params);//暂时查询全部
+        List<Map> products = amsProductService.selectProductWithDetail(params);
+        AmsProductUser amsProductUser = new AmsProductUser();
+        amsProductUser.setUserId(id);
+        List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);//从关系表中查出绑定的产品
         modelMap.addAttribute("upmsCompanies", upmsCompanies);
+        modelMap.addAttribute("products", products);
+        modelMap.addAttribute("amsProductUsers", amsProductUsers.get(0));//为了下拉框的默认选中，暂时只取一条，等多对多的时候进行变更。
         return "/manage/user/update.jsp";
     }
 
@@ -279,7 +304,7 @@ public class UpmsUserController extends BaseController {
     @RequiresPermissions("upms:user:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") long id, UpmsUser upmsUser) {
+    public Object update(@PathVariable("id") long id, UpmsUser upmsUser, Long productId) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsUser.getUsername(), new LengthValidator(1, 20, "帐号"))
                 .on(upmsUser.getRealname(), new NotNullValidator("姓名"))
@@ -287,6 +312,14 @@ public class UpmsUserController extends BaseController {
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {
             return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+        }
+        if (null != productId) {
+            AmsProductUser amsProductUser = new AmsProductUser();
+            amsProductUser.setUserId(upmsUser.getUserId());
+            List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
+            AmsProductUser productUser = amsProductUsers.get(0);
+            productUser.setProductId(productId);
+            amsProductUserService.updateByPrimaryKeySelective(productUser);//暂时一对一，问题同上。
         }
         // 不允许直接改密码
         upmsUser.setPassword(null);

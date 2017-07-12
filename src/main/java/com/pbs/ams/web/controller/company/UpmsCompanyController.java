@@ -163,11 +163,4 @@ public class UpmsCompanyController extends BaseController {
         int count = upmsCompanyService.updateCompany(upmsCompany);
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-        binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, true));
-    }
 }
