@@ -1,8 +1,12 @@
-package com.pbs.ams.web.mappers;
+package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsProductAccount;
 
-public interface AmsProductAccountMapper {
+/**
+* AmsProducAccounttService
+* Created by ams on 2017/6/28.
+*/
+public interface AmsProductAccountService {
 
     AmsProductAccount getProductIdByAccountId(Long acountId);
 
