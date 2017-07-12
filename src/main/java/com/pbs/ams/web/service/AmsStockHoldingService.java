@@ -13,6 +13,13 @@ public interface AmsStockHoldingService{
 
     List<Map> selectStockHoldingWithDetail(Map map);
 
+    /**
+     * This method is used to get PageListTotalSize
+     * @param map
+     * @return
+     */
+    int selectStockHoldingWithDetailCount(Map map);/**/
+
     int deleteByPrimaryKey(Long id);
 
     int deleteByPrimaryKeys(String ids);

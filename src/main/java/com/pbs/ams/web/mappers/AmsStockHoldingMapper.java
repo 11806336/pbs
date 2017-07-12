@@ -9,6 +9,8 @@ public interface AmsStockHoldingMapper {
 
     List<Map> selectStockHoldingWithDetail(Map map);
 
+    int selectStockHoldingWithDetailCount(Map map);
+
     int deleteByPrimaryKey(Long stockHoldingId);
 
     int insert(AmsStockHolding record);
