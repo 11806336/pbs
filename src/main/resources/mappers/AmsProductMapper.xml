@@ -225,7 +225,15 @@
   <insert id="insertIntoAmsProductSnaps">
     insert into ams_product_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product as tb where product_id= #{product_id}
   </insert>
-
+  <select id="selectProduct" parameterType="java.util.Map" resultType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from ams_product
+    where company_id in
+    <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+      #{item.companyId}
+    </foreach>
+  </select>
   <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.Map">
     SELECT ap.product_id,ap.product_name, ap.product_type, ap.product_code, ap.product_manager,
       ap.product_supervisor,ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,
