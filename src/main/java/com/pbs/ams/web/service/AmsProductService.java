@@ -49,4 +49,11 @@ public interface AmsProductService{
      * @return
      */
     int insertAmsProductAccount(AmsProductAccount amsProductAccount);
+
+    /**
+     *query product by some companys(sql:companyId in ...)
+     * @param paramMaps 参数
+     * @return
+     */
+    List<Map> selectProduct(Map<String, Object> paramMaps);
 }
