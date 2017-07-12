@@ -114,7 +114,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsUser">
+  <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsUser" useGeneratedKeys="true" keyProperty="userId">
     insert into upms_user (user_id, username, password, 
       salt, realname, avatar, 
       phone, email, sex, 
@@ -124,7 +124,7 @@
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
       #{locked,jdbcType=TINYINT}, #{ctime,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUser">
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUser" useGeneratedKeys="true" keyProperty="userId">
     insert into upms_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
