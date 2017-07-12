@@ -64,6 +64,9 @@ public class AmsTradeAccountController extends BaseController {
     @Autowired
     private AmsEntrustService amsEntrustService;
 
+    @Autowired
+    private AmsKnockService amsKnockService;
+
     @ApiOperation(value = "账号首页")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -248,22 +251,6 @@ public class AmsTradeAccountController extends BaseController {
         return null;
     }
 
-    @ApiOperation(value = "委托")
-    @RequiresPermissions("upms:account:read")
-    @RequestMapping(value = "/entrust", method = RequestMethod.GET)
-    @ResponseBody
-    public Object assetsList(
-            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
-            String dateBegin,String dateEnd) {
-        Map<String, Object> params = Maps.newHashMap();
-        params.put("offset", offset);
-        params.put("limit", limit);
-        List<Map> rows = amsEntrustService.selectAmsEntrustWithDetail(params);
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("rows", rows);
-        return result;
-    }
 
     @ApiOperation(value = "持仓列表")
     @RequiresPermissions("upms:account:read")
@@ -281,6 +268,41 @@ public class AmsTradeAccountController extends BaseController {
         params.put("offset", offset);
         params.put("limit", limit);
         List<Map> rows = amsStockHoldingService.selectStockHoldingWithDetail(params);
+        long total = amsStockHoldingService.selectStockHoldingWithDetailCount(params);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("rows", rows);
+        return result;
+    }
+
+    @ApiOperation(value = "委托列表")
+    @RequiresPermissions("upms:account:read")
+    @RequestMapping(value = "/entrust", method = RequestMethod.GET)
+    @ResponseBody
+    public Object assetsList(
+            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+            String dateBegin,String dateEnd) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        List<Map> rows = amsEntrustService.selectAmsEntrustWithDetail(params);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("rows", rows);
+        return result;
+    }
+
+    @ApiOperation(value = "成交列表")
+    @RequiresPermissions("upms:account:read")
+    @RequestMapping(value = "/successBargain", method = RequestMethod.GET)
+    @ResponseBody
+    public Object successBargainList(
+            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+            String dateBegin,String dateEnd) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        List<Map> rows = amsKnockService.selectAmsKnockWithDetail(params);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", rows);
         return result;

@@ -41,7 +41,7 @@
     //列配置项
     var dataColumns = [
         {field: 'ck', checkbox: true},
-        {field: 'brokerName', title: '证券公司'},
+        {field: 'broker_name', title: '证券公司'},
         {field: 'accountId', title: '资金账号'},
         {field: 'accountName', title: '账号名称'},
         {field: 'accountType', title: '账号类型'},
@@ -49,12 +49,12 @@
         {field: 'instrumentId', title: '证券代码'},
         {field: 'instrumentName', title: '证券名称'},
         {field: 'tradeId', title: '成交编号'},
-        {field: 'orderSysId', title: '合同编号'},
+        {field: 'contract_id', title: '合同编号'},
         {field: 'volumn', title: '成交价格'},
         {field: 'price', title: '成交数量'},
         {field: 'tradeDate', title: '成交日期'},
         {field: 'tradeTime', title: '成交时间'},
-        {field: 'tradeAmount', title: '成交金额'},
+        {field: 'knock_amount', title: '成交金额'},
         {field: 'comssion', title: '手续费'},
         {field: 'optName', title: '买卖标记'},
         {
@@ -67,9 +67,9 @@
         }
     ];
     //数据url
-    var url_json = "../../../../resources/data/success_bargain.json";
+    var url_json = "/account/successBargain";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination = 'client';
+    var sidePagination = 'server';
     //指定主键列
     var idField = 'companyId';
     //右上角刷新搜索

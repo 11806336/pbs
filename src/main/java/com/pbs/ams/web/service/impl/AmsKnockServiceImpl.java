@@ -2,9 +2,9 @@ package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
-import com.pbs.ams.web.mappers.AmsStockHoldingMapper;
-import com.pbs.ams.web.model.AmsStockHolding;
-import com.pbs.ams.web.service.AmsStockHoldingService;
+import com.pbs.ams.web.mappers.AmsKnockMapper;
+import com.pbs.ams.web.model.AmsKnock;
+import com.pbs.ams.web.service.AmsKnockService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,33 +16,28 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
+
 /**
-* AmsStockHoldingService实现
-* Created by ams on 2017/7/11.
+* com.ruixin:pbs-ams-management:war:1.0Service实现
+* Created by ams on 2017/7/12.
 */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
+public class AmsKnockServiceImpl  implements AmsKnockService {
 
-    private static Logger _log = LoggerFactory.getLogger(AmsStockHoldingServiceImpl.class);
+    private static Logger _log = LoggerFactory.getLogger(AmsKnockServiceImpl.class);
 
     @Autowired
-    private AmsStockHoldingMapper amsStockHoldingMapper;
+    private AmsKnockMapper amsKnockMapper;
         @Override
-        public List<Map> selectStockHoldingWithDetail(Map map){
-                return amsStockHoldingMapper.selectStockHoldingWithDetail(map);
+        public List<Map> selectAmsKnockWithDetail(Map map){
+            return amsKnockMapper.selectAmsKnockWithDetail(map);
         }
-
-        @Override
-        public int selectStockHoldingWithDetailCount(Map map){
-            return amsStockHoldingMapper.selectStockHoldingWithDetailCount(map);
-        }
-
         @Override
         public int deleteByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockHoldingMapper.deleteByPrimaryKey(id);
+                return amsKnockMapper.deleteByPrimaryKey(id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -52,10 +47,10 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
 
 
         @Override
-        public int insert(AmsStockHolding amsStockHolding) {
+        public int insert(AmsKnock amsKnock) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockHoldingMapper.insert(amsStockHolding);
+                return amsKnockMapper.insert(amsKnock);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -64,10 +59,10 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
         }
 
         @Override
-        public int insertSelective(AmsStockHolding amsStockHolding) {
+        public int insertSelective(AmsKnock amsKnock) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockHoldingMapper.insertSelective(amsStockHolding);
+                return amsKnockMapper.insertSelective(amsKnock);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -77,10 +72,10 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
 
 
         @Override
-        public AmsStockHolding selectByPrimaryKey(Long id) {
+        public AmsKnock selectByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockHoldingMapper.selectByPrimaryKey(id);
+                return amsKnockMapper.selectByPrimaryKey(id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -90,10 +85,10 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
 
 
         @Override
-        public int updateByPrimaryKeySelective(AmsStockHolding amsStockHolding) {
+        public int updateByPrimaryKeySelective(AmsKnock amsKnock) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockHoldingMapper.updateByPrimaryKeySelective(amsStockHolding);
+                return amsKnockMapper.updateByPrimaryKeySelective(amsKnock);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -103,10 +98,10 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
 
 
         @Override
-        public int updateByPrimaryKey(AmsStockHolding amsStockHolding) {
+        public int updateByPrimaryKey(AmsKnock amsKnock) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockHoldingMapper.updateByPrimaryKey(amsStockHolding);
+                return amsKnockMapper.updateByPrimaryKey(amsKnock);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -145,10 +140,10 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
         */
         @Override
         @Transactional(propagation = Propagation.MANDATORY)
-        public int insertToAmsStockHoldingSnaps() {
+        public int insertToAmsKnockSnaps() {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            //return amsStockHoldingMapper.insertToAmsStockHoldingSnaps();
+            //return amsKnockMapper.insertToAmsKnockSnaps();
             } catch (Exception e) {
                 e.printStackTrace();
             }

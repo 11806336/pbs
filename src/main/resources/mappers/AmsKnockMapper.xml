@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.AmsKnockMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsKnock">
+    <id column="knock_id" jdbcType="BIGINT" property="knockId" />
+    <result column="stock_id" jdbcType="BIGINT" property="stockId" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="contract_id" jdbcType="VARCHAR" property="contractId" />
+    <result column="knock_price" jdbcType="DECIMAL" property="knockPrice" />
+    <result column="knock_volume" jdbcType="INTEGER" property="knockVolume" />
+    <result column="entrust_id" jdbcType="BIGINT" property="entrustId" />
+    <result column="knock_date" jdbcType="BIGINT" property="knockDate" />
+    <result column="knock_amount" jdbcType="DECIMAL" property="knockAmount" />
+    <result column="buy_sell" jdbcType="VARCHAR" property="buySell" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    knock_id, stock_id, company_id, contract_id, knock_price, knock_volume, entrust_id, 
+    knock_date, knock_amount, buy_sell, fee, operator_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ams_knock
+    where knock_id = #{knockId,jdbcType=BIGINT}
+  </select>
+
+  <!--查询成交列表-->
+  <select id="selectAmsKnockWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+    select
+    <include refid="Base_Column_List" />
+    from ams_knock
+    where 1 = 1
+    <if test="limit != null">
+      <if test="offset != null"> limit ${offset}, ${limit} </if>
+      <if test="offset == null"> limit ${limit} </if>
+    </if>
+  </select>
+
+  <!--查询数量-->
+  <select id="selectAmsKnockWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM ams_knock ab
+    <if test="search!=null">
+      <where>
+        ab.broker_name LIKE CONCAT('%','${search}','%' )
+      </where>
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ams_knock
+    where knock_id = #{knockId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsKnock">
+    insert into ams_knock (knock_id, stock_id, company_id, 
+      contract_id, knock_price, knock_volume, 
+      entrust_id, knock_date, knock_amount, 
+      buy_sell, fee, operator_id
+      )
+    values (#{knockId,jdbcType=BIGINT}, #{stockId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, 
+      #{contractId,jdbcType=VARCHAR}, #{knockPrice,jdbcType=DECIMAL}, #{knockVolume,jdbcType=INTEGER}, 
+      #{entrustId,jdbcType=BIGINT}, #{knockDate,jdbcType=BIGINT}, #{knockAmount,jdbcType=DECIMAL}, 
+      #{buySell,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, #{operatorId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsKnock">
+    insert into ams_knock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="knockId != null">
+        knock_id,
+      </if>
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="contractId != null">
+        contract_id,
+      </if>
+      <if test="knockPrice != null">
+        knock_price,
+      </if>
+      <if test="knockVolume != null">
+        knock_volume,
+      </if>
+      <if test="entrustId != null">
+        entrust_id,
+      </if>
+      <if test="knockDate != null">
+        knock_date,
+      </if>
+      <if test="knockAmount != null">
+        knock_amount,
+      </if>
+      <if test="buySell != null">
+        buy_sell,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="knockId != null">
+        #{knockId,jdbcType=BIGINT},
+      </if>
+      <if test="stockId != null">
+        #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="contractId != null">
+        #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="knockPrice != null">
+        #{knockPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="knockVolume != null">
+        #{knockVolume,jdbcType=INTEGER},
+      </if>
+      <if test="entrustId != null">
+        #{entrustId,jdbcType=BIGINT},
+      </if>
+      <if test="knockDate != null">
+        #{knockDate,jdbcType=BIGINT},
+      </if>
+      <if test="knockAmount != null">
+        #{knockAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="buySell != null">
+        #{buySell,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsKnock">
+    update ams_knock
+    <set>
+      <if test="stockId != null">
+        stock_id = #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="contractId != null">
+        contract_id = #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="knockPrice != null">
+        knock_price = #{knockPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="knockVolume != null">
+        knock_volume = #{knockVolume,jdbcType=INTEGER},
+      </if>
+      <if test="entrustId != null">
+        entrust_id = #{entrustId,jdbcType=BIGINT},
+      </if>
+      <if test="knockDate != null">
+        knock_date = #{knockDate,jdbcType=BIGINT},
+      </if>
+      <if test="knockAmount != null">
+        knock_amount = #{knockAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="buySell != null">
+        buy_sell = #{buySell,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where knock_id = #{knockId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsKnock">
+    update ams_knock
+    set stock_id = #{stockId,jdbcType=BIGINT},
+      company_id = #{companyId,jdbcType=BIGINT},
+      contract_id = #{contractId,jdbcType=VARCHAR},
+      knock_price = #{knockPrice,jdbcType=DECIMAL},
+      knock_volume = #{knockVolume,jdbcType=INTEGER},
+      entrust_id = #{entrustId,jdbcType=BIGINT},
+      knock_date = #{knockDate,jdbcType=BIGINT},
+      knock_amount = #{knockAmount,jdbcType=DECIMAL},
+      buy_sell = #{buySell,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=DECIMAL},
+      operator_id = #{operatorId,jdbcType=BIGINT}
+    where knock_id = #{knockId,jdbcType=BIGINT}
+  </update>
+  <insert id="insertIntoAmsKnockSnaps">
+    insert into ams_knock_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_knock as tb where knock_id= #{knock_id}
+  </insert>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
