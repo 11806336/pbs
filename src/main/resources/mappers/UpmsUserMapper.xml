@@ -104,6 +104,15 @@
     from upms_user
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
+  <select id="selectUsersById" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from upms_user
+    where user_id IN
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_user
     where user_id = #{userId,jdbcType=BIGINT}
