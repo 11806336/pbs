@@ -21,7 +21,7 @@
     <result column="o32_id" jdbcType="BIGINT" property="o32Id" />
   </resultMap>
   <sql id="Base_Column_List">
-    product_id, company_id, product_name, product_type, product_code, product_manager, product_supervisor
+    product_id, company_id, product_name, product_type, product_code, product_manager, product_supervisor,
     product_status, product_share_source, start_date, end_date, product_shares, product_desc, 
     create_time, update_time, operator_id ,o32_id
   </sql>
@@ -32,25 +32,25 @@
     where product_id = #{productId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ams_product
-    where product_id = #{productId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProduct">
-    insert into ams_product (product_id, company_id, product_name, 
-      product_type, product_code, product_manager,product_supervisor
-      product_status, product_share_source, start_date, 
-      end_date, product_shares, product_desc, 
-      create_time, update_time, operator_id,o32_id
-      )
-    values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, 
-      #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, #{productManager,jdbcType=VARCHAR},
-      #{productSupervisor,jdbcType=VARCHAR}, #{productStatus,jdbcType=BIT}, #{productShareSource,jdbcType=BIT},
-       #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productShares,jdbcType=DECIMAL},
-        #{productDesc,jdbcType=VARCHAR},CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
-         #{updateTime,jdbcType=BIGINT},#{operatorId,jdbcType=BIGINT},#{o32Id,jdbcType=BIGINT}
-      )
+  delete from ams_product
+  where product_id = #{productId,jdbcType=BIGINT}
+</delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProduct" useGeneratedKeys="true" keyProperty="productId">
+    insert into ams_product (product_id, company_id, product_name,
+    product_type, product_code, product_manager,product_supervisor
+    product_status, product_share_source, start_date,
+    end_date, product_shares, product_desc,
+    create_time, update_time, operator_id,o32_id
+    )
+    values (#{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR},
+    #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, #{productManager,jdbcType=VARCHAR},
+    #{productSupervisor,jdbcType=VARCHAR}, #{productStatus,jdbcType=BIT}, #{productShareSource,jdbcType=BIT},
+    #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productShares,jdbcType=DECIMAL},
+    #{productDesc,jdbcType=VARCHAR},CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+    #{updateTime,jdbcType=BIGINT},#{operatorId,jdbcType=BIGINT},#{o32Id,jdbcType=BIGINT}
+    )
   </insert>
-  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProduct">
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProduct" useGeneratedKeys="true" keyProperty="productId">
     insert into ams_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productId != null">
@@ -92,8 +92,8 @@
       <if test="productDesc != null">
         product_desc,
       </if>
-        create_time,
-        update_time,
+      create_time,
+      update_time,
       <if test="operatorId != null">
         operator_id,
       </if>
@@ -141,8 +141,8 @@
       <if test="productDesc != null">
         #{productDesc,jdbcType=VARCHAR},
       </if>
-        CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
-        CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+      CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
       <if test="operatorId != null">
         #{operatorId,jdbcType=BIGINT},
       </if>
@@ -205,21 +205,21 @@
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsProduct">
     update ams_product
     set company_id = #{companyId,jdbcType=BIGINT},
-      product_name = #{productName,jdbcType=VARCHAR},
-      product_type = #{productType,jdbcType=BIT},
-      product_code = #{productCode,jdbcType=VARCHAR},
-      product_manager = #{productManager,jdbcType=VARCHAR},
-      product_supervisor = #{productSupervisor,jdbcType=VARCHAR},
-      product_status = #{productStatus,jdbcType=BIT},
-      product_share_source = #{productShareSource,jdbcType=BIT},
-      start_date = #{startDate,jdbcType=BIGINT},
-      end_date = #{endDate,jdbcType=BIGINT},
-      product_shares = #{productShares,jdbcType=DECIMAL},
-      product_desc = #{productDesc,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
-      operator_id = #{operatorId,jdbcType=BIGINT}
-      o32_id = #{o32Id,jdbcType=BIGINT}
+    product_name = #{productName,jdbcType=VARCHAR},
+    product_type = #{productType,jdbcType=BIT},
+    product_code = #{productCode,jdbcType=VARCHAR},
+    product_manager = #{productManager,jdbcType=VARCHAR},
+    product_supervisor = #{productSupervisor,jdbcType=VARCHAR},
+    product_status = #{productStatus,jdbcType=BIT},
+    product_share_source = #{productShareSource,jdbcType=BIT},
+    start_date = #{startDate,jdbcType=BIGINT},
+    end_date = #{endDate,jdbcType=BIGINT},
+    product_shares = #{productShares,jdbcType=DECIMAL},
+    product_desc = #{productDesc,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=BIGINT},
+    update_time = CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+    operator_id = #{operatorId,jdbcType=BIGINT}
+    o32_id = #{o32Id,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
   <insert id="insertIntoAmsProductSnaps">
