@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="companyId" class="control-label control-label2"><em class="rqd">*</em>关联产品：</label>
+			<label for="product_id" class="control-label control-label2"><em class="rqd">*</em>关联产品：</label>
 			<div class="controls">
 				<select name="productId" id="product_id">
 					<option value="0">---请选择---</option>
