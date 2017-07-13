@@ -36,4 +36,9 @@ public class UpmsCompanyUserServiceImpl implements UpmsCompanyUserService {
     public List<UpmsCompanyUser> getCompaniesByUserId(Long userId) {
         return upmsCompanyUserMapper.getCompaniesByUserId(userId);
     }
+
+    @Override
+    public List<UpmsCompanyUser> getUsersByCompanyId(List<Long> companyIds) {
+        return upmsCompanyUserMapper.getUsersByCompanyId(companyIds);
+    }
 }
