@@ -40,6 +40,17 @@
         </div>
     </div>
     <div class="control-group">
+        <label for="userId" class="control-label control-label2"><em class="rqd">*</em>绑定用户：</label>
+        <div class="controls">
+            <select name="userId" id="userId">
+                <option value="0">---请选择---</option>
+                <c:forEach var="user" items="${users}">
+                    <option value="${user.userId}" <c:if test='${user.userId == amsProductUsers.userId}'> selected='selected' </c:if> >${user.username}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+    <div class="control-group">
         <label class="control-label" for="productType"><em class="rqd">*</em>产品类型：</label>
         <div class="controls">
             <label class="radio inline" style="min-width:60px;">
