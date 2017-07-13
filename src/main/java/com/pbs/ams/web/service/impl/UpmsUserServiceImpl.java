@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
 * UpmsUserService实现
 * Created by ams on 2017/3/20.
@@ -27,6 +29,10 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUser,UpmsUserExampl
     UpmsUserMapper upmsUserMapper;
 
 
+    @Override
+    public List<UpmsUser> selectUsersById(List<Long> userIds) {
+        return upmsUserMapper.selectUsersById(userIds);
+    }
 
     @Override
     public UpmsUser insert2(UpmsUser upmsUser) {
