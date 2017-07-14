@@ -11,12 +11,8 @@ import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.web.model.AmsProduct;
-import com.pbs.ams.web.model.UpmsCompany;
-import com.pbs.ams.web.model.UpmsUser;
-import com.pbs.ams.web.service.AmsProductService;
-import com.pbs.ams.web.service.AmsTradeAccountService;
-import com.pbs.ams.web.service.UpmsCompanyService;
+import com.pbs.ams.web.model.*;
+import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -29,11 +25,14 @@ import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by TiAmo on 17/6/23.
@@ -47,8 +46,16 @@ public class AmsProductController extends BaseController {
     private AmsProductService amsProductService;
     @Autowired
     private UpmsCompanyService upmsCompanyService;
+
     @Autowired
-    private AmsTradeAccountService amsTradeAccountService;
+    private UpmsCompanyUserService upmsCompanyUserService;
+
+    @Autowired
+    private UpmsUserService upmsUserService;
+
+    @Autowired
+    private AmsProductUserService amsProductUserService;
+
 
     @ApiOperation(value = "产品管理首页")
     @RequiresPermissions("ams:product:read")
@@ -65,6 +72,7 @@ public class AmsProductController extends BaseController {
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
+
         UpmsUser user = getCurrentUser();
         Map<String,Object> map = Maps.newHashMap();
         map.put("offset",offset);
@@ -78,24 +86,37 @@ public class AmsProductController extends BaseController {
             }
         }
         List<Map> rows = amsProductService.selectProductWithDetail(map);
+
         long total = amsProductService.selectProductWithDetailCount(map);
+
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
         result.put("total", total);
         return result;
     }
 
+
     @ApiOperation(value = "新增产品页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/createProduct", method = RequestMethod.GET )
     public String createProduct(HttpServletRequest request) {
         UpmsUser user = getCurrentUser();
-        List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(user.getUserId());
+        Long userId = user.getUserId();
+        List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(userId);//获取当前的所属公司
         List<Map> listMap = Lists.newArrayList();
+        List<Long> companyIds = new ArrayList<Long>();
         for(UpmsCompany upmsCompany : upmsCompanies){
             listMap.add(objectToMap(upmsCompany));
+            companyIds.add(upmsCompany.getCompanyId());//将id存放
         }
+        List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(companyIds);//获取公司下的全部用户
+        List<Long> userIds = new ArrayList<Long>();
+        for (UpmsCompanyUser uc : upmsCompanyUsers) {
+            userIds.add(uc.getUserId());
+        }
+        List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
         request.setAttribute("upmsCompanies",listMap);
+        request.setAttribute("users",users);
         return "/product/create/create_product.jsp";
     }
 
@@ -104,7 +125,7 @@ public class AmsProductController extends BaseController {
     @RequiresPermissions("ams:product:read")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST )
-    public Object create(HttpServletRequest request,AmsProduct amsProduct) {
+    public Object create(HttpServletRequest request,AmsProduct amsProduct, Long userId, Long companyId) {
         //获取session,取当前用户
         Session session = SecurityUtils.getSubject().getSession();
         UpmsUser upmsUser = (UpmsUser) session.getAttribute("user");
@@ -116,91 +137,125 @@ public class AmsProductController extends BaseController {
                 .on(amsProduct.getProductName(), new LengthValidator(1, 20, "产品名称"))
                 .doValidate()
                 .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+        if (!result.isSuccess() || userId == null) {
+            return new UpmsResult(StatusCode.FAILED, result.getErrors());
         }
         long id = IdGeneratorUtil.getKey("ams_product", 1000);
         amsProduct.setProductId(id);
-        int count = amsProductService.insertSelective(amsProduct);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        //向产品用户关系表中存入关系
+        AmsProductUser amsProductUser = new AmsProductUser();
+        amsProductUser.setProductUserId(IdGeneratorUtil.getKey("ams_product_user"));
+        amsProductUser.setUserId(userId);
+        amsProductUser.setProductId(id);
+        int count = amsProductService.insertProductAndUserRelation(amsProduct, amsProductUser);
+        if (count > 0) {
+            return new UpmsResult(StatusCode.SUCCESS, count);
+        }
+        return new UpmsResult(StatusCode.FAILED, count);
     }
 
-    @ApiOperation(value = "产品详情")
-    @RequiresPermissions("ams:product:read")
+    @ApiOperation(value = "账号详情")
+    @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") long id, HttpServletRequest request) {
-        AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-        request.setAttribute("amsProduct", amsProduct);
-        return "/product/query/query_product_tabs.jsp";
+        return "/product/create/tab.jsp";
     }
-
-    @ApiOperation(value = "详情tab页")
-    @RequiresPermissions("ams:product:read")
-    @RequestMapping(value = "/details/tab/{iframeName}/{id}", method = RequestMethod.GET)
-    public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
+    @ApiOperation(value = "返回不同的tab页")
+    @RequiresPermissions("upms:account:read")
+    @RequestMapping(value = "/details/tab/{iframeName}", method = RequestMethod.GET)
+    public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName) {
         if (null != iframeName) {
-            AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-            request.setAttribute("amsProduct", amsProduct);
-            return "/product/query/" + iframeName + ".jsp";
+            return "/product/" + iframeName + ".jsp";
         }
         return null;
     }
 
-    @ApiOperation(value = "总览列表")
-    @RequiresPermissions("ams:product:read")
-    @RequestMapping(value = "/overview", method = RequestMethod.GET)
-    @ResponseBody
-    public Object  positionList(
-            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit) {
-        Map<String, Object> params = Maps.newHashMap();
-        params.put("offset", offset);
-        params.put("limit", limit);
-        List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
-        long total = amsTradeAccountService.selectTradeAccoutWithDetailCount(params);
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("total", total);
-        result.put("rows", rows);
-        return result;
-    }
-    @ApiOperation(value = "修改tab页")
-    @RequiresPermissions("ams:product:read")
-    @RequestMapping(value = "/update/tab/{iframeName}/{id}", method = RequestMethod.GET)
-    public String updateTab(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
-        if (null != iframeName) {
-            AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-            request.setAttribute("amsProduct", amsProduct);
-            return "/product/edit/" + iframeName + ".jsp";
-        }
-        return null;
-    }
-    @ApiOperation(value = "修改组织")
+
+//    @ApiOperation(value = "新增产品导航")
+//    @RequiresPermissions("ams:product:create")
+//    @RequestMapping(value = "/create/tab", method = RequestMethod.GET)
+//    public String create() {
+//        return "/product/create/tab.jsp";
+//    }
+//
+//
+//
+//    @ApiOperation(value = "设置账号页")
+//    @RequiresPermissions("ams:product:create")
+//    @RequestMapping(value = "/accountSettings", method = RequestMethod.GET)
+//    public String accountSettings() {
+//        return "/product/create/product_account_settings.jsp";
+//    }
+//
+//
+//
+//    @ApiOperation(value = "绑定账号")
+//    @RequiresPermissions("ams:product:create")
+//    @ResponseBody
+//    @RequestMapping(value = "/bindAccount", method = RequestMethod.GET)
+//    public int bindAccount(AmsProductAccount amsProductAccount) {
+//        Long id = IdGeneratorUtil.getKey("ams_product_account");
+//        amsProductAccount.setProductTradeAccountId(id);
+//        return amsProductService.insertAmsProductAccount(amsProductAccount);
+//    }
+
+
+
+
+    @ApiOperation(value = "修改产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id, HttpServletRequest request) {
+    public String update(@PathVariable("id") long id, ModelMap modelMap) {
         AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-        request.setAttribute("amsProduct", amsProduct);
-        return  "/product/edit/edit_product_tabs.jsp";
+        modelMap.put("amsProduct", amsProduct);
+        //从中间表查询关联的用户
+        AmsProductUser amsProductUser = new AmsProductUser();
+        amsProductUser.setProductId(id);
+        List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
+        if (amsProductUsers != null && amsProductUsers.size() > 0) {
+            modelMap.put("amsProductUsers", amsProductUsers.get(0)); //暂时一对一
+        }
+        List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(getCurrentUser().getUserId());//获取当前的所属公司
+        List<Long> companyIds = new ArrayList<Long>();
+        for(UpmsCompany upmsCompany : upmsCompanies){
+            companyIds.add(upmsCompany.getCompanyId());//将id存放
+        }
+        List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(companyIds);//获取公司下的全部用户
+        List<Long> userIds = new ArrayList<Long>();
+        for (UpmsCompanyUser uc : upmsCompanyUsers) {
+            userIds.add(uc.getUserId());
+        }
+        List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
+        modelMap.put("users",users);
+        modelMap.put("upmsCompanies",upmsCompanies);
+        return  "/product/edit/update_product.jsp";
     }
 
-    @ApiOperation(value = "修改组织")
+    @ApiOperation(value = "修改产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") long id, AmsProduct amsProduct) {
+    public Object update(@PathVariable("id") long id, AmsProduct amsProduct, Long userId) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsProduct.getProductName(), new LengthValidator(1, 20, "名称"))
                 .doValidate()
                 .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+        if (!result.isSuccess() || userId == null) {
+            return new UpmsResult(StatusCode.FAILED, result.getErrors());
         }
-        int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        AmsProductUser productUser = new AmsProductUser();
+        productUser.setProductId(id);
+        List<AmsProductUser> amsProductUsers = amsProductUserService.select(productUser);
+        productUser.setProductUserId(amsProductUsers.get(0).getProductUserId());
+        productUser.setUserId(userId);//修改后的user
+        int count = amsProductService.updateProductAndUserRelation(amsProduct, productUser);
+        if (count > 0) {
+            return new UpmsResult(StatusCode.SUCCESS, count);
+        }
+        return new UpmsResult(StatusCode.FAILED, "修改产品出错！");
     }
 
-
-    @ApiOperation(value = "删除组织")
+    @ApiOperation(value = "删除产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody

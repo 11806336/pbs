@@ -28,12 +28,12 @@
         </div>
     </div>
     <div class="control-group">
-        <label for="companyList" class="control-label"><em class="rqd">*</em>经纪公司：</label>
+        <label for="companyId" class="control-label"><em class="rqd">*</em>经纪公司：</label>
         <div class="controls">
-            <select name="companyId" id="companyList">
+            <select name="companyId" id="companyId">
                 <option value="0"> ---请选择--- </option>
                 <c:forEach var="comp" items="${upmsCompanies}">
-                    <option value="${comp.companyId}" <c:if test='${amsProduct.productId == comp.companyId}'> selected='selected' </c:if>>${comp.companyName}</option>
+                    <option value="${comp.companyId}" <c:if test='${amsProduct.companyId == comp.companyId}'> selected='selected' </c:if>>${comp.companyName}</option>
                 </c:forEach>
             </select>
             <span class="tipsError" style="display: inline-block;">保存后不可更改</span>

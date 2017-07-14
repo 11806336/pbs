@@ -5,8 +5,10 @@ import com.pbs.ams.common.db.DynamicDataSource;
 import com.pbs.ams.common.exception.AmsException;
 import com.pbs.ams.web.mappers.AmsProductAccountMapper;
 import com.pbs.ams.web.mappers.AmsProductMapper;
+import com.pbs.ams.web.mappers.AmsProductUserMapper;
 import com.pbs.ams.web.model.AmsProduct;
 import com.pbs.ams.web.model.AmsProductAccount;
+import com.pbs.ams.web.model.AmsProductUser;
 import com.pbs.ams.web.service.AmsProductService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,6 +36,9 @@ public class AmsProductServiceImpl  implements AmsProductService {
 
     @Autowired
     private AmsProductAccountMapper amsProductAccountMapper;
+
+    @Autowired
+    private AmsProductUserMapper amsProductUserMapper;
 
         @Override
         public int deleteByPrimaryKey(Long id) {
@@ -172,5 +177,49 @@ public class AmsProductServiceImpl  implements AmsProductService {
     public List<Map> selectProduct(Map<String, Object> paramMaps) {
 
         return amsProductMapper.selectProduct(paramMaps);
+    }
+
+    /**
+     * insert a product and product-user relation
+     *
+     * @param amsProduct
+     * @param amsProductUser
+     * @return insert
+     */
+    @Override
+    public int insertProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser) {
+        if (null != amsProduct && null != amsProductUser) {
+            int result;
+            int count = amsProductMapper.insertSelective(amsProduct);
+            if (count > 0) {
+                result = amsProductUserMapper.insert(amsProductUser);
+                if (result > 0) {
+                    return result;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * update a product and product-user relation
+     *
+     * @param amsProduct
+     * @param amsProductUser
+     * @return update count
+     */
+    @Override
+    public int updateProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser) {
+        if (null != amsProduct && null != amsProductUser) {
+            int result;
+            int count = amsProductMapper.updateByPrimaryKeySelective(amsProduct);
+            if (count > 0) {
+                result = amsProductUserMapper.updateByPrimaryKeySelective(amsProductUser);
+                if (result > 0) {
+                    return result;
+                }
+            }
+        }
+        return 0;
     }
 }

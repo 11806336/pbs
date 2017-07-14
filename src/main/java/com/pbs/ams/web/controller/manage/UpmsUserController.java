@@ -260,33 +260,33 @@ public class UpmsUserController extends BaseController {
     @RequiresPermissions("upms:user:create")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Object create(UpmsUser upmsUser, Long productId) {
+    public Object create(UpmsUser upmsUser, Long productId, Long companyId) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsUser.getUsername(), new LengthValidator(1, 20, "帐号"))
                 .on(upmsUser.getPassword(), new LengthValidator(5, 32, "密码"))
                 .on(upmsUser.getRealname(), new NotNullValidator("姓名"))
                 .doValidate()
                 .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+        if (!result.isSuccess() || productId == null) {
+            return new UpmsResult(StatusCode.FAILED, result.getErrors());
         }
         long time = System.currentTimeMillis();
         String salt = UUID.randomUUID().toString().replaceAll("-", "");
         upmsUser.setSalt(salt);
         upmsUser.setPassword(MD5Util.MD5(upmsUser.getPassword() + upmsUser.getSalt()));
         upmsUser.setCtime(time);
-        int count = upmsUserService.insertSelective(upmsUser);
 //        upmsUser = upmsUserService.insert2(upmsUser);
-        if (count > 0 && productId != null) {
-            AmsProductUser amsProductUser = new AmsProductUser();
-            amsProductUser.setProductId(productId);
-            amsProductUser.setUserId(upmsUser.getUserId());
-            long id = IdGeneratorUtil.getKey("ams_product_user", 100);
-            amsProductUser.setProductUserId(id);
-            amsProductUserService.insertSelective(amsProductUser);
+        AmsProductUser amsProductUser = new AmsProductUser();//创建关系对象
+        amsProductUser.setProductId(productId);
+//        amsProductUser.setUserId(upmsUser.getUserId());
+        long id = IdGeneratorUtil.getKey("ams_product_user", 100);
+        amsProductUser.setProductUserId(id);
+        int resultCount = upmsUserService.insertUserAndProductRelation(upmsUser, amsProductUser, companyId);
+        if (resultCount > 0) {
+            _log.info("新增用户，主键：userId={}", upmsUser.getUserId());
+            return new UpmsResult(StatusCode.SUCCESS, resultCount);
         }
-        _log.info("新增用户，主键：userId={}", upmsUser.getUserId());
-        return new UpmsResult(StatusCode.SUCCESS, count);
+        return new UpmsResult(StatusCode.FAILED, "新增用户出错！");
     }
 
     @ApiOperation(value = "删除用户")
@@ -333,27 +333,24 @@ public class UpmsUserController extends BaseController {
     @RequiresPermissions("upms:user:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") long id, UpmsUser upmsUser, Long productId) {
+    public Object update(@PathVariable("id") long id, UpmsUser upmsUser, Long productId, Long companyId) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsUser.getUsername(), new LengthValidator(1, 20, "帐号"))
                 .on(upmsUser.getRealname(), new NotNullValidator("姓名"))
                 .doValidate()
                 .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new UpmsResult(StatusCode.INVALID_LENGTH, result.getErrors());
+        if (!result.isSuccess() || productId == null) {
+            return new UpmsResult(StatusCode.FAILED, result.getErrors());
         }
-        if (null != productId) {
-            AmsProductUser amsProductUser = new AmsProductUser();
-            amsProductUser.setUserId(upmsUser.getUserId());
-            List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
-            AmsProductUser productUser = amsProductUsers.get(0);
-            productUser.setProductId(productId);
-            amsProductUserService.updateByPrimaryKeySelective(productUser);//暂时一对一，问题同上。
-        }
+        AmsProductUser amsProductUser = new AmsProductUser();
+        amsProductUser.setUserId(id);
+        List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
+        AmsProductUser productUser = amsProductUsers.get(0);
+        productUser.setProductId(productId);
         // 不允许直接改密码
         upmsUser.setPassword(null);
         upmsUser.setUserId(id);
-        int count = upmsUserService.updateByPrimaryKeySelective(upmsUser);
+        int count = upmsUserService.updateUserAndProductRelation(upmsUser, productUser, companyId);
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
 

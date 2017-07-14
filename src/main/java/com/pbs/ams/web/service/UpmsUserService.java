@@ -1,6 +1,8 @@
 package com.pbs.ams.web.service;
 
 import com.pbs.ams.common.base.BaseService;
+import com.pbs.ams.web.model.AmsProduct;
+import com.pbs.ams.web.model.AmsProductUser;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.model.UpmsUserExample;
 
@@ -17,15 +19,19 @@ public interface UpmsUserService extends BaseService<UpmsUser, UpmsUserExample> 
 
     List<UpmsUser> selectUsersById(List<Long> userIds);
 
-//    UpmsUser selectByPrimaryKey(Integer id);
+    /**
+     * insert a user and user-product relation
+     * @param upmsUser
+     * @param amsProductUser
+     * @return insert count
+     */
+    int insertUserAndProductRelation(UpmsUser upmsUser, AmsProductUser amsProductUser, Long companyId);
 
-//    List<UpmsUser> selectByExample(UpmsUserExample example);
-//
-//    int countByExample(UpmsUserExample example);
-//
-//    int insertSelective(UpmsUser record);
-//
-//    int deleteByPrimaryKeys(String ids);
-//
-//    int updateByPrimaryKeySelective(UpmsUser record);
+    /**
+     * update a user and user-product relation
+     * @param upmsUser
+     * @param amsProductUser
+     * @return update count
+     */
+    int updateUserAndProductRelation(UpmsUser upmsUser, AmsProductUser amsProductUser, Long companyId);
 }
