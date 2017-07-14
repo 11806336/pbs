@@ -23,10 +23,10 @@
 
     <div class="control-group form-inline mt10 mb10">
         <div class="controls">
-            <label for="build_date_bgn_start">起始日期：</label>
-            <input class="form-control" type="text" id="build_date_bgn_start" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="build_date_bgn_start" readonly="readonly" style="background-color: #fff;cursor:pointer">
-            <label for="build_date_bgn_end" style="margin-left: 10px;">结束日期:</label>
-            <input class="form-control" type="text" id="build_date_bgn_end" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="build_date_bgn_end" readonly="readonly" style="background-color: #fff;cursor:pointer">
+            <label for="dateBegin">起始日期：</label>
+            <input class="form-control" type="text" id="dateBegin" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="dateBegin" value="" readonly="readonly" style="background-color: #fff;cursor:pointer">
+            <label for="dateEnd" style="margin-left: 10px;">结束日期:</label>
+            <input class="form-control" type="text" id="dateEnd" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="dateEnd" value="" readonly="readonly" style="background-color: #fff;cursor:pointer">
             <input type="button" value="查询" class="btn" id="searchBtnIdata" style="margin-left: 20px;">
             <div class="btn-panel-right" style="float:right;">
                 <button type="button" data-toggle="modal" class="btn" data-target="#exportModal" id="export_data">导出数据</button>
@@ -42,21 +42,20 @@
     var dataColumns = [
         {field: 'ck', checkbox: true},
         {field: 'broker_name', title: '证券公司'},
-        {field: 'accountId', title: '资金账号'},
-        {field: 'accountName', title: '账号名称'},
-        {field: 'accountType', title: '账号类型'},
-        {field: 'exchangeName', title: '交易市场'},
+        {field: 'trade_account_id', title: '资金账号'},
+        {field: 'trade_account_name', title: '账号名称'},
+        {field: 'trade_account_type', title: '账号类型'},
+        {field: 'exchange_name', title: '交易市场'},
         {field: 'instrumentId', title: '证券代码'},
         {field: 'instrumentName', title: '证券名称'},
-        {field: 'tradeId', title: '成交编号'},
+        {field: 'knock_id', title: '成交编号'},
         {field: 'contract_id', title: '合同编号'},
-        {field: 'volumn', title: '成交价格'},
-        {field: 'price', title: '成交数量'},
-        {field: 'tradeDate', title: '成交日期'},
-        {field: 'tradeTime', title: '成交时间'},
+        {field: 'knock_price', title: '成交价格'},
+        {field: 'knock_volume', title: '成交数量'},
+        {field: 'knock_date', title: '成交日期'},
         {field: 'knock_amount', title: '成交金额'},
-        {field: 'comssion', title: '手续费'},
-        {field: 'optName', title: '买卖标记'},
+        {field: 'fee', title: '手续费'},
+        {field: 'buy_sell', title: '买卖标记'},
         {
             field: 'action',
             title: '操作',
@@ -67,7 +66,7 @@
         }
     ];
     //数据url
-    var url_json = "/account/successBargain";
+    var url_json = "/account/amsKnock";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination = 'server';
     //指定主键列

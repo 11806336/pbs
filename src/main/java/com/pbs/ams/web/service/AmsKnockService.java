@@ -12,6 +12,8 @@ import java.util.Map;
 */
 public interface AmsKnockService{
 
+    long selectAmsKnockWithDetailCount(Map map);
+
     List<Map> selectAmsKnockWithDetail(Map map);
 
     int deleteByPrimaryKey(Long id);

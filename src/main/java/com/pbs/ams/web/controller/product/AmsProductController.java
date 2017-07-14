@@ -15,6 +15,7 @@ import com.pbs.ams.web.model.AmsProduct;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.AmsProductService;
+import com.pbs.ams.web.service.AmsTradeAccountService;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +29,6 @@ import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +47,8 @@ public class AmsProductController extends BaseController {
     private AmsProductService amsProductService;
     @Autowired
     private UpmsCompanyService upmsCompanyService;
+    @Autowired
+    private AmsTradeAccountService amsTradeAccountService;
 
     @ApiOperation(value = "产品管理首页")
     @RequiresPermissions("ams:product:read")
@@ -63,7 +65,6 @@ public class AmsProductController extends BaseController {
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
-
         UpmsUser user = getCurrentUser();
         Map<String,Object> map = Maps.newHashMap();
         map.put("offset",offset);
@@ -77,15 +78,12 @@ public class AmsProductController extends BaseController {
             }
         }
         List<Map> rows = amsProductService.selectProductWithDetail(map);
-
         long total = amsProductService.selectProductWithDetailCount(map);
-
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
         result.put("total", total);
         return result;
     }
-
 
     @ApiOperation(value = "新增产品页")
     @RequiresPermissions("ams:product:read")
@@ -127,61 +125,62 @@ public class AmsProductController extends BaseController {
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
-    @ApiOperation(value = "账号详情")
-    @RequiresPermissions("upms:account:read")
+    @ApiOperation(value = "产品详情")
+    @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") long id, HttpServletRequest request) {
-        return "/product/create/tab.jsp";
+        AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
+        request.setAttribute("amsProduct", amsProduct);
+        return "/product/query/query_product_tabs.jsp";
     }
-    @ApiOperation(value = "返回不同的tab页")
-    @RequiresPermissions("upms:account:read")
-    @RequestMapping(value = "/details/tab/{iframeName}", method = RequestMethod.GET)
-    public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName) {
+
+    @ApiOperation(value = "详情tab页")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/details/tab/{iframeName}/{id}", method = RequestMethod.GET)
+    public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
         if (null != iframeName) {
-            return "/product/" + iframeName + ".jsp";
+            AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
+            request.setAttribute("amsProduct", amsProduct);
+            return "/product/query/" + iframeName + ".jsp";
         }
         return null;
     }
 
-
-//    @ApiOperation(value = "新增产品导航")
-//    @RequiresPermissions("ams:product:create")
-//    @RequestMapping(value = "/create/tab", method = RequestMethod.GET)
-//    public String create() {
-//        return "/product/create/tab.jsp";
-//    }
-//
-//
-//
-//    @ApiOperation(value = "设置账号页")
-//    @RequiresPermissions("ams:product:create")
-//    @RequestMapping(value = "/accountSettings", method = RequestMethod.GET)
-//    public String accountSettings() {
-//        return "/product/create/product_account_settings.jsp";
-//    }
-//
-//
-//
-//    @ApiOperation(value = "绑定账号")
-//    @RequiresPermissions("ams:product:create")
-//    @ResponseBody
-//    @RequestMapping(value = "/bindAccount", method = RequestMethod.GET)
-//    public int bindAccount(AmsProductAccount amsProductAccount) {
-//        Long id = IdGeneratorUtil.getKey("ams_product_account");
-//        amsProductAccount.setProductTradeAccountId(id);
-//        return amsProductService.insertAmsProductAccount(amsProductAccount);
-//    }
-
-
-
-
+    @ApiOperation(value = "总览列表")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/overview", method = RequestMethod.GET)
+    @ResponseBody
+    public Object  positionList(
+            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
+        long total = amsTradeAccountService.selectTradeAccoutWithDetailCount(params);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("total", total);
+        result.put("rows", rows);
+        return result;
+    }
+    @ApiOperation(value = "修改tab页")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/update/tab/{iframeName}/{id}", method = RequestMethod.GET)
+    public String updateTab(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
+        if (null != iframeName) {
+            AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
+            request.setAttribute("amsProduct", amsProduct);
+            return "/product/edit/" + iframeName + ".jsp";
+        }
+        return null;
+    }
     @ApiOperation(value = "修改组织")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id, ModelMap modelMap) {
+    public String update(@PathVariable("id") long id, HttpServletRequest request) {
         AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-        modelMap.put("amsProduct", amsProduct);
-        return  "/product/edit/update_product.jsp";
+        request.setAttribute("amsProduct", amsProduct);
+        return  "/product/edit/edit_product_tabs.jsp";
     }
 
     @ApiOperation(value = "修改组织")
@@ -199,6 +198,7 @@ public class AmsProductController extends BaseController {
         int count = amsProductService.updateByPrimaryKeySelective(amsProduct);
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
+
 
     @ApiOperation(value = "删除组织")
     @RequiresPermissions("ams:product:read")

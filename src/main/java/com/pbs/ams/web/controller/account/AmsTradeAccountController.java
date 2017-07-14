@@ -8,10 +8,7 @@ import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.web.model.AmsProductAccount;
-import com.pbs.ams.web.model.AmsTradeAccount;
-import com.pbs.ams.web.model.UpmsCompany;
-import com.pbs.ams.web.model.UpmsUser;
+import com.pbs.ams.web.model.*;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -67,6 +64,9 @@ public class AmsTradeAccountController extends BaseController {
     @Autowired
     private AmsKnockService amsKnockService;
 
+    @Autowired
+    private AmsTradeAccountExtService amsTradeAccountExtService;
+
     @ApiOperation(value = "账号首页")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -107,11 +107,11 @@ public class AmsTradeAccountController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         if (StringUtils.isNotEmpty(ids)) {
-                String[] tradeAccountId = ids.split("-");
-                List<Long> idList = new ArrayList<Long>();
-                for (String id : tradeAccountId) {
-                    idList.add(Long.parseLong(id));
-                }
+            String[] tradeAccountId = ids.split("-");
+            List<Long> idList = new ArrayList<Long>();
+            for (String id : tradeAccountId) {
+                idList.add(Long.parseLong(id));
+            }
             int count = amsTradeAccountService.deleteByPrimaryKeys(idList);
             return new UpmsResult(StatusCode.SUCCESS, count);
         }
@@ -165,48 +165,20 @@ public class AmsTradeAccountController extends BaseController {
 
     @ApiOperation(value = "修改账号")
     @RequiresPermissions("upms:account:update")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id, HttpServletRequest request) {
         AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
-        Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsProducts = amsProductService.selectProductWithDetail(params);
-        List<Map> amsBrokers =amsBrokerService.selectBrokerWithDetail(params);
-        AmsProductAccount amsProductAccount =amsProductAccountService.getProductIdByAccountId(id);
-        List<UpmsCompany> upmsCompany = upmsCompanyService.listCompanies(params);
-        request.setAttribute("amsProducts",amsProducts);
-        request.setAttribute("amsBrokers",amsBrokers);
         request.setAttribute("amsTradeAccount", amsTradeAccount);
-        request.setAttribute("amsProductAccount", amsProductAccount);
-        request.setAttribute("upmsCompany",upmsCompany);
-        return "/account/update_account_base.jsp";
+        return "/account/tab.jsp";
     }
 
     @ApiOperation(value = "修改账号")
     @RequiresPermissions("upms:account:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update( @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id,
-                          AmsTradeAccount amsTradeAccount) {
+    public Object update(@PathVariable("id") Long id,AmsTradeAccount amsTradeAccount) {
         amsTradeAccount.setTradeAccountId(id);
         int count = amsTradeAccountService.updateByPrimaryKeySelective(amsTradeAccount);
-
-//        if (null != iframeName && null != id) {
-//            账号基本信息
-//            AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
-//            Map<String, Object> params = Maps.newHashMap();
-//            List<Map> amsProducts = amsProductService.selectProductWithDetail(params);
-//            List<Map> amsBrokers =amsBrokerService.selectBrokerWithDetail(params);
-//            AmsProductAccount amsProductAccount =amsProductAccountService.getProductIdByAccountId(id);
-//            List<UpmsCompany> upmsCompany = upmsCompanyService.listCompanies(params);
-//            request.setAttribute("amsProducts",amsProducts);
-//            request.setAttribute("amsBrokers",amsBrokers);
-//            request.setAttribute("amsTradeAccount", amsTradeAccount);
-//            request.setAttribute("amsProductAccount", amsProductAccount);
-//            request.setAttribute("upmsCompany",upmsCompany);
-//
-//            List<Map> amsStockBlackWhiteList = amsStockBlackWhiteListService.selectProductWithDetail(params);
-//            request.setAttribute("amsStockBlackWhiteList",amsStockBlackWhiteList);
-
         return new UpmsResult(StatusCode.SUCCESS, count);
     }
 
@@ -241,20 +213,25 @@ public class AmsTradeAccountController extends BaseController {
     public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id){
         if (null != iframeName && null != id) {
             AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
-            Map<String, Object> params = Maps.newHashMap();
             request.setAttribute("amsTradeAccount", amsTradeAccount);
-
 //            List<Map> amsStockBlackWhiteList = amsStockBlackWhiteListService.selectProductWithDetail(params);
 //            request.setAttribute("amsStockBlackWhiteList",amsStockBlackWhiteList);
+            Map<String, Object> params = Maps.newHashMap();
+            List<Map> amsProducts = amsProductService.selectProductWithDetail(params);
+            List<Map> amsBrokers =amsBrokerService.selectBrokerWithDetail(params);
+            AmsProductAccount amsProductAccount =amsProductAccountService.getProductIdByAccountId(id);
+            List<UpmsCompany> upmsCompany = upmsCompanyService.listCompanies(params);
+            request.setAttribute("amsProducts",amsProducts);
+            request.setAttribute("amsBrokers",amsBrokers);
+            request.setAttribute("amsProductAccount", amsProductAccount);
+            request.setAttribute("upmsCompany",upmsCompany);
             return "/account/" + iframeName + ".jsp";
         }
         return null;
     }
-
-
     @ApiOperation(value = "持仓列表")
     @RequiresPermissions("upms:account:read")
-    @RequestMapping(value = "/position", method = RequestMethod.GET)
+    @RequestMapping(value = "/stockHolding", method = RequestMethod.GET)
     @ResponseBody
     public Object  positionList(
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
@@ -270,6 +247,26 @@ public class AmsTradeAccountController extends BaseController {
         List<Map> rows = amsStockHoldingService.selectStockHoldingWithDetail(params);
         long total = amsStockHoldingService.selectStockHoldingWithDetailCount(params);
         Map<String, Object> result = new HashMap<String, Object>();
+        result.put("total", total);
+        result.put("rows", rows);
+        return result;
+    }
+
+    @ApiOperation(value = "资产列表")
+    @RequiresPermissions("upms:account:read")
+    @RequestMapping(value = "/amsTradeAccountExt", method = RequestMethod.GET)
+    @ResponseBody
+    public Object amsTradeAccountExt(
+            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+            String dateBegin,String dateEnd) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        List<Map> rows = amsTradeAccountExtService.selectAmsTradeAccountExtWithDetail(params);
+        long total = amsTradeAccountExtService.selectAmsTradeAccountExtWithDetailCount(params);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("total", total);
         result.put("rows", rows);
         return result;
     }
@@ -286,24 +283,36 @@ public class AmsTradeAccountController extends BaseController {
         params.put("offset", offset);
         params.put("limit", limit);
         List<Map> rows = amsEntrustService.selectAmsEntrustWithDetail(params);
+        long total = amsEntrustService.selectAmsEntrustWithDetailCount(params);
         Map<String, Object> result = new HashMap<String, Object>();
+        result.put("total", total);
         result.put("rows", rows);
         return result;
     }
 
     @ApiOperation(value = "成交列表")
     @RequiresPermissions("upms:account:read")
-    @RequestMapping(value = "/successBargain", method = RequestMethod.GET)
+    @RequestMapping(value = "/amsKnock", method = RequestMethod.GET)
     @ResponseBody
-    public Object successBargainList(
+    public Object AmsKnockList(
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             String dateBegin,String dateEnd) {
         Map<String, Object> params = Maps.newHashMap();
+        if (StringUtils.isNotEmpty(dateBegin)) {
+            Long date_begin = Long.parseLong(dateBegin.replaceAll("-",""));
+            params.put("dateBegin",date_begin);
+        }
+        if (StringUtils.isNotEmpty(dateEnd)) {
+            Long date_end = Long.parseLong(dateEnd.replaceAll("-",""));
+            params.put("dateEnd",date_end);
+        }
         params.put("offset", offset);
         params.put("limit", limit);
         List<Map> rows = amsKnockService.selectAmsKnockWithDetail(params);
+        long total = amsKnockService.selectAmsKnockWithDetailCount(params);
         Map<String, Object> result = new HashMap<String, Object>();
+        result.put("total", total);
         result.put("rows", rows);
         return result;
     }

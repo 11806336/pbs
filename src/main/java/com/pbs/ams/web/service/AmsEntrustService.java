@@ -13,6 +13,8 @@ public interface AmsEntrustService{
 
     List<Map> selectAmsEntrustWithDetail(Map map);
 
+    long selectAmsEntrustWithDetailCount(Map map);
+
     int deleteByPrimaryKey(Long entrustId);
 
     int insert(AmsEntrust record);
