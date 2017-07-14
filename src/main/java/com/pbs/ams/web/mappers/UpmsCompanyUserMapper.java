@@ -19,9 +19,16 @@ public interface UpmsCompanyUserMapper {
     int updateByPrimaryKey(UpmsCompanyUser record);
 
     /**
-     * get a company or company list  for current user
+     * get a company or company list  for user
      * @param userId
      * @return List<UpmsCompanyUser>
      */
     List<UpmsCompanyUser> getCompaniesByUserId(Long userId);
+
+    /**
+     * get a user or user list  for company id
+     * @param companyIds
+     * @return List<UpmsCompanyUser>
+     */
+    List<UpmsCompanyUser> getUsersByCompanyId(List<Long> companyIds);
 }

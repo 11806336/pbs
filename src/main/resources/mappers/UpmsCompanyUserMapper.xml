@@ -77,5 +77,14 @@
     from upms_company_user
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
+  <select id="getUsersByCompanyId" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from upms_company_user
+    where company_id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>
