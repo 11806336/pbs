@@ -45,7 +45,10 @@ public class AmsEntrustServiceImpl  implements AmsEntrustService {
             DynamicDataSource.clearDataSource();
             return 0;
         }
-
+        @Override
+        public long selectAmsEntrustWithDetailCount(Map map){
+            return amsEntrustMapper.selectAmsEntrustWithDetailCount(map);
+        }
 
         @Override
         public int insert(AmsEntrust amsEntrust) {

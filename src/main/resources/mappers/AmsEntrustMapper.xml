@@ -24,7 +24,7 @@
     operator_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from ams_entrust
     where entrust_id = #{entrustId,jdbcType=BIGINT}
@@ -32,15 +32,36 @@
 
   <!--查询委托列表-->
   <select id="selectAmsEntrustWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
-    select
-    <include refid="Base_Column_List" />
-    from ams_entrust
-    where 1 = 1
+    SELECT ae.entrust_id, ae.stock_id, ae.company_id, ae.entrust_status, ae.entrust_date, ae.entrust_price,
+    ae.traded_price,ae.cancel_amount, ae.buy_sell, ae.entrust_type, ae.ip_source, ae.mac_address, ae.create_time,
+    ae.update_time,ae.operator_id,at.trade_account_id, at.company_id, at.trade_account_type, at.trade_account,
+    at.trade_account_name,at.trade_account_password, at.broker_id, at.trade_account_status,at.create_time,
+    at.update_time,at.operator_id,at.is_login,ak.knock_id, ak.stock_id, ak.company_id, ak.contract_id,
+    ak.knock_price,ak.knock_volume,ak.entrust_id, ak.knock_date, ak.knock_amount, ak.buy_sell, ak.fee,
+    ak.operator_id
+    FROM ams_entrust ae join ams_trade_account at
+    on at.company_id = ae.company_id join ams_knock ak on at.company_id = ak.company_id where 1 = 1
+    <if test="company_id != null">
+      and ae.company_id = #{company_id,jdbcType=BIGINT}
+    </if>
     <if test="limit != null">
       <if test="offset != null"> limit ${offset}, ${limit} </if>
       <if test="offset == null"> limit ${limit} </if>
     </if>
   </select>
+
+  <!--查询数量-->
+  <select id="selectAmsEntrustWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Long">
+    SELECT
+    COUNT(1)
+    FROM ams_entrust ab
+    <if test="search!=null">
+      <!--<where>-->
+      <!--ab.broker_name LIKE CONCAT('%','${search}','%' )-->
+      <!--</where>-->
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_entrust
     where entrust_id = #{entrustId,jdbcType=BIGINT}

@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +32,7 @@
         ifm.height = document.documentElement.clientHeight - 118;
     }
 </script>
+
 <section style="height:100%;">
     <div class="content_tab" style="background-color: #333;">
         <div class="tab_left">
@@ -41,28 +41,22 @@
         <div class="tab_right">
             <a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-right"></i></a>
         </div>
-        <ul id="tabs" class="tabs" style="overflow-x: hidden;">
-            <!-- todo:li的id 和 data-index 和它对应的iframe 的值后半段一定要一样-->
-            <li id="tab_setAccountInfo" data-index="setAccountInfo" class="cur">
-                <a class="waves-effect waves-light">账号信息</a>
+        <ul id="tabs" class="tabs">
+            <!-- li的id 和 data-index 和它对应的iframe 的值后半段一定要一样-->
+            <li id="tab__manage_new_product" data-index="_manage_new_product" class="cur">
+                <a class="waves-effect waves-light">新建产品</a>
             </li>
-            <li id="tab_setWhiteBlackList" data-index="setWhiteBlackList" class="">
-                <a class="waves-effect waves-light">黑白名单</a>
-            </li>
-            <li id="tab_setCharge" data-index="setCharge" class="">
-                <a class="waves-effect waves-light">手续费设置</a>
+            <li id="tab__manage_setAccount_index" data-index="_manage_setAccount_index" class="">
+                <a class="waves-effect waves-light">账号设置</a>
             </li>
         </ul>
     </div>
     <div class="content_main">
-        <div id="iframe_setAccountInfo" class="iframe cur">
-            <iframe class="tab_iframe" src="/account/details/tab/update_account_base/${amsTradeAccount.tradeAccountId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        <div id="iframe__manage_new_product" class="iframe cur">
+            <iframe class="tab_iframe" src="/product/update/tab/create_product/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
-        <div id="iframe_setWhiteBlackList" class="iframe">
-            <iframe class="tab_iframe" src="/account/details/tab/whiteBlackList/${amsTradeAccount.tradeAccountId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
-        </div>
-        <div id="iframe_setCharge" class="iframe">
-            <iframe class="tab_iframe" src="/account/details/tab/charge/${amsTradeAccount.tradeAccountId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+        <div id="iframe__manage_setAccount_index" class="iframe">
+            <iframe class="tab_iframe" src="/product/update/tab/update_product/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
     </div>
 </section>

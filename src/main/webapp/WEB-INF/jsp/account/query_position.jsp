@@ -24,7 +24,7 @@
         <div class="controls">
             <label for="positionDate">查询日期：</label>
             <input class="form-control" type="text" id="positionDate" name="positionDate"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  readonly="readonly" style="background-color: #fff;cursor:pointer">
-            <input type="button" value="查询" class="btn" id="searchBtnIdata" style="margin-left: 20px;">
+            <input type="button" value="查询" class="btn" id="searchBtnIdata" onclick="searchBtnIdata()" style="margin-left: 20px;">
             <input type="button" value="上一日" class="btn" id="prev_day" style="margin-left: 10px;">
             <input type="button" value="下一日" class="btn" id="next_day" style="margin-left: 10px;">
             <div class="btn-panel-right" style="float:right;">
@@ -47,20 +47,20 @@
         {field: 'broker_id', title: '证券公司ID'},
         {field: 'stock_account_id', title: '证券账号ID'},
         {field: 'market_id', title: '市场ID'},
-        {field: 'position', title: '当前拥股'},
+        {field: 'current_stock_holding', title: '当前拥股'},
         {field: 'position_date', title: '持仓日期'},
-        {field: 'positionCost', title: '持仓成本'},
-        {field: 'avgPrice', title: '成本价'},
-        {field: 'positionProfit', title: '盈亏'},
-        {field: 'instrumentValue', title: '市值'},
-        {field: 'frozenVolume', title: '冻结数量'},
-        {field: 'canUseVolume', title: '可用余额'},
-        {field: 'onRoadVolume', title: '在途股份'},
-        {field: 'yesterDayVolume', title: '股份余额'},
-        {field: 'settlementPrice', title: '最新价'},
-        {field: 'profitRate', title: '盈亏比例'},
-        {field: 'totalCost', title: '累计总成本'},
-        {field: 'singleCost', title: '单股成本价'},
+        {field: 'position_cost', title: '持仓成本'},
+        {field: 'cost_value', title: '成本价'},
+        {field: 'profit_loss', title: '盈亏'},
+        {field: 'market_value', title: '市值'},
+        {field: 'frozen_amount', title: '冻结数量'},
+        {field: 'remaining', title: '可用余额'},
+        {field: 'transit_shares', title: '在途股份'},
+        {field: 'share_remaining', title: '股份余额'},
+        {field: 'latest_price', title: '最新价'},
+        {field: 'profit_rate', title: '盈亏比例'},
+//        {field: 'total_cost', title: '累计总成本'},
+        {field: 'single_cost_value', title: '单股成本价'},
         {
             field: 'action',
             title: '操作',
@@ -71,7 +71,7 @@
         }
     ];
     //数据url
-    var url_json = "/account/position";
+    var url_json = "/account/stockHolding";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination = 'server';
     //指定主键列
@@ -86,6 +86,9 @@
             '<a class="update" href="javascript:;" onclick="updateAction("url","编辑","row.accountId")" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
             '<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
+    }
+    function searchBtnIdata(searchBtnIdata) {
+        
     }
 </script>
 </body>

@@ -2,9 +2,9 @@ package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
-import com.pbs.ams.web.mappers.AmsKnockMapper;
-import com.pbs.ams.web.model.AmsKnock;
-import com.pbs.ams.web.service.AmsKnockService;
+import com.pbs.ams.web.mappers.AmsTradeAccountExtMapper;
+import com.pbs.ams.web.model.AmsTradeAccountExt;
+import com.pbs.ams.web.service.AmsTradeAccountExtService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,53 +19,35 @@ import java.util.Map;
 
 /**
 * com.ruixin:pbs-ams-management:war:1.0Service实现
-* Created by ams on 2017/7/12.
+* Created by ams on 2017/7/13.
 */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class AmsKnockServiceImpl  implements AmsKnockService {
+public class AmsTradeAccountExtServiceImpl  implements AmsTradeAccountExtService {
 
-    private static Logger _log = LoggerFactory.getLogger(AmsKnockServiceImpl.class);
+    private static Logger _log = LoggerFactory.getLogger(AmsTradeAccountExtServiceImpl.class);
 
     @Autowired
-    private AmsKnockMapper amsKnockMapper;
-        @Override
-        public List<Map> selectAmsKnockWithDetail(Map map){
-            return amsKnockMapper.selectAmsKnockWithDetail(map);
-        }
-        @Override
+    private AmsTradeAccountExtMapper amsTradeAccountExtMapper;
+
+
+    @Override
+    public List<Map> selectAmsTradeAccountExtWithDetail(Map map) {
+
+        return amsTradeAccountExtMapper.selectAmsTradeAccountExtWithDetail(map);
+    }
+
+    @Override
+    public long selectAmsTradeAccountExtWithDetailCount(Map map) {
+        return amsTradeAccountExtMapper.selectAmsTradeAccountExtWithDetailCount(map);
+    }
+
+
+    @Override
         public int deleteByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsKnockMapper.deleteByPrimaryKey(id);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
-        }
-        @Override
-        public long selectAmsKnockWithDetailCount(Map map){
-            return amsKnockMapper.selectAmsKnockWithDetailCount(map);
-        }
-
-        @Override
-        public int insert(AmsKnock amsKnock) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsKnockMapper.insert(amsKnock);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
-        }
-
-        @Override
-        public int insertSelective(AmsKnock amsKnock) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsKnockMapper.insertSelective(amsKnock);
+                return amsTradeAccountExtMapper.deleteByPrimaryKey(id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -75,10 +57,35 @@ public class AmsKnockServiceImpl  implements AmsKnockService {
 
 
         @Override
-        public AmsKnock selectByPrimaryKey(Long id) {
+        public int insert(AmsTradeAccountExt amsTradeAccountExt) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsKnockMapper.selectByPrimaryKey(id);
+                return amsTradeAccountExtMapper.insert(amsTradeAccountExt);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            DynamicDataSource.clearDataSource();
+            return 0;
+        }
+
+        @Override
+        public int insertSelective(AmsTradeAccountExt amsTradeAccountExt) {
+            try {
+                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+                return amsTradeAccountExtMapper.insertSelective(amsTradeAccountExt);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            DynamicDataSource.clearDataSource();
+            return 0;
+        }
+
+
+        @Override
+        public AmsTradeAccountExt selectByPrimaryKey(Long id) {
+            try {
+                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+                return amsTradeAccountExtMapper.selectByPrimaryKey(id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -88,10 +95,10 @@ public class AmsKnockServiceImpl  implements AmsKnockService {
 
 
         @Override
-        public int updateByPrimaryKeySelective(AmsKnock amsKnock) {
+        public int updateByPrimaryKeySelective(AmsTradeAccountExt amsTradeAccountExt) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsKnockMapper.updateByPrimaryKeySelective(amsKnock);
+                return amsTradeAccountExtMapper.updateByPrimaryKeySelective(amsTradeAccountExt);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -101,10 +108,10 @@ public class AmsKnockServiceImpl  implements AmsKnockService {
 
 
         @Override
-        public int updateByPrimaryKey(AmsKnock amsKnock) {
+        public int updateByPrimaryKey(AmsTradeAccountExt amsTradeAccountExt) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsKnockMapper.updateByPrimaryKey(amsKnock);
+                return amsTradeAccountExtMapper.updateByPrimaryKey(amsTradeAccountExt);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -143,10 +150,10 @@ public class AmsKnockServiceImpl  implements AmsKnockService {
         */
         @Override
         @Transactional(propagation = Propagation.MANDATORY)
-        public int insertToAmsKnockSnaps() {
+        public int insertToAmsTradeAccountExtSnaps() {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            //return amsKnockMapper.insertToAmsKnockSnaps();
+            //return amsTradeAccountExtMapper.insertTocom.ruixin:pbs-ams-management:war:1.0Snaps();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -24,7 +24,7 @@
         <div class="control-group">
             <label for="productId" class="control-label"><em class="rqd">*</em>产品列表：</label>
             <div class="controls">
-                <select  name="productId" id="productId" disabled="disabled">
+                <select  name="productId" id="productId">
                     <c:forEach var="amsProduct" items="${amsProducts}">
                         <option value="${amsProduct.product_id}" <c:if
                                 test='${amsProduct.product_id == amsProductAccount.productId}'> selected='selected' </c:if>>

@@ -79,9 +79,9 @@
                     <th width="80">操作</th>
                 </tr>
                 <tr>
-                   <c:forEach items="amsStockBlackWhiteList" var="amsStockBlackWhite">
+                   <%--<c:forEach items="amsStockBlackWhiteList" var="amsStockBlackWhite">
                        <td>${amsStockBlackWhite.blackWhiteId}</td>
-                   </c:forEach>
+                   </c:forEach>--%>
                 </tr>
 
                 </thead>

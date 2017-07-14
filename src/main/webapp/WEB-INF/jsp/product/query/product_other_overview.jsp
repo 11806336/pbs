@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <title>其他权益</title>
 
-    <link rel="import" href="${basePath}/resources/inc/head.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
@@ -26,7 +26,7 @@
     <table id="otherRightTable"></table>
 </div>
 
-<link rel="import" href="${basePath}/resources/inc/foot.jsp">
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
     var $table = $('#otherRightTable');
     var url_json = "${basePath}/resources/data/product_other.json";

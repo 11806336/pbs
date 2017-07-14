@@ -38,6 +38,7 @@ public class AmsStockHoldingServiceImpl  implements AmsStockHoldingService {
             return amsStockHoldingMapper.selectStockHoldingWithDetailCount(map);
         }
 
+
         @Override
         public int deleteByPrimaryKey(Long id) {
             try {

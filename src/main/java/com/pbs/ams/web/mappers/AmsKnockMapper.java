@@ -19,4 +19,6 @@ public interface AmsKnockMapper {
     int updateByPrimaryKeySelective(AmsKnock record);
 
     int updateByPrimaryKey(AmsKnock record);
+
+    long selectAmsKnockWithDetailCount(Map map);
 }
