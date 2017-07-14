@@ -1,16 +1,15 @@
 package com.pbs.ams.web.controller.company;
 
 
-
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.pbs.ams.common.util.ValidateUtil;
-import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.util.IdGeneratorUtil;
+import com.pbs.ams.common.util.ValidateUtil;
 import com.pbs.ams.common.validator.LengthValidator;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.model.UpmsUser;
@@ -22,16 +21,15 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 公司controller
@@ -127,9 +125,15 @@ public class UpmsCompanyController extends BaseController {
         UpmsUser user = getCurrentUser();
         if (user != null) {
             Long id = IdGeneratorUtil.getKey("upms_company");
+            Long userId = user.getUserId();
             upmsCompany.setCompanyId(id);//获取公司id
-            upmsCompany.setOperatorId(user.getUserId());
-            int count = upmsCompanyService.insertCompany(upmsCompany);
+            upmsCompany.setOperatorId(userId);
+            //创建关系对象
+            UpmsCompanyUser upmsCompanyUser = new UpmsCompanyUser();
+            upmsCompanyUser.setCompanyUserId(IdGeneratorUtil.getKey("upms_company_user"));
+            upmsCompanyUser.setCompanyId(id);
+            upmsCompanyUser.setUserId(userId);
+            int count = upmsCompanyService.insertCompanyAndRelation(upmsCompany, upmsCompanyUser);
             return new UpmsResult(StatusCode.SUCCESS, count);
         } else {
             return new UpmsResult(StatusCode.FAILED, "新增公司出错！");
