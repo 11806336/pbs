@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=utf-8"%>
+﻿﻿<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -15,6 +15,17 @@
 					<option value="0">---请选择---</option>
 					<c:forEach var="company" items="${upmsCompanies}">
 						<option value="${company.companyId}">${company.companyName}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="product_id" class="control-label control-label2"><em class="rqd">*</em>关联产品：</label>
+			<div class="controls">
+				<select name="productId" id="product_id">
+					<option value="0">---请选择---</option>
+					<c:forEach var="product" items="${products}">
+						<option value="${product.product_id}">${product.product_name}</option>
 					</c:forEach>
 				</select>
 			</div>

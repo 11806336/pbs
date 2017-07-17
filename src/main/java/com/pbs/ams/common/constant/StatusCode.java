@@ -30,7 +30,8 @@ public enum StatusCode {
     INVALID_USERNAME("S3008", "账号不存在"),
     INVALID_PASSWORD("S3009", "密码错误"),
     INVALID_ACCOUNT("S30010", "账号无效"),
-    INVALID_CODE("S30011","无效code");
+    INVALID_CODE("S30011","无效code"),
+    INVALID_INSERT("S30012","插入数据异常");
 
     private final String code;
 

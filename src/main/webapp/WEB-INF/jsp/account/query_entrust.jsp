@@ -1,10 +1,22 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>委托</title>
-
-    <link rel="import" href="../../../resources/inc/css_list.jsp">
+    <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${basePath}/resources/css/common.css">
 </head>
 <body>
 <div id="main">
@@ -22,31 +34,30 @@
     </div>
     <table id="table"></table>
 </div>
-
-<link rel="import" href="../../../resources/inc/js_list.jsp">
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
     var $table = $('#table');
     //列配置项
     var dataColumns = [
         {field: 'ck', checkbox: true},
-        {field: 'brokerName', title: '证券公司'},
-        {field: 'accountId', title: '资金账号'},
-        {field: 'accountName', title: '账号名称'},
-        {field: 'accountType', title: '账号类型'},
-        {field: 'exchangeName', title: '交易市场'},
-        {field: 'instrumentId', title: '证券代码'},
-        {field: 'instrumentName', title: '证券名称'},
-        {field: 'entrustPrice', title: '委托价格'},
-        {field: 'entrustCount', title: '委托量'},
-        {field: 'orderSysId', title: '合同编号'},
-        {field: 'orderStatus', title: '委托状态'},
-        {field: 'entrustDate', title: '委托日期'},
-        {field: 'tradedPrice', title: '成交均价'},
-        {field: 'cancelAmount', title: '已撤数量'},
-        {field: 'optName', title: '买卖标记'},
-        {field: 'entrustType', title: '委托类别'},
-        {field: 'ip', title: 'ip来源'},
-        {field: 'macAddress', title: 'MAC地址'},
+        {field: 'entrust_id', title: '证券公司'},
+        {field: 'stock_id', title: '资金账号'},
+        {field: 'trade_account_name', title: '账号名称'},
+        {field: 'trade_account_type', title: '账号类型'},
+        {field: 'exchange_name', title: '交易市场'},
+//        {field: 'instrument_id', title: '证券代码'},
+//        {field: 'instrument_name', title: '证券名称'},
+        {field: 'entrust_price', title: '委托价格'},
+        {field: 'cancel_amount', title: '委托量'},
+        {field: 'contract_id', title: '合同编号'},
+        {field: 'entrust_status', title: '委托状态'},
+        {field: 'entrust_date', title: '委托日期'},
+        {field: 'traded_price', title: '成交均价'},
+        {field: 'cancel_amount', title: '已撤数量'},
+        {field: 'buy_sell', title: '买卖标记'},
+        {field: 'entrust_type', title: '委托类别'},
+        {field: 'ip_source', title: 'ip来源'},
+        {field: 'mac_address', title: 'MAC地址'},
         {
             field: 'action',
             title: '操作',
@@ -57,9 +68,9 @@
         }
     ];
     //数据url
-    var url_json = "../../../../resources/data/entrust.json";
+    var url_json = "/account/entrust";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-    var sidePagination = 'client';
+    var sidePagination = 'server';
     //指定主键列
     var idField = 'accountId';
     //右上角刷新搜索

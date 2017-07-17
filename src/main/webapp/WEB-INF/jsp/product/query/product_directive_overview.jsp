@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>指令</title>
-    <link rel="import" href="${basePath}/resources/inc/head.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
@@ -27,7 +27,7 @@
 
     <table id="directiveTable"></table>
 </div>
-<link rel="import" href="${basePath}/resources/inc/foot.jsp">
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
     var $table = $('#directiveTable');
     var url_json = "${basePath}/resources/data/product_directive.json";

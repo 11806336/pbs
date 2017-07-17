@@ -2,6 +2,7 @@ package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsProduct;
 import com.pbs.ams.web.model.AmsProductAccount;
+import com.pbs.ams.web.model.AmsProductUser;
 
 import java.util.List;
 import java.util.Map;
@@ -49,4 +50,27 @@ public interface AmsProductService{
      * @return
      */
     int insertAmsProductAccount(AmsProductAccount amsProductAccount);
+
+    /**
+     *query product by some companys(sql:companyId in ...)
+     * @param paramMaps 参数
+     * @return
+     */
+    List<Map> selectProduct(Map<String, Object> paramMaps);
+
+    /**
+     *insert a product and product-user relation
+     * @param amsProduct
+     * @param amsProductUser
+     * @return insert count
+     */
+    int insertProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser);
+
+    /**
+     * update a product and product-user relation
+     * @param amsProduct
+     * @param amsProductUser
+     * @return update count
+     */
+    int updateProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser);
 }

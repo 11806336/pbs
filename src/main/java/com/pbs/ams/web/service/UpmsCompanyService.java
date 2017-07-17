@@ -2,6 +2,7 @@ package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanySnapshot;
+import com.pbs.ams.web.model.UpmsCompanyUser;
 
 import java.util.List;
 import java.util.Map;
@@ -65,4 +66,12 @@ public interface UpmsCompanyService {
      * @author TiAmo.
      */
     List<UpmsCompany> selectCompanyByUserId(Long userId);
+
+    /**
+     *insert company and company-user relation
+     * @param company
+     * @param upmsCompanyUser
+     * @return
+     */
+    int insertCompanyAndRelation(UpmsCompany company, UpmsCompanyUser upmsCompanyUser);
 }

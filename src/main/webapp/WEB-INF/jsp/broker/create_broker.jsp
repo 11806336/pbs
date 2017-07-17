@@ -57,15 +57,13 @@
             </div>
         </div>
 
-        <%--<div class="control-group ">--%>
-        <%--<label  class="control-label">日盘启动时间：</label>--%>
-        <%--<input type="text" name="dayBegin" id="dayBegin" readonly="readonly" onblur="a();" onclick="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d',onpicking:function(dp){--%>
-        <%--$dp.$('dayBegin').value=$dp.cal.getP('H');return true;}--%>
-        <%--});" value="" style="background-color: #fff;cursor:pointer;">--%>
-        <%--<span style="display: inline-block;margin:0 10px;">至</span>--%>
-        <%--<input type="text" name="dayEnd" id="dayEnd" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer">--%>
-        <%--<span for="day_endDate" class="error" style="display: none;"></span>--%>
-        <%--</div>--%>
+        <div class="control-group ">
+        <label  class="control-label">日盘启动时间：</label>
+        <input type="text" name="day_begin" id="day_begin" readonly="readonly" onclick="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer;">
+        <span style="display: inline-block;margin:0 10px;">至</span>
+        <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer">
+        <span for="day_end" class="error" style="display: none;"></span>
+        </div>
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </form>
 </div>

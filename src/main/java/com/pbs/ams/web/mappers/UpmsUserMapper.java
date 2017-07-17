@@ -27,4 +27,6 @@ public interface UpmsUserMapper {
     int updateByPrimaryKeySelective(UpmsUser record);
 
     int updateByPrimaryKey(UpmsUser record);
+
+    List<UpmsUser> selectUsersById(List<Long> userIds);
 }

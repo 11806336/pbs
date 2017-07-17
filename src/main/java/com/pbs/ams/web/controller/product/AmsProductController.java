@@ -5,8 +5,8 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
-import com.pbs.ams.common.constant.UpmsResult;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
@@ -147,7 +147,7 @@ public class AmsProductController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess() || userId == null) {
-            return new UpmsResult(StatusCode.FAILED, result.getErrors());
+            return new ResultSet(StatusCode.ERROR_NONE, result.getErrors());
         }
         long id = IdGeneratorUtil.getKey("ams_product", 1000);
         amsProduct.setProductId(id);
@@ -158,9 +158,9 @@ public class AmsProductController extends BaseController {
         amsProductUser.setProductId(id);
         int count = amsProductService.insertProductAndUserRelation(amsProduct, amsProductUser);
         if (count > 0) {
-            return new UpmsResult(StatusCode.SUCCESS, count);
+            return new ResultSet(StatusCode.ERROR_NONE);
         }
-        return new UpmsResult(StatusCode.FAILED, count);
+        return new ResultSet(StatusCode.SQL_ERROR);
     }
 
     @ApiOperation(value = "产品详情")
@@ -247,9 +247,30 @@ public class AmsProductController extends BaseController {
     @ApiOperation(value = "编辑tab页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/update/tab/{iframeName}/{id}", method = RequestMethod.GET)
-    public String updateTab(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
+    public String updateTab(ModelMap modelMap, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
         if (null != iframeName) {
-
+            AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
+            modelMap.put("amsProduct", amsProduct);
+            //从中间表查询关联的用户
+            AmsProductUser amsProductUser = new AmsProductUser();
+            amsProductUser.setProductId(id);
+            List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
+            if (amsProductUsers != null && amsProductUsers.size() > 0) {
+                modelMap.put("amsProductUsers", amsProductUsers.get(0)); //暂时一对一
+            }
+            List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(getCurrentUser().getUserId());//获取当前的所属公司
+            List<Long> companyIds = new ArrayList<Long>();
+            for(UpmsCompany upmsCompany : upmsCompanies){
+                companyIds.add(upmsCompany.getCompanyId());//将id存放
+            }
+            List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(companyIds);//获取公司下的全部用户
+            List<Long> userIds = new ArrayList<Long>();
+            for (UpmsCompanyUser uc : upmsCompanyUsers) {
+                userIds.add(uc.getUserId());
+            }
+            List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
+            modelMap.put("users",users);
+            modelMap.put("upmsCompanies",upmsCompanies);
             return "/product/edit/" + iframeName + ".jsp";
         }
         return null;
@@ -257,29 +278,9 @@ public class AmsProductController extends BaseController {
     @ApiOperation(value = "编辑组织")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id, ModelMap modelMap) {
+    public String update(@PathVariable("id") long id,ModelMap modelMap) {
         AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
         modelMap.put("amsProduct", amsProduct);
-        //从中间表查询关联的用户
-        AmsProductUser amsProductUser = new AmsProductUser();
-        amsProductUser.setProductId(id);
-        List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
-        if (amsProductUsers != null && amsProductUsers.size() > 0) {
-            modelMap.put("amsProductUsers", amsProductUsers.get(0)); //暂时一对一
-        }
-        List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(getCurrentUser().getUserId());//获取当前的所属公司
-        List<Long> companyIds = new ArrayList<Long>();
-        for(UpmsCompany upmsCompany : upmsCompanies){
-            companyIds.add(upmsCompany.getCompanyId());//将id存放
-        }
-        List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(companyIds);//获取公司下的全部用户
-        List<Long> userIds = new ArrayList<Long>();
-        for (UpmsCompanyUser uc : upmsCompanyUsers) {
-            userIds.add(uc.getUserId());
-        }
-        List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
-        modelMap.put("users",users);
-        modelMap.put("upmsCompanies",upmsCompanies);
         return  "/product/edit/edit_product_tabs.jsp";
     }
 
@@ -293,7 +294,7 @@ public class AmsProductController extends BaseController {
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess() || userId == null) {
-            return new UpmsResult(StatusCode.FAILED, result.getErrors());
+            return new ResultSet(StatusCode.EMPTY_USERNAME);
         }
         AmsProductUser productUser = new AmsProductUser();
         productUser.setProductId(id);
@@ -302,9 +303,9 @@ public class AmsProductController extends BaseController {
         productUser.setUserId(userId);//修改后的user
         int count = amsProductService.updateProductAndUserRelation(amsProduct, productUser);
         if (count > 0) {
-            return new UpmsResult(StatusCode.SUCCESS, count);
+            return new ResultSet(StatusCode.ERROR_NONE);
         }
-        return new UpmsResult(StatusCode.FAILED, "修改产品出错！");
+        return new ResultSet(StatusCode.SQL_ERROR);
     }
 
     @ApiOperation(value = "删除产品")
@@ -320,7 +321,7 @@ public class AmsProductController extends BaseController {
                 idList.add(Long.parseLong(id));
                 count = amsProductService.deleteByPrimaryKeys(id);
             }
-            return new UpmsResult(StatusCode.SUCCESS, count);
+            return new ResultSet(StatusCode.ERROR_NONE);
         }
         return 0;
     }

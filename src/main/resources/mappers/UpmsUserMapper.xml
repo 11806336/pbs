@@ -104,6 +104,15 @@
     from upms_user
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
+  <select id="selectUsersById" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from upms_user
+    where user_id IN
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from upms_user
     where user_id = #{userId,jdbcType=BIGINT}
@@ -114,7 +123,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsUser">
+  <insert id="insert" parameterType="com.pbs.ams.web.model.UpmsUser" useGeneratedKeys="true" keyProperty="userId">
     insert into upms_user (user_id, username, password, 
       salt, realname, avatar, 
       phone, email, sex, 
@@ -124,7 +133,7 @@
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
       #{locked,jdbcType=TINYINT}, #{ctime,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUser">
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.UpmsUser" useGeneratedKeys="true" keyProperty="userId">
     insert into upms_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">

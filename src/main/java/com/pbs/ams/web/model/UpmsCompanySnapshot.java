@@ -43,7 +43,7 @@ public class UpmsCompanySnapshot implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer managerPhone;
+    private String managerPhone;
 
     /**
      * 负责人地址
@@ -136,11 +136,11 @@ public class UpmsCompanySnapshot implements Serializable {
         this.managerId = managerId;
     }
 
-    public Integer getManagerPhone() {
+    public String getManagerPhone() {
         return managerPhone;
     }
 
-    public void setManagerPhone(Integer managerPhone) {
+    public void setManagerPhone(String managerPhone) {
         this.managerPhone = managerPhone;
     }
 

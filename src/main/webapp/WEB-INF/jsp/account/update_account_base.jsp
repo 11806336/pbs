@@ -21,11 +21,51 @@
 <body>
 <div id="main">
     <form id="create_form">
-
+        <div class="control-group">
+            <label for="productId" class="control-label"><em class="rqd">*</em>产品列表：</label>
+            <div class="controls">
+                <select  name="productId" id="productId">
+                    <c:forEach var="amsProduct" items="${amsProducts}">
+                        <option value="${amsProduct.product_id}" <c:if
+                                test='${amsProduct.product_id == amsProductAccount.productId}'> selected='selected' </c:if>>
+                                ${amsProduct.product_name}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="brokerId" class="control-label"><em class="rqd">*</em>证券公司：</label>
+            <div class="controls">
+                <select name="brokerId" id="brokerId" disabled="disabled">
+                    <c:forEach var="amsBrokers" items="${amsBrokers}">
+                        <option value="${amsBrokers.broker_id}" <c:if
+                                test='${amsBrokers.broker_id == amsTradeAccount.brokerId}'> selected='selected' </c:if>>${amsBrokers.broker_name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="companyId" class="control-label"><em class="rqd">*</em>公司列表：</label>
+            <div class="controls">
+                <select  name="companyId" id="companyId" disabled="disabled">
+                    <c:forEach var="upmsCompany" items="${upmsCompany}">
+                        <option value="${upmsCompany.companyId}" <c:if test="${upmsCompany.companyId==amsTradeAccount.companyId}"> selected='selected' </c:if>>${upmsCompany.companyName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="tradeAccountName" class="control-label"><em class="rqd">*</em>证券账号名称：</label>
+            <div class="controls">
+                <input type="text" id="tradeAccountName" name="tradeAccountName" readonly="readonly" value="${amsTradeAccount.tradeAccountName}" onblur="" maxlength="25"><span class="tipsError"
+                                                                                                                                                            style="display: none; padding-left: 10px">请输入名称</span>
+            </div>
+        </div>
     <div class="control-group">
         <label for="tradeAccountPassword" class="control-label"><em class="rqd">*</em>密码：</label>
         <div class="controls">
-            <input type="password" maxlength="8" id="tradeAccountPassword" name="tradeAccountPassword" value="${amsStockAccount.tradeAccountPassword}"> <span class="tipsError"
+            <input type="password" maxlength="8" id="tradeAccountPassword" name="tradeAccountPassword" value="${amsTradeAccount.tradeAccountPassword}"> <span class="tipsError"
                                                                                                style="display: none; padding-left: 10px">请输入长度超过8位的字符串</span>
         </div>
     </div>
@@ -33,7 +73,7 @@
     <div class="control-group">
         <label for="passwordCheck" class="control-label">确认密码：</label>
         <div class="controls">
-            <input type="password" maxlength="20" id="passwordCheck" name="passwordCheck" value="${amsStockAccount.tradeAccountPassword}"> <span
+            <input type="password" maxlength="20" id="passwordCheck" name="passwordCheck" value="${amsTradeAccount.tradeAccountPassword}"> <span
                 class="tipsError" style="display: none; padding-left: 10px">请输入长度超过8位的字符串</span>
         </div>
     </div>
@@ -41,11 +81,11 @@
     <div class="radio">
         <div class="radio radio-inline radio-success" >
             <input id="status_1" type="radio" name="tradeAccountStatus" value="1"
-                   <c:if test="${amsStockAccount.tradeAccountStatus=='1'}">checked
+                   <c:if test="${amsTradeAccount.tradeAccountStatus=='1'}">checked
             </c:if>>
             <label for="status_1">正常 </label>
             <input id="status_0" type="radio" name="tradeAccountStatus" value="0"
-                   <c:if test="${amsStockAccount.tradeAccountStatus=='0'}">checked
+                   <c:if test="${amsTradeAccount.tradeAccountStatus=='0'}">checked
             </c:if>>
             <label for="status_0">锁定 </label>
         </div>
@@ -64,7 +104,7 @@
     $(document).on("click","#saveBrokerBtn",function () {
         $.ajax({
             type: 'POST',
-            url: '${basePath}/account/update/${amsStockAccount.tradeAccountId}',
+            url: '${basePath}/account/update/${amsTradeAccount.tradeAccountId}',
             data: $('#create_form').serialize(),
             success: function (data) {
                 console.info(data);

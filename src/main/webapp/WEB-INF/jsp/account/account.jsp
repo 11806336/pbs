@@ -42,7 +42,6 @@
         {field: 'trade_account', title: '证券资金账号'},
         {field: 'trade_account_name', title: '账号名称'},
         {field: 'broker_id', title: '证券公司ID'},
-        {field: 'trade_account_status', title: '状态'},
         {field: 'create_time', title: '创建时间'},
         {field: 'update_time', title: '修改时间'},
         {field: 'operator_id', title: '创建人'},
@@ -83,34 +82,72 @@
             ids.push(rows[i].trade_account_id);
         }
         return [
-            "<a class='selected' href='javascript:;' onclick=dialog('/account/update','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
+            "<a class='selected' href='javascript:;' onclick=dialog('/account/edit','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
             "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','详情'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
             "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','tradeAccountId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
     function expot() {
-        $.ajax({
-           url:"/account/export",
-            type:'post',
-            success : function(){
-                alert(1)
-            }
-        });
+        if(confirm("确定导出？")){
+            $.ajax({
+                url:"/account/export",
+                type:'post',
+                success : function(){
+                    alert("导出成功")
+                }
+            });
+        }
+        else
+        {
+            alert("取消成功");
+        }
     }
     //格式化设置开关按钮
     function set(value, row, index) {
+        var rows = $table.bootstrapTable('getSelections');
+      if(row.trade_account_status === "1"){
         return [
             '<label> ' +
-            '<input onchange="open_close(this)" name="switch-field-1" checked="checked" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
+            '<input onchange="open_close(this)" name="switch-field-1"  checked="checked" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
             '<span class="lbl"></span>' +
             ' </label>'
         ].join('');
+    }else {
+          return [
+              '<label> ' +
+              '<input onchange="open_close(this)" name="switch-field-1" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
+              '<span class="lbl"></span>' +
+              ' </label>'
+          ].join('');
+      }
     }
     //启用、停用开关按钮的方法
     function open_close(obj) {
-        //obj==this; status状态，值为turn为启用，为false就是停用
+        //obj==this; status状态，值为ture为启用，为false就是停用
+        var rows = $table.bootstrapTable('getSelections');
+        if(rows.length==0){
+            alert("请选择一条记录")
+        }
+        var tradeAccoundId=rows[0].trade_account_id;
+
         var status=$(obj).context.checked;
-        alert(status);
+        var accountStatus=rows[0].trade_account_status;
+        $.ajax({
+            type: 'POST',
+            url: '${basePath}/account/updateStatus/'+tradeAccoundId,
+            data: {status : accountStatus},
+            success: function (data) {
+                console.info(data);
+                if (data.message == '成功') {
+                    if (status == true)
+                        status=false;
+                    } else {
+                        status=true;
+                }
+            },
+            error: function () {
+            }
+        });
     }
 </script>
 </body>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.AmsStockBlackWhiteListMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsStockBlackWhiteList">
+    <id column="black_white_id" jdbcType="BIGINT" property="blackWhiteId" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="stock_id" jdbcType="BIGINT" property="stockId" />
+    <result column="market_id" jdbcType="BIGINT" property="marketId" />
+    <result column="is_global" jdbcType="BIT" property="isGlobal" />
+    <result column="is_black" jdbcType="BIT" property="isBlack" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    black_white_id, company_id, stock_id, market_id, is_global, is_black, create_time, 
+    update_time, operator_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ams_stock_black_white_list
+    where black_white_id = #{blackWhiteId,jdbcType=BIGINT}
+  </select>
+  <select id="selectProductWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+    select
+    <include refid="Base_Column_List" />
+    from ams_stock_black_white_list where 1=1
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ams_stock_black_white_list
+    where black_white_id = #{blackWhiteId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsStockBlackWhiteList">
+    insert into ams_stock_black_white_list (black_white_id, company_id, stock_id, 
+      market_id, is_global, is_black, 
+      create_time, update_time, operator_id
+      )
+    values (#{blackWhiteId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{stockId,jdbcType=BIGINT}, 
+      #{marketId,jdbcType=BIGINT}, #{isGlobal,jdbcType=BIT}, #{isBlack,jdbcType=BIT}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsStockBlackWhiteList">
+    insert into ams_stock_black_white_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blackWhiteId != null">
+        black_white_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="marketId != null">
+        market_id,
+      </if>
+      <if test="isGlobal != null">
+        is_global,
+      </if>
+      <if test="isBlack != null">
+        is_black,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blackWhiteId != null">
+        #{blackWhiteId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="stockId != null">
+        #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="marketId != null">
+        #{marketId,jdbcType=BIGINT},
+      </if>
+      <if test="isGlobal != null">
+        #{isGlobal,jdbcType=BIT},
+      </if>
+      <if test="isBlack != null">
+        #{isBlack,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsStockBlackWhiteList">
+    update ams_stock_black_white_list
+    <set>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="stockId != null">
+        stock_id = #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="marketId != null">
+        market_id = #{marketId,jdbcType=BIGINT},
+      </if>
+      <if test="isGlobal != null">
+        is_global = #{isGlobal,jdbcType=BIT},
+      </if>
+      <if test="isBlack != null">
+        is_black = #{isBlack,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where black_white_id = #{blackWhiteId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsStockBlackWhiteList">
+    update ams_stock_black_white_list
+    set company_id = #{companyId,jdbcType=BIGINT},
+      stock_id = #{stockId,jdbcType=BIGINT},
+      market_id = #{marketId,jdbcType=BIGINT},
+      is_global = #{isGlobal,jdbcType=BIT},
+      is_black = #{isBlack,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      operator_id = #{operatorId,jdbcType=BIGINT}
+    where black_white_id = #{blackWhiteId,jdbcType=BIGINT}
+  </update>
+  <insert id="insertIntoAmsStockBlackWhiteListSnaps">
+    insert into ams_stock_black_white_list_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_stock_black_white_list as tb where black_white_id= #{black_white_id}
+  </insert>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

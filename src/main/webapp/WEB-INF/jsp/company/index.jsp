@@ -40,7 +40,7 @@
         {field: 'companyId', title: '公司ID'},
         {field: 'companyName', title: '公司名称'},
         {field: 'managerId', title: '负责人ID'},
-        {field: 'companyPhone', title: '公司电话'},
+        {field: 'managerPhone', title: '负责人电话'},
         {field: 'companyAddress', title: '公司地址'},
         {field: 'companyFax', title: '公司传真'},
         {field: 'createTime', title: '创建时间'},

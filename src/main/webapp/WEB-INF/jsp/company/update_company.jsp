@@ -24,21 +24,21 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <%--<div class="control-group">
             <label for="operator_id" class="control-label"><em class="rqd">*</em>操作人ID：</label>
             <div class="controls">
                 <input type="text" id="operator_id" name="operatorId" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="${company.operatorId}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入操作人ID</span>
             </div>
-        </div>
-
-       <%-- <div class="control-group">
-            <label for="company_phone" class="control-label"><em class="rqd">*</em>公司电话：</label>
-            <div class="controls">
-                <input type="text" id="company_phone" name="companyPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司电话</span>
-            </div>
         </div>--%>
+
+        <div class="control-group">
+            <label for="manager_phone" class="control-label"><em class="rqd">*</em>负责人电话：</label>
+            <div class="controls">
+                <input type="text" id="manager_phone" name="managerPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <span class="tipsError">请输入负责人电话</span>
+            </div>
+        </div>
         <div class="control-group">
             <label for="company_address" class="control-label"><em class="rqd">*</em>公司地址：</label>
             <div class="controls">

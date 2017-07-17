@@ -10,15 +10,14 @@
 <head>
     <meta charset="UTF-8">
     <title>总览</title>
-
-    <link rel="import" href="${basePath}/resources/inc/head.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
 <div id="main">
     <table id="accountOverviewTable"></table>
 </div>
 
-<link rel="import" href="${basePath}/resources/inc/foot.jsp">
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
     //下拉框选择
     $("#platform_add").select2({
@@ -26,24 +25,24 @@
     });
 
     var $table = $('#accountOverviewTable');
-    var url_json = "${basePath}/resources/data/product_account.json";
+    var url_json = "/product/overview";
 
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
-        {field: 'accountId', title: '账号ID', visible: false},
+        {field: 'trade_account_id', title: '账号ID', visible: false},
         {field: 'accountCode', title: '账号名'},
-        {field: 'accountName', title: '账号名称'},
+        {field: 'trade_account_name', title: '账号名称'},
         {field: 'accountCategory', title: '账号类别'},
         {field: 'accountType', title: '类型'},
         {field: 'accountStatus', title: '状态'},
         {field: 'broker', title: '经济公司'},
         {field: 'breakEven', title: '持仓盈亏'},
-        {field: 'availableFunds', title: '可用资金'},
+        {field: 'available_fund', title: '可用资金'},
         {field: 'totalAssets', title: '总资产'}
     ];
 
     // 设置分页
-    var sidePagination = 'client';
+    var sidePagination = 'server';
 
     // 指定主键列
     var idField = 'accountId';

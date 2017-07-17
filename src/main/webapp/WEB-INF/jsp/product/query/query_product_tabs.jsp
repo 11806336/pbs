@@ -10,11 +10,28 @@
 <head>
     <meta charset="UTF-8">
     <title>查询产品</title>
-    <link rel="import" href="${basePath}/resources/inc/head.jsp">
+    <jsp:include page="/resources/inc/head.jsp" flush="true"/>
     <!--二级选项卡-->
-    <link href="${basePath}/resources/inc/tabJS.jsp" rel="stylesheet"/>
+    <link href="/resources/css/tab2.css" rel="stylesheet"/>
 </head>
 <body>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
+<script>
+    $(document).on('click', '.tabs li', function() {
+        // 切换选项卡
+        $('.tabs li').removeClass('cur');
+        $(this).addClass('cur');
+        // 切换iframe
+        $('.tab_iframe').removeClass('cur');
+        $('.iframe').hide();
+        $('#iframe_' + $(this).data('index')).addClass('cur');
+        $('#iframe_' + $(this).data('index')).show();
+    });
+    // iframe高度自适应
+    function changeFrameHeight(ifm) {
+        ifm.height = document.documentElement.clientHeight - 118;
+    }
+</script>
 <section style="height:100%;">
     <div class="content_tab" style="background-color: #333;">
         <div class="tab_left">
@@ -44,31 +61,21 @@
     </div>
     <div class="content_main">
         <div id="iframe__query_product_overview" class="iframe cur">
-            <iframe class="tab_iframe" src="product_account_overview.jsp" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/product/details/tab/product_account_overview/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe__query_product_directive" class="iframe">
-            <iframe class="tab_iframe" src="product_directive_overview.jsp" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/product/details/tab/product_directive_overview/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe__query_product_task" class="iframe">
-            <iframe class="tab_iframe" src="product_task_overview.jsp" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/product/details/tab/product_task_overview/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe__query_product_stock_holding" class="iframe">
-            <iframe class="tab_iframe" src="product_stock_holding_overview.jsp" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/product/details/tab/product_stock_holding_overview/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
         <div id="iframe__query_product_other" class="iframe">
-            <iframe class="tab_iframe" src="product_other_overview.jsp" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
+            <iframe class="tab_iframe" src="/product/details/tab/product_other_overview/${amsProduct.productId}" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe>
         </div>
     </div>
 </section>
-<script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/plugins/waves-0.7.5/waves.min.js"></script>
-<script src="${basePath}/resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="${basePath}/resources/plugins/device.min.js"></script>
-<script src="${basePath}/resources/plugins/fullPage/jquery.fullPage.min.js"></script>
-<script src="${basePath}/resources/plugins/fullPage/jquery.jdirk.min.js"></script>
-<script src="${basePath}/resources/plugins/jquery.cookie.js"></script>
-
-<script src="${basePath}/resources/js/admin.js"></script>
 </body>
 </html>

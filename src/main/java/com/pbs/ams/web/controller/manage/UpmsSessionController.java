@@ -1,8 +1,8 @@
 package com.pbs.ams.web.controller.manage;
 
+import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.client.shiro.session.UpmsSessionDao;
-import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +44,7 @@ public class UpmsSessionController extends BaseController {
     @ResponseBody
     public Object forceout(@PathVariable("ids") String ids) {
         int count = upmsSessionDao.forceout(ids);
-        return new ResultSet(StatusCode.ERROR_NONE, count);
+        return new ResultSet(StatusCode.ERROR_NONE);
     }
 
 }

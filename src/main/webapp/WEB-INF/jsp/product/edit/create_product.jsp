@@ -29,7 +29,6 @@
     </div>
     <div class="control-group">
         <label for="companyList" class="control-label"><em class="rqd">*</em>经纪公司：</label>
-        ${users}1111
         <div class="controls">
             <select name="companyId" id="companyList">
                 <option value="0"> ---请选择--- </option>

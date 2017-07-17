@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=utf-8"%>
+﻿﻿<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -15,6 +15,17 @@
 					<option value="0">---请选择---</option>
 					<c:forEach var="company" items="${upmsCompanies}">
 						<option value="${company.companyId}" <c:if test='${company.companyId == user.companyId}'> selected='selected' </c:if>>${company.companyName}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="companyId" class="control-label control-label2">关联产品：</label>
+			<div class="controls">
+				<select name="productId" id="productId">
+					<option value="0">---请选择---</option>
+					<c:forEach var="product" items="${products}">
+						<option value="${product.product_id}" <c:if test='${product.product_id == amsProductUsers.productId}'> selected='selected' </c:if>>${product.product_name}</option>
 					</c:forEach>
 				</select>
 			</div>

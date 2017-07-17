@@ -13,9 +13,16 @@ public interface UpmsCompanyUserService {
 
 
     /**
-     * get company by by current user`s id
+     * get company by user`s id
      * @param userId
      * @return List<UpmsCompany>
      */
     List<UpmsCompanyUser> getCompaniesByUserId(Long userId);
+
+    /**
+     * get user by company id
+     * @param companyIds
+     * @return List<UpmsCompany>
+     */
+    List<UpmsCompanyUser> getUsersByCompanyId(List<Long> companyIds);
 }

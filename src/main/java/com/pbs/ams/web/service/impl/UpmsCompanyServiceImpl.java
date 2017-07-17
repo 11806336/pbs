@@ -1,8 +1,10 @@
 package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.web.mappers.UpmsCompanyMapper;
+import com.pbs.ams.web.mappers.UpmsCompanyUserMapper;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanySnapshot;
+import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -28,6 +30,8 @@ public class UpmsCompanyServiceImpl implements UpmsCompanyService {
     @Autowired
     private UpmsCompanyMapper upmsCompanyMapper;
 
+    @Autowired
+    private UpmsCompanyUserMapper upmsCompanyUserMapper;
 
     @Override
     public int deleteCompany(List<Long> ids) {
@@ -111,5 +115,18 @@ public class UpmsCompanyServiceImpl implements UpmsCompanyService {
     @Override
     public List<UpmsCompany> selectCompanyByUserId(Long userId) {
         return upmsCompanyMapper.selectCompanyByUserId(userId);
+    }
+
+    @Override
+    public int insertCompanyAndRelation(UpmsCompany company, UpmsCompanyUser upmsCompanyUser) {
+        if (null != company && null != upmsCompanyUser) {
+            int result = 0;
+            int count = upmsCompanyMapper.insertCompany(company);
+            if (count > 0) {//公司插入成功的再向关系表中插入信息
+                result = upmsCompanyUserMapper.insertSelective(upmsCompanyUser);
+            }
+            return result;
+        }
+        return 0;
     }
 }

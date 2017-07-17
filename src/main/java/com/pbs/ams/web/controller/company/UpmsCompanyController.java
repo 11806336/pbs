@@ -1,15 +1,15 @@
 package com.pbs.ams.web.controller.company;
 
 
-
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.pbs.ams.common.constant.ResultSet;
-import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.IdGeneratorUtil;
+import com.pbs.ams.common.util.ValidateUtil;
 import com.pbs.ams.common.validator.LengthValidator;
+import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.model.UpmsUser;
@@ -26,7 +26,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 公司controller
@@ -116,17 +119,25 @@ public class UpmsCompanyController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object create(UpmsCompany upmsCompany) {
-        ComplexResult result = FluentValidator.checkAll()
-                .on(upmsCompany.getCompanyName(), new LengthValidator(1, 20, "名称"))
-                .doValidate()
-                .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new ResultSet(StatusCode.INVALID_LENGTH, result.getErrors());
+        if (!ValidateUtil.verifyLength(upmsCompany.getCompanyName(), 1, 20)) {
+            return new ResultSet(StatusCode.INVALID_LENGTH, "公司名长度不符合要求！");
         }
-        Long id = IdGeneratorUtil.getKey("upms_company");
-        upmsCompany.setCompanyId(id);//获取公司id
-        int count = upmsCompanyService.insertCompany(upmsCompany);
-        return new ResultSet(StatusCode.ERROR_NONE, count);
+        UpmsUser user = getCurrentUser();
+        if (user != null) {
+            Long id = IdGeneratorUtil.getKey("upms_company");
+            Long userId = user.getUserId();
+            upmsCompany.setCompanyId(id);//获取公司id
+            upmsCompany.setOperatorId(userId);
+            //创建关系对象
+            UpmsCompanyUser upmsCompanyUser = new UpmsCompanyUser();
+            upmsCompanyUser.setCompanyUserId(IdGeneratorUtil.getKey("upms_company_user"));
+            upmsCompanyUser.setCompanyId(id);
+            upmsCompanyUser.setUserId(userId);
+            int count = upmsCompanyService.insertCompanyAndRelation(upmsCompany, upmsCompanyUser);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
+        } else {
+            return new ResultSet(StatusCode.INVALID_INSERT, "新增公司出错！");
+        }
     }
 
 

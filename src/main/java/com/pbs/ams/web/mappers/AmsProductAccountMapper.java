@@ -3,6 +3,9 @@ package com.pbs.ams.web.mappers;
 import com.pbs.ams.web.model.AmsProductAccount;
 
 public interface AmsProductAccountMapper {
+
+    AmsProductAccount getProductIdByAccountId(Long acountId);
+
     int deleteByPrimaryKey(Long productTradeAccountId);
 
     int insert(AmsProductAccount record);

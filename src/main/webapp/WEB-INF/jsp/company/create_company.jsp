@@ -26,21 +26,21 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <%--<div class="control-group">
             <label for="operator_id" class="control-label"><em class="rqd">*</em>操作人ID：</label>
             <div class="controls">
                 <input type="text" id="operator_id" name="operatorId" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="${company.operatorId}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入操作人ID</span>
             </div>
-        </div>
-
-        <%--<div class="control-group">
-            <label for="company_phone" class="control-label"><em class="rqd">*</em>公司电话：</label>
-            <div class="controls">
-                <input type="text" id="company_phone" name="companyPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司电话</span>
-            </div>
         </div>--%>
+
+        <div class="control-group">
+            <label for="manager_phone" class="control-label"><em class="rqd">*</em>负责人电话：</label>
+            <div class="controls">
+                <input type="text" id="manager_phone" name="managerPhone"   onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <span class="tipsError">请输入负责人电话</span>
+            </div>
+        </div>
         <div class="control-group">
             <label for="company_address" class="control-label"><em class="rqd">*</em>公司地址：</label>
             <div class="controls">
@@ -94,24 +94,24 @@
     });
     //保存公司
     $(document).on("click","#saveBrokerBtn",function () {
-        var company_name=$("#company_name").val(),//公司名称
-            operator_id=$("#operator_id").val(),//操作人ID
-         //   company_phone=$("#company_phone").val(),//公司电话
-            company_address=$("#company_address").val(),//公司地址
-            company_fax=$("#company_fax").val(),//公司传真
-            description=$("#comments").val();//备注
+        var company_name=$("#company_name").val();//公司名称
+        var operator_id=$("#operator_id").val();//操作人ID
+        var manager_phone=$("#manager_phone").val();//公司电话
+        var company_address=$("#company_address").val();//公司地址
+        var company_fax=$("#company_fax").val();//公司传真
+        var description=$("#comments").val();//备注
         if(company_name == "" || /^\s*$/g.test(company_name)){
             alert("请正确输入公司名称");
             return false;
         }
-        if(operator_id == "" || /^\s*$/g.test(operator_id)){
+        /*if(operator_id == "" || /^\s*$/g.test(operator_id)){
             alert("请正确输入操作人ID");
             return false;
-        }
-        /*if(!/^\d{3,4}\-\d{7,8}$/.test(company_phone)){
-            alert("请正确输入公司电话");
-            return false;
         }*/
+        if(!(/^1[34578]\d{9}$/.test(manager_phone))){
+            alert("请正确输入负责人电话");
+            return false;
+        }
         if(company_fax == "" || /^\s*$/g.test(company_fax)){
             alert("请正确输入公司传真");
             return false;
@@ -122,7 +122,7 @@
             data: {
                 "companyName":company_name,
                 "operatorId":operator_id,
-            //    "companyPhone":company_phone,
+                "managerPhone":manager_phone,
                 "companyAddress":company_address,
                 "companyFax":company_fax,
                 "description":description

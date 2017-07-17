@@ -43,6 +43,33 @@
     from ams_stock_holding
     where stock_holding_id = #{stockHoldingId,jdbcType=BIGINT}
   </select>
+<!--查询持仓列表-->
+  <select id="selectStockHoldingWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+    select
+    <include refid="Base_Column_List" />
+    from ams_stock_holding
+    where 1 = 1
+    <if test="positionDate != null and positionDate != ''">
+      and position_date = ${positionDate}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null"> limit ${offset}, ${limit} </if>
+      <if test="offset == null"> limit ${limit} </if>
+    </if>
+  </select>
+
+  <!--查询数量-->
+  <select id="selectStockHoldingWithDetailCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM ams_stock_holding
+    <!--<if test="search!=null">-->
+      <!--<where>-->
+        <!--ab.broker_name LIKE CONCAT('%','${search}','%' )-->
+      <!--</where>-->
+    <!--</if>-->
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_stock_holding
     where stock_holding_id = #{stockHoldingId,jdbcType=BIGINT}

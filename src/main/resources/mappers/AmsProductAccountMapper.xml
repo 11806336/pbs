@@ -9,6 +9,12 @@
   <sql id="Base_Column_List">
     product_trade_account_id, product_id, trade_account_id
   </sql>
+  <select id="getProductIdByAccountId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ams_product_account
+    where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
