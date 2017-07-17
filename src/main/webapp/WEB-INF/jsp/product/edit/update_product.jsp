@@ -182,6 +182,7 @@
                 console.info(data);
                 if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    alert(index);
                     parent.layer.close(index);
                     window.parent.refresh();
                 }
