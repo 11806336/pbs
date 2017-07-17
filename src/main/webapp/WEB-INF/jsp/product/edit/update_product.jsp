@@ -97,7 +97,7 @@
             <label class="control-label" for="productShareSource">产品总份额来源：</label>
             <div class="controls">
                 <label class="radio inline" style="min-width:60px;">
-                    <input class="productShareSource" checked="checked" type="radio" name="productShareSource" id="productShareSource" value="1">自定义
+                    <input class="productShareSource" checked="checked" type="radio" name="productShareSource"  value="1">自定义
                 </label>
                 <label class="radio inline" style="min-width:60px;">
                     <input class="productShareSource" type="radio" name="productShareSource" id="productShareSource" value="2"> O32读取
@@ -180,9 +180,10 @@
             data: $('#update_form').serialize(),
             success: function (data) {
                 console.info(data);
-                if (data.message == 'success') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
+                    window.parent.refresh();
                 }
             } ,
             error: function () {

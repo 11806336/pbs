@@ -35,7 +35,7 @@
         <div class="control-group">
             <label for="manager_phone" class="control-label"><em class="rqd">*</em>负责人电话：</label>
             <div class="controls">
-                <input type="text" id="manager_phone" name="managerPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <input type="text" id="manager_phone" name="managerPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="${company.managerPhone}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入负责人电话</span>
             </div>
         </div>
@@ -126,7 +126,7 @@
                 "description":description
             } ,
             success: function (data) {
-                if (data.message == '成功') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();

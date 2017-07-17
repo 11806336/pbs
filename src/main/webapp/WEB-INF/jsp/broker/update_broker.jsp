@@ -122,7 +122,7 @@
             url: '${basePath}/ams/broker/update/${amsBrokers.brokerId}',
             data: $('#updateForm').serialize(),
             success: function (data) {
-                if (data.message == '成功') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();
