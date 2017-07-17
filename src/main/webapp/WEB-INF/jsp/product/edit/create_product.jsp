@@ -29,6 +29,7 @@
     </div>
     <div class="control-group">
         <label for="companyList" class="control-label"><em class="rqd">*</em>经纪公司：</label>
+        ${users}1111
         <div class="controls">
             <select name="companyId" id="companyList">
                 <option value="0"> ---请选择--- </option>
@@ -37,6 +38,17 @@
                 </c:forEach>
             </select>
             <span class="tipsError">保存后不可更改</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="userId" class="control-label control-label2"><em class="rqd">*</em>绑定用户：</label>
+        <div class="controls">
+            <select name="userId" id="userId">
+                <option value="0">---请选择---</option>
+                <c:forEach var="user" items="${users}">
+                    <option value="${user.userId}">${user.username}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
     <div class="control-group">
@@ -89,7 +101,7 @@
                 <input class="productShareSource" checked="checked" type="radio" name="productShareSource" id="productShareSource" value="1">自定义
             </label>
             <label class="radio inline" style="min-width:60px;">
-                <input class="productShareSource" type="radio" name="productShareSource" id="productShareSource" value="2"> O32读取
+                <input class="productShareSource" type="radio" name="productShareSource"  value="2"> O32读取
             </label>
             <br>
         </div>
@@ -115,7 +127,7 @@
         <label class="control-label" for="productStatus"><em class="rqd">*</em>产品状态：</label>
         <div class="controls">
             <label class="radio inline" style="min-width:60px;">
-                <input checked="checked" type="radio" name="productStatus" id="productStatus" value="1"> 启用
+                <input checked="checked" type="radio" name="productStatus"  value="1"> 启用
             </label>
             <label class="radio inline" style="min-width:60px;">
                 <input type="radio" name="productStatus" id="productStatus" value="0"> 禁用

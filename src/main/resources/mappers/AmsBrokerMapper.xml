@@ -16,7 +16,7 @@
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name, 
+    broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name,
     creditable, day_begin, day_end, create_time, update_time, operator_id
   </sql>
   <!--根据ID查询券商-->

@@ -41,9 +41,9 @@
     ak.operator_id
     FROM ams_entrust ae join ams_trade_account at
     on at.company_id = ae.company_id join ams_knock ak on at.company_id = ak.company_id where 1 = 1
-    <if test="company_id != null">
-      and ae.company_id = #{company_id,jdbcType=BIGINT}
-    </if>
+    <!--<if test="company_id != null">-->
+      <!--and ae.company_id = #{company_id,jdbcType=BIGINT}-->
+    <!--</if>-->
     <if test="limit != null">
       <if test="offset != null"> limit ${offset}, ${limit} </if>
       <if test="offset == null"> limit ${limit} </if>

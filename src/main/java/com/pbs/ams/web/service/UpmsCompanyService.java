@@ -4,7 +4,6 @@ import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsCompanySnapshot;
 import com.pbs.ams.web.model.UpmsCompanyUser;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 * 基金公司服务接口
 * Created by ams on 2017/6/20.
 */
-public interface    UpmsCompanyService {
+public interface UpmsCompanyService {
 
     /**
      * 根据id删除公司
