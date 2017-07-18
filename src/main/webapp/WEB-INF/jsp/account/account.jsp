@@ -42,8 +42,22 @@
         {field: 'trade_account', title: '证券资金账号'},
         {field: 'trade_account_name', title: '账号名称'},
         {field: 'broker_id', title: '证券公司ID'},
-        {field: 'create_time', title: '创建时间'},
-        {field: 'update_time', title: '修改时间'},
+        {
+            field: 'create_time',
+            title: '创建时间',
+            align: 'center',
+            formatter: 'createTime',
+            events: 'Events',
+            clickToSelect: false
+        },
+        {
+            field: 'update_time',
+            title: '修改时间',
+            align: 'center',
+            formatter: 'updateTime',
+            events: 'actionEvents',
+            clickToSelect: false
+        },
         {field: 'operator_id', title: '创建人'},
         {
             field: 'action',
@@ -73,6 +87,18 @@
     var search = true;
     var showRefresh = true;
     var showColumns = true;
+    //格式化修改时间
+    function createTime(value, row, index) {
+        var ctime=row.update_time+"";
+        var create_time=ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
+        return create_time;
+    }
+    //格式化更新时间
+    function updateTime(value, row, index) {
+        var ctime=row.create_time+"";
+        var create_time=ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
+        return create_time;
+    }
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         var rows = $table.bootstrapTable('getSelections');

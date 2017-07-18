@@ -73,7 +73,14 @@
         {field: 'stock_total_value', title: '股票总市值'},
         {field: 'short_total_value', title: '空单总市值'},
         {field: 'realname', title: '创建人'},
-        {field: 'create_time', title: '创建时间'},
+        {
+            field: 'create_time',
+            title: '创建时间',
+            align: 'center',
+            formatter: 'createTime',
+            events: 'Events',
+            clickToSelect: false
+        },
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     // 设置分页
@@ -85,6 +92,12 @@
     var search=true;
     var showRefresh=true;
     var showColumns= true;
+    //格式化修改时间
+    function createTime(value, row, index) {
+        var ctime=row.create_time+"";
+        var create_time=ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
+        return create_time;
+    }
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         var rows = $table.bootstrapTable('getSelections');
