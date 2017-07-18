@@ -5,6 +5,7 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.ExcelUtil;
@@ -14,7 +15,6 @@ import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.*;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -66,14 +66,14 @@ public class AmsProductController extends BaseController {
 
     @Autowired
     private AmsBrokerService amsBrokerService;
-    @ApiOperation(value = "产品管理首页")
+    @Log(value = "产品管理首页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "/product/index.jsp";
     }
 
-    @ApiOperation(value = "产品列表")
+    @Log(value = "产品列表")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -105,7 +105,7 @@ public class AmsProductController extends BaseController {
     }
 
 
-    @ApiOperation(value = "新增产品页")
+    @Log(value = "新增产品页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/createProduct", method = RequestMethod.GET )
     public String createProduct(HttpServletRequest request) {
@@ -130,7 +130,7 @@ public class AmsProductController extends BaseController {
     }
 
 
-    @ApiOperation(value = "新增产品")
+    @Log(value = "新增产品")
     @RequiresPermissions("ams:product:read")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST )
@@ -163,7 +163,7 @@ public class AmsProductController extends BaseController {
         return new ResultSet(StatusCode.SQL_ERROR);
     }
 
-    @ApiOperation(value = "产品详情")
+    @Log(value = "产品详情")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") long id, HttpServletRequest request) {
@@ -172,7 +172,7 @@ public class AmsProductController extends BaseController {
         return "/product/query/query_product_tabs.jsp";
     }
 
-    @ApiOperation(value = "详情tab页")
+    @Log(value = "详情tab页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/details/tab/{iframeName}/{id}", method = RequestMethod.GET)
     public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
@@ -184,7 +184,7 @@ public class AmsProductController extends BaseController {
         return null;
     }
 
-    @ApiOperation(value = "总览列表")
+    @Log(value = "总览列表")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/overview", method = RequestMethod.GET)
     @ResponseBody
@@ -202,7 +202,7 @@ public class AmsProductController extends BaseController {
         return result;
     }
 
-    @ApiOperation(value = "持仓列表")
+    @Log(value = "持仓列表")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/stockHolding", method = RequestMethod.GET)
     @ResponseBody
@@ -225,7 +225,7 @@ public class AmsProductController extends BaseController {
         return result;
     }
 
-//    @ApiOperation(value = "指令列表")
+//    @Log(value = "指令列表")
 //    @RequiresPermissions("ams:product:read")
 //    @RequestMapping(value = "/stockHolding", method = RequestMethod.GET)
 //    @ResponseBody
@@ -244,7 +244,7 @@ public class AmsProductController extends BaseController {
 //    }
 
 
-    @ApiOperation(value = "编辑tab页")
+    @Log(value = "编辑tab页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/update/tab/{iframeName}/{id}", method = RequestMethod.GET)
     public String updateTab(ModelMap modelMap, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
@@ -275,7 +275,7 @@ public class AmsProductController extends BaseController {
         }
         return null;
     }
-    @ApiOperation(value = "编辑组织")
+    @Log(value = "编辑组织")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id,ModelMap modelMap) {
@@ -284,7 +284,7 @@ public class AmsProductController extends BaseController {
         return  "/product/edit/edit_product_tabs.jsp";
     }
 
-    @ApiOperation(value = "修改产品")
+    @Log(value = "修改产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
@@ -308,7 +308,7 @@ public class AmsProductController extends BaseController {
         return new ResultSet(StatusCode.SQL_ERROR);
     }
 
-    @ApiOperation(value = "删除产品")
+    @Log(value = "删除产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
@@ -326,7 +326,7 @@ public class AmsProductController extends BaseController {
         return 0;
     }
 
-    @ApiOperation(value = "导出数据")
+    @Log(value = "导出数据")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/export", method = RequestMethod.POST)
     public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, HttpServletResponse response){

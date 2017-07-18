@@ -240,7 +240,7 @@ public class UpmsUserController extends BaseController {
             //先从公司用户中间表查询公司，再根据公司得到产品列表。
             List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getCompaniesByUserId(user.getUserId());
             productParams.put("companyIds", upmsCompanyUsers);
-            List<Map> products = amsProductService.selectProduct(productParams);
+            List<Map> products = amsProductService.selectProductWithDetail(productParams);
 
             List<Long> ids = new ArrayList<Long>();
             List<UpmsCompanyUser> companyUserList = upmsCompanyUserService.getCompaniesByUserId(user.getUserId());
@@ -288,7 +288,6 @@ public class UpmsUserController extends BaseController {
         }
         return new ResultSet(StatusCode.INVALID_LENGTH, "新增用户出错！");
     }
-
     @ApiOperation(value = "删除用户")
     @RequiresPermissions("upms:user:delete")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
@@ -309,7 +308,7 @@ public class UpmsUserController extends BaseController {
         //先从公司用户中间表查询公司，再根据公司得到产品列表。
         List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getCompaniesByUserId(getCurrentUser().getUserId());
         params.put("companyIds", upmsCompanyUsers);
-        List<Map> products = amsProductService.selectProduct(params);
+        List<Map> products = amsProductService.selectProductWithDetail(params);
 
         Map<String, Object> map = new HashMap<String, Object>();
         List<Long> ids = new ArrayList<Long>();

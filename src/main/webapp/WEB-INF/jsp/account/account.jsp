@@ -146,6 +146,7 @@
                 }
             },
             error: function () {
+                alert("error")
             }
         });
     }
