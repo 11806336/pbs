@@ -35,7 +35,7 @@
         <div class="control-group">
             <label for="manager_phone" class="control-label"><em class="rqd">*</em>负责人电话：</label>
             <div class="controls">
-                <input type="text" id="manager_phone" name="managerPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+                <input type="text" id="manager_phone" name="managerPhone" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="${company.managerPhone}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
                 <span class="tipsError">请输入负责人电话</span>
             </div>
         </div>
@@ -61,7 +61,7 @@
         <div class="control-group">
             <label class="control-label" for="comments">备注：</label>
             <div class="controls">
-                <textarea id="comments" style="width:440px;" rows="10" cols="40" name="comments"></textarea>
+                <textarea id="comments" style="width:440px;" rows="10" cols="40" name="description">${company.description}</textarea>
                 <span class="tips-warning"></span>
                 <span class="tipsError"></span>
             </div>
@@ -94,7 +94,7 @@
     $(document).on("click","#saveBrokerBtn",function () {
         var company_name=$("#company_name").val(),//公司名称
             operator_id=$("#operator_id").val(),//操作人ID
-            //company_phone=$("#company_phone").val(),//公司电话
+            manager_phone=$("#manager_phone").val(),//公司电话
             company_address=$("#company_address").val(),//公司地址
             company_fax=$("#company_fax").val(),//公司传真
             description=$("#comments").val();//备注
@@ -120,13 +120,13 @@
             data: {
                 "companyName":company_name,
                 "operatorId":operator_id,
-             //   "companyPhone":company_phone,
+                "managerPhone":manager_phone,
                 "companyAddress":company_address,
                 "companyFax":company_fax,
                 "description":description
             } ,
             success: function (data) {
-                if (data.message == '成功') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();
