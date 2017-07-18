@@ -18,57 +18,57 @@
 </head>
 <body>
 <div id="main">
-        <div class="control-group">
-            <label for="company_name" class="control-label"><em class="rqd">*</em>公司名称：</label>
-            <div class="controls">
-                <input type="text" id="company_name" name="companyName" value="${company.companyName}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司名称</span>
-            </div>
+    <div class="control-group">
+        <label for="company_name" class="control-label"><em class="rqd">*</em>公司名称：</label>
+        <div class="controls">
+            <input type="text" id="company_name" name="companyName" value="${company.companyName}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+            <span class="tipsError">请输入公司名称</span>
         </div>
+    </div>
 
-        <%--<div class="control-group">
-            <label for="operator_id" class="control-label"><em class="rqd">*</em>操作人ID：</label>
-            <div class="controls">
-                <input type="text" id="operator_id" name="operatorId" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="${company.operatorId}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入操作人ID</span>
-            </div>
-        </div>--%>
+    <%--<div class="control-group">
+        <label for="operator_id" class="control-label"><em class="rqd">*</em>操作人ID：</label>
+        <div class="controls">
+            <input type="text" id="operator_id" name="operatorId" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" value="${company.operatorId}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+            <span class="tipsError">请输入操作人ID</span>
+        </div>
+    </div>--%>
 
-        <div class="control-group">
-            <label for="manager_phone" class="control-label"><em class="rqd">*</em>负责人电话：</label>
-            <div class="controls">
-                <input type="text" id="manager_phone" name="managerPhone"   onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入负责人电话</span>
-            </div>
+    <div class="control-group">
+        <label for="manager_phone" class="control-label"><em class="rqd">*</em>负责人电话：</label>
+        <div class="controls">
+            <input type="text" id="manager_phone" name="managerPhone"   onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+            <span class="tipsError">请输入负责人电话</span>
         </div>
-        <div class="control-group">
-            <label for="company_address" class="control-label"><em class="rqd">*</em>公司地址：</label>
-            <div class="controls">
-                <input type="text" id="company_address" name="companyAddress" value="${company.companyAddress}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
-                <span class="tipsError">请输入公司地址</span>
-            </div>
+    </div>
+    <div class="control-group">
+        <label for="company_address" class="control-label"><em class="rqd">*</em>公司地址：</label>
+        <div class="controls">
+            <input type="text" id="company_address" name="companyAddress" value="${company.companyAddress}" onfocus="importName1(this)" onblur="importName2(this)" maxlength="25">
+            <span class="tipsError">请输入公司地址</span>
         </div>
-        <div class="control-group">
-            <label for="company_fax" class="control-label">公司传真：</label>
-            <div class="controls">
-                <input type="text" maxlength="20" id="company_fax" name="companyFax" value="${company.companyFax}">
-            </div>
+    </div>
+    <div class="control-group">
+        <label for="company_fax" class="control-label">公司传真：</label>
+        <div class="controls">
+            <input type="text" maxlength="20" id="company_fax" name="companyFax" value="${company.companyFax}">
         </div>
-       <%-- <div class="control-group">
-            <label for="create_time" class="control-label"><em class="rqd">*</em>创建时间：</label>
-            <div class="controls">
-                <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="createTime" value="2017-06-14" id="create_time" class="set_date">
-            </div>
-        </div>--%>
-        <div class="control-group">
-            <label class="control-label" for="comments">备注：</label>
-            <div class="controls">
-                <textarea id="comments" style="width:440px;" rows="10" cols="40" name="comments"></textarea>
-                <span class="tips-warning"></span>
-                <span class="tipsError"></span>
-            </div>
+    </div>
+    <%-- <div class="control-group">
+         <label for="create_time" class="control-label"><em class="rqd">*</em>创建时间：</label>
+         <div class="controls">
+             <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" name="createTime" value="2017-06-14" id="create_time" class="set_date">
+         </div>
+     </div>--%>
+    <div class="control-group">
+        <label class="control-label" for="comments">备注：</label>
+        <div class="controls">
+            <textarea id="comments" style="width:440px;" rows="10" cols="40" name="comments"></textarea>
+            <span class="tips-warning"></span>
+            <span class="tipsError"></span>
         </div>
-        <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
+    </div>
+    <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
 </div>
 <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
@@ -105,9 +105,9 @@
             return false;
         }
         /*if(operator_id == "" || /^\s*$/g.test(operator_id)){
-            alert("请正确输入操作人ID");
-            return false;
-        }*/
+         alert("请正确输入操作人ID");
+         return false;
+         }*/
         if(!(/^1[34578]\d{9}$/.test(manager_phone))){
             alert("请正确输入负责人电话");
             return false;
@@ -128,7 +128,7 @@
                 "description":description
             } ,
             success: function (data) {
-                if (data.message == '成功') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();
