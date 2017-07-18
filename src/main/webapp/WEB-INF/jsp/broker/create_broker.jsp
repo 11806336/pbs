@@ -58,11 +58,11 @@
         </div>
 
         <div class="control-group ">
-        <label  class="control-label">日盘启动时间：</label>
-        <input type="text" name="day_begin" id="day_begin" readonly="readonly" onclick="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer;">
-        <span style="display: inline-block;margin:0 10px;">至</span>
-        <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer">
-        <span for="day_end" class="error" style="display: none;"></span>
+            <label  class="control-label">日盘启动时间：</label>
+            <input type="text" name="day_begin" id="day_begin" readonly="readonly" onclick="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer;">
+            <span style="display: inline-block;margin:0 10px;">至</span>
+            <input type="text" name="day_end" id="day_end" readonly="readonly" onfocus="WdatePicker({dateFmt:'H:mm:ss', maxDate:'%y-%M-%d'});" value="" style="background-color: #fff;cursor:pointer">
+            <span for="day_end" class="error" style="display: none;"></span>
         </div>
         <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </form>
@@ -131,7 +131,7 @@
             success: function (data) {
                 console.info(data);
                 console.log(data.message);
-                if (data.message == '成功') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();

@@ -22,7 +22,7 @@
         <div class="control-group">
             <label for="productName" class="control-label"><em class="rqd">*</em>产品名称：</label>
             <div class="controls">
-                <input type="text" id="productName" name="productName" value="${amsProduct.productName}" onblur="funBlur(this)" maxlength="25">
+                <input type="text" id="productName" readonly="readonly" name="productName" value="${amsProduct.productName}" onblur="funBlur(this)" maxlength="25">
                 <span class="tipsError">请输入产品名称</span>
                 <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
             </div>
@@ -30,7 +30,7 @@
         <div class="control-group">
             <label for="companyId" class="control-label"><em class="rqd">*</em>经纪公司：</label>
             <div class="controls">
-                <select name="companyId" id="companyId">
+                <select name="companyId" id="companyId" disabled="disabled">
                     <option value="0"> ---请选择--- </option>
                     <c:forEach var="comp" items="${upmsCompanies}">
                         <option value="${comp.companyId}" <c:if test='${amsProduct.companyId == comp.companyId}'> selected='selected' </c:if>>${comp.companyName}</option>
@@ -42,7 +42,7 @@
         <div class="control-group">
             <label for="userId" class="control-label control-label2"><em class="rqd">*</em>绑定用户：</label>
             <div class="controls">
-                <select name="userId" id="userId">
+                <select name="userId" id="userId" disabled="disabled" >
                     <option value="0">---请选择---</option>
                     <c:forEach var="user" items="${users}">
                         <option value="${user.userId}" <c:if test='${user.userId == amsProductUsers.userId}'> selected='selected' </c:if> >${user.username}</option>
@@ -54,10 +54,10 @@
             <label class="control-label" for="productType"><em class="rqd">*</em>产品类型：</label>
             <div class="controls">
                 <label class="radio inline" style="min-width:60px;">
-                    <input checked="checked" type="radio" name="productType" id="productType" value="1"> 普通基金
+                    <input checked="checked" type="radio"  disabled="disabled" name="productType" id="productType" value="1"> 普通基金
                 </label>
                 <label class="radio inline" style="min-width:60px;">
-                    <input type="radio" name="productType" value="2"> 分级基金
+                    <input type="radio" name="productType" disabled="disabled" value="2"> 分级基金
                 </label>
                 <span class="tipsError" style="display: inline-block;top:4px;">保存后不可更改</span>
             </div>
@@ -65,7 +65,7 @@
         <div class="control-group">
             <label for="productCode" class="control-label"><em class="rqd">*</em>产品代码：</label>
             <div class="controls">
-                <input type="text" id="productCode" name="productCode" value="${amsProduct.productCode}" onblur="funBlur(this)">
+                <input type="text" id="productCode" name="productCode" readonly="readonly" value="${amsProduct.productCode}" onblur="funBlur(this)">
                 <span class="tipsError">请输入产品代码</span>
                 <span class="tipsError" style="display: inline-block;">保存后不可更改</span>
             </div>
@@ -73,14 +73,14 @@
         <div class="control-group">
             <label for="productSupervisor" class="control-label">产品管理人：</label>
             <div class="controls">
-                <input type="text" id="productSupervisor" name="productSupervisor" value="${amsProduct.productSupervisor}" onblur="funBlur(this)" maxlength="25">
+                <input type="text" id="productSupervisor" name="productSupervisor" readonly="readonly" value="${amsProduct.productSupervisor}" onblur="funBlur(this)" maxlength="25">
                 <span class="tipsError">请输入产品管理人</span>
             </div>
         </div>
         <div class="control-group">
             <label for="productManager" class="control-label">产品经理：</label>
             <div class="controls">
-                <input type="text" id="productManager" name="productManager" value="${amsProduct.productManager}" onblur="funBlur(this)" maxlength="25">
+                <input type="text" id="productManager" name="productManager" readonly="readonly" value="${amsProduct.productManager}" onblur="funBlur(this)" maxlength="25">
                 <span class="tipsError">请输入产品经理</span>
             </div>
         </div>
@@ -97,7 +97,7 @@
             <label class="control-label" for="productShareSource">产品总份额来源：</label>
             <div class="controls">
                 <label class="radio inline" style="min-width:60px;">
-                    <input class="productShareSource" checked="checked" type="radio" name="productShareSource" id="productShareSource" value="1">自定义
+                    <input class="productShareSource" checked="checked" type="radio" name="productShareSource"  value="1">自定义
                 </label>
                 <label class="radio inline" style="min-width:60px;">
                     <input class="productShareSource" type="radio" name="productShareSource" id="productShareSource" value="2"> O32读取
@@ -180,9 +180,11 @@
             data: $('#update_form').serialize(),
             success: function (data) {
                 console.info(data);
-                if (data.message == 'success') {
+                if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    alert(index);
                     parent.layer.close(index);
+                    window.parent.refresh();
                 }
             } ,
             error: function () {

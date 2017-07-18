@@ -14,7 +14,6 @@ import com.pbs.ams.web.model.UpmsCompany;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -70,14 +69,14 @@ public class AmsTradeAccountController extends BaseController {
     @Autowired
     private AmsTradeAccountExtService amsTradeAccountExtService;
 
-    @ApiOperation(value = "账号首页")
+    @Log(value = "账号首页")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "/account/account.jsp";
     }
 
-    @ApiOperation(value = "账号列表")
+    @Log(value = "账号列表")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -103,8 +102,7 @@ public class AmsTradeAccountController extends BaseController {
         result.put("total", total);
         return result;
     }
-    @Log("删除账号")
-    @ApiOperation(value = "删除账号")
+    @Log(value = "删除账号")
     @RequiresPermissions("upms:account:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
@@ -121,7 +119,7 @@ public class AmsTradeAccountController extends BaseController {
         return 0;
     }
 
-    @ApiOperation(value = "新增账号")
+    @Log(value = "新增账号")
     @RequiresPermissions("upms:account:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
@@ -139,7 +137,7 @@ public class AmsTradeAccountController extends BaseController {
      * @param amsTradeAccount
      * @return
      */
-    @ApiOperation(value = "新增账号")
+    @Log(value = "新增账号")
     @RequiresPermissions("upms:account:create")
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -166,7 +164,7 @@ public class AmsTradeAccountController extends BaseController {
         return new ResultSet(StatusCode.INVALID_INSERT, count);
     }
 
-    @ApiOperation(value = "修改账号")
+    @Log(value = "修改账号")
     @RequiresPermissions("upms:account:update")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id, HttpServletRequest request) {
@@ -175,7 +173,7 @@ public class AmsTradeAccountController extends BaseController {
         return "/account/tab.jsp";
     }
 
-    @ApiOperation(value = "修改账号")
+    @Log(value = "修改账号")
     @RequiresPermissions("upms:account:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
@@ -185,7 +183,7 @@ public class AmsTradeAccountController extends BaseController {
         return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
-    @ApiOperation(value = "更改账号状态")
+    @Log(value = "更改账号状态")
     @RequiresPermissions("upms:account:update")
     @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
     @ResponseBody
@@ -202,7 +200,7 @@ public class AmsTradeAccountController extends BaseController {
         int count = amsTradeAccountService.updateAccountStatusById(id, status);
         return new ResultSet(StatusCode.ERROR_NONE, count);
     }
-    @ApiOperation(value = "账号详情")
+    @Log(value = "账号详情")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") long id, HttpServletRequest request) {
@@ -210,7 +208,7 @@ public class AmsTradeAccountController extends BaseController {
         request.setAttribute("amsTradeAccount", amsTradeAccount);
         return "/account/query_tab.jsp";
     }
-    @ApiOperation(value = "持仓")
+    @Log(value = "持仓")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/details/tab/{iframeName}/{id}", method = RequestMethod.GET)
     public String details(HttpServletRequest request, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id){
@@ -232,7 +230,7 @@ public class AmsTradeAccountController extends BaseController {
         }
         return null;
     }
-    @ApiOperation(value = "持仓列表")
+    @Log(value = "持仓列表")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/stockHolding", method = RequestMethod.GET)
     @ResponseBody
@@ -255,7 +253,7 @@ public class AmsTradeAccountController extends BaseController {
         return result;
     }
 
-    @ApiOperation(value = "资产列表")
+    @Log(value = "资产列表")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/amsTradeAccountExt", method = RequestMethod.GET)
     @ResponseBody
@@ -274,7 +272,7 @@ public class AmsTradeAccountController extends BaseController {
         return result;
     }
 
-    @ApiOperation(value = "委托列表")
+    @Log(value = "委托列表")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/entrust", method = RequestMethod.GET)
     @ResponseBody
@@ -293,7 +291,7 @@ public class AmsTradeAccountController extends BaseController {
         return result;
     }
 
-    @ApiOperation(value = "成交列表")
+    @Log(value = "成交列表")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/amsKnock", method = RequestMethod.GET)
     @ResponseBody
@@ -320,7 +318,7 @@ public class AmsTradeAccountController extends BaseController {
         return result;
     }
 
-    @ApiOperation(value = "导出数据")
+    @Log(value = "导出数据")
     @RequiresPermissions("upms:account:read")
     @RequestMapping(value = "/export", method = RequestMethod.POST)
     public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, HttpServletResponse response){
