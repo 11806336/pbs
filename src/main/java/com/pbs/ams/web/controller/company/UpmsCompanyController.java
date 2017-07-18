@@ -4,6 +4,7 @@ package com.pbs.ams.web.controller.company;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
+import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.IdGeneratorUtil;
@@ -15,7 +16,6 @@ import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.UpmsCompanyService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -43,14 +43,14 @@ public class UpmsCompanyController extends BaseController {
     @Autowired
     private UpmsCompanyService upmsCompanyService;
 
-    @ApiOperation(value = "公司首页")
+    @Log(value = "公司首页")
     @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "/company/index.jsp";
     }
 
-    @ApiOperation(value = "公司列表")
+    @Log(value = "公司列表")
     @RequiresPermissions("upms:company:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -89,7 +89,7 @@ public class UpmsCompanyController extends BaseController {
         return result;
     }
 
-    @ApiOperation(value = "删除公司")
+    @Log(value = "删除公司")
     @RequiresPermissions("upms:company:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
@@ -107,14 +107,14 @@ public class UpmsCompanyController extends BaseController {
     }
 
 
-    @ApiOperation(value = "新增公司")
+    @Log(value = "新增公司")
     @RequiresPermissions("upms:company:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
         return "/company/create_company.jsp";
     }
 
-    @ApiOperation(value = "新增公司")
+    @Log(value = "新增公司")
     @RequiresPermissions("upms:company:create")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -141,7 +141,7 @@ public class UpmsCompanyController extends BaseController {
     }
 
 
-    @ApiOperation(value = "修改公司")
+    @Log(value = "修改公司")
     @RequiresPermissions("upms:company:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id, ModelMap modelMap) {
@@ -150,7 +150,7 @@ public class UpmsCompanyController extends BaseController {
         return "/company/update_company.jsp";
     }
 
-    @ApiOperation(value = "修改公司")
+    @Log(value = "修改公司")
     @RequiresPermissions("upms:company:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody

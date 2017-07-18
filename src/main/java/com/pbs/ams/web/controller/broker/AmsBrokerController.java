@@ -1,20 +1,18 @@
 package com.pbs.ams.web.controller.broker;
-
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Maps;
+import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsBroker;
-import com.pbs.ams.web.model.AmsPlatform;
 import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsPlatformService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,18 +36,17 @@ public class AmsBrokerController extends BaseController {
     @Autowired
     private AmsPlatformService amsPlatformService;
 
-    @ApiOperation(value = "经纪公司")
+    @Log(value = "经纪公司")
     @RequiresPermissions("ams:broker:read")
     @RequestMapping(value= "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request) {
-        AmsPlatform amsPlatform = new AmsPlatform();
         Map<String, Object> params = Maps.newHashMap();
         List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
         request.setAttribute("amsPlatforms",amsPlatforms);
         return "/broker/index.jsp";
     }
 
-    @ApiOperation(value = "公司列表")
+    @Log(value = "公司列表")
     @RequiresPermissions("ams:broker:read")
     @RequestMapping(value = "/queryAmsBroker", method = RequestMethod.GET)
     @ResponseBody
@@ -71,7 +68,7 @@ public class AmsBrokerController extends BaseController {
             result.put("total", total);
             return result;
     }
-    @ApiOperation(value = "新增券商")
+    @Log(value = "新增券商")
     @RequiresPermissions("ams:broker:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
@@ -81,7 +78,7 @@ public class AmsBrokerController extends BaseController {
         return "/broker/create_broker.jsp";
     }
 
-    @ApiOperation(value = "新增券商")
+    @Log(value = "新增券商")
     @RequiresPermissions("ams:broker:create")
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
@@ -101,11 +98,11 @@ public class AmsBrokerController extends BaseController {
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
-        return new ResultSet(StatusCode.ERROR_NONE);
+        return new ResultSet(StatusCode.ERROR_NONE,count);
     }
 
 
-    @ApiOperation(value = "删除券商")
+    @Log(value = "删除券商")
     @RequiresPermissions("ams:broker:delete")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     @ResponseBody
@@ -123,7 +120,7 @@ public class AmsBrokerController extends BaseController {
     }
 
 
-    @ApiOperation(value = "编辑券商")
+    @Log(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public String update(@PathVariable("id") String id, ModelMap modelMap, HttpServletRequest request) {
@@ -138,11 +135,11 @@ public class AmsBrokerController extends BaseController {
 
 
 
-    @ApiOperation(value = "编辑券商")
+    @Log(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @ResponseBody
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public Object update(@PathVariable("id") long id, AmsBroker amsBroker) {
+    public Object update(@PathVariable("id") long id, AmsBroker amsBroker,String day_begin,String day_end) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
                 .doValidate()
@@ -150,9 +147,13 @@ public class AmsBrokerController extends BaseController {
         if (!result.isSuccess()) {
             return new ResultSet(StatusCode.INVALID_LENGTH);
         }
+        long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
+        long dayEnd =Long.valueOf(day_end.replaceAll(":",""));
+        amsBroker.setDayBegin(dayBegin);
+        amsBroker.setDayEnd(dayEnd);
         long time = System.currentTimeMillis();
-        amsBroker.setCreateTime(time);
+        amsBroker.setUpdateTime(time);
         int count = amsBrokerService.updateByPrimaryKeySelective(amsBroker);
-        return new ResultSet(StatusCode.ERROR_NONE, count);
+        return new ResultSet(StatusCode.ERROR_NONE,count);
     }
 }
