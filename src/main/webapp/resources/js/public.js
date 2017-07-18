@@ -201,7 +201,7 @@ function deleteAction(obj,url,idField) {
                                         animation: 'rotateX',
                                         closeAnimation: 'rotateX',
                                         title: false,
-                                        content: result.data.errorMsg,
+                                        content: result.data,
                                         buttons: {
                                             confirm: {
                                                 text: '确认',
