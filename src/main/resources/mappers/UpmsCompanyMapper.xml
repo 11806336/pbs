@@ -6,7 +6,7 @@
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
     <result column="manager_id" jdbcType="BIGINT" property="managerId" />
-    <result column="manager_phone" jdbcType="INTEGER" property="managerPhone" />
+    <result column="manager_phone" jdbcType="VARCHAR" property="managerPhone" />
     <result column="manager_address" jdbcType="VARCHAR" property="managerAddress" />
     <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
     <result column="company_fax" jdbcType="VARCHAR" property="companyFax" />
