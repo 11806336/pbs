@@ -73,14 +73,12 @@ public class UpmsCompanyController extends BaseController {
         params.put("limit", limit);
         params.put("companyName", search);//search暂时为公司名
         if (upmsUser != null) {
-//          if (!upmsUser.isSuperUser()) {//如果是超级管理员的话查询全部，否则带上公司进行查询
             List<UpmsCompanyUser> upmsCompanies = getCompanyByUserId();
             List<Long> companyIds = new ArrayList<Long>();//用来存放公司id
             for (UpmsCompanyUser companyUser : upmsCompanies) {
                 companyIds.add(companyUser.getCompanyId());
             }
             params.put("companyIds", companyIds);
-//          }
         }
         List<UpmsCompany> rows = upmsCompanyService.listCompanies(params);
         long total = upmsCompanyService.countCompany(params);
