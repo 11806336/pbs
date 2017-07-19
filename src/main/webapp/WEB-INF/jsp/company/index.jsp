@@ -43,8 +43,8 @@
         {field: 'managerPhone', title: '负责人电话'},
         {field: 'companyAddress', title: '公司地址'},
         {field: 'companyFax', title: '公司传真'},
-        {field: 'createTime', title: '创建时间'},
-        {field: 'updateTime', title: '修改时间'},
+        {field: 'createTime', title: '创建时间', formatter: 'formatTime'},
+        {field: 'updateTime', title: '修改时间', formatter: 'formatTime'},
         {field: 'description', title: '备注'},
         {
             field: 'action',
@@ -72,6 +72,12 @@
             '<a class="update" href="javascript:;" onclick="dialogUpdate(this,' + "'${basePath}/company/update/'," + "'编辑公司'" +",'companyId'"+')" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
             '<a class="delete" href="javascript:;" onclick="deleteAction(this,'+"'${basePath}/company/delete'"+",'companyId'"+')" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
         ].join('');
+    }
+    //格式化时间
+    function formatTime(value, row, index) {
+        var ctime = value + "";
+        var create_time = ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
+        return create_time;
     }
     //编辑行的id;
     var row_id='';
