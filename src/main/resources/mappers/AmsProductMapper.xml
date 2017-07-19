@@ -237,14 +237,17 @@
       apd.short_total_value
     FROM
       ams_product ap
-    LEFT JOIN ams_product_detail apd ON ap.product_id = apd.product_id
-    LEFT JOIN upms_user uu ON ap.operator_id = uu.user_id
+     JOIN ams_product_detail apd ON ap.product_id = apd.product_id
+     JOIN upms_user uu ON ap.operator_id = uu.user_id
     <where>
       <if test="search != null">
         ap.product_name LIKE %#{search}%
       </if>
-      <if test="companyId != null and companyId != ''">
-        and ap.company_id = #{companyId,jdbcType=BIGINT}
+      <if test="companyIds != null">
+        and company_id in
+        <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
       </if>
     </where>
     ORDER BY
@@ -264,8 +267,11 @@
       <if test="search != null">
         product_name  LIKE CONCAT('%','${search}','%' )
       </if>
-      <if test="companyId != null and companyId != ''">
-        and company_id = #{companyId,jdbcType=BIGINT}
+      <if test="companyIds != null">
+        and company_id in
+        <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
       </if>
     </where>
     ORDER BY
@@ -286,8 +292,11 @@
       <if test="search != null">
         ap.product_name LIKE %#{search}%
       </if>
-      <if test="companyId != null and companyId != ''">
-        and ap.company_id = #{companyId,jdbcType=BIGINT}
+      <if test="companyIds != null">
+        and company_id in
+        <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
       </if>
     </where>
   </select>
@@ -300,8 +309,11 @@
       <if test="search != null">
         product_name LIKE CONCAT('%','${search}','%' )
       </if>
-      <if test="companyId != null and companyId != ''">
-        and company_id = #{companyId,jdbcType=BIGINT}
+      <if test="companyIds != null">
+        and company_id in
+        <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
       </if>
     </where>
   </select>
