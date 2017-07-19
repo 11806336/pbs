@@ -85,22 +85,25 @@ public class AmsProductBasicController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
 
         UpmsUser user = getCurrentUser();
-        Map<String,Object> map = Maps.newHashMap();
-        map.put("offset",offset);
-        map.put("limit",limit);
-        if (!StringUtils.isBlank(search)) {
-            map.put("search",search);
-        }
+        Map<String, Object> result = new HashMap<String, Object>();
         if (user != null) {
-            if (!user.isSuperUser()) {//如果是超级管理员的话查询全部，否则带上公司进行查询
-                map.put("companyId", user.getCompanyId());
+            Map<String,Object> map = Maps.newHashMap();
+            map.put("offset",offset);
+            map.put("limit",limit);
+            if (!StringUtils.isBlank(search)) {
+                map.put("search",search);
             }
+            List<UpmsCompanyUser> upmsCompanies = getCompanyByUserId();//查询当前用户的关联公司
+            List<Long> companyIds = new ArrayList<Long>();//存放公司id
+            for (UpmsCompanyUser companyUser : upmsCompanies) {
+                companyIds.add(companyUser.getCompanyId());
+            }
+            map.put("companyIds", companyIds);
+            List<Map> rows = amsProductService.selectProduct(map);
+            long total = amsProductService.selectProductCount(map);
+            result.put("rows", rows);
+            result.put("total", total);
         }
-        List<Map> rows = amsProductService.selectProduct(map);
-        long total = amsProductService.selectProductCount(map);
-        Map<String, Object> result = new HashMap<>();
-        result.put("rows", rows);
-        result.put("total", total);
         return result;
     }
 
