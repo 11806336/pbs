@@ -261,4 +261,41 @@ public class DateUtil {
         String d2 = df.format(date2);
         return d1.compareTo(d2);
     }
+
+    /**
+     * 处理日期数字，用":"，"-"等分隔。注：不能以0开头，年月日期不支持到毫秒
+     * @param date
+     * @return
+     */
+    public static String divideDate(Long date) {
+        if (null != date) {
+            StringBuilder oriDate = new StringBuilder(String.valueOf(date));
+            int length = oriDate.length();
+            if (length > 10) {//带年月  2017-07-13 16：56：27
+                StringBuilder hasYearDate = new StringBuilder(oriDate.substring(0, length - 6));//分成两部分，分别插入不同的分割符
+                StringBuilder anotherDate = new StringBuilder(oriDate.substring(8, length));//时分秒
+                for (int i = 4; i < hasYearDate.length(); i +=3) {
+                    hasYearDate.insert(i, "-");
+                }
+                for (int i = 2; i < anotherDate.length(); i +=3) {
+                    anotherDate.insert(i, ":");
+                }
+                return hasYearDate.append(" " + anotherDate).toString();
+            } else {
+                if (length%2 != 0) {//如果是奇数的话先补0
+                    oriDate.insert(0, "0");
+                }
+                for (int i = 2; i < oriDate.length(); i +=3) {
+                    oriDate.insert(i, ":");
+                }
+                return oriDate.toString();
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Long s = 201707141551L;
+        System.out.println(divideDate(s));;
+    }
 }
