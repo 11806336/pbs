@@ -140,8 +140,11 @@
   <!--计数公司总数-->
   <select id="countCompany" parameterType="java.util.HashMap" resultType="java.lang.Integer">
     select count(1) from upms_company where 1 = 1
-    <if test="companyId != null">
-      and company_id = #{companyId,jdbcType=BIGINT}
+    <if test="companyIds != null">
+      and company_id in
+      <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
     </if>
     <if test="companyName != null">
       and company_name LIKE '%${companyName}%'
