@@ -15,7 +15,7 @@ public interface AmsProductService{
 
     int deleteByPrimaryKey(Long id);
 
-    int deleteByPrimaryKeys(String ids);
+    int deleteByPrimaryKeys(List<Long> ids);
 
     int insert(AmsProduct record);
 
@@ -43,6 +43,13 @@ public interface AmsProductService{
      * @return
      */
     int selectProductWithDetailCount(Map map);
+
+    /**
+     * This method is used to get PageListTotalSize
+     * @param map
+     * @return
+     */
+    int selectProductCount(Map map);
 
     /**
      * This method is used to bind Account and Product

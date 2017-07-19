@@ -1,4 +1,5 @@
 package com.pbs.ams.web.controller.broker;
+
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
@@ -6,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.util.CheckIsDeleteUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,7 +104,6 @@ public class AmsBrokerController extends BaseController {
         return new ResultSet(StatusCode.ERROR_NONE,count);
     }
 
-
     @Log(value = "删除券商")
     @RequiresPermissions("ams:broker:delete")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
@@ -110,8 +112,14 @@ public class AmsBrokerController extends BaseController {
         if (StringUtils.isNotEmpty(ids)) {
             String[] brokerIds = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
+            Map<String, Long> params = new HashMap<String, Long>();
             for (String id : brokerIds) {
-                idList.add(Long.parseLong(id));
+                params.put("brokerId",Long.parseLong(id));
+                if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
+                    idList.add(Long.parseLong(id));
+                } else {
+                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+                }
             }
             int count = amsBrokerService.deleteByPrimaryKeys(idList);
             return new ResultSet(StatusCode.ERROR_NONE, count);

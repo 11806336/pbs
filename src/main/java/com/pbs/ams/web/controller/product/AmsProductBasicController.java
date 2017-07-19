@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
@@ -30,15 +31,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
 import java.util.*;
 
 /**
  * Created by TiAmo on 17/6/23.
  */
 @Controller
-@Api(value = "产品管理", description = "产品管理")
+@Api(value = "产品基本信息", description = "产品基本信息")
 @RequestMapping(value = "/product")
-public class AmsProductController extends BaseController {
+public class AmsProductBasicController extends BaseController {
 
     @Autowired
     private AmsProductService amsProductService;
@@ -94,10 +96,8 @@ public class AmsProductController extends BaseController {
                 map.put("companyId", user.getCompanyId());
             }
         }
-        List<Map> rows = amsProductService.selectProductWithDetail(map);
-
-        long total = amsProductService.selectProductWithDetailCount(map);
-
+        List<Map> rows = amsProductService.selectProduct(map);
+        long total = amsProductService.selectProductCount(map);
         Map<String, Object> result = new HashMap<>();
         result.put("rows", rows);
         result.put("total", total);
@@ -134,7 +134,8 @@ public class AmsProductController extends BaseController {
     @RequiresPermissions("ams:product:read")
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST )
-    public Object create(HttpServletRequest request,AmsProduct amsProduct, Long userId, Long companyId) {
+    public Object create(AmsProduct amsProduct, Long userId, Long companyId,
+                         String beginDate,String finishDate) {
         //获取session,取当前用户
         Session session = SecurityUtils.getSubject().getSession();
         UpmsUser upmsUser = (UpmsUser) session.getAttribute("user");
@@ -156,6 +157,8 @@ public class AmsProductController extends BaseController {
         amsProductUser.setProductUserId(IdGeneratorUtil.getKey("ams_product_user"));
         amsProductUser.setUserId(userId);
         amsProductUser.setProductId(id);
+        amsProduct.setStartDate(DateUtil.removeDateSymbol(beginDate));
+        amsProduct.setEndDate(DateUtil.removeDateSymbol(finishDate));
         int count = amsProductService.insertProductAndUserRelation(amsProduct, amsProductUser);
         if (count > 0) {
             return new ResultSet(StatusCode.ERROR_NONE);
@@ -269,17 +272,23 @@ public class AmsProductController extends BaseController {
                 userIds.add(uc.getUserId());
             }
             List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
+            modelMap.put("endDate", DateUtil.divideDate(amsProduct.getEndDate()));
+            modelMap.put("startDate", DateUtil.divideDate(amsProduct.getStartDate()));
             modelMap.put("users",users);
             modelMap.put("upmsCompanies",upmsCompanies);
             return "/product/edit/" + iframeName + ".jsp";
         }
         return null;
     }
-    @Log(value = "编辑组织")
+    @Log(value = "编辑产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id,ModelMap modelMap) {
+    public String update(@PathVariable("id") long id,ModelMap modelMap) throws ParseException {
         AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
+        /*SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd");
+        Date date = sdf.parse(DateUtil.divideDate(amsProduct.getEndDate()));
+        modelMap.put("date",date);*/
+        modelMap.put("date", DateUtil.divideDate(amsProduct.getEndDate()));
         modelMap.put("amsProduct", amsProduct);
         return  "/product/edit/edit_product_tabs.jsp";
     }
@@ -288,7 +297,11 @@ public class AmsProductController extends BaseController {
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") long id, AmsProduct amsProduct, Long userId) {
+    public Object update(@PathVariable("id") long id, AmsProduct amsProduct, Long userId,
+                         String beginDate,String finishDate) {
+
+        amsProduct.setStartDate(DateUtil.removeDateSymbol(beginDate));
+        amsProduct.setEndDate(DateUtil.removeDateSymbol(finishDate));
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsProduct.getProductName(), new LengthValidator(1, 20, "名称"))
                 .doValidate()
@@ -319,9 +332,9 @@ public class AmsProductController extends BaseController {
             List<Long> idList = new ArrayList<Long>();
             for (String id : productIds) {
                 idList.add(Long.parseLong(id));
-                count = amsProductService.deleteByPrimaryKeys(id);
+//                count = amsProductService.deleteByPrimaryKeys(id);
             }
-            return new ResultSet(StatusCode.ERROR_NONE);
+            return new ResultSet(StatusCode.ERROR_NONE,count);
         }
         return 0;
     }
@@ -352,7 +365,7 @@ public class AmsProductController extends BaseController {
             }
             HSSFRow row0 =sheet.createRow(0);
             String[] title = {"No","产品名称","产品类型","产品代码","产品经理","产品状态","产品净值","单位净值","产品份额","证券总资产",
-            "证券总市值","股票总市值","空单总市值","创建人","创建时间"};
+                    "证券总市值","股票总市值","空单总市值","创建人","创建时间"};
             ExcelUtil.writeArrayToExcel(title,workbook,sheet, rowSize, cellSize, value);
             ExcelUtil.writeWorkbook(workbook, "D://1.xls");
         }

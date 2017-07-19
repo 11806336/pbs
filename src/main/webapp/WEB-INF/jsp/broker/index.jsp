@@ -69,10 +69,36 @@
         {field: 'broker_name', title: '券商名称'},
         {field: 'platform_name', title: '交易平台'},
         {field: 'broker_abbr_name', title: '缩写名称'},
-        {field: 'day_begin', title: '日盘开始时间'},
-        {field: 'day_end', title: '日盘结束时间'},
-        {field: 'create_time', title: '创建时间'},
-        {field: 'update_time', title: '修改时间'},
+        {   field: 'day_begin',
+            title: '日盘开始时间',
+            align: 'center',
+            formatter: 'day_begin',
+            events: 'Events',
+            clickToSelect: false
+        },
+        {   field: 'day_end',
+            title: '日盘结束时间',
+            align: 'center',
+            formatter: 'day_end',
+            events: 'Events',
+            clickToSelect: false
+        },
+        {
+            field: 'create_time',
+            title: '创建时间',
+            align: 'center',
+            formatter: 'createTime',
+            events: 'Events',
+            clickToSelect: false
+        },
+        {
+            field: 'update_time',
+            title: '修改时间',
+            align: 'center',
+            formatter: 'updateTime',
+            events: 'actionEvents',
+            clickToSelect: false
+        },
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     //数据url
@@ -86,8 +112,32 @@
     var search=true;
     var showRefresh=true;
     var showColumns= true;
-    // 格式化操作按钮
+    //格式化日盘开始时间
+    function day_begin(value, row, index) {
+        var dbegin = (row.day_begin+"").length === 5?"0"+row.day_begin:row.day_begin+"";
+        var day_begin=dbegin.substr(0,2)+":"+dbegin.substr(2,2)+":"+dbegin.substr(4,2);
+        return day_begin;
+    }
+    //格式化日盘结束时间
+    function day_end(value, row, index) {
+        var dend=(row.day_end+"").length === 5 ? "0"+row.day_end:row.day_end+"";
+        var day_end=dend.substr(0,2)+":"+dend.substr(2,2)+":"+dend.substr(4,2);
+        return day_end;
+    }
 
+    //格式化修改时间
+    function createTime(value, row, index) {
+        var ctime=row.create_time+"";
+        var create_time=ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
+        return create_time;
+    }
+    //格式化更新时间
+    function updateTime(value, row, index) {
+        var utime=row.update_time+"";
+        var update_time=utime.substr(0,4)+"-"+utime.substr(4,2)+"-"+utime.substr(6,2)+" "+utime.substr(8,2)+":"+utime.substr(10,2)+":"+utime.substr(12,2);
+        return update_time;
+    }
+    // 格式化操作按钮
     function actionFormatter(value, row, index) {
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
