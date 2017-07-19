@@ -294,8 +294,4 @@ public class DateUtil {
         return null;
     }
 
-    public static void main(String[] args) {
-        Long s = 201707141551L;
-        System.out.println(divideDate(s));;
-    }
 }
