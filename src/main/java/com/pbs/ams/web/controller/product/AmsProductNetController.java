@@ -3,6 +3,7 @@ package com.pbs.ams.web.controller.product;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.web.controller.BaseController;
+import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.AmsProductService;
 import io.swagger.annotations.Api;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,24 +49,25 @@ public class AmsProductNetController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
 
         UpmsUser user = getCurrentUser();
-        Map<String,Object> map = Maps.newHashMap();
-        map.put("offset",offset);
-        map.put("limit",limit);
-        if (!StringUtils.isBlank(search)) {
-            map.put("search",search);
-        }
-        if (user != null) {
-            if (!user.isSuperUser()) {//如果是超级管理员的话查询全部，否则带上公司进行查询
-                map.put("companyId", user.getCompanyId());
-            }
-        }
-        List<Map> rows = amsProductService.selectProductWithDetail(map);
-
-        long total = amsProductService.selectProductWithDetailCount(map);
-
         Map<String, Object> result = new HashMap<>();
-        result.put("rows", rows);
-        result.put("total", total);
+        if (user != null) {
+            Map<String,Object> map = Maps.newHashMap();
+            map.put("offset",offset);
+            map.put("limit",limit);
+            if (!StringUtils.isBlank(search)) {
+                map.put("search",search);
+            }
+            List<UpmsCompanyUser> upmsCompanies = getCompanyByUserId();//查询当前用户的关联公司
+            List<Long> companyIds = new ArrayList<Long>();//存放公司id
+            for (UpmsCompanyUser companyUser : upmsCompanies) {
+                companyIds.add(companyUser.getCompanyId());
+            }
+            map.put("companyIds", companyIds);
+            List<Map> rows = amsProductService.selectProductWithDetail(map);
+            long total = amsProductService.selectProductWithDetailCount(map);
+            result.put("rows", rows);
+            result.put("total", total);
+        }
         return result;
     }
 }
