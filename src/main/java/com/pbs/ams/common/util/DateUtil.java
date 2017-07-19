@@ -1,5 +1,7 @@
 package com.pbs.ams.common.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -292,6 +294,18 @@ public class DateUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * 去除日期字符串中的"-",":" 空格等
+     * @param dateString
+     * @return
+     */
+    public static long removeDateSymbol(String dateString) {
+        if (StringUtils.isNoneEmpty(dateString)) {
+            return Long.parseLong(dateString.replaceAll("[\\pP\\pS\\pZ\\pC]", ""));
+        }
+        return 0;
     }
 
 }
