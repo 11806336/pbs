@@ -330,10 +330,16 @@ public class AmsProductBasicController extends BaseController {
             int count = 0;
             String[] productIds = ids.split(",");
             List<Long> idList = new ArrayList<Long>();
+            Map<String, Long> params = new HashMap<String, Long>();
             for (String id : productIds) {
-                idList.add(Long.parseLong(id));
-//                count = amsProductService.deleteByPrimaryKeys(id);
+//                params.put("productId",Long.parseLong(id));
+//                if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
+                    idList.add(Long.parseLong(id));
+//                } else {
+//                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+//                }
             }
+            count = amsProductService.deleteByPrimaryKeys(idList);
             return new ResultSet(StatusCode.ERROR_NONE,count);
         }
         return 0;

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.AmsProductSnapsMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsProductSnaps">
+    <id column="snaps_time" jdbcType="BIGINT" property="snapsTime" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_type" jdbcType="BIT" property="productType" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_manager" jdbcType="VARCHAR" property="productManager" />
+    <result column="product_status" jdbcType="BIT" property="productStatus" />
+    <result column="product_share_source" jdbcType="BIT" property="productShareSource" />
+    <result column="start_date" jdbcType="BIGINT" property="startDate" />
+    <result column="end_date" jdbcType="BIGINT" property="endDate" />
+    <result column="product_desc" jdbcType="VARCHAR" property="productDesc" />
+    <result column="product_shares" jdbcType="DECIMAL" property="productShares" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="product_supervisor" jdbcType="VARCHAR" property="productSupervisor" />
+    <result column="o32_id" jdbcType="BIGINT" property="o32Id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    snaps_time, product_id, company_id, product_name, product_type, product_code, product_manager, 
+    product_status, product_share_source, start_date, end_date, product_desc, product_shares, 
+    create_time, update_time, operator_id, product_supervisor, o32_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ams_product_snaps
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ams_product_snaps
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsProductSnaps">
+    insert into ams_product_snaps (snaps_time, product_id, company_id, 
+      product_name, product_type, product_code, 
+      product_manager, product_status, product_share_source, 
+      start_date, end_date, product_desc, 
+      product_shares, create_time, update_time, 
+      operator_id, product_supervisor, o32_id
+      )
+    values (#{snapsTime,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, 
+      #{productName,jdbcType=VARCHAR}, #{productType,jdbcType=BIT}, #{productCode,jdbcType=VARCHAR}, 
+      #{productManager,jdbcType=VARCHAR}, #{productStatus,jdbcType=BIT}, #{productShareSource,jdbcType=BIT}, 
+      #{startDate,jdbcType=BIGINT}, #{endDate,jdbcType=BIGINT}, #{productDesc,jdbcType=VARCHAR}, 
+      #{productShares,jdbcType=DECIMAL}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{operatorId,jdbcType=BIGINT}, #{productSupervisor,jdbcType=VARCHAR}, #{o32Id,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsProductSnaps">
+    insert into ams_product_snaps
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="snapsTime != null">
+        snaps_time,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productManager != null">
+        product_manager,
+      </if>
+      <if test="productStatus != null">
+        product_status,
+      </if>
+      <if test="productShareSource != null">
+        product_share_source,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="productDesc != null">
+        product_desc,
+      </if>
+      <if test="productShares != null">
+        product_shares,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="productSupervisor != null">
+        product_supervisor,
+      </if>
+      <if test="o32Id != null">
+        o32_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="snapsTime != null">
+        #{snapsTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=BIT},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productManager != null">
+        #{productManager,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=BIT},
+      </if>
+      <if test="productShareSource != null">
+        #{productShareSource,jdbcType=BIT},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=BIGINT},
+      </if>
+      <if test="productDesc != null">
+        #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="productShares != null">
+        #{productShares,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="productSupervisor != null">
+        #{productSupervisor,jdbcType=VARCHAR},
+      </if>
+      <if test="o32Id != null">
+        #{o32Id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsProductSnaps">
+    update ams_product_snaps
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=BIT},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productManager != null">
+        product_manager = #{productManager,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=BIT},
+      </if>
+      <if test="productShareSource != null">
+        product_share_source = #{productShareSource,jdbcType=BIT},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=BIGINT},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=BIGINT},
+      </if>
+      <if test="productDesc != null">
+        product_desc = #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="productShares != null">
+        product_shares = #{productShares,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=BIGINT},
+      </if>
+      <if test="productSupervisor != null">
+        product_supervisor = #{productSupervisor,jdbcType=VARCHAR},
+      </if>
+      <if test="o32Id != null">
+        o32_id = #{o32Id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsProductSnaps">
+    update ams_product_snaps
+    set product_id = #{productId,jdbcType=BIGINT},
+      company_id = #{companyId,jdbcType=BIGINT},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=BIT},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_manager = #{productManager,jdbcType=VARCHAR},
+      product_status = #{productStatus,jdbcType=BIT},
+      product_share_source = #{productShareSource,jdbcType=BIT},
+      start_date = #{startDate,jdbcType=BIGINT},
+      end_date = #{endDate,jdbcType=BIGINT},
+      product_desc = #{productDesc,jdbcType=VARCHAR},
+      product_shares = #{productShares,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      operator_id = #{operatorId,jdbcType=BIGINT},
+      product_supervisor = #{productSupervisor,jdbcType=VARCHAR},
+      o32_id = #{o32Id,jdbcType=BIGINT}
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
+  </update>
+  <insert id="insertIntoAmsProductSnapsSnaps">
+    insert into ams_product_snaps_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product_snaps as tb where snaps_time= #{snaps_time}
+  </insert>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

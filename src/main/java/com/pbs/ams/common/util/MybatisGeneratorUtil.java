@@ -120,13 +120,9 @@ public class MybatisGeneratorUtil {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 
 		Map<String, String> map1 = Maps.newHashMap();
-		map1.put("table_name","upms_company_user");
+		map1.put("table_name","ams_product_snaps");
 		lstTables.add(map1);
-		Map<String, String> map7 = Maps.newHashMap();
-		map7.put("table_name","upms_broker_user");
-		lstTables.add(map7);
 
 		MybatisGeneratorUtil.generator(lstTables);
 	}
-
 }

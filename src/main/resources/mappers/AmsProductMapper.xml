@@ -222,8 +222,11 @@
       o32_id = #{o32Id,jdbcType=BIGINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
+
+  <!--插入快照-->
   <insert id="insertIntoAmsProductSnaps">
-    insert into ams_product_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_product as tb where product_id= #{product_id}
+    insert into ams_product_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
+    tb.* from ams_product as tb where product_id= #{productId}
   </insert>
 
   <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.Map">
@@ -302,5 +305,21 @@
       </if>
     </where>
   </select>
+
+
+  <!--插入快照-->
+  <!--<insert id="insertToAmsProductSnaps" parameterType="com.pbs.ams.web.model.AmsProductSnaps">-->
+    <!--insert into ams_broker_snaps (broker_id, broker_type, platform_id,-->
+    <!--broker_abbr_name, broker_logo, broker_name,-->
+    <!--creditable, day_begin, day_end,-->
+    <!--create_time, update_time, operator_id,snaps_time-->
+    <!--)-->
+    <!--values (#{brokerId,jdbcType=BIGINT}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=BIGINT},-->
+    <!--#{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR},-->
+    <!--#{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},-->
+    <!--#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT},-->
+    <!--CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))-->
+  <!--</insert>-->
+
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

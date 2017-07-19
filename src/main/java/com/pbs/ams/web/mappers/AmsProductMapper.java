@@ -1,6 +1,7 @@
 package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsProduct;
+import com.pbs.ams.web.model.AmsProductSnaps;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,6 @@ public interface AmsProductMapper {
     int selectProductCount(Map map);
 
     List<Map> selectProduct(Map<String, Object> paramMaps);
+
+    int insertIntoAmsProductSnaps(AmsProductSnaps snaps);
 }
