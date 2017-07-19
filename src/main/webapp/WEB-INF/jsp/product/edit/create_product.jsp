@@ -86,10 +86,10 @@
     </div>
     <div class="control-group">
         <label class="control-label">产品起止日期：</label>
-        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="startDate" value="" id="startDate" class="required">
+        <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="beginDate" value="" id="startDate" class="required">
         <span for="startDate" class="error"></span>
         <span style="display: inline-block;margin:0 10px;">至</span>
-        <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="endDate" id="endDate" class="required" onblur="funBlur(this)">
+        <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="finishDate" id="endDate" class="required" onblur="funBlur(this)">
         <span for="endDate" class="tipsError">起始日期不能大于结束日期</span>
         <span class="tipsError">(修改需重启服务生效)</span>
     </div>

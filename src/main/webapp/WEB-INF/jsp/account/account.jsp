@@ -95,9 +95,9 @@
     }
     //格式化更新时间
     function updateTime(value, row, index) {
-        var ctime=row.create_time+"";
-        var create_time=ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
-        return create_time;
+        var utime=row.update_time+"";
+        var update_time=utime.substr(0,4)+"-"+utime.substr(4,2)+"-"+utime.substr(6,2)+" "+utime.substr(8,2)+":"+utime.substr(10,2)+":"+utime.substr(12,2);
+        return update_time;
     }
     // 格式化操作按钮
     function actionFormatter(value, row, index) {

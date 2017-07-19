@@ -30,7 +30,7 @@
         <div class="control-group">
             <label for="companyId" class="control-label"><em class="rqd">*</em>经纪公司：</label>
             <div class="controls">
-                <select name="companyId" id="companyId" disabled="disabled">
+                <select name="companyId" id="companyId" readonly="readonly">
                     <option value="0"> ---请选择--- </option>
                     <c:forEach var="comp" items="${upmsCompanies}">
                         <option value="${comp.companyId}" <c:if test='${amsProduct.companyId == comp.companyId}'> selected='selected' </c:if>>${comp.companyName}</option>
@@ -42,7 +42,7 @@
         <div class="control-group">
             <label for="userId" class="control-label control-label2"><em class="rqd">*</em>绑定用户：</label>
             <div class="controls">
-                <select name="userId" id="userId" disabled="disabled" >
+                <select name="userId" id="userId" readonly="readonly" >
                     <option value="0">---请选择---</option>
                     <c:forEach var="user" items="${users}">
                         <option value="${user.userId}" <c:if test='${user.userId == amsProductUsers.userId}'> selected='selected' </c:if> >${user.username}</option>
@@ -54,10 +54,10 @@
             <label class="control-label" for="productType"><em class="rqd">*</em>产品类型：</label>
             <div class="controls">
                 <label class="radio inline" style="min-width:60px;">
-                    <input checked="checked" type="radio"  disabled="disabled" name="productType" id="productType" value="1"> 普通基金
+                    <input checked="checked" type="radio"  readonly="readonly" name="productType" id="productType" value="1"> 普通基金
                 </label>
                 <label class="radio inline" style="min-width:60px;">
-                    <input type="radio" name="productType" disabled="disabled" value="2"> 分级基金
+                    <input type="radio" name="productType" readonly="readonly" value="2"> 分级基金
                 </label>
                 <span class="tipsError" style="display: inline-block;top:4px;">保存后不可更改</span>
             </div>
@@ -86,10 +86,10 @@
         </div>
         <div class="control-group">
             <label class="control-label">产品起止日期：</label>
-            <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="startDate" value="${amsProduct.startDate}" id="startDate" class="required">
+            <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="beginDate" value="${startDate}" id="startDate" class="required">
             <span for="startDate" class="error" style="display: none;"></span>
             <span style="display: inline-block;margin:0 10px;">至</span>
-            <input onfocus="WdatePicker({dateFmt:'yyyyMMddHHmmss'})" type="text" name="endDate" value="${amsProduct.endDate}" id="endDate" class="required" onblur="funBlur(this)">
+            <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="finishDate" value="${endDate}" id="endDate" class="required" onblur="funBlur(this)">
             <span for="endDate" class="tipsError">起始日期不能大于结束日期</span>
             <span class="tipsError" style="display: inline-block;">(修改需重启服务生效)</span>
         </div>
@@ -115,6 +115,7 @@
             </div>
         </div>
 
+        <%--<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm:ss" />--%>
         <div class="control-group radioShow" id="read" style="display: none;">
             <label class="control-label" for="o32_id">O32 ID：</label>
             <div class="controls">
@@ -179,10 +180,9 @@
             url: '${basePath}/product/update/${amsProduct.productId}',
             data: $('#update_form').serialize(),
             success: function (data) {
-                console.info(data);
+//                console.info(data);
                 if (data.code == '1') {
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                    alert(index);
                     parent.layer.close(index);
                     window.parent.refresh();
                 }

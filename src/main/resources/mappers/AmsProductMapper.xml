@@ -251,6 +251,28 @@
       <if test="offset == null"> limit ${limit} </if>
     </if>
   </select>
+
+  <select id="selectProduct" parameterType="java.lang.Object" resultType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    ams_product
+    <where>
+      <if test="search != null">
+        product_name  LIKE CONCAT('%','${search}','%' )
+      </if>
+      <if test="companyId != null and companyId != ''">
+        and company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+    </where>
+    ORDER BY
+    product_id ASC
+    <if test="limit != null">
+      <if test="offset != null"> limit ${offset}, ${limit} </if>
+      <if test="offset == null"> limit ${limit} </if>
+    </if>
+  </select>
+
   <select id="selectProductWithDetailCount" parameterType="java.lang.Object" resultType="java.lang.Integer">
     SELECT
       COUNT(1)
@@ -263,6 +285,20 @@
       </if>
       <if test="companyId != null and companyId != ''">
         and ap.company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+    </where>
+  </select>
+  <select id="selectProductCount" parameterType="java.lang.Object" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM
+    ams_product
+    <where>
+      <if test="search != null">
+        product_name LIKE CONCAT('%','${search}','%' )
+      </if>
+      <if test="companyId != null and companyId != ''">
+        and company_id = #{companyId,jdbcType=BIGINT}
       </if>
     </where>
   </select>

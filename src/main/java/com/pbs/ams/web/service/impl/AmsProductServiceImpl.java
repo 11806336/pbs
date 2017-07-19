@@ -2,7 +2,6 @@ package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
-import com.pbs.ams.common.exception.AmsException;
 import com.pbs.ams.web.mappers.AmsProductAccountMapper;
 import com.pbs.ams.web.mappers.AmsProductMapper;
 import com.pbs.ams.web.mappers.AmsProductUserMapper;
@@ -10,7 +9,6 @@ import com.pbs.ams.web.model.AmsProduct;
 import com.pbs.ams.web.model.AmsProductAccount;
 import com.pbs.ams.web.model.AmsProductUser;
 import com.pbs.ams.web.service.AmsProductService;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,27 +115,31 @@ public class AmsProductServiceImpl  implements AmsProductService {
         }
 
         @Override
-        public int deleteByPrimaryKeys(String ids) {
-            try {
-                if (StringUtils.isBlank(ids)) {
-                    return 0;
-                }
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                String[] idArray = ids.split("-");
-                int count = 0;
-                for (String idStr : idArray) {
-                    if (StringUtils.isBlank(idStr)) {
-                        continue;
-                    }
-                    Long id = Long.parseLong(idStr);
-                    count += amsProductMapper.deleteByPrimaryKey(id);
-                }
-                return count;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                DynamicDataSource.clearDataSource();
-                return 0;
+        public int deleteByPrimaryKeys(List<Long> ids) {
+//            if (null != ids && ids.size() >0) {
+//                int count = 0;
+//                for (long id : ids) {
+//                    //先做查询再去删除原表数据和插入快照
+//                    AmsProduct amsProduct = amsProductMapper.selectByPrimaryKey(id);
+//                    if (amsProduct != null) {
+//                        AmsProductSnaps amsProductSnaps = new AmsProductSnaps();
+//                        try {
+//                            PropertyUtils.copyProperties(amsProductSnaps, amsProduct);
+//                            //向快照表插入数据
+//                            int snapshotResult = amsProductMapper.insertToAmsBrokerSnaps(amsProductSnaps);
+//                            count += amsProductMapper.deleteByPrimaryKey(id);
+//                        } catch (IllegalAccessException e) {//checkException
+//                            e.printStackTrace();
+//                        } catch (InvocationTargetException e) {
+//                            e.printStackTrace();
+//                        } catch (NoSuchMethodException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                return count;
+//            }
+            return 0;
         }
 
 
@@ -166,6 +168,10 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Override
     public int selectProductWithDetailCount(Map map){
         return amsProductMapper.selectProductWithDetailCount(map);
+    }
+    @Override
+    public int selectProductCount(Map map){
+        return amsProductMapper.selectProductCount(map);
     }
 
     @Override

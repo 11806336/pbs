@@ -12,11 +12,6 @@
     <div id="toolbar">
         <div id="searchDiv">
             <div class="form-group">
-                <div class="countdown">
-                    <span class="countText">距离前次更新</span>
-                    <em></em>
-                    <span class="load"></span>
-                </div>
                 <div class="btn-panel" style="float:left;">
                     <shiro:hasPermission name="upms:company:refresh">
                         <a class="waves-effect waves-button btnRefresh" href="#"><i class="zmdi zmdi-refresh"></i>&nbsp;立即更新</a>
@@ -41,9 +36,9 @@
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 
 <script src="${basePath}/resources/js/public.js"></script>
-<script src="${basePath}/resources/js/Timer.js"></script>
-<script src="${basePath}/resources/js/Loader.js"></script>
-<script src="${basePath}/resources/js/timer2.js"></script>
+<%--<script src="${basePath}/resources/js/Timer.js"></script>--%>
+<%--<script src="${basePath}/resources/js/Loader.js"></script>--%>
+<%--<script src="${basePath}/resources/js/timer2.js"></script>--%>
 <script>
     var $table = $('#table');
     //json数据
@@ -52,19 +47,32 @@
         {field: 'ck', checkbox: true},
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
         {field: 'product_id', title: '产品ID', visible: false},
+        {field: 'company_id', title: '公司ID', visible: false},
         {field: 'product_name', title: '产品名称'},
         {field: 'product_type', title: '产品类型'},
         {field: 'product_code', title: '产品代码'},
         {field: 'product_manager', title: '产品经理'},
         {field: 'product_status', title: '产品状态'},
-        {field: 'product_net_value', title: '产品净值'},
-        {field: 'net_asset_value', title: '单位净值'},
+        {field: 'product_share_source', title: '产品份额来源'},
+        {   field: 'start_date',
+            title: '产品开始时间',
+            align: 'center',
+            formatter: 'start_date',
+            events: 'Events',
+            clickToSelect: false
+        },
+        {   field: 'end_date',
+            title: '产品结束时间',
+            align: 'center',
+            formatter: 'end_date',
+            events: 'Events',
+            clickToSelect: false
+        },
         {field: 'product_shares', title: '产品份额'},
-        {field: 'stock_total_assets', title: '证券总资产'},
-        {field: 'security_total_value', title: '证券总市值'},
-        {field: 'stock_total_value', title: '股票总市值'},
-        {field: 'short_total_value', title: '空单总市值'},
-        {field: 'realname', title: '创建人'},
+        {field: 'product_desc', title: '备注'},
+        {field: 'operator_id', title: '操作人ID'},
+        {field: 'product_supervisor', title: '产品管理人'},
+        {field: 'o32_id', title: 'o32来源ID'},
         {
             field: 'create_time',
             title: '创建时间',
@@ -73,7 +81,16 @@
             events: 'Events',
             clickToSelect: false
         },
+        {
+            field: 'update_time',
+            title: '修改时间',
+            align: 'center',
+            formatter: 'updateTime',
+            events: 'actionEvents',
+            clickToSelect: false
+        },
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
+
     ];
     // 设置分页
     var sidePagination = 'server';
@@ -84,11 +101,29 @@
     var search=true;
     var showRefresh=true;
     var showColumns= true;
+    //格式化产品开始时间
+    function start_date(value, row, index) {
+        var sdate=row.start_date+"";
+        var start_date=sdate.substr(0,4)+"-"+sdate.substr(4,2)+"-"+sdate.substr(6,2)+" "+sdate.substr(8,2)+":"+sdate.substr(10,2)+":"+sdate.substr(12,2);
+        return start_date;
+    }
+    //格式化产品结束时间
+    function end_date(value, row, index) {
+        var edate=row.end_date+"";
+        var end_date=edate.substr(0,4)+"-"+edate.substr(4,2)+"-"+edate.substr(6,2)+" "+edate.substr(8,2)+":"+edate.substr(10,2)+":"+edate.substr(12,2);
+        return end_date;
+    }
     //格式化修改时间
     function createTime(value, row, index) {
         var ctime=row.create_time+"";
         var create_time=ctime.substr(0,4)+"-"+ctime.substr(4,2)+"-"+ctime.substr(6,2)+" "+ctime.substr(8,2)+":"+ctime.substr(10,2)+":"+ctime.substr(12,2);
         return create_time;
+    }
+    //格式化更新时间
+    function updateTime(value, row, index) {
+        var utime=row.update_time+"";
+        var update_time=utime.substr(0,4)+"-"+utime.substr(4,2)+"-"+utime.substr(6,2)+" "+utime.substr(8,2)+":"+utime.substr(10,2)+":"+utime.substr(12,2);
+        return update_time;
     }
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
