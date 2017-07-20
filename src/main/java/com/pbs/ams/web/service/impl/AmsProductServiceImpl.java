@@ -7,8 +7,10 @@ import com.pbs.ams.web.mappers.AmsProductMapper;
 import com.pbs.ams.web.mappers.AmsProductUserMapper;
 import com.pbs.ams.web.model.AmsProduct;
 import com.pbs.ams.web.model.AmsProductAccount;
+import com.pbs.ams.web.model.AmsProductSnaps;
 import com.pbs.ams.web.model.AmsProductUser;
 import com.pbs.ams.web.service.AmsProductService;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -116,29 +119,29 @@ public class AmsProductServiceImpl  implements AmsProductService {
 
         @Override
         public int deleteByPrimaryKeys(List<Long> ids) {
-//            if (null != ids && ids.size() >0) {
-//                int count = 0;
-//                for (long id : ids) {
-//                    //先做查询再去删除原表数据和插入快照
-//                    AmsProduct amsProduct = amsProductMapper.selectByPrimaryKey(id);
-//                    if (amsProduct != null) {
-//                        AmsProductSnaps amsProductSnaps = new AmsProductSnaps();
-//                        try {
-//                            PropertyUtils.copyProperties(amsProductSnaps, amsProduct);
-//                            //向快照表插入数据
-//                            int snapshotResult = amsProductMapper.insertToAmsBrokerSnaps(amsProductSnaps);
-//                            count += amsProductMapper.deleteByPrimaryKey(id);
-//                        } catch (IllegalAccessException e) {//checkException
-//                            e.printStackTrace();
-//                        } catch (InvocationTargetException e) {
-//                            e.printStackTrace();
-//                        } catch (NoSuchMethodException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//                return count;
-//            }
+            if (null != ids && ids.size() >0) {
+                int count = 0;
+                for (long id : ids) {
+                    //先做查询再去删除原表数据和插入快照
+                    AmsProduct amsProduct = amsProductMapper.selectByPrimaryKey(id);
+                    if (amsProduct != null) {
+                        AmsProductSnaps amsProductSnaps = new AmsProductSnaps();
+                        try {
+                            PropertyUtils.copyProperties(amsProductSnaps, amsProduct);
+                            //向快照表插入数据
+                            int snapshotResult = amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
+                            count += amsProductMapper.deleteByPrimaryKey(id);
+                        } catch (IllegalAccessException e) {//checkException
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                return count;
+            }
             return 0;
         }
 

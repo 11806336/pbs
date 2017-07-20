@@ -18,13 +18,6 @@ public class AmsTradeAccountSnaps implements Serializable {
     private Long companyId;
 
     /**
-     * 账号类型
-     *
-     * @mbg.generated
-     */
-    private Boolean tradeAccountType;
-
-    /**
      * 交易账号
      *
      * @mbg.generated
@@ -117,14 +110,6 @@ public class AmsTradeAccountSnaps implements Serializable {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
-    }
-
-    public Boolean getTradeAccountType() {
-        return tradeAccountType;
-    }
-
-    public void setTradeAccountType(Boolean tradeAccountType) {
-        this.tradeAccountType = tradeAccountType;
     }
 
     public Long getTradeAccount() {

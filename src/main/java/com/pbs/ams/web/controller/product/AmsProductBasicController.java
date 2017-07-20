@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.util.CheckIsDeleteUtil;
 import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
@@ -288,9 +289,6 @@ public class AmsProductBasicController extends BaseController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id,ModelMap modelMap) throws ParseException {
         AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-        /*SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd");
-        Date date = sdf.parse(DateUtil.divideDate(amsProduct.getEndDate()));
-        modelMap.put("date",date);*/
         modelMap.put("date", DateUtil.divideDate(amsProduct.getEndDate()));
         modelMap.put("amsProduct", amsProduct);
         return  "/product/edit/edit_product_tabs.jsp";
@@ -331,12 +329,18 @@ public class AmsProductBasicController extends BaseController {
     public Object delete(@PathVariable("ids") String ids) {
         if (StringUtils.isNotEmpty(ids)) {
             int count = 0;
-            String[] productIds = ids.split(",");
+            String[] productIds = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
+            Map<String, Long> params = new HashMap<String, Long>();
             for (String id : productIds) {
-                idList.add(Long.parseLong(id));
-//                count = amsProductService.deleteByPrimaryKeys(id);
+                params.put("productId",Long.parseLong(id));
+                if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
+                    idList.add(Long.parseLong(id));
+                } else {
+                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+                }
             }
+            count = amsProductService.deleteByPrimaryKeys(idList);
             return new ResultSet(StatusCode.ERROR_NONE,count);
         }
         return 0;

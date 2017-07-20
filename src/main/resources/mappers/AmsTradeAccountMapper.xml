@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeAccount">
     <id column="trade_account_id" jdbcType="BIGINT" property="tradeAccountId" />
     <result column="company_id" jdbcType="BIGINT" property="companyId" />
-    <result column="trade_account_type" jdbcType="BIT" property="tradeAccountType" />
     <result column="trade_account" jdbcType="BIGINT" property="tradeAccount" />
     <result column="trade_account_name" jdbcType="VARCHAR" property="tradeAccountName" />
     <result column="trade_account_password" jdbcType="VARCHAR" property="tradeAccountPassword" />
@@ -16,7 +15,7 @@
     <result column="is_login" jdbcType="INTEGER" property="isLogin" />
   </resultMap>
   <sql id="Base_Column_List">
-    trade_account_id, company_id, trade_account_type, trade_account, trade_account_name, 
+    trade_account_id, company_id, trade_account, trade_account_name,
     trade_account_password, broker_id, trade_account_status, create_time, update_time, 
     operator_id,is_login
   </sql>
@@ -31,7 +30,7 @@
 
   <!--查询账号列表-->
   <select id="selectTradeAccoutWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
-    SELECT trade_account_id, company_id, trade_account_type, trade_account, trade_account_name,
+    SELECT trade_account_id, company_id, trade_account, trade_account_name,
     trade_account_password, broker_id, trade_account_status, create_time, update_time,operator_id
     FROM ams_trade_account where 1 = 1
     <if test="search!=null">
@@ -62,7 +61,7 @@
   </delete>
 
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeAccount">
-    insert into ams_trade_account (trade_account_id, company_id, trade_account_type, 
+    insert into ams_trade_account (trade_account_id, company_id,
       trade_account, trade_account_name, trade_account_password, 
       broker_id, trade_account_status, create_time, 
       update_time, operator_id)
@@ -81,9 +80,6 @@
       </if>
       <if test="companyId != null">
         company_id,
-      </if>
-      <if test="tradeAccountType != null">
-        trade_account_type,
       </if>
       <if test="tradeAccount != null">
         trade_account,
@@ -145,9 +141,6 @@
     <set>
       <if test="companyId != null">
         company_id = #{companyId,jdbcType=BIGINT},
-      </if>
-      <if test="tradeAccountType != null">
-        trade_account_type = #{tradeAccountType,jdbcType=BIT},
       </if>
       <if test="tradeAccount != null">
         trade_account = #{tradeAccount,jdbcType=BIGINT},
