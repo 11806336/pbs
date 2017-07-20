@@ -38,7 +38,6 @@
         {field: 'ck', checkbox: true},
         {field: 'trade_account_id', title: '证券ID'},
         {field: 'company_id', title: '公司ID'},
-        {field: 'trade_account_type', title: '账号类型'},
         {field: 'trade_account', title: '证券资金账号'},
         {field: 'trade_account_name', title: '账号名称'},
         {field: 'broker_id', title: '证券公司ID'},

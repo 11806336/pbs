@@ -20,13 +20,6 @@ public class AmsTradeAccount implements Serializable {
     private Long companyId;
 
     /**
-     * 账号类型
-     *
-     * @mbg.generated
-     */
-    private Boolean tradeAccountType;
-
-    /**
      * 交易账号
      *
      * @mbg.generated
@@ -116,14 +109,6 @@ public class AmsTradeAccount implements Serializable {
         this.companyId = companyId;
     }
 
-    public Boolean getTradeAccountType() {
-        return tradeAccountType;
-    }
-
-    public void setTradeAccountType(Boolean tradeAccountType) {
-        this.tradeAccountType = tradeAccountType;
-    }
-
     public Long getTradeAccount() {
         return tradeAccount;
     }
@@ -200,9 +185,6 @@ public class AmsTradeAccount implements Serializable {
         Map<String, Object> map = new HashMap<String, Object>();
         if (null != this.getTableName() && !"".equals(this.getTableName())) {
             map.put("goodsTitles", this.getTableName());
-        }
-        if (null != this.getTradeAccountType() && !"".equals(this.getTradeAccountType())) {
-            map.put("maskTitles", this.getTradeAccountType());
         }
         return map;
     }

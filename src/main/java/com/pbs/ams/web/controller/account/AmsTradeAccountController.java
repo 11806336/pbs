@@ -163,7 +163,6 @@ public class AmsTradeAccountController extends BaseController {
         int result = amsProductAccountService.insertSelective(amsProductAccount);
         int count = 0;
         if (result > 0) {
-            amsTradeAccount.setTradeAccountType(true);
             amsTradeAccount.setOperatorId(getCurrentUser().getUserId());
             count = amsTradeAccountService.insertSelective(amsTradeAccount);
             return new ResultSet(StatusCode.ERROR_NONE, count);
