@@ -229,27 +229,17 @@ public class UpmsUserController extends BaseController {
     public String create(ModelMap modelMap) {
         UpmsUser user = getCurrentUser();
         if (user != null) {
-//            List<UpmsCompany> upmsCompanies;
             Map<String, Object> params = new HashMap<String, Object>();
-            if (!user.isSuperUser()) {//判断是否是超级管理员
-                params.put("companyId", user.getCompanyId());
+            List<UpmsCompanyUser> upmsCompanyUserList = getCompanyByUserId();//查询当前用户的关联公司
+            List<Long> companyIds = new ArrayList<Long>();//存放公司id
+            for (UpmsCompanyUser companyUser : upmsCompanyUserList) {
+                companyIds.add(companyUser.getCompanyId());
             }
-
-//            upmsCompanies = UpmsCompanyService.listCompanies(params);
-            Map<String, Object> productParams = new HashMap<String, Object>();
+            params.put("companyIds", companyIds);
             //先从公司用户中间表查询公司，再根据公司得到产品列表。
-            List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getCompaniesByUserId(user.getUserId());
-            productParams.put("companyIds", upmsCompanyUsers);
-            List<Map> products = amsProductService.selectProductWithDetail(productParams);
-
-            List<Long> ids = new ArrayList<Long>();
-            List<UpmsCompanyUser> companyUserList = upmsCompanyUserService.getCompaniesByUserId(user.getUserId());
-            for (UpmsCompanyUser companyUser : companyUserList) {
-                ids.add(companyUser.getCompanyId());
-            }
-            params.put("companyIds", ids);
+            List<Map> products = amsProductService.selectProductWithDetail(params);
+            params.put("companyIds", companyIds);
             List<UpmsCompany> upmsCompanies = UpmsCompanyService.listCompanies(params);
-
             modelMap.addAttribute("products", products);//产品
             modelMap.addAttribute("upmsCompanies", upmsCompanies);//公司
         }
@@ -307,7 +297,11 @@ public class UpmsUserController extends BaseController {
 
         //先从公司用户中间表查询公司，再根据公司得到产品列表。
         List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getCompaniesByUserId(getCurrentUser().getUserId());
-        params.put("companyIds", upmsCompanyUsers);
+        List<Long> companyIds = new ArrayList<Long>();//存放公司id
+        for (UpmsCompanyUser companyUser : upmsCompanyUsers) {
+            companyIds.add(companyUser.getCompanyId());
+        }
+        params.put("companyIds", companyIds);
         List<Map> products = amsProductService.selectProductWithDetail(params);
 
         Map<String, Object> map = new HashMap<String, Object>();
