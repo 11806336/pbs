@@ -35,7 +35,7 @@
 
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 
-<script src="${basePath}/resources/js/public.js"></script>
+<%--<script src="${basePath}/resources/js/public.js"></script>--%>
 <%--<script src="${basePath}/resources/js/Timer.js"></script>--%>
 <%--<script src="${basePath}/resources/js/Loader.js"></script>--%>
 <%--<script src="${basePath}/resources/js/timer2.js"></script>--%>
