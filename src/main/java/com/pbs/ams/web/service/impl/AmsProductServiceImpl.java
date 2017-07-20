@@ -220,12 +220,26 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Override
     public int updateProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser) {
         if (null != amsProduct && null != amsProductUser) {
-            int result;
-            int count = amsProductMapper.updateByPrimaryKeySelective(amsProduct);
-            if (count > 0) {
-                result = amsProductUserMapper.updateByPrimaryKeySelective(amsProductUser);
-                if (result > 0) {
-                    return result;
+            //先做查询再去更新原表数据和插入快照
+            AmsProduct oldamsProduct=amsProductMapper.selectByPrimaryKey(amsProduct.getProductId());
+            if(null!=oldamsProduct){
+                AmsProductSnaps amsProductSnaps=new AmsProductSnaps();
+                try {
+                    PropertyUtils.copyProperties(amsProductSnaps, oldamsProduct);
+                    //向快照表插入数据
+                    int snapshotResult=amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
+                    if(snapshotResult>0){//当插入成功后再更新原数据
+                        int count=amsProductMapper.updateByPrimaryKeySelective(amsProduct);
+                        if(count>0){
+                            return amsProductUserMapper.updateByPrimaryKeySelective(amsProductUser);
+                        }
+                    }
+                }catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
                 }
             }
         }
