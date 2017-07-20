@@ -241,7 +241,7 @@
         ap.product_name LIKE %#{search}%
       </if>
       <if test="companyIds != null">
-        and company_id in
+        and ap.company_id in
         <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
           #{item}
         </foreach>
@@ -290,7 +290,7 @@
         ap.product_name LIKE %#{search}%
       </if>
       <if test="companyIds != null">
-        and company_id in
+        and ap.company_id in
         <foreach collection="companyIds" index="index" item="item" open="(" separator="," close=")">
           #{item}
         </foreach>
