@@ -229,7 +229,7 @@
     tb.* from ams_product as tb where product_id= #{productId}
   </insert>
 
-  <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.Map">
+  <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.LinkedHashMap">
     SELECT ap.product_id,ap.product_name, ap.product_type, ap.product_code, ap.product_manager,
       ap.product_supervisor,ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,
       ap.end_date,ap.product_shares,ap.product_desc,ap.o32_id,uu.realname,apd.product_net_value,
@@ -258,7 +258,7 @@
     </if>
   </select>
 
-  <select id="selectProduct" parameterType="java.lang.Object" resultType="java.util.Map">
+  <select id="selectProduct" parameterType="java.lang.Object" resultType="java.util.LinkedHashMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM
@@ -333,5 +333,4 @@
     <!--CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED))-->
   <!--</insert>-->
 
-  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

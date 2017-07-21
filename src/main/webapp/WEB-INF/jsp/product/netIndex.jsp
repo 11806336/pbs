@@ -35,10 +35,6 @@
     //json数据
     var url_json = "${basePath}/product/list";
     var dataColumns =  [
-        {field: 'ck', checkbox: true},
-        {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
-
-        {field: 'ck', checkbox: true},
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
         {field: 'product_id', title: '产品ID', visible: false},
         {field: 'company_id', title: '公司ID', visible: false},

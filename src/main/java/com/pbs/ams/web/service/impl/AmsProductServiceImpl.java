@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* AmsProductService实现
-* Created by ams on 2017/6/28.
-*/
+ * AmsProductService实现
+ * Created by ams on 2017/6/28.
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AmsProductServiceImpl  implements AmsProductService {
@@ -41,127 +41,127 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Autowired
     private AmsProductUserMapper amsProductUserMapper;
 
-        @Override
-        public int deleteByPrimaryKey(Long id) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsProductMapper.deleteByPrimaryKey(id);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
+    @Override
+    public int deleteByPrimaryKey(Long id) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsProductMapper.deleteByPrimaryKey(id);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
 
 
-        @Override
-        public int insert(AmsProduct amsProduct) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsProductMapper.insert(amsProduct);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
+    @Override
+    public int insert(AmsProduct amsProduct) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsProductMapper.insert(amsProduct);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
 
-        @Override
-        public int insertSelective(AmsProduct amsProduct) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsProductMapper.insertSelective(amsProduct);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
+    @Override
+    public int insertSelective(AmsProduct amsProduct) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsProductMapper.insertSelective(amsProduct);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
 
 
-        @Override
-        public AmsProduct selectByPrimaryKey(Long id) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsProductMapper.selectByPrimaryKey(id);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return null;
+    @Override
+    public AmsProduct selectByPrimaryKey(Long id) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsProductMapper.selectByPrimaryKey(id);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return null;
+    }
 
 
-        @Override
-        public int updateByPrimaryKeySelective(AmsProduct amsProduct) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsProductMapper.updateByPrimaryKeySelective(amsProduct);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
+    @Override
+    public int updateByPrimaryKeySelective(AmsProduct amsProduct) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsProductMapper.updateByPrimaryKeySelective(amsProduct);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
 
 
-        @Override
-        public int updateByPrimaryKey(AmsProduct amsProduct) {
-            try {
-                DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsProductMapper.updateByPrimaryKey(amsProduct);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
+    @Override
+    public int updateByPrimaryKey(AmsProduct amsProduct) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            return amsProductMapper.updateByPrimaryKey(amsProduct);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
 
-        @Override
-        public int deleteByPrimaryKeys(List<Long> ids) {
-            if (null != ids && ids.size() >0) {
-                int count = 0;
-                for (long id : ids) {
-                    //先做查询再去删除原表数据和插入快照
-                    AmsProduct amsProduct = amsProductMapper.selectByPrimaryKey(id);
-                    if (amsProduct != null) {
-                        AmsProductSnaps amsProductSnaps = new AmsProductSnaps();
-                        try {
-                            PropertyUtils.copyProperties(amsProductSnaps, amsProduct);
-                            //向快照表插入数据
-                            int snapshotResult = amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
-                            count += amsProductMapper.deleteByPrimaryKey(id);
-                        } catch (IllegalAccessException e) {//checkException
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        }
+    @Override
+    public int deleteByPrimaryKeys(List<Long> ids) {
+        if (null != ids && ids.size() >0) {
+            int count = 0;
+            for (long id : ids) {
+                //先做查询再去删除原表数据和插入快照
+                AmsProduct amsProduct = amsProductMapper.selectByPrimaryKey(id);
+                if (amsProduct != null) {
+                    AmsProductSnaps amsProductSnaps = new AmsProductSnaps();
+                    try {
+                        PropertyUtils.copyProperties(amsProductSnaps, amsProduct);
+                        //向快照表插入数据
+                        int snapshotResult = amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
+                        count += amsProductMapper.deleteByPrimaryKey(id);
+                    } catch (IllegalAccessException e) {//checkException
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
                     }
                 }
-                return count;
             }
-            return 0;
+            return count;
         }
+        return 0;
+    }
 
 
-        /**
-        * MANDATORY:该方法只能在一个已存在的事务中执行.
-        * @return
-        */
-        @Override
-        @Transactional(propagation = Propagation.MANDATORY)
-        public int insertToAmsProductSnaps() {
+    /**
+     * MANDATORY:该方法只能在一个已存在的事务中执行.
+     * @return
+     */
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public int insertToAmsProductSnaps() {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
 //            return amsProductMapper.insertToAmsProductSnaps();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            DynamicDataSource.clearDataSource();
-            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        DynamicDataSource.clearDataSource();
+        return 0;
+    }
 
     @Override
     public List<Map> selectProductWithDetail(Map map){
@@ -220,15 +220,13 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Override
     public int updateProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser) {
         if (null != amsProduct && null != amsProductUser) {
-            //先做查询再去更新原表数据和插入快照
             AmsProduct oldamsProduct=amsProductMapper.selectByPrimaryKey(amsProduct.getProductId());
             if(null!=oldamsProduct){
                 AmsProductSnaps amsProductSnaps=new AmsProductSnaps();
                 try {
                     PropertyUtils.copyProperties(amsProductSnaps, oldamsProduct);
-                    //向快照表插入数据
                     int snapshotResult=amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
-                    if(snapshotResult>0){//当插入成功后再更新原数据
+                    if(snapshotResult>0){
                         int count=amsProductMapper.updateByPrimaryKeySelective(amsProduct);
                         if(count>0){
                             return amsProductUserMapper.updateByPrimaryKeySelective(amsProductUser);

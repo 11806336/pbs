@@ -183,7 +183,6 @@
             ContentType: 'application/json',
             success: function (data) {
                 if (data.code == '1') {
-                    alert("保存成功！");
                     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     parent.layer.close(index);
                     window.parent.refresh();
