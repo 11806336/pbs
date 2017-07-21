@@ -16,7 +16,6 @@ import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
@@ -27,8 +26,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -193,17 +194,17 @@ public class AmsTradeAccountController extends BaseController {
     @RequiresPermissions("upms:account:update")
     @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object updateAccountStatus(@PathVariable("id") Long id, Integer status) {
+    public Object updateAccountStatus(@PathVariable("id") Long id, String status) {
         if (null != id && null != status) {
-            if (status == 1) {
-                status = 0;
+            if (status.equals("false")) {
+                status = "1";
             } else {
-                status = 1;
+                status = "0";
             }
         }
         AmsTradeAccount amsTradeAccount = new AmsTradeAccount();
         amsTradeAccount.setTradeAccountId(id);
-        int count = amsTradeAccountService.updateAccountStatusById(id, status);
+        int count = amsTradeAccountService.updateAccountStatusById(id, Integer.parseInt(status));
         return new ResultSet(StatusCode.ERROR_NONE, count);
     }
     @Log(value = "账号详情")
@@ -348,10 +349,26 @@ public class AmsTradeAccountController extends BaseController {
                     }
                 }
             }
-            HSSFRow row0 =sheet.createRow(0);
-            String[] title = {"证券ID","公司ID","账号类型","证券资金账号","账号名称","证券公司ID","状态","创建时间","修改时间","创建人"};
-            ExcelUtil.writeArrayToExcel(title,workbook,sheet, rowSize, cellSize, value);
-            ExcelUtil.writeWorkbook(workbook, "D://3.xls");
+            try {
+                String fileName = new Date().getTime() + ".xls";
+                response.reset();
+                response.setContentType("application/x-xls;charset=utf-8");
+                response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
+                String[] title = {"product_id", "company_id", "product_name", "product_type", "product_code", "product_manager", "product_supervisor",
+                        "product_status", "product_share_source", "start_date", "end_date", "product_shares", "product_desc",
+                        "create_time", "update_time", "operator_id", "o32_id"};
+                ExcelUtil.writeArrayToExcel(title, workbook, sheet, rowSize, cellSize, value);
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                workbook.write(os);
+                byte[] content = os.toByteArray();
+                InputStream is = new ByteArrayInputStream(content);
+                ServletOutputStream out = response.getOutputStream();
+                ExcelUtil.writeExceltoOutpurStream(is, out);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

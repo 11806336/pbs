@@ -392,9 +392,9 @@ public class AmsProductBasicController extends BaseController {
                 response.reset();
                 response.setContentType("application/x-xls;charset=utf-8");
                 response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
-                String[] title = {"product_id", "company_id", "product_name", "product_type", "product_code", "product_manager", "product_supervisor",
-                        "product_status", "product_share_source", "start_date", "end_date", "product_shares", "product_desc",
-                        "create_time", "update_time", "operator_id", "o32_id"};
+                String[] title = {"product_id", "company_id", "product_name", "product_type", "product_code", "product_manager",
+                        "product_supervisor","product_status", "product_share_source", "start_date", "end_date", "product_shares",
+                        "product_desc", "create_time", "update_time", "operator_id" ,"o32_id"};
                 ExcelUtil.writeArrayToExcel(title, workbook, sheet, rowSize, cellSize, value);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 workbook.write(os);
