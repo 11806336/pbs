@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>产品管理</title>
+    <link rel="stylesheet" href="${basePath}/resources/css/ace.css">
     <jsp:include page="/resources/inc/head.jsp" flush="true"/>
 </head>
 <body>
@@ -43,9 +44,6 @@
 <script language=javascript>
     function expot() {
         window.location.href="/product/export"
-//        document.write("<form action=/product/export method=post name=form1 style='display:none'>");
-//        document.write("</form>");
-//        document.form1.submit();
     }
 </script>
 <script>
@@ -98,6 +96,14 @@
             events: 'actionEvents',
             clickToSelect: false
         },
+        {
+            field: 'action',
+            title: '设置',
+            align: 'center',
+            formatter: 'set',
+            events: 'actionEvents',
+            clickToSelect: false
+        },
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
 
     ];
@@ -146,28 +152,55 @@
             "<a class='search' href='javascript:;' onclick=dialog('/product/details','详情',"+row.product_id+") data-toggle='tooltip' title='详情'><i class='glyphicon glyphicon-eye-open'></i></a>"
         ].join('');
     }
-    //导出功能
-//    function expot() {
-//        window.location.href="www.baidu.com"
-//            "/product/export";
-//        if(confirm("确定导出？")){
-//            $.ajax({
-//                url:"/product/export",
-//                type:'post',
-//                success : function(){
-//                    alert("导出成功")
-//                }
-//            });
-//        }
-//        else
-//        {
-//            alert("取消成功");
-//        }
-//    }
-    //添加、编辑后成功后刷新
-    // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-    //parent.layer.close(index);
-    //window.parent.refresh();
+    //格式化设置开关按钮
+    function set(value, row, index) {
+        var rows = $table.bootstrapTable('getSelections');
+        if(row.product_status == true){
+            return [
+                '<label> ' +
+                '<input onchange="open_close(this)" name="switch-field-1"  checked="checked" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
+                '<span class="lbl"></span>' +
+                ' </label>'
+            ].join('');
+        }else {
+            return [
+                '<label> ' +
+                '<input onchange="open_close(this)" name="switch-field-1" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
+                '<span class="lbl"></span>' +
+                ' </label>'
+            ].join('');
+        }
+    }
+
+    //启用、停用开关按钮的方法
+    function open_close(obj) {
+        //obj==this; status状态，值为ture为启用，为false就是停用
+        var rows = $table.bootstrapTable('getSelections');
+        if(rows.length==0){
+            alert("请选择一条记录")
+        }
+        var productId=rows[0].product_id;
+
+        var status=$(obj).context.checked;
+        var productStatus=rows[0].product_status;
+        $.ajax({
+            type: 'POST',
+            url: '${basePath}/product/updateStatus/'+productId,
+            data: {status : productStatus},
+            success: function (data) {
+                console.info(data);
+                if (data.message == '成功') {
+                    if (status == true)
+                        status=1;
+                } else {
+                    status=0;
+                }
+            },
+            error: function () {
+                alert("error")
+            }
+        });
+    }
     function refresh() {
         $.confirm({
             title: false,

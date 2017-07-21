@@ -20,6 +20,26 @@
     cancel_amount, trade_order_type, ip_source, mac_address, create_time, update_time, 
     operator_id
   </sql>
+  <!--查询委托列表-->
+  <!--<select id="selectAmsEntrustWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">-->
+  <!--SELECT trade_order_id, contract_id, trade_order_status, trade_order_date, knock_avg_price,-->
+    <!--cancel_amount, trade_order_type, ip_source, mac_address, create_time, update_time,-->
+    <!--operator_id at.trade_account_id, at.company_id, at.trade_account_type, at.trade_account,-->
+  <!--at.trade_account_name,at.trade_account_password, at.broker_id, at.trade_account_status,at.create_time,-->
+  <!--at.update_time,at.operator_id,at.is_login,ak.knock_id, ak.stock_id, ak.company_id, ak.contract_id,-->
+  <!--ak.knock_price,ak.knock_volume,ak.entrust_id, ak.knock_date, ak.knock_amount, ak.buy_sell, ak.fee,-->
+  <!--ak.operator_id-->
+  <!--FROM ams_trade_order ae join ams_trade_account at-->
+  <!--on at.company_id = ae.company_id join ams_knock ak on at.company_id = ak.company_id where 1 = 1-->
+    <!--&lt;!&ndash;<if test="company_id != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;and ae.company_id = #{company_id,jdbcType=BIGINT}&ndash;&gt;-->
+    <!--&lt;!&ndash;</if>&ndash;&gt;-->
+    <!--<if test="limit != null">-->
+      <!--<if test="offset != null"> limit ${offset}, ${limit} </if>-->
+      <!--<if test="offset == null"> limit ${limit} </if>-->
+    <!--</if>-->
+  <!--</select>-->
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

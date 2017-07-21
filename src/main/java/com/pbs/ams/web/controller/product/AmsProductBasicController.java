@@ -108,7 +108,23 @@ public class AmsProductBasicController extends BaseController {
         }
         return result;
     }
-
+    @Log(value = "更改账号状态")
+    @RequiresPermissions("ams:product:read")
+    @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateProductStatus(@PathVariable("id") Long id, String status) {
+        if (null != id && null != status) {
+            if (status.equals("false")) {
+                status = "1";
+            } else {
+                status = "0";
+            }
+        }
+        AmsProduct amsProduct = new AmsProduct();
+        amsProduct.setProductId(id);
+        int count = amsProductService.updateProductStatusById(id, Integer.parseInt(status));
+        return new ResultSet(StatusCode.ERROR_NONE, count);
+    }
 
     @Log(value = "新增产品页")
     @RequiresPermissions("ams:product:read")

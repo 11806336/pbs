@@ -5,10 +5,7 @@ import com.pbs.ams.common.db.DynamicDataSource;
 import com.pbs.ams.web.mappers.AmsProductAccountMapper;
 import com.pbs.ams.web.mappers.AmsProductMapper;
 import com.pbs.ams.web.mappers.AmsProductUserMapper;
-import com.pbs.ams.web.model.AmsProduct;
-import com.pbs.ams.web.model.AmsProductAccount;
-import com.pbs.ams.web.model.AmsProductSnaps;
-import com.pbs.ams.web.model.AmsProductUser;
+import com.pbs.ams.web.model.*;
 import com.pbs.ams.web.service.AmsProductService;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -220,19 +217,48 @@ public class AmsProductServiceImpl  implements AmsProductService {
     @Override
     public int updateProductAndUserRelation(AmsProduct amsProduct, AmsProductUser amsProductUser) {
         if (null != amsProduct && null != amsProductUser) {
+            //先做查询再去更新原表数据和插入快照
             AmsProduct oldamsProduct=amsProductMapper.selectByPrimaryKey(amsProduct.getProductId());
             if(null!=oldamsProduct){
                 AmsProductSnaps amsProductSnaps=new AmsProductSnaps();
                 try {
                     PropertyUtils.copyProperties(amsProductSnaps, oldamsProduct);
+                    //向快照表插入数据
                     int snapshotResult=amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
-                    if(snapshotResult>0){
+                    if(snapshotResult>0){//当插入成功后再更新原数据
                         int count=amsProductMapper.updateByPrimaryKeySelective(amsProduct);
                         if(count>0){
                             return amsProductUserMapper.updateByPrimaryKeySelective(amsProductUser);
                         }
                     }
                 }catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateProductStatusById(Long id, Integer status) {
+        if (null != id) {
+            //先做查询再去更新原表数据和插入快照
+            AmsProduct oldamsProduct = amsProductMapper.selectByPrimaryKey(id);
+            if (null != oldamsProduct){
+                AmsProductSnaps amsProductSnaps=new AmsProductSnaps();
+                try {
+                    PropertyUtils.copyProperties(amsProductSnaps, oldamsProduct);
+                    //向快照表插入数据
+                    int snapshotResult=amsProductMapper.insertIntoAmsProductSnaps(amsProductSnaps);
+                    if (snapshotResult > 0) {//当插入成功后再更新原数据
+                        oldamsProduct.setProductStatus(status);
+                        return amsProductMapper.updateByPrimaryKeySelective(oldamsProduct);
+                    }
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();

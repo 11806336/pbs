@@ -2,11 +2,20 @@ package com.pbs.ams.web.service;
 
 import com.pbs.ams.web.model.AmsTradeOrder;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * AmsTradeOrderService接口
 * Created by ams on 2017/7/21.
 */
 public interface AmsTradeOrderService{
+    /**
+     * 查询委托列表
+     * @param map
+     * @return
+     */
+    List<Map> selectAmsTradeOrderWithDetail(Map map);
 
     int deleteByPrimaryKey(Long id);
 

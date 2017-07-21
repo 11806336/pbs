@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * AmsTradeOrderService实现
 * Created by ams on 2017/7/21.
@@ -27,6 +30,10 @@ public class AmsTradeOrderServiceImpl  implements AmsTradeOrderService {
     private AmsTradeOrderMapper amsTradeOrderMapper;
 
 
+    @Override
+    public List<Map> selectAmsTradeOrderWithDetail(Map map){
+        return amsTradeOrderMapper.selectAmsTradeOrderWithDetail(map);
+    }
         @Override
         public int deleteByPrimaryKey(Long id) {
             try {
