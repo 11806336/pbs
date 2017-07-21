@@ -34,4 +34,11 @@ public interface UpmsUserService extends BaseService<UpmsUser, UpmsUserExample> 
      * @return update count
      */
     int updateUserAndProductRelation(UpmsUser upmsUser, AmsProductUser amsProductUser, Long companyId);
+
+    /**
+     * select user by username
+     * @param userName
+     * @return
+     */
+    UpmsUser selectUserByUserName(String userName);
 }

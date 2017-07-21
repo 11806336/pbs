@@ -109,4 +109,9 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUser,UpmsUserExampl
         }
         return 0;
     }
+
+    @Override
+    public UpmsUser selectUserByUserName(String userName) {
+        return upmsUserMapper.selectUserByUserName(userName);
+    }
 }
