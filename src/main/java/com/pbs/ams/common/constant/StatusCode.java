@@ -32,7 +32,8 @@ public enum StatusCode {
     INVALID_ACCOUNT("S30010", "账号无效"),
     INVALID_CODE("S30011","无效code"),
     INVALID_INSERT("S30012","插入数据异常"),
-    INVALID_DELETE("S30013","删除数据异常");
+    INVALID_DELETE("S30013","删除数据异常"),
+    REPETE_USERNAME("S30014","用户名重复");
 
     private final String code;
 

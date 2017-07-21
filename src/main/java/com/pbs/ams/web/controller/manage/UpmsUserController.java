@@ -260,6 +260,11 @@ public class UpmsUserController extends BaseController {
         if (!result.isSuccess() || productId == null) {
             return new ResultSet(StatusCode.ERROR_NONE);
         }
+        //查询用户名是否已经存在。
+        UpmsUser user = upmsUserService.selectUserByUserName(upmsUser.getUsername());
+        if (user != null) {
+            return new ResultSet(StatusCode.REPETE_USERNAME);
+        }
         long time = System.currentTimeMillis();
         String salt = UUID.randomUUID().toString().replaceAll("-", "");
         upmsUser.setSalt(salt);
