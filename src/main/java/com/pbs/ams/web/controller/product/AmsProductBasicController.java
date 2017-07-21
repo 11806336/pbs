@@ -383,7 +383,7 @@ public class AmsProductBasicController extends BaseController {
                         Map.Entry<String, Object> entry = it.next();
                         value[i][j] = entry.getValue();
                         it.remove();
-                        break;
+                        i ++;
                     }
                 }
             }
