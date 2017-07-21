@@ -383,28 +383,9 @@ public class AmsProductBasicController extends BaseController {
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 workbook.write(os);
                 byte[] content = os.toByteArray();
-
                 InputStream is = new ByteArrayInputStream(content);
                 ServletOutputStream out = response.getOutputStream();
-                BufferedInputStream bis = null;
-                BufferedOutputStream bos = null;
-                try {
-                    bis = new BufferedInputStream(is);
-                    bos = new BufferedOutputStream(out);
-                    byte[] buff = new byte[2048];
-                    int bytesRead;
-                    // Simple read/write loop.
-                    while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
-                        bos.write(buff, 0, bytesRead);
-                    }
-                } catch (final IOException e) {
-                    throw e;
-                } finally {
-                    if (bis != null)
-                        bis.close();
-                    if (bos != null)
-                        bos.close();
-                }
+                ExcelUtil.writeExceltoOutpurStream(is, out);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (IOException e) {
