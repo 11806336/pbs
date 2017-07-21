@@ -15,12 +15,22 @@ public interface AmsProductService{
 
     int deleteByPrimaryKey(Long id);
 
+    /**
+     * This method by id delete data  通过id删除数据
+     * @param ids
+     * @return
+     */
     int deleteByPrimaryKeys(List<Long> ids);
 
     int insert(AmsProduct record);
 
     int insertSelective(AmsProduct record);
 
+    /**
+     * This method by id query data  通过id查询数据
+     * @param id
+     * @return
+     */
     AmsProduct selectByPrimaryKey(Long id);
 
     int updateByPrimaryKey(AmsProduct record);
@@ -36,6 +46,14 @@ public interface AmsProductService{
      * @return
      */
     List<Map> selectProductWithDetail(Map map);
+
+    /**
+     * 修改账号状态
+     * @param id 账号id
+     * @param status 账号状态
+     * @return
+     */
+    int updateProductStatusById(Long id, Integer status);
 
     /**
      * This method is used to get PageListTotalSize

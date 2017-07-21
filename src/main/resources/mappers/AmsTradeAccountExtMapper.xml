@@ -23,13 +23,12 @@
     where trade_account_id = #{tradeAccountId,jdbcType=BIGINT}
   </select>
 
-  <!--查询委托列表-->
+  <!--查询资产列表-->
   <select id="selectAmsTradeAccountExtWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
     SELECT atae.trade_account_id, atae.profit_loss, atae.available_fund, atae.frozen_fund, atae.fee,
     atae.total_fund, atae.create_time,atae.update_time, atae.operator_id,at.trade_account_id,
-    at.company_id, at.trade_account_type, at.trade_account,
-    at.trade_account_name,at.trade_account_password, at.broker_id, at.trade_account_status,
-    at.create_time,at.update_time,at.operator_id,at.is_login
+    at.company_id, at.trade_account,at.trade_account_name,at.trade_account_password, at.broker_id,
+    at.trade_account_status,at.create_time,at.update_time,at.operator_id,at.is_login
     FROM ams_trade_account_ext atae join ams_trade_account at
     on atae.trade_account_id = at.trade_account_id where 1 = 1
     <if test="limit != null">

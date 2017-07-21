@@ -9,7 +9,7 @@
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="product_manager" jdbcType="VARCHAR" property="productManager" />
     <result column="product_supervisor" jdbcType="VARCHAR" property="productSupervisor" />
-    <result column="product_status" jdbcType="BIT" property="productStatus" />
+    <result column="product_status" jdbcType="VARCHAR" property="productStatus" />
     <result column="product_share_source" jdbcType="BIT" property="productShareSource" />
     <result column="start_date" jdbcType="BIGINT" property="startDate" />
     <result column="end_date" jdbcType="BIGINT" property="endDate" />
@@ -229,6 +229,7 @@
     tb.* from ams_product as tb where product_id= #{productId}
   </insert>
 
+  <!--This method is used to get PageList data.查询列表-->
   <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.LinkedHashMap">
     SELECT ap.product_id,ap.product_name, ap.product_type, ap.product_code, ap.product_manager,
       ap.product_supervisor,ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,
@@ -282,6 +283,7 @@
     </if>
   </select>
 
+  <!--This method is used to get PageListTotalSize  查询列表总数-->
   <select id="selectProductWithDetailCount" parameterType="java.lang.Object" resultType="java.lang.Integer">
     SELECT
       COUNT(1)
