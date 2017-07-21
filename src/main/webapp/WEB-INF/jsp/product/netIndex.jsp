@@ -33,7 +33,7 @@
 <script>
     var $table = $('#table');
     //json数据
-    var url_json = "${basePath}/product/list";
+    var url_json = "${basePath}/net/list";
     var dataColumns =  [
         {field: 'number', title: 'No.', formatter: function (value, row, index) {return index + 1;}},
         {field: 'product_id', title: '产品ID', visible: false},
@@ -96,26 +96,6 @@
         return update_time;
     }
 
-    //导出功能
-    function expot() {
-        if(confirm("确定导出？")){
-            $.ajax({
-                url:"/product/export",
-                type:'post',
-                success : function(){
-                    alert("导出成功")
-                }
-            });
-        }
-        else
-        {
-            alert("取消成功");
-        }
-    }
-    //添加、编辑后成功后刷新
-    // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-    //parent.layer.close(index);
-    //window.parent.refresh();
     function refresh() {
         $.confirm({
             title: false,

@@ -37,10 +37,6 @@
 
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 
-<%--<script src="${basePath}/resources/js/public.js"></script>--%>
-<%--<script src="${basePath}/resources/js/Timer.js"></script>--%>
-<%--<script src="${basePath}/resources/js/Loader.js"></script>--%>
-<%--<script src="${basePath}/resources/js/timer2.js"></script>--%>
 <script language=javascript>
     function expot() {
         window.location.href="/product/export"
@@ -59,7 +55,6 @@
         {field: 'product_type', title: '产品类型'},
         {field: 'product_code', title: '产品代码'},
         {field: 'product_manager', title: '产品经理'},
-        {field: 'product_status', title: '产品状态'},
         {field: 'product_share_source', title: '产品份额来源'},
         {   field: 'start_date',
             title: '产品开始时间',
