@@ -104,6 +104,13 @@
     from upms_user
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
+  <!-- 根据用户名查询用户-->
+  <select id="selectUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from upms_user
+    where username = #{userName,jdbcType=BIGINT}
+  </select>
   <select id="selectUsersById" parameterType="java.util.List" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
