@@ -9,7 +9,7 @@ public class AmsTradeOrderFeed implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer tradeOrderFeedId;
+    private Long tradeOrderFeedId;
 
     /**
      * 合同编号
@@ -65,15 +65,15 @@ public class AmsTradeOrderFeed implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getTradeOrderFeedId() {
+    public Long getTradeOrderFeedId() {
         return tradeOrderFeedId;
     }
 
-    public void setTradeOrderFeedId(Integer tradeOrderFeedId) {
+    public void setTradeOrderFeedId(Long tradeOrderFeedId) {
         this.tradeOrderFeedId = tradeOrderFeedId;
     }
 
@@ -133,11 +133,11 @@ public class AmsTradeOrderFeed implements Serializable {
         this.fee = fee;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 }

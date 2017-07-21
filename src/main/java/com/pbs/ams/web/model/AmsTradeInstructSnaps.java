@@ -15,7 +15,7 @@ public class AmsTradeInstructSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer instructId;
+    private Long instructId;
 
     /**
      * 交易类别(股票1/期货2/期权3)
@@ -36,7 +36,7 @@ public class AmsTradeInstructSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer instructUserId;
+    private Long instructUserId;
 
     /**
      * 备注
@@ -99,7 +99,7 @@ public class AmsTradeInstructSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
@@ -111,11 +111,11 @@ public class AmsTradeInstructSnaps implements Serializable {
         this.snapsTime = snapsTime;
     }
 
-    public Integer getInstructId() {
+    public Long getInstructId() {
         return instructId;
     }
 
-    public void setInstructId(Integer instructId) {
+    public void setInstructId(Long instructId) {
         this.instructId = instructId;
     }
 
@@ -135,11 +135,11 @@ public class AmsTradeInstructSnaps implements Serializable {
         this.tradeOrderType = tradeOrderType;
     }
 
-    public Integer getInstructUserId() {
+    public Long getInstructUserId() {
         return instructUserId;
     }
 
-    public void setInstructUserId(Integer instructUserId) {
+    public void setInstructUserId(Long instructUserId) {
         this.instructUserId = instructUserId;
     }
 
@@ -207,11 +207,11 @@ public class AmsTradeInstructSnaps implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 }

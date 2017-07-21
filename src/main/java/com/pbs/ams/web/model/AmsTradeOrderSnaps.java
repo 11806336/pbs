@@ -16,7 +16,7 @@ public class AmsTradeOrderSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer tradeOrderId;
+    private Long tradeOrderId;
 
     /**
      * 合约编号
@@ -93,7 +93,7 @@ public class AmsTradeOrderSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     private static final long serialVersionUID = 1L;
 
@@ -105,11 +105,11 @@ public class AmsTradeOrderSnaps implements Serializable {
         this.snapsTime = snapsTime;
     }
 
-    public Integer getTradeOrderId() {
+    public Long getTradeOrderId() {
         return tradeOrderId;
     }
 
-    public void setTradeOrderId(Integer tradeOrderId) {
+    public void setTradeOrderId(Long tradeOrderId) {
         this.tradeOrderId = tradeOrderId;
     }
 
@@ -193,11 +193,11 @@ public class AmsTradeOrderSnaps implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 }
