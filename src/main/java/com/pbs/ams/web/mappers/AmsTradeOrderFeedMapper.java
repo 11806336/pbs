@@ -3,13 +3,13 @@ package com.pbs.ams.web.mappers;
 import com.pbs.ams.web.model.AmsTradeOrderFeed;
 
 public interface AmsTradeOrderFeedMapper {
-    int deleteByPrimaryKey(Integer tradeOrderFeedId);
+    int deleteByPrimaryKey(Long tradeOrderFeedId);
 
     int insert(AmsTradeOrderFeed record);
 
     int insertSelective(AmsTradeOrderFeed record);
 
-    AmsTradeOrderFeed selectByPrimaryKey(Integer tradeOrderFeedId);
+    AmsTradeOrderFeed selectByPrimaryKey(Long tradeOrderFeedId);
 
     int updateByPrimaryKeySelective(AmsTradeOrderFeed record);
 

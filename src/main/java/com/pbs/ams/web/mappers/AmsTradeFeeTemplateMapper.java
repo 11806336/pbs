@@ -3,13 +3,13 @@ package com.pbs.ams.web.mappers;
 import com.pbs.ams.web.model.AmsTradeFeeTemplate;
 
 public interface AmsTradeFeeTemplateMapper {
-    int deleteByPrimaryKey(Integer feeTemplateteId);
+    int deleteByPrimaryKey(Long feeTemplateteId);
 
     int insert(AmsTradeFeeTemplate record);
 
     int insertSelective(AmsTradeFeeTemplate record);
 
-    AmsTradeFeeTemplate selectByPrimaryKey(Integer feeTemplateteId);
+    AmsTradeFeeTemplate selectByPrimaryKey(Long feeTemplateteId);
 
     int updateByPrimaryKeySelective(AmsTradeFeeTemplate record);
 
