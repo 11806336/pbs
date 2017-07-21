@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pbs.ams.web.mappers.AmsTradeOrderFeedMapper">
-  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeOrderFeed">
-    <id column="trade_order_feed_id" jdbcType="BIGINT" property="tradeOrderFeedId" />
+<mapper namespace="com.pbs.ams.web.mappers.AmsTradeOrderFeedSnapsMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeOrderFeedSnaps">
+    <id column="snaps_time" jdbcType="BIGINT" property="snapsTime" />
+    <result column="trade_order_feed_id" jdbcType="BIGINT" property="tradeOrderFeedId" />
     <result column="contract_id" jdbcType="VARCHAR" property="contractId" />
     <result column="trade__price" jdbcType="DECIMAL" property="tradePrice" />
     <result column="trade_volume" jdbcType="INTEGER" property="tradeVolume" />
@@ -13,32 +14,35 @@
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    trade_order_feed_id, contract_id, trade__price, trade_volume, trade_date, trade_order_feed_amount, 
-    trade_mark, fee, operator_id
+    snaps_time, trade_order_feed_id, contract_id, trade__price, trade_volume, trade_date, 
+    trade_order_feed_amount, trade_mark, fee, operator_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from ams_trade_order_feed
-    where trade_order_feed_id = #{tradeOrderFeedId,jdbcType=BIGINT}
+    from ams_trade_order_feed_snaps
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ams_trade_order_feed
-    where trade_order_feed_id = #{tradeOrderFeedId,jdbcType=BIGINT}
+    delete from ams_trade_order_feed_snaps
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeed">
-    insert into ams_trade_order_feed (trade_order_feed_id, contract_id, trade__price, 
-      trade_volume, trade_date, trade_order_feed_amount, 
-      trade_mark, fee, operator_id
-      )
-    values (#{tradeOrderFeedId,jdbcType=BIGINT}, #{contractId,jdbcType=VARCHAR}, #{tradePrice,jdbcType=DECIMAL}, 
-      #{tradeVolume,jdbcType=INTEGER}, #{tradeDate,jdbcType=BIGINT}, #{tradeOrderFeedAmount,jdbcType=DECIMAL}, 
-      #{tradeMark,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, #{operatorId,jdbcType=BIGINT}
-      )
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeedSnaps">
+    insert into ams_trade_order_feed_snaps (snaps_time, trade_order_feed_id, contract_id, 
+      trade__price, trade_volume, trade_date, 
+      trade_order_feed_amount, trade_mark, fee, 
+      operator_id)
+    values (#{snapsTime,jdbcType=BIGINT}, #{tradeOrderFeedId,jdbcType=BIGINT}, #{contractId,jdbcType=VARCHAR}, 
+      #{tradePrice,jdbcType=DECIMAL}, #{tradeVolume,jdbcType=INTEGER}, #{tradeDate,jdbcType=BIGINT}, 
+      #{tradeOrderFeedAmount,jdbcType=DECIMAL}, #{tradeMark,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, 
+      #{operatorId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeed">
-    insert into ams_trade_order_feed
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeedSnaps">
+    insert into ams_trade_order_feed_snaps
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="snapsTime != null">
+        snaps_time,
+      </if>
       <if test="tradeOrderFeedId != null">
         trade_order_feed_id,
       </if>
@@ -68,6 +72,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="snapsTime != null">
+        #{snapsTime,jdbcType=BIGINT},
+      </if>
       <if test="tradeOrderFeedId != null">
         #{tradeOrderFeedId,jdbcType=BIGINT},
       </if>
@@ -97,9 +104,12 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeed">
-    update ams_trade_order_feed
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeedSnaps">
+    update ams_trade_order_feed_snaps
     <set>
+      <if test="tradeOrderFeedId != null">
+        trade_order_feed_id = #{tradeOrderFeedId,jdbcType=BIGINT},
+      </if>
       <if test="contractId != null">
         contract_id = #{contractId,jdbcType=VARCHAR},
       </if>
@@ -125,11 +135,12 @@
         operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
     </set>
-    where trade_order_feed_id = #{tradeOrderFeedId,jdbcType=BIGINT}
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeed">
-    update ams_trade_order_feed
-    set contract_id = #{contractId,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeOrderFeedSnaps">
+    update ams_trade_order_feed_snaps
+    set trade_order_feed_id = #{tradeOrderFeedId,jdbcType=BIGINT},
+      contract_id = #{contractId,jdbcType=VARCHAR},
       trade__price = #{tradePrice,jdbcType=DECIMAL},
       trade_volume = #{tradeVolume,jdbcType=INTEGER},
       trade_date = #{tradeDate,jdbcType=BIGINT},
@@ -137,10 +148,10 @@
       trade_mark = #{tradeMark,jdbcType=VARCHAR},
       fee = #{fee,jdbcType=DECIMAL},
       operator_id = #{operatorId,jdbcType=BIGINT}
-    where trade_order_feed_id = #{tradeOrderFeedId,jdbcType=BIGINT}
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </update>
-  <insert id="insertIntoAmsTradeOrderFeedSnaps">
-    insert into ams_trade_order_feed_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_order_feed as tb where trade_order_feed_id= #{trade_order_feed_id}
+  <insert id="insertIntoAmsTradeOrderFeedSnapsSnaps">
+    insert into ams_trade_order_feed_snaps_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_order_feed_snaps as tb where snaps_time= #{snaps_time}
   </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

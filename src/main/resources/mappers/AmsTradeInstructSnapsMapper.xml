@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pbs.ams.web.mappers.AmsTradeInstructMapper">
-  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeInstruct">
-    <id column="instruct_id" jdbcType="BIGINT" property="instructId" />
+<mapper namespace="com.pbs.ams.web.mappers.AmsTradeInstructSnapsMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeInstructSnaps">
+    <id column="snaps_time" jdbcType="BIGINT" property="snapsTime" />
+    <result column="instruct_id" jdbcType="BIGINT" property="instructId" />
     <result column="trade_platform_type" jdbcType="TINYINT" property="tradePlatformType" />
     <result column="trade_order_type" jdbcType="TINYINT" property="tradeOrderType" />
     <result column="instruct_user_id" jdbcType="BIGINT" property="instructUserId" />
@@ -17,34 +18,38 @@
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    instruct_id, trade_platform_type, trade_order_type, instruct_user_id, remark, executed_qty, 
-    instruct_status, start_time, end_time, ip_source, create_time, update_time, operator_id
+    snaps_time, instruct_id, trade_platform_type, trade_order_type, instruct_user_id, 
+    remark, executed_qty, instruct_status, start_time, end_time, ip_source, create_time, 
+    update_time, operator_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from ams_trade_instruct
-    where instruct_id = #{instructId,jdbcType=BIGINT}
+    from ams_trade_instruct_snaps
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ams_trade_instruct
-    where instruct_id = #{instructId,jdbcType=BIGINT}
+    delete from ams_trade_instruct_snaps
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeInstruct">
-    insert into ams_trade_instruct (instruct_id, trade_platform_type, trade_order_type, 
-      instruct_user_id, remark, executed_qty, 
-      instruct_status, start_time, end_time, 
-      ip_source, create_time, update_time, 
-      operator_id)
-    values (#{instructId,jdbcType=BIGINT}, #{tradePlatformType,jdbcType=TINYINT}, #{tradeOrderType,jdbcType=TINYINT}, 
-      #{instructUserId,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{executedQty,jdbcType=INTEGER}, 
-      #{instructStatus,jdbcType=TINYINT}, #{startTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, 
-      #{ipSource,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
-      #{operatorId,jdbcType=BIGINT})
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeInstructSnaps">
+    insert into ams_trade_instruct_snaps (snaps_time, instruct_id, trade_platform_type, 
+      trade_order_type, instruct_user_id, remark, 
+      executed_qty, instruct_status, start_time, 
+      end_time, ip_source, create_time, 
+      update_time, operator_id)
+    values (#{snapsTime,jdbcType=BIGINT}, #{instructId,jdbcType=BIGINT}, #{tradePlatformType,jdbcType=TINYINT}, 
+      #{tradeOrderType,jdbcType=TINYINT}, #{instructUserId,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, 
+      #{executedQty,jdbcType=INTEGER}, #{instructStatus,jdbcType=TINYINT}, #{startTime,jdbcType=BIGINT}, 
+      #{endTime,jdbcType=BIGINT}, #{ipSource,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeInstruct">
-    insert into ams_trade_instruct
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeInstructSnaps">
+    insert into ams_trade_instruct_snaps
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="snapsTime != null">
+        snaps_time,
+      </if>
       <if test="instructId != null">
         instruct_id,
       </if>
@@ -86,6 +91,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="snapsTime != null">
+        #{snapsTime,jdbcType=BIGINT},
+      </if>
       <if test="instructId != null">
         #{instructId,jdbcType=BIGINT},
       </if>
@@ -127,9 +135,12 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeInstruct">
-    update ams_trade_instruct
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeInstructSnaps">
+    update ams_trade_instruct_snaps
     <set>
+      <if test="instructId != null">
+        instruct_id = #{instructId,jdbcType=BIGINT},
+      </if>
       <if test="tradePlatformType != null">
         trade_platform_type = #{tradePlatformType,jdbcType=TINYINT},
       </if>
@@ -167,11 +178,12 @@
         operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
     </set>
-    where instruct_id = #{instructId,jdbcType=BIGINT}
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeInstruct">
-    update ams_trade_instruct
-    set trade_platform_type = #{tradePlatformType,jdbcType=TINYINT},
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeInstructSnaps">
+    update ams_trade_instruct_snaps
+    set instruct_id = #{instructId,jdbcType=BIGINT},
+      trade_platform_type = #{tradePlatformType,jdbcType=TINYINT},
       trade_order_type = #{tradeOrderType,jdbcType=TINYINT},
       instruct_user_id = #{instructUserId,jdbcType=BIGINT},
       remark = #{remark,jdbcType=VARCHAR},
@@ -183,10 +195,10 @@
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       operator_id = #{operatorId,jdbcType=BIGINT}
-    where instruct_id = #{instructId,jdbcType=BIGINT}
+    where snaps_time = #{snapsTime,jdbcType=BIGINT}
   </update>
-  <insert id="insertIntoAmsTradeInstructSnaps">
-    insert into ams_trade_instruct_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_instruct as tb where instruct_id= #{instruct_id}
+  <insert id="insertIntoAmsTradeInstructSnapsSnaps">
+    insert into ams_trade_instruct_snaps_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_instruct_snaps as tb where snaps_time= #{snaps_time}
   </insert>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>
