@@ -12,9 +12,8 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.ServletOutputStream;
+import java.io.*;
 
 /**
  * 描述：Excel写操作帮助类
@@ -178,25 +177,22 @@ public class ExcelUtil {
         //ztFont.setItalic(true);                     // 设置字体为斜体字
         // ztFont.setColor(Font.COLOR_RED);            // 将字体设置为“红色”
         ztFont.setFontHeightInPoints((short)10);    // 将字体大小设置为18px
-        ztFont.setFontName("华文行楷");             // 将“华文行楷”字体应用到当前单元格上
+        //ztFont.setFontName("华文行楷");             // 将“华文行楷”字体应用到当前单元格上
         // ztFont.setUnderline(Font.U_DOUBLE);
         ztStyle.setFont(ztFont);
 
-        for(int i=0;i<row.length;i++){
-            row[i]=sheet.createRow(i+1);
-            HSSFRow row0 =sheet.createRow(0);
+        for(int i = 0; i < row.length; i ++){
+            row[i] = sheet.createRow(i+1);
+            HSSFRow row0 = sheet.createRow(0);
             for (int j = 0; j < title.length; j++) {    //标题
                 HSSFCell c0 = row0.createCell(j);
                 c0.setCellValue(title[j]);
+                c0.setCellStyle(ztStyle);
             }
 
             for(int j=0;j<cell.length;j++){
                 cell[j]=row[i].createCell(j);
                 cell[j].setCellValue(convertString(value[i][j]));
-
-                if(i==0)
-                    cell[j].setCellStyle(ztStyle);
-
             }
 
         }
@@ -283,6 +279,34 @@ public class ExcelUtil {
             return "";
         } else {
             return value.toString();
+        }
+    }
+
+    /**
+     *将数据从输入流写到输出流
+     * @param os 输出流
+     * @param is 输入流
+     * @throws IOException
+     */
+    public static void writeExceltoOutpurStream(InputStream is, ServletOutputStream os) throws IOException{
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        try {
+            bis = new BufferedInputStream(is);
+            bos = new BufferedOutputStream(os);
+            byte[] buff = new byte[2048];
+            int bytesRead;
+            // Simple read/write loop.
+            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, bytesRead);
+            }
+        } finally {
+            if (bis != null) {
+                bis.close();
+            }
+            if (bos != null) {
+                bos.close();
+            }
         }
     }
 }
