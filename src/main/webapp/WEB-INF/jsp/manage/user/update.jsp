@@ -33,7 +33,7 @@
 		<div class="form-group">
 			<label for="username">帐号</label>
 			<input id="username" type="text" class="form-control" name="username" maxlength="20" value="${user.username}">
-		</div>
+		</div> 
 		<div class="form-group">
 			<label for="realname">姓名</label>
 			<input id="realname" type="text" class="form-control" name="realname" maxlength="20" value="${user.realname}">
