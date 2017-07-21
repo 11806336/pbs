@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="control-group">
-        <label for="userId" class="control-label control-label2"><em class="rqd">*</em>绑定用户：</label>
+        <label for="userId" class="control-label"><em class="rqd">*</em>绑定用户：</label>
         <div class="controls">
             <select name="userId" id="userId">
                 <option value="0">---请选择---</option>
@@ -146,8 +146,9 @@
 </div>
 <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
+<script src="${basePath}/resources/plugins/select2/js/select2.js"></script>
 <script>
-
+    $("select").select2();
     //提示
     function funBlur(obj) {
         if (!$(obj).val()) {

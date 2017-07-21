@@ -29,16 +29,25 @@
             </div>
         </div>
     </div>
-
+<form name="form1">
     <table id="table"></table>
+</form>
 </div>
 
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 
-<script src="${basePath}/resources/js/public.js"></script>
+<%--<script src="${basePath}/resources/js/public.js"></script>--%>
 <%--<script src="${basePath}/resources/js/Timer.js"></script>--%>
 <%--<script src="${basePath}/resources/js/Loader.js"></script>--%>
 <%--<script src="${basePath}/resources/js/timer2.js"></script>--%>
+<script language=javascript>
+    function expot() {
+        window.location.href="/product/export"
+//        document.write("<form action=/product/export method=post name=form1 style='display:none'>");
+//        document.write("</form>");
+//        document.form1.submit();
+    }
+</script>
 <script>
     var $table = $('#table');
     //json数据
@@ -138,21 +147,23 @@
         ].join('');
     }
     //导出功能
-    function expot() {
-        if(confirm("确定导出？")){
-            $.ajax({
-                url:"/product/export",
-                type:'post',
-                success : function(){
-                    alert("导出成功")
-                }
-            });
-        }
-        else
-        {
-            alert("取消成功");
-        }
-    }
+//    function expot() {
+//        window.location.href="www.baidu.com"
+//            "/product/export";
+//        if(confirm("确定导出？")){
+//            $.ajax({
+//                url:"/product/export",
+//                type:'post',
+//                success : function(){
+//                    alert("导出成功")
+//                }
+//            });
+//        }
+//        else
+//        {
+//            alert("取消成功");
+//        }
+//    }
     //添加、编辑后成功后刷新
     // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
     //parent.layer.close(index);

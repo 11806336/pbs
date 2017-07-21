@@ -49,13 +49,13 @@ public class AmsProductNetController extends BaseController {
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
 
         UpmsUser user = getCurrentUser();
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         if (user != null) {
-            Map<String,Object> map = Maps.newHashMap();
-            map.put("offset",offset);
-            map.put("limit",limit);
+            Map<String, Object> map = Maps.newHashMap();
+            map.put("offset", offset);
+            map.put("limit", limit);
             if (!StringUtils.isBlank(search)) {
-                map.put("search",search);
+                map.put("search", search);
             }
             List<UpmsCompanyUser> upmsCompanies = getCompanyByUserId();//查询当前用户的关联公司
             List<Long> companyIds = new ArrayList<Long>();//存放公司id

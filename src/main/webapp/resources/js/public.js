@@ -20,7 +20,7 @@ $(function() {
         showColumns: showColumns,
         minimumCountColumns: 2,
         clickToSelect: true,
-        detailView: true,
+        // detailView: true,
         detailFormatter: 'detailFormatter',
         pagination: true,
         paginationLoop: false,

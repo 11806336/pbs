@@ -18,7 +18,6 @@ import com.pbs.ams.web.model.*;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
@@ -30,8 +29,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 
@@ -348,21 +349,21 @@ public class AmsProductBasicController extends BaseController {
 
     @Log(value = "导出数据")
     @RequiresPermissions("ams:product:read")
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> rows = amsProductService.selectProductWithDetail(params);
+        List<Map> rows = amsProductService.selectProduct(params);
         if (rows != null) {//当查询出结果的时候
             int rowSize = rows.size();//行数
             HSSFWorkbook workbook = new HSSFWorkbook();//创建excel文件
-            HSSFSheet sheet = ExcelUtil.createSheet(workbook, "证券帐号");
-            Map<String, Object> account = rows.get(0);//取出第一行  方便长度的计算
-            final int cellSize = account.size();//单元格数   字段
+            HSSFSheet sheet = ExcelUtil.createSheet(workbook, "产品信息");
+            Map<String, Object> product = rows.get(0);//取出第一行  方便长度的计算
+            final int cellSize = product.size();//单元格数   字段
             Object[][] value = new Object[rowSize][cellSize];//初始化一个二维数组
-            for (int i = 0; i < rowSize; i ++) {
+            for (int i = 0; i < rowSize; i++) {
                 Map<String, Object> ac = rows.get(i);
-                for (int j = 0; j < cellSize; j ++) {
-                    for (Iterator<Map.Entry<String, Object>> it = ac.entrySet().iterator(); it.hasNext();) {
+                for (int j = 0; j < cellSize; j++) {
+                    for (Iterator<Map.Entry<String, Object>> it = ac.entrySet().iterator(); it.hasNext(); ) {
                         Map.Entry<String, Object> entry = it.next();
                         value[i][j] = entry.getValue();
                         it.remove();
@@ -370,11 +371,45 @@ public class AmsProductBasicController extends BaseController {
                     }
                 }
             }
-            HSSFRow row0 =sheet.createRow(0);
-            String[] title = {"No","产品名称","产品类型","产品代码","产品经理","产品状态","产品净值","单位净值","产品份额","证券总资产",
-                    "证券总市值","股票总市值","空单总市值","创建人","创建时间"};
-            ExcelUtil.writeArrayToExcel(title,workbook,sheet, rowSize, cellSize, value);
-            ExcelUtil.writeWorkbook(workbook, "D://1.xls");
+            try {
+                String fileName = new Date().getTime() + ".xls";
+                response.reset();
+                response.setContentType("application/x-xls;charset=utf-8");
+                response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
+                String[] title = {"product_id", "company_id", "product_name", "product_type", "product_code", "product_manager", "product_supervisor",
+                        "product_status", "product_share_source", "start_date", "end_date", "product_shares", "product_desc",
+                        "create_time", "update_time", "operator_id", "o32_id"};
+                ExcelUtil.writeArrayToExcel(title, workbook, sheet, rowSize, cellSize, value);
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                workbook.write(os);
+                byte[] content = os.toByteArray();
+
+                InputStream is = new ByteArrayInputStream(content);
+                ServletOutputStream out = response.getOutputStream();
+                BufferedInputStream bis = null;
+                BufferedOutputStream bos = null;
+                try {
+                    bis = new BufferedInputStream(is);
+                    bos = new BufferedOutputStream(out);
+                    byte[] buff = new byte[2048];
+                    int bytesRead;
+                    // Simple read/write loop.
+                    while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                        bos.write(buff, 0, bytesRead);
+                    }
+                } catch (final IOException e) {
+                    throw e;
+                } finally {
+                    if (bis != null)
+                        bis.close();
+                    if (bos != null)
+                        bos.close();
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
