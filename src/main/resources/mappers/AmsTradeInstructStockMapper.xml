@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.AmsTradeInstructStockMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeInstructStock">
+    <id column="ams_trade_instruct_stock_id" jdbcType="BIGINT" property="amsTradeInstructStockId" />
+    <result column="ams_trade_instruct_id" jdbcType="BIGINT" property="amsTradeInstructId" />
+    <result column="stock_id" jdbcType="BIGINT" property="stockId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ams_trade_instruct_stock_id, ams_trade_instruct_id, stock_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ams_trade_instruct_stock
+    where ams_trade_instruct_stock_id = #{amsTradeInstructStockId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ams_trade_instruct_stock
+    where ams_trade_instruct_stock_id = #{amsTradeInstructStockId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeInstructStock">
+    insert into ams_trade_instruct_stock (ams_trade_instruct_stock_id, ams_trade_instruct_id, 
+      stock_id)
+    values (#{amsTradeInstructStockId,jdbcType=BIGINT}, #{amsTradeInstructId,jdbcType=BIGINT}, 
+      #{stockId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeInstructStock">
+    insert into ams_trade_instruct_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="amsTradeInstructStockId != null">
+        ams_trade_instruct_stock_id,
+      </if>
+      <if test="amsTradeInstructId != null">
+        ams_trade_instruct_id,
+      </if>
+      <if test="stockId != null">
+        stock_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="amsTradeInstructStockId != null">
+        #{amsTradeInstructStockId,jdbcType=BIGINT},
+      </if>
+      <if test="amsTradeInstructId != null">
+        #{amsTradeInstructId,jdbcType=BIGINT},
+      </if>
+      <if test="stockId != null">
+        #{stockId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pbs.ams.web.model.AmsTradeInstructStock">
+    update ams_trade_instruct_stock
+    <set>
+      <if test="amsTradeInstructId != null">
+        ams_trade_instruct_id = #{amsTradeInstructId,jdbcType=BIGINT},
+      </if>
+      <if test="stockId != null">
+        stock_id = #{stockId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ams_trade_instruct_stock_id = #{amsTradeInstructStockId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeInstructStock">
+    update ams_trade_instruct_stock
+    set ams_trade_instruct_id = #{amsTradeInstructId,jdbcType=BIGINT},
+      stock_id = #{stockId,jdbcType=BIGINT}
+    where ams_trade_instruct_stock_id = #{amsTradeInstructStockId,jdbcType=BIGINT}
+  </update>
+  <insert id="insertIntoAmsTradeInstructStockSnaps">
+    insert into ams_trade_instruct_stock_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_instruct_stock as tb where ams_trade_instruct_stock_id= #{ams_trade_instruct_stock_id}
+  </insert>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
