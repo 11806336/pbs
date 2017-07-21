@@ -225,8 +225,8 @@
 
   <!--插入快照-->
   <insert id="insertIntoAmsProductSnaps">
-    insert into ams_product_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),
-    tb.* from ams_product as tb where product_id= #{productId}
+    insert into ams_product_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000
+     AS UNSIGNED),tb.* from ams_product as tb where product_id= #{productId}
   </insert>
 
   <!--This method is used to get PageList data.查询列表-->

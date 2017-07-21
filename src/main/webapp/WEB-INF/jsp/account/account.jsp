@@ -31,6 +31,11 @@
     <table id="table"></table>
 </div>
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
+<script language=javascript>
+    function expot() {
+        window.location.href="/product/export"
+    }
+</script>
 <script>
     var $table = $('#table');
     //列配置项
@@ -112,25 +117,25 @@
             "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','tradeAccountId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
-    function expot() {
-        if(confirm("确定导出？")){
-            $.ajax({
-                url:"/account/export",
-                type:'post',
-                success : function(){
-                    alert("导出成功")
-                }
-            });
-        }
-        else
-        {
-            alert("取消成功");
-        }
-    }
+//    function expot() {
+//        if(confirm("确定导出？")){
+//            $.ajax({
+//                url:"/account/export",
+//                type:'post',
+//                success : function(){
+//                    alert("导出成功")
+//                }
+//            });
+//        }
+//        else
+//        {
+//            alert("取消成功");
+//        }
+//    }
     //格式化设置开关按钮
     function set(value, row, index) {
         var rows = $table.bootstrapTable('getSelections');
-      if(row.trade_account_status === "1"){
+      if(row.trade_account_status == true){
         return [
             '<label> ' +
             '<input onchange="open_close(this)" name="switch-field-1"  checked="checked" class="ace ace-switch ace-switch-4" type="checkbox"> ' +
@@ -165,9 +170,9 @@
                 console.info(data);
                 if (data.message == '成功') {
                     if (status == true)
-                        status=false;
-                    } else {
-                        status=true;
+                        status=1;
+                } else {
+                    status=0;
                 }
             },
             error: function () {
