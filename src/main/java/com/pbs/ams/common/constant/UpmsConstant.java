@@ -10,4 +10,9 @@ public class UpmsConstant {
 
     public static final String FORCE_LOGOUT = "FORCE_LOGOUT";
 
+    public static final String COMPANY = "COMPANY";
+
+    public static final String ACCOUNT = "ACCOUNT";
+
+    public static final String PRODUCT = "PRODUCT";
 }
