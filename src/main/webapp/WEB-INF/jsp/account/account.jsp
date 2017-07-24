@@ -33,7 +33,7 @@
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script language=javascript>
     function expot() {
-        window.location.href="/product/export"
+        window.location.href="/account/export"
     }
 </script>
 <script>

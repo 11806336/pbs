@@ -47,8 +47,6 @@
 //        {field: 'start_date', title: '产品开始时间'},
 //        {field: 'end_date', title: '产品结束时间'},
 //        {field: 'product_shares', title: '产品份额'},
-        {field: 'product_desc', title: '备注'},
-        {field: 'operator_id', title: '操作人ID'},
         {field: 'product_supervisor', title: '产品管理人'},
         {field: 'o32_id', title: 'o32来源ID'},
         {field: 'stock_total_assets', title: '证券总资产'},
@@ -72,6 +70,8 @@
             events: 'actionEvents',
             clickToSelect: false
         },
+        {field: 'operator_id', title: '操作人ID'},
+        {field: 'product_desc', title: '备注'}
     ];
     // 设置分页
     var sidePagination = 'server';
@@ -111,8 +111,6 @@
         });
         $("#table").bootstrapTable('refresh');
     }
-
-
 </script>
 </body>
 </html>

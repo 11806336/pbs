@@ -312,4 +312,7 @@ public class DateUtil {
         return 0;
     }
 
+    public static void main(String[] args) {
+        System.out.printf(divideDate(20170721162505744L));
+    }
 }

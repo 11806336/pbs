@@ -29,7 +29,7 @@
   </select>
 
   <!--查询账号列表-->
-  <select id="selectTradeAccoutWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+  <select id="selectTradeAccoutWithDetail" resultType="java.util.LinkedHashMap" parameterType="java.lang.Object">
     SELECT trade_account_id, company_id, trade_account, trade_account_name,
     trade_account_password, broker_id, trade_account_status, create_time, update_time,operator_id
     FROM ams_trade_account where 1 = 1

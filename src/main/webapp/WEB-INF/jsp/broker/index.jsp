@@ -27,10 +27,10 @@
                         </c:forEach>
                     </select>
                     <shiro:hasPermission name="upms:company:create">
-                        <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('${basePath}/ams/broker/create','添加证券','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加证券公司</a>
+                        <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('${basePath}/broker/create','添加证券','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加证券公司</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:delete">
-                        <a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/ams/broker/delete','broker_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除证券公司</a>
+                        <a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/broker/delete','broker_id')"><i class="zmdi zmdi-close"></i>&nbsp;删除证券公司</a>
                     </shiro:hasPermission>
                 </div>
             </div>
@@ -47,14 +47,14 @@
             $('#table').bootstrapTable(
                 "refresh",
                 {
-                    url:"${basePath}/ams/broker/queryAmsBroker?platformId="+platformId
+                    url:"${basePath}/broker/queryAmsBroker?platformId="+platformId
                 }
             )
         }else{
             $('#table').bootstrapTable(
                 "refresh",
                 {
-                    url:"${basePath}/ams/broker/queryAmsBroker"
+                    url:"${basePath}/broker/queryAmsBroker"
                 }
             )
         }
@@ -102,7 +102,7 @@
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     //数据url
-    var url_json="${basePath}/ams/broker/queryAmsBroker";//"${basePath}/resources/pbs-admin/data/broker.json";
+    var url_json="${basePath}/broker/queryAmsBroker";//"${basePath}/resources/pbs-admin/data/broker.json";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='server';
     //指定主键列
@@ -140,8 +140,8 @@
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
         return [
-            "<a class='selected' href='javascript:;' onclick=dialog('/ams/broker/edit','编辑',"+row.broker_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
-            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/ams/broker/delete','broker_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
+            "<a class='selected' href='javascript:;' onclick=dialog('/broker/edit','编辑',"+row.broker_id+") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>　",
+            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/broker/delete','broker_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>"
         ].join('');
     }
     //编辑修改后刷新

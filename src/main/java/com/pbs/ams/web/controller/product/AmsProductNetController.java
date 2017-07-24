@@ -39,7 +39,7 @@ public class AmsProductNetController extends BaseController {
     public String index() {
         return "/product/netIndex.jsp";
     }
-    @Log(value = "产品列表")
+    @Log(value = "产品净值信息列表")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody

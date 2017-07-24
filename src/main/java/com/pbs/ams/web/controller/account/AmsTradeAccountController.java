@@ -6,6 +6,7 @@ import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.CheckIsDeleteUtil;
+import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.web.controller.BaseController;
@@ -327,7 +328,7 @@ public class AmsTradeAccountController extends BaseController {
 
     @Log(value = "导出数据")
     @RequiresPermissions("upms:account:read")
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
     public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> params = Maps.newHashMap();
         List<Map> rows = amsTradeAccountService.selectTradeAccoutWithDetail(params);
@@ -343,6 +344,11 @@ public class AmsTradeAccountController extends BaseController {
                 for (int j = 0; j < cellSize; j ++) {
                     for (Iterator<Map.Entry<String, Object>> it = ac.entrySet().iterator(); it.hasNext();) {
                         Map.Entry<String, Object> entry = it.next();
+                        if(entry.getKey().equals("create_time") || entry.getKey().equals("update_time")){
+                            entry.setValue(DateUtil.divideDate(Long.parseLong(entry.getValue().toString())));
+                        }else if(entry.getKey().equals("trade_account_status")){
+//                            entry.getValue().equals("true") ? entry.setValue("启用") : entry.setValue("停用");
+                        }
                         value[i][j] = entry.getValue();
                         it.remove();
                         break;
@@ -354,9 +360,9 @@ public class AmsTradeAccountController extends BaseController {
                 response.reset();
                 response.setContentType("application/x-xls;charset=utf-8");
                 response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
-                String[] title = {"product_id", "company_id", "product_name", "product_type", "product_code", "product_manager", "product_supervisor",
-                        "product_status", "product_share_source", "start_date", "end_date", "product_shares", "product_desc",
-                        "create_time", "update_time", "operator_id", "o32_id"};
+                String[] title = {"trade_account_id", "company_id", "trade_account", "trade_account_name",
+                        "trade_account_password", "broker_id", "trade_account_status", "create_time",
+                        "update_time","operator_id"};
                 ExcelUtil.writeArrayToExcel(title, workbook, sheet, rowSize, cellSize, value);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 workbook.write(os);
