@@ -70,8 +70,8 @@
             events: 'actionEvents',
             clickToSelect: false
         },
-        {field: 'operator_id', title: '操作人ID'},
-        {field: 'product_desc', title: '备注'}
+//        {field: 'operator_id', title: '操作人ID'},
+//        {field: 'product_desc', title: '备注'}
     ];
     // 设置分页
     var sidePagination = 'server';

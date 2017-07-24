@@ -119,7 +119,7 @@ public class AmsTradeAccountController extends BaseController {
                 if (CheckIsDeleteUtil.isDelete(params)){
                     idList.add(Long.parseLong(id));
                 }else {
-                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+                    return new ResultSet(StatusCode.FAILD_DELETE);
                 }
             }
             int count = amsTradeAccountService.deleteByPrimaryKeys(idList);
@@ -347,7 +347,15 @@ public class AmsTradeAccountController extends BaseController {
                         if(entry.getKey().equals("create_time") || entry.getKey().equals("update_time")){
                             entry.setValue(DateUtil.divideDate(Long.parseLong(entry.getValue().toString())));
                         }else if(entry.getKey().equals("trade_account_status")){
-//                            entry.getValue().equals("true") ? entry.setValue("启用") : entry.setValue("停用");
+//
+                            for(int k=0;k<entry.getKey().length();k++){
+                                if(entry.getValue().equals(true)){
+                                    entry.setValue("启用");
+                                }else{
+                                    entry.setValue("冻结");
+                                }
+//                                entry.getValue().equals("true") ? entry.setValue("启用") : entry.setValue("停用");
+                            }
                         }
                         value[i][j] = entry.getValue();
                         it.remove();

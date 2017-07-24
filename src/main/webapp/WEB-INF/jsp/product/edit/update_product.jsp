@@ -42,9 +42,12 @@
         <div class="control-group">
             <label for="userId" class="control-label"><em class="rqd">*</em>绑定用户：</label>
             <div class="controls">
+
                 <select name="userId" id="userId" readonly="readonly" >
                     <option value="0">---请选择---</option>
+
                     <c:forEach var="user" items="${users}">
+
                         <option value="${user.userId}" <c:if test='${user.userId == amsProductUsers.userId}'> selected='selected' </c:if> >${user.username}</option>
                     </c:forEach>
                 </select>

@@ -268,56 +268,53 @@ public class AmsProductBasicController extends BaseController {
 //    }
 
 
-    @Log(value = "编辑tab页")
-    @RequiresPermissions("ams:product:read")
-    @RequestMapping(value = "/update/tab/{iframeName}/{id}", method = RequestMethod.GET)
-    public String updateTab(ModelMap modelMap, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
-        if (null != iframeName) {
-            AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-            modelMap.put("amsProduct", amsProduct);
-            //从中间表查询关联的用户
-            AmsProductUser amsProductUser = new AmsProductUser();
-            amsProductUser.setProductId(id);
-            List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
-            if (amsProductUsers != null && amsProductUsers.size() > 0) {
-                modelMap.put("amsProductUsers", amsProductUsers.get(0)); //暂时一对一
-            }
-            List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(getCurrentUser().getUserId());//获取当前的所属公司
-            List<Long> companyIds = new ArrayList<Long>();
-            for(UpmsCompany upmsCompany : upmsCompanies){
-                companyIds.add(upmsCompany.getCompanyId());//将id存放
-            }
-            List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(companyIds);//获取公司下的全部用户
-            List<Long> userIds = new ArrayList<Long>();
-            for (UpmsCompanyUser uc : upmsCompanyUsers) {
-                userIds.add(uc.getUserId());
-            }
-            List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
-            modelMap.put("endDate", DateUtil.divideDate(amsProduct.getEndDate()));
-            modelMap.put("startDate", DateUtil.divideDate(amsProduct.getStartDate()));
-            modelMap.put("users",users);
-            modelMap.put("upmsCompanies",upmsCompanies);
-            return "/product/edit/" + iframeName + ".jsp";
-        }
-        return null;
-    }
+//    @Log(value = "编辑tab页")
+//    @RequiresPermissions("ams:product:read")
+//    @RequestMapping(value = "/update/tab/{iframeName}/{id}", method = RequestMethod.GET)
+//    public String updateTab(ModelMap modelMap, @PathVariable("iframeName") String iframeName, @PathVariable("id") Long id) {
+//        if (null != iframeName) {
+//
+//        }
+//        return null;
+//    }
     @Log(value = "编辑产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id,ModelMap modelMap) throws ParseException {
         AmsProduct amsProduct = amsProductService.selectByPrimaryKey(id);
-        modelMap.put("date", DateUtil.divideDate(amsProduct.getEndDate()));
         modelMap.put("amsProduct", amsProduct);
-        return  "/product/edit/edit_product_tabs.jsp";
+        //从中间表查询关联的用户
+        AmsProductUser amsProductUser = new AmsProductUser();
+        amsProductUser.setProductId(id);
+        List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
+        if (amsProductUsers != null && amsProductUsers.size() > 0) {
+            modelMap.put("amsProductUsers", amsProductUsers.get(0)); //暂时一对一
+        }
+        List<UpmsCompany> upmsCompanies =upmsCompanyService.selectCompanyByUserId(getCurrentUser().getUserId());//获取当前的所属公司
+        List<Long> companyIds = new ArrayList<Long>();
+        for(UpmsCompany upmsCompany : upmsCompanies){
+            companyIds.add(upmsCompany.getCompanyId());//将id存放
+        }
+        List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(companyIds);//获取公司下的全部用户
+        List<Long> userIds = new ArrayList<Long>();
+        for (UpmsCompanyUser uc : upmsCompanyUsers) {
+            userIds.add(uc.getUserId());
+        }
+        List<UpmsUser> users = upmsUserService.selectUsersById(userIds);
+        modelMap.put("endDate", DateUtil.divideDate(amsProduct.getEndDate()));
+        modelMap.put("startDate", DateUtil.divideDate(amsProduct.getStartDate()));
+        modelMap.put("users",users);
+        modelMap.put("upmsCompanies",upmsCompanies);
+        modelMap.put("date", DateUtil.divideDate(amsProduct.getEndDate()));
+        return  "/product/edit/update_product.jsp";
     }
 
     @Log(value = "修改产品")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") long id, AmsProduct amsProduct, Long userId,
+    public Object update(@PathVariable("id") long id,ModelMap modelMap, AmsProduct amsProduct, Long userId,
                          String beginDate,String finishDate) {
-
         amsProduct.setStartDate(DateUtil.removeDateSymbol(beginDate));
         amsProduct.setEndDate(DateUtil.removeDateSymbol(finishDate));
         ComplexResult result = FluentValidator.checkAll()
@@ -354,7 +351,7 @@ public class AmsProductBasicController extends BaseController {
                 if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
                     idList.add(Long.parseLong(id));
                 } else {
-                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+                    return new ResultSet(StatusCode.FAILD_DELETE);
                 }
             }
             count = amsProductService.deleteByPrimaryKeys(idList);
