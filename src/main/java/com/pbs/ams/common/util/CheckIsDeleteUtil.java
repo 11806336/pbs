@@ -1,11 +1,13 @@
 package com.pbs.ams.common.util;
 
+import com.pbs.ams.common.constant.UpmsConstant;
 import com.pbs.ams.web.model.AmsProductUser;
 import com.pbs.ams.web.model.AmsTradeAccount;
 import com.pbs.ams.web.model.UpmsCompanyUser;
 import com.pbs.ams.web.service.impl.AmsProductUserServiceImpl;
 import com.pbs.ams.web.service.impl.AmsTradeAccountServiceImpl;
 import com.pbs.ams.web.service.impl.UpmsCompanyUserServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,42 +26,62 @@ public class CheckIsDeleteUtil {
 
     /**
      * according to params estimate this data isdelete.
-     * @param params
+     * @param id
      * @return
      */
-    public static boolean isDelete(Map<String, Long> params){
-        boolean flag = true;
-        String[] categories = {"companyId", "productId", "accountId"};//匹配传入的参数列表
-        if (params != null && params.size() > 0) {
-            int count = 0;//计数器，用于判断第几个参数。
-            for (String key : categories) {
-                count ++;
-                Long id = params.get(key);
-                if (id != null && count == 1) {//companyId
-                    List<Long> ids = new ArrayList<Long>();
-                    ids.add(id);
-                    List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(ids);
-                    if (upmsCompanyUsers != null && upmsCompanyUsers.size() > 0) {
-                        flag = false;
-                        break;
-                    }
-                } else if (id != null && count == 2) {//productId
-                    AmsProductUser amsProductUser = new AmsProductUser();
-                    amsProductUser.setProductId(id);
-                    List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
-                    if (amsProductUsers != null && amsProductUsers.size() > 0) {
-                        flag = false;
-                        break;
-                    }
-                } else if (id != null && count == 3) {//accountId
-                    AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
-                    if (amsTradeAccount.getCompanyId() != null) {
-                        flag = false;
-                        break;
-                    }
-                }
+    public static boolean isDelete(String key, Long id){
+        boolean result = true;
+        if (null != id) {
+            switch (key) {
+                case UpmsConstant.COMPANY : result = checkCompany(result, id); break;
+                case UpmsConstant.PRODUCT : result = checkProduct(result, id); break;
+                case UpmsConstant.ACCOUNT : result = checkAccount(result, id); break;
             }
         }
-        return flag;
+        return result;
+    }
+
+    /**
+     * check company
+     * @param result
+     * @param id
+     * @return
+     */
+    private static boolean checkCompany(boolean result, Long id) {
+        List<Long> ids = new ArrayList<Long>();
+        ids.add(id);
+        List<UpmsCompanyUser> upmsCompanyUsers = upmsCompanyUserService.getUsersByCompanyId(ids);
+        if (upmsCompanyUsers != null && upmsCompanyUsers.size() > 0) {
+            result = false;
+        }
+        return result;
+    }
+    /**
+     * check product
+     * @param result
+     * @param id
+     * @return
+     */
+    private static boolean checkProduct(boolean result, Long id) {
+        AmsProductUser amsProductUser = new AmsProductUser();
+        amsProductUser.setProductId(id);
+        List<AmsProductUser> amsProductUsers = amsProductUserService.select(amsProductUser);
+        if (amsProductUsers != null && amsProductUsers.size() > 0) {
+            result = false;
+        }
+        return result;
+    }
+    /**
+     * check account
+     * @param result
+     * @param id
+     * @return
+     */
+    private static boolean checkAccount(boolean result, Long id) {
+        AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
+        if (amsTradeAccount.getCompanyId() != null) {
+            result = false;
+        }
+        return result;
     }
 }
