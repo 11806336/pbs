@@ -275,6 +275,7 @@ public class DateUtil {
             int length = oriDate.length();
             if (length > 14) { //带毫秒，先去年毫秒
                 StringBuilder millDate = new StringBuilder(oriDate.substring(0, length - 3));
+                length = millDate.length();
             }
             if (length > 10 && length < 15) {//带年月  2017-07-13 16：56：27
                 StringBuilder hasYearDate = new StringBuilder(oriDate.substring(0, length - 6));//分成两部分，分别插入不同的分割符
