@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsConstant;
 import com.pbs.ams.common.util.CheckIsDeleteUtil;
 import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.ExcelUtil;
@@ -348,11 +349,10 @@ public class AmsProductBasicController extends BaseController {
             int count = 0;
             String[] productIds = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
-            Map<String, Long> params = new HashMap<String, Long>();
             for (String id : productIds) {
-                params.put("productId",Long.parseLong(id));
-                if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
-                    idList.add(Long.parseLong(id));
+                Long pId = Long.parseLong(id);
+                if (CheckIsDeleteUtil.isDelete(UpmsConstant.PRODUCT, pId)) {//可以删除
+                    idList.add(pId);
                 } else {
                     return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
                 }
