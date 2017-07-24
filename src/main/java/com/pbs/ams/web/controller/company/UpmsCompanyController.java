@@ -103,7 +103,7 @@ public class UpmsCompanyController extends BaseController {
                 if (CheckIsDeleteUtil.isDelete(UpmsConstant.COMPANY, cId)) {//可以删除
                     idList.add(cId);
                 } else {
-                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+                    return new ResultSet(StatusCode.FAILD_DELETE);
                 }
             }
             int count = upmsCompanyService.deleteCompany(idList);

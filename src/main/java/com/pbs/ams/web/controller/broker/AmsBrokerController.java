@@ -28,11 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
 @Controller
 @Api(value = "经纪公司", description = "经纪公司")
-@RequestMapping("/ams/broker")
+@RequestMapping("/broker")
 public class AmsBrokerController extends BaseController {
     @Autowired
     private AmsBrokerService amsBrokerService;

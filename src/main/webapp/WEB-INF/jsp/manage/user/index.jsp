@@ -37,7 +37,7 @@ var dataColumns = [
     {field: 'userId', title: '编号', sortable: true, align: 'center'},
     {field: 'username', title: '帐号'},
     {field: 'realname', title: '姓名'},
-    {field: 'avatar', title: '头像', align: 'center', formatter: 'avatarFormatter'},
+//    {field: 'avatar', title: '头像', align: 'center', formatter: 'avatarFormatter'},
     {field: 'phone', title: '电话'},
     {field: 'email', title: '邮箱'},
     {field: 'sex', title: '性别', formatter: 'sexFormatter'},

@@ -119,7 +119,7 @@
     $(document).on("click", "#saveBrokerBtn", function () {
         $.ajax({
             type: 'POST',
-            url: '${basePath}/ams/broker/update/${amsBrokers.brokerId}',
+            url: '${basePath}/broker/update/${amsBrokers.brokerId}',
             data: $('#updateForm').serialize(),
             success: function (data) {
                 if (data.code == '1') {

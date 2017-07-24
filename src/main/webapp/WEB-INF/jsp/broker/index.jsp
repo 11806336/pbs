@@ -47,14 +47,14 @@
             $('#table').bootstrapTable(
                 "refresh",
                 {
-                    url:"${basePath}/ams/broker/queryAmsBroker?platformId="+platformId
+                    url:"${basePath}/broker/queryAmsBroker?platformId="+platformId
                 }
             )
         }else{
             $('#table').bootstrapTable(
                 "refresh",
                 {
-                    url:"${basePath}/ams/broker/queryAmsBroker"
+                    url:"${basePath}/broker/queryAmsBroker"
                 }
             )
         }
@@ -102,7 +102,7 @@
         {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: true}
     ];
     //数据url
-    var url_json="${basePath}/ams/broker/queryAmsBroker";//"${basePath}/resources/pbs-admin/data/broker.json";
+    var url_json="${basePath}/broker/queryAmsBroker";//"${basePath}/resources/pbs-admin/data/broker.json";
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='server';
     //指定主键列

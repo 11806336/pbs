@@ -33,7 +33,8 @@ public enum StatusCode {
     INVALID_CODE("S30011","无效code"),
     INVALID_INSERT("S30012","插入数据异常"),
     INVALID_DELETE("S30013","删除数据异常"),
-    REPETE_USERNAME("S30014","用户名重复");
+    REPETE_USERNAME("S30014","用户名重复"),
+    FAILD_DELETE("S30015","存在关联关系,不能删除!");
 
     private final String code;
 

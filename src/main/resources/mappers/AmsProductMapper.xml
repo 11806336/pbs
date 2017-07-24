@@ -232,8 +232,8 @@
   <!--This method is used to get PageList data.查询列表-->
   <select id="selectProductWithDetail" parameterType="java.lang.Object" resultType="java.util.LinkedHashMap">
     SELECT ap.product_id,ap.product_name, ap.product_type, ap.product_code, ap.product_manager,
-      ap.product_supervisor,ap.product_status, ap.create_time,ap.product_share_source,ap.start_date,
-      ap.end_date,ap.product_shares,ap.product_desc,ap.o32_id,uu.realname,apd.product_net_value,
+      ap.product_supervisor,ap.product_status, ap.create_time,ap.update_time,ap.product_share_source,ap.start_date,
+      ap.end_date,ap.product_shares,ap.product_desc,ap.o32_id,ap.operator_id,uu.realname,apd.product_net_value,
       apd.net_asset_value, apd.stock_total_assets,apd.security_total_value,apd.stock_total_value,
       apd.short_total_value
     FROM

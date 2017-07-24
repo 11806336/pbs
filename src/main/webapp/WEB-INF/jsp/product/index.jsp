@@ -52,10 +52,22 @@
         {field: 'product_id', title: '产品ID', visible: false},
         {field: 'company_id', title: '公司ID', visible: false},
         {field: 'product_name', title: '产品名称'},
-        {field: 'product_type', title: '产品类型'},
+        {   field: 'product_type',
+            title: '产品类型',
+            align: 'center',
+            formatter: 'product_type',
+            events: 'Events',
+            clickToSelect: false
+        },
         {field: 'product_code', title: '产品代码'},
         {field: 'product_manager', title: '产品经理'},
-        {field: 'product_share_source', title: '产品份额来源'},
+        {   field: 'product_share_source',
+            title: '产品份额来源',
+            align: 'center',
+            formatter: 'product_share_source',
+            events: 'Events',
+            clickToSelect: false
+        },
         {   field: 'start_date',
             title: '产品开始时间',
             align: 'center',
@@ -71,8 +83,8 @@
             clickToSelect: false
         },
         {field: 'product_shares', title: '产品份额'},
-        {field: 'product_desc', title: '备注'},
-        {field: 'operator_id', title: '操作人ID'},
+//        {field: 'product_desc', title: '备注'},
+//        {field: 'operator_id', title: '操作人ID'},
         {field: 'product_supervisor', title: '产品管理人'},
         {field: 'o32_id', title: 'o32来源ID'},
         {
@@ -111,6 +123,22 @@
     var search=true;
     var showRefresh=true;
     var showColumns= true;
+//    格式化产品份额来源
+    function product_share_source(value, row, index) {
+        if(row.product_share_source == true){
+            return "自定义"
+        }else{
+            return "O32读取"
+        }
+    }
+    //格式化产品类型
+    function product_type(value, row, index) {
+        if(row.product_type == true){
+            return "普通基金"
+        }else{
+            return "分级基金"
+        }
+    }
     //格式化产品开始时间
     function start_date(value, row, index) {
         var sdate=row.start_date+"";
@@ -171,8 +199,20 @@
     function open_close(obj) {
         //obj==this; status状态，值为ture为启用，为false就是停用
         var rows = $table.bootstrapTable('getSelections');
-        if(rows.length==0){
-            alert("请选择一条记录")
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+            return false;
         }
         var productId=rows[0].product_id;
 

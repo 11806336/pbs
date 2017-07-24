@@ -33,7 +33,7 @@
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script language=javascript>
     function expot() {
-        window.location.href="/product/export"
+        window.location.href="/account/export"
     }
 </script>
 <script>
@@ -155,8 +155,20 @@
     function open_close(obj) {
         //obj==this; status状态，值为ture为启用，为false就是停用
         var rows = $table.bootstrapTable('getSelections');
-        if(rows.length==0){
-            alert("请选择一条记录")
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+            return false;
         }
         var tradeAccoundId=rows[0].trade_account_id;
 
