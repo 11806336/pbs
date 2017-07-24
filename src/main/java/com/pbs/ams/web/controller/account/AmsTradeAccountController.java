@@ -368,9 +368,9 @@ public class AmsTradeAccountController extends BaseController {
                 response.reset();
                 response.setContentType("application/x-xls;charset=utf-8");
                 response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
-                String[] title = {"trade_account_id", "company_id", "trade_account", "trade_account_name",
-                        "trade_account_password", "broker_id", "trade_account_status", "create_time",
-                        "update_time","operator_id"};
+                String[] title = {"账号ID", "公司ID", "交易账号", "账号名称",
+                        "密码", "证券公司ID", "账号状态", "创建时间",
+                        "修改时间","操作人ID"};
                 ExcelUtil.writeArrayToExcel(title, workbook, sheet, rowSize, cellSize, value);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 workbook.write(os);
