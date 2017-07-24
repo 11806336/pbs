@@ -263,7 +263,7 @@ public class UpmsUserController extends BaseController {
         //查询用户名是否已经存在。
         UpmsUser user = upmsUserService.selectUserByUserName(upmsUser.getUsername());
         if (user != null) {
-            return new ResultSet(StatusCode.REPETE_USERNAME);
+            return new ResultSet(StatusCode.REPETE_USERNAME, "用户名重复!");
         }
         long time = System.currentTimeMillis();
         String salt = UUID.randomUUID().toString().replaceAll("-", "");
