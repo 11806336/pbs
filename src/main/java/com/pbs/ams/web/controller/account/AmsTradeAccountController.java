@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsConstant;
 import com.pbs.ams.common.util.CheckIsDeleteUtil;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
@@ -112,10 +113,9 @@ public class AmsTradeAccountController extends BaseController {
         if (StringUtils.isNotEmpty(ids)) {
             String[] tradeAccountId = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
-            Map<String,Long> params=new HashMap<>();
             for (String id : tradeAccountId) {
-                params.put("tradeAccountId",Long.parseLong(id));
-                if (CheckIsDeleteUtil.isDelete(params)){
+                Long accountId = Long.parseLong(id);
+                if (CheckIsDeleteUtil.isDelete(UpmsConstant.ACCOUNT, accountId)){
                     idList.add(Long.parseLong(id));
                 }else {
                     return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
