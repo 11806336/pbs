@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsConstant;
 import com.pbs.ams.common.util.CheckIsDeleteUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.util.ValidateUtil;
@@ -96,12 +97,11 @@ public class UpmsCompanyController extends BaseController {
         if (StringUtils.isNotEmpty(ids)) {
             String[] companyIds = ids.split("-");
             List<Long> idList = new ArrayList<Long>();
-            Map<String, Long> params = new HashMap<String, Long>();
             for (String id : companyIds) {
                 //判断是否具备可删除条件
-                params.put("companyId", Long.parseLong(id));
-                if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
-                    idList.add(Long.parseLong(id));
+                Long cId = Long.parseLong(id);
+                if (CheckIsDeleteUtil.isDelete(UpmsConstant.COMPANY, cId)) {//可以删除
+                    idList.add(cId);
                 } else {
                     return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
                 }
