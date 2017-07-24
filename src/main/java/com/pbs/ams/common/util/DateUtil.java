@@ -265,7 +265,7 @@ public class DateUtil {
     }
 
     /**
-     * 处理日期数字，用":"，"-"等分隔。注：不能以0开头，年月日期暂不支持到毫秒
+     * 处理日期数字，用":"，"-"等分隔。注：不能以0开头
      * @param date
      * @return
      */
@@ -273,7 +273,10 @@ public class DateUtil {
         if (null != date) {
             StringBuilder oriDate = new StringBuilder(String.valueOf(date));
             int length = oriDate.length();
-            if (length > 10) {//带年月  2017-07-13 16：56：27
+            if (length > 14) { //带毫秒，先去年毫秒
+                StringBuilder millDate = new StringBuilder(oriDate.substring(0, length - 3));
+            }
+            if (length > 10 && length < 15) {//带年月  2017-07-13 16：56：27
                 StringBuilder hasYearDate = new StringBuilder(oriDate.substring(0, length - 6));//分成两部分，分别插入不同的分割符
                 StringBuilder anotherDate = new StringBuilder(oriDate.substring(8, length));//时分秒
                 for (int i = 4; i < hasYearDate.length(); i +=3) {
