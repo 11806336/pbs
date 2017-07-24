@@ -104,28 +104,26 @@ public class AmsBrokerController extends BaseController {
         return new ResultSet(StatusCode.ERROR_NONE,count);
     }
 
-    @Log(value = "删除券商")
-    @RequiresPermissions("ams:broker:delete")
-    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
-    @ResponseBody
-    public Object delete(@PathVariable("ids") String ids) {
-        if (StringUtils.isNotEmpty(ids)) {
-            String[] brokerIds = ids.split("-");
-            List<Long> idList = new ArrayList<Long>();
-            Map<String, Long> params = new HashMap<String, Long>();
-            for (String id : brokerIds) {
-                params.put("brokerId",Long.parseLong(id));
-                if (CheckIsDeleteUtil.isDelete(params)) {//可以删除
-                    idList.add(Long.parseLong(id));
-                } else {
-                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
-                }
-            }
-            int count = amsBrokerService.deleteByPrimaryKeys(idList);
-            return new ResultSet(StatusCode.ERROR_NONE, count);
-        }
-        return 0;
-    }
+//    @Log(value = "删除券商")
+//    @RequiresPermissions("ams:broker:delete")
+//    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Object delete(@PathVariable("ids") String ids) {
+//        if (StringUtils.isNotEmpty(ids)) {
+//            String[] brokerIds = ids.split("-");
+//            List<Long> idList = new ArrayList<Long>();
+//            for (String id : brokerIds) {
+//                if (CheckIsDeleteUtil.isDelete(Long.parseLong(id))) {//可以删除
+//                    idList.add(Long.parseLong(id));
+//                } else {
+//                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
+//                }
+//            }
+//            int count = amsBrokerService.deleteByPrimaryKeys(idList);
+//            return new ResultSet(StatusCode.ERROR_NONE, count);
+//        }
+//        return 0;
+//    }
 
 
     @Log(value = "编辑券商")
