@@ -21,7 +21,7 @@
 	<div id="toolbar">
 		<shiro:hasPermission name="upms:user:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction('url:${basePath}/manage/user/create','新增用户')"><i class="zmdi zmdi-plus"></i> 新增用户</a></shiro:hasPermission>
 		<shiro:hasPermission name="upms:user:update"><a class="waves-effect waves-button" href="javascript:;" data-update="表格外" onclick="updateAction(this,'url:${basePath}/manage/user/update/','userId')"><i class="zmdi zmdi-edit"></i> 编辑用户</a></shiro:hasPermission>
-		<shiro:hasPermission name="upms:user:delete"><a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/manage/user/delete/','userId')"><i class="zmdi zmdi-close"></i> 删除用户</a></shiro:hasPermission>
+		<%--<shiro:hasPermission name="upms:user:delete"><a class="waves-effect waves-button" href="javascript:;" data-deleteTpye="批量删除" onclick="deleteAction(this,'${basePath}/manage/user/delete/','userId')"><i class="zmdi zmdi-close"></i> 删除用户</a></shiro:hasPermission>--%>
 		<shiro:hasPermission name="upms:user:organization"><a class="waves-effect waves-button" href="javascript:;" onclick="organizationAction()"><i class="zmdi zmdi-accounts-list"></i> 用户组织</a></shiro:hasPermission>
 		<shiro:hasPermission name="upms:user:role"><a class="waves-effect waves-button" href="javascript:;" onclick="roleAction()"><i class="zmdi zmdi-accounts"></i> 用户角色</a></shiro:hasPermission>
 		<%--<shiro:hasPermission name="upms:user:permission"><a class="waves-effect waves-button" href="javascript:;" onclick="permissionAction()"><i class="zmdi zmdi-key"></i> 用户权限</a></shiro:hasPermission>--%>
