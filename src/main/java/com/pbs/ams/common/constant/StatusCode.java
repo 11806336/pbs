@@ -30,11 +30,13 @@ public enum StatusCode {
     INVALID_USERNAME("S3008", "账号不存在"),
     INVALID_PASSWORD("S3009", "密码错误"),
     INVALID_ACCOUNT("S30010", "账号无效"),
-    INVALID_CODE("S30011","无效code"),
-    INVALID_INSERT("S30012","插入数据异常"),
-    INVALID_DELETE("S30013","删除数据异常"),
-    REPETE_USERNAME("S30014","用户名重复"),
-    FAILD_DELETE("S30015","存在关联关系,不能删除!");
+    INVALID_CODE("S30011", "无效code"),
+    INVALID_INSERT("S30012", "插入数据异常"),
+    INVALID_DELETE("S30013", "删除数据异常"),
+    REPETE_USERNAME("S30014", "用户名重复"),
+    FAILD_DELETE("S30015", "存在关联关系,不能删除!"),
+    INVALID_PARAMETER("S30016", "参数不合法"),
+    PWD_RESET_FAILD("S30017", "重置密码失败");
 
     private final String code;
 
