@@ -8,6 +8,7 @@ import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.util.CheckUtil;
+import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
@@ -84,22 +85,25 @@ public class AmsBrokerController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public Object create(AmsBroker amsBroker,String day_begin,String day_end) {
-        long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
-        long dayEnd = Long.valueOf(day_end.replaceAll(":",""));
-        ComplexResult result = FluentValidator.checkAll()
-                .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
-                .doValidate()
-                .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new ResultSet(StatusCode.INVALID_LENGTH);
+        long dayBegin = Long.valueOf(DateUtil.removeDateSymbol(day_begin));
+        long dayEnd = Long.valueOf(DateUtil.removeDateSymbol(day_end));
+        if (dayBegin - dayEnd < 0) { //日盘启动时间大于结束时间
+            ComplexResult result = FluentValidator.checkAll()
+                    .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
+                    .doValidate()
+                    .result(ResultCollectors.toComplex());
+            if (!result.isSuccess()) {
+                return new ResultSet(StatusCode.INVALID_LENGTH);
+            }
+            amsBroker.setDayBegin(dayBegin);
+            amsBroker.setDayEnd(dayEnd);
+            amsBroker.setOperatorId(getCurrentUser().getUserId());
+            long id = IdGeneratorUtil.getKey("ams_broker", 100);
+            amsBroker.setBrokerId(id);
+            int count = amsBrokerService.insertSelective(amsBroker);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
         }
-        amsBroker.setDayBegin(dayBegin);
-        amsBroker.setDayEnd(dayEnd);
-        amsBroker.setOperatorId(getCurrentUser().getUserId());
-        long id = IdGeneratorUtil.getKey("ams_broker", 100);
-        amsBroker.setBrokerId(id);
-        int count = amsBrokerService.insertSelective(amsBroker);
-        return new ResultSet(StatusCode.ERROR_NONE, count);
+        return new ResultSet(StatusCode.ILLEGAL_DATE);
     }
 
 //    @Log(value = "删除券商")
