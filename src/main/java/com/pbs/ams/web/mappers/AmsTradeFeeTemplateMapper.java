@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface AmsTradeFeeTemplateMapper {
-    int deleteByPrimaryKey(Integer feeTemplateteId);
+    int deleteByPrimaryKey(Long feeTemplateteId);
 
     int insert(AmsTradeFeeTemplate record);
 
     int insertSelective(AmsTradeFeeTemplate record);
 
-    AmsTradeFeeTemplate selectByPrimaryKey(Integer feeTemplateteId);
+    AmsTradeFeeTemplate selectByPrimaryKey(Long feeTemplateteId);
 
     int updateByPrimaryKeySelective(AmsTradeFeeTemplate record);
 
@@ -20,5 +20,5 @@ public interface AmsTradeFeeTemplateMapper {
 
     List<Map> selectTradeFeeTemplate(Map map);
 
-    int selectTradeFeeTemplateCount(Map map);
+    long selectTradeFeeTemplateCount(Map map);
 }

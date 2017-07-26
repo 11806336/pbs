@@ -20,6 +20,13 @@
     where stock_category_id = #{stockCategoryId,jdbcType=BIGINT}
   </select>
 
+  <!--查询分类列表-->
+  <select id="selectAmsStockCategory" resultType="java.util.LinkedHashMap" parameterType="java.lang.Object">
+    SELECT
+    <include refid="Base_Column_List" />
+    from ams_stock_category
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_stock_category
     where stock_category_id = #{stockCategoryId,jdbcType=BIGINT}

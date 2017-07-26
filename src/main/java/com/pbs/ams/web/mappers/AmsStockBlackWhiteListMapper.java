@@ -8,7 +8,9 @@ import java.util.Map;
 
 public interface AmsStockBlackWhiteListMapper {
 
-    List<Map> selectProductWithDetail(Map map);
+    List<Map<String, Object>> selectBlackWhite(Map map);
+
+    long selectBlackWhiteCount(Map map);
 
     int deleteByPrimaryKey(Long blackWhiteId);
 

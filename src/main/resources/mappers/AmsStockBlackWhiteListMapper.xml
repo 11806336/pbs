@@ -22,10 +22,19 @@
     from ams_stock_black_white_list
     where black_white_id = #{blackWhiteId,jdbcType=BIGINT}
   </select>
-  <select id="selectProductWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
+
+  <!--查询黑白名单列表-->
+  <select id="selectBlackWhite" resultType="java.util.Map" parameterType="java.lang.Object">
     select
     <include refid="Base_Column_List" />
     from ams_stock_black_white_list where 1=1
+  </select>
+
+  <!--查询条目数-->
+  <select id="selectBlackWhiteCount" parameterType="java.util.Map" resultType="java.lang.Long">
+    SELECT
+    COUNT(1)
+    FROM ams_trade_fee_template
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

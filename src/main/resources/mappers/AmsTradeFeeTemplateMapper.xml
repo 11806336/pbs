@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pbs.ams.web.mappers.AmsTradeFeeTemplateMapper">
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsTradeFeeTemplate">
-    <id column="fee_templatete_id" jdbcType="INTEGER" property="feeTemplateteId" />
-    <result column="stock_category_id" jdbcType="INTEGER" property="stockCategoryId" />
+    <id column="fee_templatete_id" jdbcType="BIGINT" property="feeTemplateteId" />
+    <result column="stock_category_id" jdbcType="BIGINT" property="stockCategoryId" />
     <result column="commission_rate" jdbcType="VARCHAR" property="commissionRate" />
     <result column="minimum_commission" jdbcType="VARCHAR" property="minimumCommission" />
     <result column="transfer_fee_rate" jdbcType="VARCHAR" property="transferFeeRate" />
@@ -12,18 +12,18 @@
     <result column="sell_stamp_duty_rate" jdbcType="VARCHAR" property="sellStampDutyRate" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="update_time" jdbcType="BIGINT" property="updateTime" />
-    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="Base_Column_List">
     fee_templatete_id, stock_category_id, commission_rate, minimum_commission, transfer_fee_rate, 
     minimum_charge_count, buy_stamp_duty_rate, sell_stamp_duty_rate, create_time, update_time, 
     operator_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ams_trade_fee_template
-    where fee_templatete_id = #{feeTemplateteId,jdbcType=INTEGER}
+    where fee_templatete_id = #{feeTemplateteId,jdbcType=BIGINT}
   </select>
 
   <!--查询手续费列表-->
@@ -41,7 +41,7 @@
   </select>
 
   <!--查询条目数-->
-  <select id="selectTradeFeeTemplateCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  <select id="selectTradeFeeTemplateCount" parameterType="java.util.Map" resultType="java.lang.Long">
     SELECT
     COUNT(1)
     FROM ams_trade_fee_template
@@ -52,9 +52,9 @@
     <!--</if>-->
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ams_trade_fee_template
-    where fee_templatete_id = #{feeTemplateteId,jdbcType=INTEGER}
+    where fee_templatete_id = #{feeTemplateteId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.pbs.ams.web.model.AmsTradeFeeTemplate">
     insert into ams_trade_fee_template (fee_templatete_id, stock_category_id, 
@@ -62,10 +62,10 @@
       minimum_charge_count, buy_stamp_duty_rate, sell_stamp_duty_rate, 
       create_time, update_time, operator_id
       )
-    values (#{feeTemplateteId,jdbcType=INTEGER}, #{stockCategoryId,jdbcType=INTEGER}, 
+    values (#{feeTemplateteId,jdbcType=BIGINT}, #{stockCategoryId,jdbcType=BIGINT},
       #{commissionRate,jdbcType=VARCHAR}, #{minimumCommission,jdbcType=VARCHAR}, #{transferFeeRate,jdbcType=VARCHAR}, 
       #{minimumChargeCount,jdbcType=VARCHAR}, #{buyStampDutyRate,jdbcType=VARCHAR}, #{sellStampDutyRate,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=INTEGER}
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pbs.ams.web.model.AmsTradeFeeTemplate">
@@ -107,10 +107,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="feeTemplateteId != null">
-        #{feeTemplateteId,jdbcType=INTEGER},
+        #{feeTemplateteId,jdbcType=BIGINT},
       </if>
       <if test="stockCategoryId != null">
-        #{stockCategoryId,jdbcType=INTEGER},
+        #{stockCategoryId,jdbcType=BIGINT},
       </if>
       <if test="commissionRate != null">
         #{commissionRate,jdbcType=VARCHAR},
@@ -137,7 +137,7 @@
         #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="operatorId != null">
-        #{operatorId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -145,7 +145,7 @@
     update ams_trade_fee_template
     <set>
       <if test="stockCategoryId != null">
-        stock_category_id = #{stockCategoryId,jdbcType=INTEGER},
+        stock_category_id = #{stockCategoryId,jdbcType=BIGINT},
       </if>
       <if test="commissionRate != null">
         commission_rate = #{commissionRate,jdbcType=VARCHAR},
@@ -172,14 +172,14 @@
         update_time = #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=INTEGER},
+        operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
     </set>
-    where fee_templatete_id = #{feeTemplateteId,jdbcType=INTEGER}
+    where fee_templatete_id = #{feeTemplateteId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pbs.ams.web.model.AmsTradeFeeTemplate">
     update ams_trade_fee_template
-    set stock_category_id = #{stockCategoryId,jdbcType=INTEGER},
+    set stock_category_id = #{stockCategoryId,jdbcType=BIGINT},
       commission_rate = #{commissionRate,jdbcType=VARCHAR},
       minimum_commission = #{minimumCommission,jdbcType=VARCHAR},
       transfer_fee_rate = #{transferFeeRate,jdbcType=VARCHAR},
@@ -188,8 +188,8 @@
       sell_stamp_duty_rate = #{sellStampDutyRate,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
-      operator_id = #{operatorId,jdbcType=INTEGER}
-    where fee_templatete_id = #{feeTemplateteId,jdbcType=INTEGER}
+      operator_id = #{operatorId,jdbcType=BIGINT}
+    where fee_templatete_id = #{feeTemplateteId,jdbcType=BIGINT}
   </update>
   <insert id="insertIntoAmsTradeFeeTemplateSnaps">
     insert into ams_trade_fee_template_snaps SELECT CAST(DATE_FORMAT(CURRENT_TIMESTAMP(3),'%Y%m%d%H%i%S%f')/1000 AS UNSIGNED),tb.* from ams_trade_fee_template as tb where fee_templatete_id= #{fee_templatete_id}

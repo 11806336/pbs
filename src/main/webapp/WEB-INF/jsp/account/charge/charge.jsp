@@ -15,6 +15,15 @@
 </head>
 <body>
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
+<div id="toolbar">
+    <div id="searchDiv">
+        <div class="btn-panel">
+            <shiro:hasPermission name="upms:company:create">
+                <a class="waves-effect waves-button" href="javascript:;" onclick="dialog('/feeTemplate/create','添加手续费模板','')"><i class="zmdi zmdi-plus"></i>&nbsp;添加手续费模板</a>
+            </shiro:hasPermission>
+        </div>
+    </div>
+</div>
 <div id="main">
     <table id="table"></table>
 </div>
@@ -53,7 +62,7 @@
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/feeTemplate/edit','编辑',"+row.fee_templatete_id+") data-toggle='tooltip' title='编辑' style='margin-right: 8px;'><i class='glyphicon glyphicon-edit'></i></a>",
-//            "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update',"+ids+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update',"+ids+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
 </script>

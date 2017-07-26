@@ -30,9 +30,15 @@ public class AmsStockBlackWhiteListServiceImpl  implements AmsStockBlackWhiteLis
     private AmsStockBlackWhiteListMapper amsStockBlackWhiteListMapper;
 
         @Override
-        public List<Map> selectProductWithDetail(Map map){
-            return amsStockBlackWhiteListMapper.selectProductWithDetail(map);
+        public List<Map<String, Object>> selectBlackWhite(Map map){
+            return amsStockBlackWhiteListMapper.selectBlackWhite(map);
         }
+
+        @Override
+        public long selectBlackWhiteCount(Map map) {
+            return amsStockBlackWhiteListMapper.selectBlackWhiteCount(map);
+        }
+
         @Override
         public int deleteByPrimaryKey(Long id) {
             try {

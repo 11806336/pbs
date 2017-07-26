@@ -2,6 +2,9 @@ package com.pbs.ams.web.mappers;
 
 import com.pbs.ams.web.model.AmsStockCategory;
 
+import java.util.List;
+import java.util.Map;
+
 public interface AmsStockCategoryMapper {
     int deleteByPrimaryKey(Long stockCategoryId);
 
@@ -14,4 +17,6 @@ public interface AmsStockCategoryMapper {
     int updateByPrimaryKeySelective(AmsStockCategory record);
 
     int updateByPrimaryKey(AmsStockCategory record);
+
+    List<Map> selectAmsStockCategory(Map map);
 }

@@ -10,8 +10,18 @@ import java.util.Map;
 * Created by ams on 2017/7/11.
 */
 public interface AmsStockBlackWhiteListService{
-
-    List<Map> selectProductWithDetail(Map map);
+    /**
+     * This method is used to get PageList data.
+     * @param map
+     * @return
+     */
+    List<Map<String, Object>> selectBlackWhite(Map map);
+    /**
+     * This method is used to get PageListTotalSize
+     * @param map
+     * @return
+     */
+    long selectBlackWhiteCount(Map map);
 
     int deleteByPrimaryKey(Long id);
 

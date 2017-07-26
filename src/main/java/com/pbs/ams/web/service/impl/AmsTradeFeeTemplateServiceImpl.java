@@ -31,7 +31,7 @@ public class AmsTradeFeeTemplateServiceImpl  implements AmsTradeFeeTemplateServi
 
 
         @Override
-        public int deleteByPrimaryKey(Integer id) {
+        public int deleteByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
                 return amsTradeFeeTemplateMapper.deleteByPrimaryKey(id);
@@ -69,7 +69,7 @@ public class AmsTradeFeeTemplateServiceImpl  implements AmsTradeFeeTemplateServi
 
 
         @Override
-        public AmsTradeFeeTemplate selectByPrimaryKey(Integer id) {
+        public AmsTradeFeeTemplate selectByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
                 return amsTradeFeeTemplateMapper.selectByPrimaryKey(id);
@@ -135,7 +135,7 @@ public class AmsTradeFeeTemplateServiceImpl  implements AmsTradeFeeTemplateServi
             return amsTradeFeeTemplateMapper.selectTradeFeeTemplate(map);
         }
         @Override
-        public int selectTradeFeeTemplateCount(Map map) {
+        public long selectTradeFeeTemplateCount(Map map) {
             return amsTradeFeeTemplateMapper.selectTradeFeeTemplateCount(map);
         }
         /**

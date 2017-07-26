@@ -32,9 +32,7 @@
                 <select name="stockCategoryId" id="stockCategoryId">
                     <option value="0">---请选择---</option>
                     <c:forEach var="amsStockCategory" items="${amsStockCategory}">
-                        <option value="${amsStockCategory.stock_category_id}"
-                            <c:if test='${amsTradeFeeTemplate.stockCategoryId == amsStockCategory.stock_category_id}'> selected='selected' </c:if>>
-                            ${amsStockCategory.stock_category_name}</option>
+                        <option value="${amsStockCategory.stock_category_id}">${amsStockCategory.stock_category_name}</option>
                     </c:forEach>
                 </select>
                 <span for="platform_add" class="hint">请选择分类</span>
@@ -142,7 +140,7 @@
     $(document).on("click", "#saveBrokerBtn", function () {
         $.ajax({
             type: 'POST',
-            url: '${basePath}/feeTemplate/update/${amsTradeFeeTemplate.feeTemplateteId}',
+            url: '${basePath}/feeTemplate/save',
             data: $('#addForm').serialize(),
             success: function (data) {
                 console.info(data);

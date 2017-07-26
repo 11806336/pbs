@@ -11,7 +11,7 @@ import java.util.Map;
 */
 public interface AmsTradeFeeTemplateService{
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int deleteByPrimaryKeys(String ids);
 
@@ -19,7 +19,7 @@ public interface AmsTradeFeeTemplateService{
 
     int insertSelective(AmsTradeFeeTemplate record);
 
-    AmsTradeFeeTemplate selectByPrimaryKey(Integer id);
+    AmsTradeFeeTemplate selectByPrimaryKey(Long id);
 
     int updateByPrimaryKey(AmsTradeFeeTemplate record);
 
@@ -37,7 +37,7 @@ public interface AmsTradeFeeTemplateService{
      * @param map
      * @return
      */
-    int selectTradeFeeTemplateCount(Map map);
+    long selectTradeFeeTemplateCount(Map map);
 
     int insertToAmsTradeFeeTemplateSnaps();
 

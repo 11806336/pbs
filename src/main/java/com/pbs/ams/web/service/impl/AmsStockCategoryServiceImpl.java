@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
 * AmsStockCategoryService实现
 * Created by ams on 2017/7/25.
@@ -127,7 +130,9 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
                 return 0;
         }
 
-
+        public List<Map> selectAmsStockCategory(Map map){
+            return amsStockCategoryMapper.selectAmsStockCategory(map);
+        }
         /**
         * MANDATORY:该方法只能在一个已存在的事务中执行.
         * @return
