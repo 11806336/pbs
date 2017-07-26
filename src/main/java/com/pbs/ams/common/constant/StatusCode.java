@@ -36,7 +36,8 @@ public enum StatusCode {
     REPETE_USERNAME("S30014", "用户名重复"),
     FAILD_DELETE("S30015", "存在关联关系,不能删除!"),
     INVALID_PARAMETER("S30016", "参数不合法"),
-    PWD_RESET_FAILD("S30017", "重置密码失败");
+    PWD_RESET_FAILD("S30017", "重置密码失败"),
+    ILLEGAL_DATE("S30018", "输入的时间非法");
 
     private final String code;
 
