@@ -40,7 +40,6 @@
     var $table = $('#table');
     //列配置项
     var dataColumns = [
-        {field: 'ck', checkbox: true},
         {field: 'trade_account_id', title: '证券ID'},
         {field: 'company_id', title: '公司ID'},
         {field: 'trade_account', title: '证券资金账号'},

@@ -9,7 +9,7 @@ import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.constant.UpmsConstant;
-import com.pbs.ams.common.util.CheckIsDeleteUtil;
+import com.pbs.ams.common.util.CheckUtil;
 import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
@@ -348,7 +348,7 @@ public class AmsProductBasicController extends BaseController {
             List<Long> idList = new ArrayList<Long>();
             for (String id : productIds) {
                 Long pId = Long.parseLong(id);
-                if (CheckIsDeleteUtil.isDelete(UpmsConstant.PRODUCT, pId)) {//可以删除
+                if (CheckUtil.canDelete(UpmsConstant.PRODUCT, pId)) {//可以删除
                     idList.add(pId);
                 } else {
                     return new ResultSet(StatusCode.FAILD_DELETE);

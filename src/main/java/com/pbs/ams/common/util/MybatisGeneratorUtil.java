@@ -120,9 +120,9 @@ public class MybatisGeneratorUtil {
 		List<Map<String, String>> lstTables = Lists.newArrayList();
 
 		Map<String, String> map1 = Maps.newHashMap();
-		map1.put("table_name","ams_product_snaps");
+		map1.put("table_name","ams_stock_category");
+		map1.put("create_service","1");
 		lstTables.add(map1);
-
 		MybatisGeneratorUtil.generator(lstTables);
 	}
 }

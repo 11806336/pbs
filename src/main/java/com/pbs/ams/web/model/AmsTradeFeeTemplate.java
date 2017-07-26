@@ -8,14 +8,14 @@ public class AmsTradeFeeTemplate implements Serializable {
      *
      * @mbg.generated
      */
-    private Long feeTemplateteId;
+    private Integer feeTemplateteId;
 
     /**
      * 证券分类
      *
      * @mbg.generated
      */
-    private Long stockCategoryId;
+    private Integer stockCategoryId;
 
     /**
      * 佣金率(%)
@@ -78,23 +78,23 @@ public class AmsTradeFeeTemplate implements Serializable {
      *
      * @mbg.generated
      */
-    private Long operatorId;
+    private Integer operatorId;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getFeeTemplateteId() {
+    public Integer getFeeTemplateteId() {
         return feeTemplateteId;
     }
 
-    public void setFeeTemplateteId(Long feeTemplateteId) {
+    public void setFeeTemplateteId(Integer feeTemplateteId) {
         this.feeTemplateteId = feeTemplateteId;
     }
 
-    public Long getStockCategoryId() {
+    public Integer getStockCategoryId() {
         return stockCategoryId;
     }
 
-    public void setStockCategoryId(Long stockCategoryId) {
+    public void setStockCategoryId(Integer stockCategoryId) {
         this.stockCategoryId = stockCategoryId;
     }
 
@@ -162,11 +162,11 @@ public class AmsTradeFeeTemplate implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getOperatorId() {
+    public Integer getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Long operatorId) {
+    public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
     }
 }
