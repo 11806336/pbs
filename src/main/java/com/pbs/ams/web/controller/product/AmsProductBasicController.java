@@ -69,8 +69,7 @@ public class AmsProductBasicController extends BaseController {
     @Autowired
     private AmsStockHoldingService amsStockHoldingService;
 
-    @Autowired
-    private AmsBrokerService amsBrokerService;
+
     @Log(value = "产品管理首页")
     @RequiresPermissions("ams:product:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)

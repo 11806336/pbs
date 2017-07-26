@@ -162,7 +162,6 @@ public class UpmsCompanyController extends BaseController {
     public Object update(@PathVariable("id") long id, UpmsCompany upmsCompany) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsCompany.getCompanyName(), new LengthValidator(1, 20, "名称"))
-//                .on(upmsCompany.getTitle(),  new NotNullValidator("姓名"))
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {

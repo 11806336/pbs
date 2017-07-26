@@ -60,8 +60,8 @@ public class AmsBrokerController extends BaseController {
             Map<String, Object> params = Maps.newHashMap();
             params.put("offset", offset);
             params.put("limit", limit);
-            params.put("search",search);
-            params.put("platformId",platformId);
+            params.put("search", search);
+            params.put("platformId", platformId);
             List<Map> rows = amsBrokerService.selectBrokerWithDetail(params);
             long total = amsBrokerService.selectBrokerWithDetailCount(params);
             Map<String, Object> result = Maps.newHashMap();
@@ -74,8 +74,8 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
-        request.setAttribute("amsPlatforms",amsPlatforms);
+        List<Map> amsPlatforms = amsPlatformService.selectPlatformWithDetail(params);
+        request.setAttribute("amsPlatforms", amsPlatforms);
         return "/broker/create_broker.jsp";
     }
 
@@ -85,7 +85,7 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public Object create(AmsBroker amsBroker,String day_begin,String day_end) {
         long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
-        long dayEnd =Long.valueOf(day_end.replaceAll(":",""));
+        long dayEnd = Long.valueOf(day_end.replaceAll(":",""));
         ComplexResult result = FluentValidator.checkAll()
                 .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
                 .doValidate()
@@ -99,7 +99,7 @@ public class AmsBrokerController extends BaseController {
         long id = IdGeneratorUtil.getKey("ams_broker", 100);
         amsBroker.setBrokerId(id);
         int count = amsBrokerService.insertSelective(amsBroker);
-        return new ResultSet(StatusCode.ERROR_NONE,count);
+        return new ResultSet(StatusCode.ERROR_NONE, count);
     }
 
 //    @Log(value = "删除券商")
@@ -132,8 +132,8 @@ public class AmsBrokerController extends BaseController {
         modelMap.put("amsBrokers",amsBroker);
         Map<String, Object> params = Maps.newHashMap();
         List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
-        request.setAttribute("amsPlatforms",amsPlatforms);
-        modelMap.put("amsPlatforms",amsPlatforms);
+        request.setAttribute("amsPlatforms", amsPlatforms);
+        modelMap.put("amsPlatforms", amsPlatforms);
         return "/broker/update_broker.jsp";
     }
 
@@ -151,8 +151,8 @@ public class AmsBrokerController extends BaseController {
         if (!result.isSuccess()) {
             return new ResultSet(StatusCode.INVALID_LENGTH);
         }
-        long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
-        long dayEnd =Long.valueOf(day_end.replaceAll(":",""));
+        long dayBegin = Long.valueOf(day_begin.replaceAll(":", ""));
+        long dayEnd =Long.valueOf(day_end.replaceAll(":", ""));
         amsBroker.setDayBegin(dayBegin);
         amsBroker.setDayEnd(dayEnd);
         long time = System.currentTimeMillis();

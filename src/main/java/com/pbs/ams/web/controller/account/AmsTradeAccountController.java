@@ -59,9 +59,6 @@ public class AmsTradeAccountController extends BaseController {
     private AmsProductAccountService amsProductAccountService;
 
     @Autowired
-    private AmsStockBlackWhiteListService amsStockBlackWhiteListService;
-
-    @Autowired
     private AmsStockHoldingService amsStockHoldingService;
 
     @Autowired
@@ -88,13 +85,6 @@ public class AmsTradeAccountController extends BaseController {
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "search") String search) {
-        //获取session,取当前用户
-        Session session = SecurityUtils.getSubject().getSession();
-        Object obj = session.getAttribute("user");
-        UpmsUser upmsUser = null;
-        if (obj != null) {
-            upmsUser = (UpmsUser) session.getAttribute("user");
-        }
         Map<String, Object> params = Maps.newHashMap();
         params.put("offset", offset);
         params.put("limit", limit);
@@ -123,9 +113,11 @@ public class AmsTradeAccountController extends BaseController {
                 }
             }
             int count = amsTradeAccountService.deleteByPrimaryKeys(idList);
-            return new ResultSet(StatusCode.ERROR_NONE, count);
+            if (count > 0) {
+                return new ResultSet(StatusCode.ERROR_NONE, count);
+            }
         }
-        return 0;
+        return new ResultSet(StatusCode.INVALID_DELETE);
     }
 
     @Log(value = "新增账号")
@@ -153,10 +145,6 @@ public class AmsTradeAccountController extends BaseController {
     public Object create(AmsTradeAccount amsTradeAccount, Long productId) {
         Long tradeAccountId = IdGeneratorUtil.getKey("ams_trade_account");
         amsTradeAccount.setTradeAccountId(tradeAccountId);
-//        Long companyId=getCurrentUser().getCompanyId();
-//        if (companyId==null){
-//            amsTradeAccount.setCompanyId((long)0);
-//        }
         //构建账号产品关系实体
         AmsProductAccount amsProductAccount = new AmsProductAccount();
         amsProductAccount.setProductId(productId);
@@ -223,8 +211,6 @@ public class AmsTradeAccountController extends BaseController {
         if (null != iframeName && null != id) {
             AmsTradeAccount amsTradeAccount = amsTradeAccountService.selectByPrimaryKey(id);
             request.setAttribute("amsTradeAccount", amsTradeAccount);
-//            List<Map> amsStockBlackWhiteList = amsStockBlackWhiteListService.selectProductWithDetail(params);
-//            request.setAttribute("amsStockBlackWhiteList",amsStockBlackWhiteList);
             Map<String, Object> params = Maps.newHashMap();
             List<Map> amsProducts = amsProductService.selectProductWithDetail(params);
             List<Map> amsBrokers =amsBrokerService.selectBrokerWithDetail(params);
@@ -267,8 +253,7 @@ public class AmsTradeAccountController extends BaseController {
     @ResponseBody
     public Object amsTradeAccountExt(
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
-            String dateBegin,String dateEnd) {
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("offset", offset);
         params.put("limit", limit);
@@ -286,8 +271,7 @@ public class AmsTradeAccountController extends BaseController {
     @ResponseBody
     public Object assetsList(
             @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
-            String dateBegin,String dateEnd) {
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("offset", offset);
         params.put("limit", limit);
