@@ -8,7 +8,7 @@ import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.constant.UpmsConstant;
-import com.pbs.ams.common.util.CheckIsDeleteUtil;
+import com.pbs.ams.common.util.CheckUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.util.ValidateUtil;
 import com.pbs.ams.common.validator.LengthValidator;
@@ -100,7 +100,7 @@ public class UpmsCompanyController extends BaseController {
             for (String id : companyIds) {
                 //判断是否具备可删除条件
                 Long cId = Long.parseLong(id);
-                if (CheckIsDeleteUtil.isDelete(UpmsConstant.COMPANY, cId)) {//可以删除
+                if (CheckUtil.canDelete(UpmsConstant.COMPANY, cId)) {//可以删除
                     idList.add(cId);
                 } else {
                     return new ResultSet(StatusCode.FAILD_DELETE);
@@ -162,7 +162,6 @@ public class UpmsCompanyController extends BaseController {
     public Object update(@PathVariable("id") long id, UpmsCompany upmsCompany) {
         ComplexResult result = FluentValidator.checkAll()
                 .on(upmsCompany.getCompanyName(), new LengthValidator(1, 20, "名称"))
-//                .on(upmsCompany.getTitle(),  new NotNullValidator("姓名"))
                 .doValidate()
                 .result(ResultCollectors.toComplex());
         if (!result.isSuccess()) {

@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsConstant;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.util.MD5Util;
 import com.pbs.ams.common.validator.LengthValidator;
@@ -351,5 +352,23 @@ public class UpmsUserController extends BaseController {
         int count = upmsUserService.updateUserAndProductRelation(upmsUser, productUser, companyId);
         return new ResultSet(StatusCode.ERROR_NONE, count);
     }
-
+    @ApiOperation(value = "重置密码")
+    @RequiresPermissions("upms:user:update")
+    @RequestMapping(value = "/reset/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object reset(@PathVariable("id") String id) {
+        if (StringUtils.isNotEmpty(id)) {
+            UpmsUser user = upmsUserService.selectByPrimaryKey(Long.parseLong(id));
+            if (user != null) {
+                String salt = UUID.randomUUID().toString().replaceAll("-", "");
+                user.setSalt(salt);
+                user.setPassword(MD5Util.MD5(UpmsConstant.DEFAULT_PASSWORD + user.getSalt()));
+                int result = upmsUserService.updateByPrimaryKeySelective(user);
+                if (result > 0) {
+                    return new ResultSet(StatusCode.ERROR_NONE);
+                }
+            }
+        }
+        return new ResultSet(StatusCode.PWD_RESET_FAILD);
+    }
 }

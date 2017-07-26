@@ -15,4 +15,6 @@ public class UpmsConstant {
     public static final String ACCOUNT = "ACCOUNT";
 
     public static final String PRODUCT = "PRODUCT";
+
+    public static final String DEFAULT_PASSWORD = "123456";
 }

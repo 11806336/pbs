@@ -7,7 +7,8 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
-import com.pbs.ams.common.util.CheckIsDeleteUtil;
+import com.pbs.ams.common.util.CheckUtil;
+import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
@@ -60,8 +61,8 @@ public class AmsBrokerController extends BaseController {
             Map<String, Object> params = Maps.newHashMap();
             params.put("offset", offset);
             params.put("limit", limit);
-            params.put("search",search);
-            params.put("platformId",platformId);
+            params.put("search", search);
+            params.put("platformId", platformId);
             List<Map> rows = amsBrokerService.selectBrokerWithDetail(params);
             long total = amsBrokerService.selectBrokerWithDetailCount(params);
             Map<String, Object> result = Maps.newHashMap();
@@ -74,8 +75,8 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
-        request.setAttribute("amsPlatforms",amsPlatforms);
+        List<Map> amsPlatforms = amsPlatformService.selectPlatformWithDetail(params);
+        request.setAttribute("amsPlatforms", amsPlatforms);
         return "/broker/create_broker.jsp";
     }
 
@@ -84,22 +85,25 @@ public class AmsBrokerController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public Object create(AmsBroker amsBroker,String day_begin,String day_end) {
-        long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
-        long dayEnd =Long.valueOf(day_end.replaceAll(":",""));
-        ComplexResult result = FluentValidator.checkAll()
-                .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
-                .doValidate()
-                .result(ResultCollectors.toComplex());
-        if (!result.isSuccess()) {
-            return new ResultSet(StatusCode.INVALID_LENGTH);
+        long dayBegin = Long.valueOf(DateUtil.removeDateSymbol(day_begin));
+        long dayEnd = Long.valueOf(DateUtil.removeDateSymbol(day_end));
+        if (dayBegin - dayEnd < 0) { //日盘启动时间大于结束时间
+            ComplexResult result = FluentValidator.checkAll()
+                    .on(amsBroker.getBrokerName(), new LengthValidator(1,20,"名称"))
+                    .doValidate()
+                    .result(ResultCollectors.toComplex());
+            if (!result.isSuccess()) {
+                return new ResultSet(StatusCode.INVALID_LENGTH);
+            }
+            amsBroker.setDayBegin(dayBegin);
+            amsBroker.setDayEnd(dayEnd);
+            amsBroker.setOperatorId(getCurrentUser().getUserId());
+            long id = IdGeneratorUtil.getKey("ams_broker", 100);
+            amsBroker.setBrokerId(id);
+            int count = amsBrokerService.insertSelective(amsBroker);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
         }
-        amsBroker.setDayBegin(dayBegin);
-        amsBroker.setDayEnd(dayEnd);
-        amsBroker.setOperatorId(getCurrentUser().getUserId());
-        long id = IdGeneratorUtil.getKey("ams_broker", 100);
-        amsBroker.setBrokerId(id);
-        int count = amsBrokerService.insertSelective(amsBroker);
-        return new ResultSet(StatusCode.ERROR_NONE,count);
+        return new ResultSet(StatusCode.ILLEGAL_DATE);
     }
 
 //    @Log(value = "删除券商")
@@ -111,7 +115,7 @@ public class AmsBrokerController extends BaseController {
 //            String[] brokerIds = ids.split("-");
 //            List<Long> idList = new ArrayList<Long>();
 //            for (String id : brokerIds) {
-//                if (CheckIsDeleteUtil.isDelete(Long.parseLong(id))) {//可以删除
+//                if (CheckUtil.canDelete(Long.parseLong(id))) {//可以删除
 //                    idList.add(Long.parseLong(id));
 //                } else {
 //                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
@@ -132,8 +136,8 @@ public class AmsBrokerController extends BaseController {
         modelMap.put("amsBrokers",amsBroker);
         Map<String, Object> params = Maps.newHashMap();
         List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
-        request.setAttribute("amsPlatforms",amsPlatforms);
-        modelMap.put("amsPlatforms",amsPlatforms);
+        request.setAttribute("amsPlatforms", amsPlatforms);
+        modelMap.put("amsPlatforms", amsPlatforms);
         return "/broker/update_broker.jsp";
     }
 
@@ -151,8 +155,8 @@ public class AmsBrokerController extends BaseController {
         if (!result.isSuccess()) {
             return new ResultSet(StatusCode.INVALID_LENGTH);
         }
-        long dayBegin = Long.valueOf(day_begin.replaceAll(":",""));
-        long dayEnd =Long.valueOf(day_end.replaceAll(":",""));
+        long dayBegin = Long.valueOf(day_begin.replaceAll(":", ""));
+        long dayEnd =Long.valueOf(day_end.replaceAll(":", ""));
         amsBroker.setDayBegin(dayBegin);
         amsBroker.setDayEnd(dayEnd);
         long time = System.currentTimeMillis();
