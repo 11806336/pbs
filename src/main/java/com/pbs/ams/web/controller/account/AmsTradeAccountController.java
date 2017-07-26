@@ -234,6 +234,13 @@ public class AmsTradeAccountController extends BaseController {
             request.setAttribute("amsBrokers",amsBrokers);
             request.setAttribute("amsProductAccount", amsProductAccount);
             request.setAttribute("upmsCompany",upmsCompany);
+            if ("update_account_base".equals(iframeName)){
+                return "/account/basic/" + iframeName + ".jsp";
+            }else if ("whiteBlackList".equals(iframeName)){
+                return "/account/whiteBlack/" + iframeName + ".jsp";
+            }else if ("charge".equals(iframeName)){
+                return "/account/charge/" + iframeName + ".jsp";
+            }
             return "/account/" + iframeName + ".jsp";
         }
         return null;
