@@ -14,22 +14,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 检查是否可以删除工具类
+ * 检查工具类
  * User : zpf
  * Date : 2017/7/18
  */
-public class CheckIsDeleteUtil {
+public class CheckUtil {
 
     private static final AmsTradeAccountServiceImpl amsTradeAccountService = SpringContextUtil.getBean("amsTradeAccountServiceImpl", AmsTradeAccountServiceImpl.class);
     private static final UpmsCompanyUserServiceImpl upmsCompanyUserService = SpringContextUtil.getBean("upmsCompanyUserServiceImpl", UpmsCompanyUserServiceImpl.class);
     private static final AmsProductUserServiceImpl amsProductUserService = SpringContextUtil.getBean("amsProductUserServiceImpl", AmsProductUserServiceImpl.class);
 
     /**
-     * according to params estimate this data isdelete.
+     * according to params estimate Object can be deleted.
      * @param id
      * @return
      */
-    public static boolean isDelete(String key, Long id){
+    public static boolean canDelete(String key, Long id){
         boolean result = true;
         if (null != id) {
             switch (key) {

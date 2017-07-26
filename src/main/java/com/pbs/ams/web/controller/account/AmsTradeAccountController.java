@@ -6,7 +6,7 @@ import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
 import com.pbs.ams.common.constant.UpmsConstant;
-import com.pbs.ams.common.util.CheckIsDeleteUtil;
+import com.pbs.ams.common.util.CheckUtil;
 import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.ExcelUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
@@ -116,7 +116,7 @@ public class AmsTradeAccountController extends BaseController {
             List<Long> idList = new ArrayList<Long>();
             for (String id : tradeAccountId) {
                 Long accountId = Long.parseLong(id);
-                if (CheckIsDeleteUtil.isDelete(UpmsConstant.ACCOUNT, accountId)){
+                if (CheckUtil.canDelete(UpmsConstant.ACCOUNT, accountId)){
                     idList.add(Long.parseLong(id));
                 }else {
                     return new ResultSet(StatusCode.FAILD_DELETE);

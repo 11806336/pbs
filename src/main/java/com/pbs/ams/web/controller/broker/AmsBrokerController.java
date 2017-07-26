@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
-import com.pbs.ams.common.util.CheckIsDeleteUtil;
+import com.pbs.ams.common.util.CheckUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
@@ -111,7 +111,7 @@ public class AmsBrokerController extends BaseController {
 //            String[] brokerIds = ids.split("-");
 //            List<Long> idList = new ArrayList<Long>();
 //            for (String id : brokerIds) {
-//                if (CheckIsDeleteUtil.isDelete(Long.parseLong(id))) {//可以删除
+//                if (CheckUtil.canDelete(Long.parseLong(id))) {//可以删除
 //                    idList.add(Long.parseLong(id));
 //                } else {
 //                    return new ResultSet(StatusCode.INVALID_DELETE, "存在关联关系，不能删除！");
