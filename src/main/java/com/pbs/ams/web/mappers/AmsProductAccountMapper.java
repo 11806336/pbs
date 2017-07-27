@@ -8,6 +8,11 @@ public interface AmsProductAccountMapper {
 
     int deleteByPrimaryKey(Long productTradeAccountId);
 
+    /**
+     * This method is used to bind Account and Product
+     * @param record
+     * @return
+     */
     int insert(AmsProductAccount record);
 
     int insertSelective(AmsProductAccount record);

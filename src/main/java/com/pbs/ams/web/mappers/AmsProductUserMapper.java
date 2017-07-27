@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface AmsProductUserMapper {
     int deleteByPrimaryKey(Long productUserId);
-
+    /**
+     *insert a product and product-user relation
+     * @param record
+     * @return insert count
+     */
     int insert(AmsProductUser record);
 
     int insertSelective(AmsProductUser record);

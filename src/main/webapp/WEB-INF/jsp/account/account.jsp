@@ -40,6 +40,7 @@
     var $table = $('#table');
     //列配置项
     var dataColumns = [
+        {field: 'ck', checkbox: true,visible:false},
         {field: 'trade_account_id', title: '证券ID'},
         {field: 'company_id', title: '公司ID'},
         {field: 'trade_account', title: '证券资金账号'},
@@ -113,7 +114,7 @@
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/account/edit','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
             "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','详情'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
-            "<a class='delete' href='javascript:;' onclick=deleteAction(row,'/account/delete','trade_account_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/account/delete','trade_account_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
     //格式化设置开关按钮
@@ -176,7 +177,7 @@
             }
         });
     }
-    var deleteDialog;
+/*    var deleteDialog;
     function deleteAction(rows,url,idField) {
         var ids = new Array();
         //"判断单个删除还是批量删除
@@ -273,7 +274,7 @@
                 }
             }
         });
-    }
+    }*/
 </script>
 </body>
 </html>
