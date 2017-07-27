@@ -11,9 +11,10 @@
     <meta charset="UTF-8">
     <title>新建产品</title>
     <link href="${basePath}/resources/plugins/bootstrap-3.3.0/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="${basePath}/resources/plugins/My97DatePicker/skin/WdatePicker.css">
     <link rel="stylesheet" href="${basePath}/resources/css/common.css">
 </head>
 <body>
@@ -57,7 +58,7 @@
                 <input checked="checked" type="radio" name="productType" id="productType" value="1"> 普通基金
             </label>
             <label class="radio inline" style="min-width:60px;">
-                <input type="radio" name="productType" value="2"> 分级基金
+                <input type="radio" name="productType" value="0"> 分级基金
             </label>
             <span class="tipsError">保存后不可更改</span>
         </div>
@@ -100,7 +101,7 @@
                 <input class="productShareSource" checked="checked" type="radio" name="productShareSource" id="productShareSource" value="1">自定义
             </label>
             <label class="radio inline" style="min-width:60px;">
-                <input class="productShareSource" type="radio" name="productShareSource"  value="2"> O32读取
+                <input class="productShareSource" type="radio" name="productShareSource"  value="0"> O32读取
             </label>
             <br>
         </div>

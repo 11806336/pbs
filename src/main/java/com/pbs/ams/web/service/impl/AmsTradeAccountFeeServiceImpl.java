@@ -2,9 +2,9 @@ package com.pbs.ams.web.service.impl;
 
 import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
-import com.pbs.ams.web.mappers.AmsStockCategoryMapper;
-import com.pbs.ams.web.model.AmsStockCategory;
-import com.pbs.ams.web.service.AmsStockCategoryService;
+import com.pbs.ams.web.mappers.AmsTradeAccountFeeMapper;
+import com.pbs.ams.web.model.AmsTradeAccountFee;
+import com.pbs.ams.web.service.AmsTradeAccountFeeService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,28 +13,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-
 /**
-* AmsStockCategoryService实现
-* Created by ams on 2017/7/25.
+* AmsTradeAccountFeeService实现
+* Created by ams on 2017/7/26.
 */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
+public class AmsTradeAccountFeeServiceImpl  implements AmsTradeAccountFeeService {
 
-    private static Logger _log = LoggerFactory.getLogger(AmsStockCategoryServiceImpl.class);
+    private static Logger _log = LoggerFactory.getLogger(AmsTradeAccountFeeServiceImpl.class);
 
     @Autowired
-    private AmsStockCategoryMapper amsStockCategoryMapper;
+    private AmsTradeAccountFeeMapper amsTradeAccountFeeMapper;
 
 
         @Override
         public int deleteByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockCategoryMapper.deleteByPrimaryKey(id);
+                return amsTradeAccountFeeMapper.deleteByPrimaryKey(id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -44,10 +41,10 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
 
 
         @Override
-        public int insert(AmsStockCategory amsStockCategory) {
+        public int insert(AmsTradeAccountFee amsTradeAccountFee) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockCategoryMapper.insert(amsStockCategory);
+                return amsTradeAccountFeeMapper.insert(amsTradeAccountFee);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -56,10 +53,10 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
         }
 
         @Override
-        public int insertSelective(AmsStockCategory amsStockCategory) {
+        public int insertSelective(AmsTradeAccountFee amsTradeAccountFee) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockCategoryMapper.insertSelective(amsStockCategory);
+                return amsTradeAccountFeeMapper.insertSelective(amsTradeAccountFee);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -69,10 +66,10 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
 
 
         @Override
-        public AmsStockCategory selectByPrimaryKey(Long id) {
+        public AmsTradeAccountFee selectByPrimaryKey(Long id) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockCategoryMapper.selectByPrimaryKey(id);
+                return amsTradeAccountFeeMapper.selectByPrimaryKey(id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,10 +79,10 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
 
 
         @Override
-        public int updateByPrimaryKeySelective(AmsStockCategory amsStockCategory) {
+        public int updateByPrimaryKeySelective(AmsTradeAccountFee amsTradeAccountFee) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockCategoryMapper.updateByPrimaryKeySelective(amsStockCategory);
+                return amsTradeAccountFeeMapper.updateByPrimaryKeySelective(amsTradeAccountFee);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -95,10 +92,10 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
 
 
         @Override
-        public int updateByPrimaryKey(AmsStockCategory amsStockCategory) {
+        public int updateByPrimaryKey(AmsTradeAccountFee amsTradeAccountFee) {
             try {
                 DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-                return amsStockCategoryMapper.updateByPrimaryKey(amsStockCategory);
+                return amsTradeAccountFeeMapper.updateByPrimaryKey(amsTradeAccountFee);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -130,24 +127,21 @@ public class AmsStockCategoryServiceImpl  implements AmsStockCategoryService {
                 return 0;
         }
 
-        public List<Map<String, Object>> selectAmsStockCategory(Map map){
-            return amsStockCategoryMapper.selectAmsStockCategory(map);
-        }
+
         /**
         * MANDATORY:该方法只能在一个已存在的事务中执行.
         * @return
         */
         @Override
         @Transactional(propagation = Propagation.MANDATORY)
-        public int insertToAmsStockCategorySnaps() {
+        public int insertToAmsTradeAccountFeeSnaps() {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            //return amsStockCategoryMapper.insertToAmsStockCategorySnaps();
+            //return amsTradeAccountFeeMapper.insertToAmsTradeAccountFeeSnaps();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             DynamicDataSource.clearDataSource();
             return 0;
         }
-
 }

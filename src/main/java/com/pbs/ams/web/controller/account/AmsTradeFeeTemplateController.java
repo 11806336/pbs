@@ -10,12 +10,14 @@ import com.pbs.ams.web.model.AmsTradeFeeTemplate;
 import com.pbs.ams.web.service.AmsStockCategoryService;
 import com.pbs.ams.web.service.AmsTradeFeeTemplateService;
 import io.swagger.annotations.Api;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +52,7 @@ public class AmsTradeFeeTemplateController extends BaseController {
         Map<String, Object> params = Maps.newHashMap();
         params.put("offset", offset);
         params.put("limit", limit);
-        List<Map> rows = amsTradeFeeTemplateService.selectTradeFeeTemplate(params);
+        List<Map<String, Object>> rows = amsTradeFeeTemplateService.selectTradeFeeTemplate(params);
         long total = amsTradeFeeTemplateService.selectTradeFeeTemplateCount(params);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", rows);
@@ -63,7 +65,7 @@ public class AmsTradeFeeTemplateController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsStockCategory = amsStockCategoryService.selectAmsStockCategory(params);
+        List<Map<String, Object>> amsStockCategory = amsStockCategoryService.selectAmsStockCategory(params);
         request.setAttribute("amsStockCategory", amsStockCategory);
         return "/account/charge/create_charge.jsp";
     }
@@ -98,12 +100,12 @@ public class AmsTradeFeeTemplateController extends BaseController {
         AmsTradeFeeTemplate amsTradeFeeTemplate = amsTradeFeeTemplateService.selectByPrimaryKey(id);
         request.setAttribute("amsTradeFeeTemplate", amsTradeFeeTemplate);
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsStockCategory = amsStockCategoryService.selectAmsStockCategory(params);
+        List<Map<String, Object>> amsStockCategory = amsStockCategoryService.selectAmsStockCategory(params);
         request.setAttribute("amsStockCategory", amsStockCategory);
         return "/account/charge/update_charge.jsp";
     }
 
-    @Log(value = "修改账号")
+    @Log(value = "修改手续费")
     @RequiresPermissions("upms:feeTemplate:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
@@ -111,6 +113,24 @@ public class AmsTradeFeeTemplateController extends BaseController {
         amsTradeFeeTemplate.setFeeTemplateteId(id);
         int count = amsTradeFeeTemplateService.updateByPrimaryKeySelective(amsTradeFeeTemplate);
         return new ResultSet(StatusCode.ERROR_NONE, count);
+    }
+
+
+    @Log(value = "删除手续费")
+    @RequiresPermissions("upms:feeTemplate:update")
+    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object delete(@PathVariable("ids") String ids) {
+        if (StringUtils.isNotEmpty(ids)) {
+            String[] feeTemplateteId = ids.split("-");
+            List<Long> idList = new ArrayList<Long>();
+            for (String id : feeTemplateteId) {
+                    idList.add(Long.parseLong(id));
+            }
+            int count = amsTradeFeeTemplateService.deleteByPrimaryKeys(idList);
+            return new ResultSet(StatusCode.ERROR_NONE, count);
+        }
+        return 0;
     }
 
 }

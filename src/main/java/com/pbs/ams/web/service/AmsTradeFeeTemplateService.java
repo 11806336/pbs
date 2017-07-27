@@ -1,6 +1,8 @@
 package com.pbs.ams.web.service;
 
+import com.pbs.ams.web.model.AmsTradeAccountFee;
 import com.pbs.ams.web.model.AmsTradeFeeTemplate;
+import com.pbs.ams.web.model.AmsTradeFeeTemplateSnaps;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +15,7 @@ public interface AmsTradeFeeTemplateService{
 
     int deleteByPrimaryKey(Long id);
 
-    int deleteByPrimaryKeys(String ids);
+    int deleteByPrimaryKeys(List<Long> ids);
 
     int insert(AmsTradeFeeTemplate record);
 
@@ -30,7 +32,7 @@ public interface AmsTradeFeeTemplateService{
      * @param map
      * @return
      */
-    List<Map> selectTradeFeeTemplate(Map map);
+    List<Map<String, Object>> selectTradeFeeTemplate(Map map);
 
     /**
      * This method is used to get PageListTotalSize
@@ -39,6 +41,13 @@ public interface AmsTradeFeeTemplateService{
      */
     long selectTradeFeeTemplateCount(Map map);
 
-    int insertToAmsTradeFeeTemplateSnaps();
+    /**
+     * 向快照表中插入数据
+     * @return
+     */
+
+    int insertIntoAmsTradeFeeTemplateSnaps(AmsTradeFeeTemplateSnaps amsTradeFeeTemplateSnaps);
+
+    int insertTemplateAndTradeAccount(AmsTradeFeeTemplate amsTradeFeeTemplate, AmsTradeAccountFee amsTradeAccountFee);
 
 }

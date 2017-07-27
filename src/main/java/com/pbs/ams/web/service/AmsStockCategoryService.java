@@ -30,7 +30,7 @@ public interface AmsStockCategoryService{
      * @param map
      * @return
      */
-    List<Map> selectAmsStockCategory(Map map);
+    List<Map<String, Object>> selectAmsStockCategory(Map map);
 
     int insertToAmsStockCategorySnaps();
 }

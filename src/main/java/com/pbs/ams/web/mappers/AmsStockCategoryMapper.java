@@ -18,5 +18,5 @@ public interface AmsStockCategoryMapper {
 
     int updateByPrimaryKey(AmsStockCategory record);
 
-    List<Map> selectAmsStockCategory(Map map);
+    List<Map<String, Object>> selectAmsStockCategory(Map map);
 }

@@ -14,15 +14,12 @@ import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsProductAccount;
 import com.pbs.ams.web.model.AmsTradeAccount;
 import com.pbs.ams.web.model.UpmsCompany;
-import com.pbs.ams.web.model.UpmsUser;
 import com.pbs.ams.web.service.*;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -131,7 +128,7 @@ public class AmsTradeAccountController extends BaseController {
         request.setAttribute("amsProducts",amsProducts);
         request.setAttribute("amsBrokers",amsBrokers);
         request.setAttribute("upmsCompany",upmsCompany);
-        return "/account/create_account_base.jsp";
+        return "/account/basic/create_account_base.jsp";
     }
     /**
      *
@@ -338,14 +335,14 @@ public class AmsTradeAccountController extends BaseController {
                         if(entry.getKey().equals("create_time") || entry.getKey().equals("update_time")){
                             entry.setValue(DateUtil.divideDate(Long.parseLong(entry.getValue().toString())));
                         }else if(entry.getKey().equals("trade_account_status")){
-//
                             for(int k=0;k<entry.getKey().length();k++){
                                 if(entry.getValue().equals(true)){
                                     entry.setValue("启用");
+                                    break;
                                 }else{
                                     entry.setValue("冻结");
+                                    break;
                                 }
-//                                entry.getValue().equals("true") ? entry.setValue("启用") : entry.setValue("停用");
                             }
                         }
                         value[i][j] = entry.getValue();

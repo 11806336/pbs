@@ -48,7 +48,7 @@
     //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
     var sidePagination='server';
     //指定主键列
-    var idField='chargeId';
+    var idField='fee_templatete_id';
     //右上角刷新搜索
     var search=false;
     var showRefresh=false;
@@ -58,11 +58,11 @@
         var rows = $table.bootstrapTable('getSelections');
         ids = new Array();
         for (var i in rows) {
-            ids.push(rows[i].chargeId);
+            ids.push(rows[i].fee_templatete_id);
         }
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/feeTemplate/edit','编辑',"+row.fee_templatete_id+") data-toggle='tooltip' title='编辑' style='margin-right: 8px;'><i class='glyphicon glyphicon-edit'></i></a>",
-            "<a class='delete' href='javascript:;' onclick=deleteAction('/manage/permission/update',"+ids+") data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/feeTemplate/delete','feeTemplateteId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
 </script>

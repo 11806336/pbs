@@ -377,6 +377,39 @@ public class AmsProductBasicController extends BaseController {
                 for (int j = 0; j < cellSize; j++) {
                     for (Iterator<Map.Entry<String, Object>> it = ac.entrySet().iterator(); it.hasNext(); ) {
                         Map.Entry<String, Object> entry = it.next();
+                        if(entry.getKey().equals("start_date") || entry.getKey().equals("end_date")){
+                            entry.setValue(DateUtil.divideDate(Long.parseLong(entry.getValue().toString())));
+                        }else if(entry.getKey().equals("product_type")){
+                            for(int k=0;k<entry.getKey().length();k++){
+                                if(entry.getValue().equals(true)){
+                                    entry.setValue("普通基金");
+                                    break;
+                                }else{
+                                    entry.setValue("分级基金");
+                                    break;
+                                }
+                            }
+                        }else if(entry.getKey().equals("product_share_source")){
+                            for(int k=0;k<entry.getKey().length();k++){
+                                if(entry.getValue().equals(true)){
+                                    entry.setValue("自定义");
+                                    break;
+                                }else{
+                                    entry.setValue("O32读取");
+                                    break;
+                                }
+                            }
+                        }else if(entry.getKey().equals("product_status")){
+                            for(int k=0;k<entry.getKey().length();k++){
+                                if(entry.getValue().equals(true)){
+                                    entry.setValue("启用");
+                                    break;
+                                }else{
+                                    entry.setValue("禁用");
+                                    break;
+                                }
+                            }
+                        }
                         value[i][j] = entry.getValue();
                         it.remove();
                         break;
