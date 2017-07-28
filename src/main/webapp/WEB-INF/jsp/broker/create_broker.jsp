@@ -29,10 +29,10 @@
         <div class="control-group">
             <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
             <div class="controls">
-                <select name="platformId" id="platformId">
+                <select name="finInstrType" id="platformId">
                     <option value="0">---请选择---</option>
                     <c:forEach var="platform" items="${amsPlatforms}">
-                        <option value="${platform.platform_id}">${platform.platform_name}</option>
+                        <option value="${platform.globalConstDataValue}">${platform.globalConstDataName}</option>
                     </c:forEach>
                 </select>
                 <span for="platform_add" class="hint">请选择平台</span>
