@@ -3,7 +3,7 @@ package com.pbs.ams.web.controller.account;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
 import com.pbs.ams.web.controller.BaseController;
-import com.pbs.ams.web.service.AmsStockBlackWhiteListService;
+import com.pbs.ams.web.service.RskBlackwhiteListService;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,8 @@ import java.util.Map;
 @RequestMapping("/blackWhite")
 public class amsStockBlackWhiteController extends BaseController{
     @Autowired
-    private AmsStockBlackWhiteListService amsStockBlackWhiteListService;
+    private RskBlackwhiteListService rskBlackwhiteListService;
+
     @Log(value = "黑名单列表")
     @RequiresPermissions("upms:blackWhite:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -36,8 +37,8 @@ public class amsStockBlackWhiteController extends BaseController{
         Map<String, Object> params = Maps.newHashMap();
         params.put("offset", offset);
         params.put("limit", limit);
-        List<Map<String, Object>> rows = amsStockBlackWhiteListService.selectBlackWhite(params);
-        long total = amsStockBlackWhiteListService.selectBlackWhiteCount(params);
+        List<Map<String, Object>> rows = rskBlackwhiteListService.selectBlackWhite(params);
+        long total = rskBlackwhiteListService.selectBlackWhiteCount(params);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", rows);
         result.put("total", total);
