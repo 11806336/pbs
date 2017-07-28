@@ -144,29 +144,19 @@
             url: '${basePath}/feeTemplate/save',
             data: $('#addForm').serialize(),
             beforeSend: function() {
-                if ($('#commissionRate').val() == '') {
-                    $('#commissionRate').focus();
-                    return false;
-                }
-                if ($('#minimumCommission').val() == '') {
-                    $('#minimumCommission').focus();
-                    return false;
-                }
-                if ($('#transferFeeRate').val() == '') {
-                    $('#transferFeeRate').focus();
-                    return false;
-                }
-                if ($('#minimumChargeCount').val() == '') {
-                    $('#minimumChargeCount').focus();
-                    return false;
-                }
-                if ($('#buyStampDutyRate').val() == '') {
-                    $('#buyStampDutyRate').focus();
-                    return false;
-                }
-                if ($('#sellStampDutyRate').val() == '') {
-                    $('#sellStampDutyRate').focus();
-                    return false;
+                if ($('#commissionRate').val() == ''
+                    &&$('#minimumCommission').val() == ''
+                    &&$('#transferFeeRate').val() == ''
+                    &&$('#minimumChargeCount').val() == ''
+                    &&$('#buyStampDutyRate').val() == ''
+                    &&$('#sellStampDutyRate').val() == '') {
+                        $('#commissionRate').focus();
+                        $('#minimumCommission').focus();
+                        $('#transferFeeRate').focus();
+                        $('#minimumChargeCount').focus();
+                        $('#buyStampDutyRate').focus();
+                        $('#sellStampDutyRate').focus();
+                        return false;
                 }
             },
 
