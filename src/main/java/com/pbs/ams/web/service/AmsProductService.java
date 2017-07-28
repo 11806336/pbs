@@ -12,8 +12,12 @@ import java.util.Map;
 * Created by ams on 2017/6/28.
 */
 public interface AmsProductService{
-
-    int deleteByPrimaryKey(Long id);
+    /**
+     * This method by id delete data  通过id删除数据
+     * @param productId
+     * @return
+     */
+    int deleteByPrimaryKey(Long productId);
 
     /**
      * This method by id delete data  通过id删除数据
@@ -22,23 +26,12 @@ public interface AmsProductService{
      */
     int deleteByPrimaryKeys(List<Long> ids);
 
-    int insert(AmsProduct record);
-
-    int insertSelective(AmsProduct record);
-
     /**
      * This method by id query data  通过id查询数据
      * @param id
      * @return
      */
     AmsProduct selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKey(AmsProduct record);
-
-    int updateByPrimaryKeySelective(AmsProduct record);
-
-    int insertToAmsProductSnaps();
-
 
     /**
      * This method is used to get PageList data.
@@ -48,19 +41,19 @@ public interface AmsProductService{
     List<Map> selectProductWithDetail(Map map);
 
     /**
+     * This method is used to get PageListTotalSize
+     * @param map
+     * @return
+     */
+    int selectProductWithDetailCount(Map map);
+
+    /**
      * 修改账号状态
      * @param id 账号id
      * @param status 账号状态
      * @return
      */
     int updateProductStatusById(Long id, Integer status);
-
-    /**
-     * This method is used to get PageListTotalSize
-     * @param map
-     * @return
-     */
-    int selectProductWithDetailCount(Map map);
 
     /**
      * This method is used to get PageListTotalSize
