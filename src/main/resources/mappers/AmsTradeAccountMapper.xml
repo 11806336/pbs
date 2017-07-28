@@ -65,7 +65,7 @@
       trade_account, trade_account_name, trade_account_password, 
       broker_id, trade_account_status, create_time, 
       update_time, operator_id)
-    values (#{tradeAccountId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{tradeAccountType,jdbcType=BIT}, 
+    values (#{tradeAccountId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT},
       #{tradeAccount,jdbcType=BIGINT}, #{tradeAccountName,jdbcType=VARCHAR}, #{tradeAccountPassword,jdbcType=VARCHAR}, 
       #{brokerId,jdbcType=BIGINT}, #{tradeAccountStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT})
@@ -108,9 +108,6 @@
       </if>
       <if test="companyId != null">
         #{companyId,jdbcType=BIGINT},
-      </if>
-      <if test="tradeAccountType != null">
-        #{tradeAccountType,jdbcType=BIT},
       </if>
       <if test="tradeAccount != null">
         #{tradeAccount,jdbcType=BIGINT},
