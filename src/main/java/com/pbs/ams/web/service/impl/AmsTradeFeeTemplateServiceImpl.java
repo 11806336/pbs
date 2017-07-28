@@ -4,9 +4,7 @@ import com.pbs.ams.common.db.DataSourceEnum;
 import com.pbs.ams.common.db.DynamicDataSource;
 import com.pbs.ams.web.mappers.AmsTradeAccountFeeMapper;
 import com.pbs.ams.web.mappers.AmsTradeFeeTemplateMapper;
-import com.pbs.ams.web.model.AmsTradeAccountFee;
-import com.pbs.ams.web.model.AmsTradeFeeTemplate;
-import com.pbs.ams.web.model.AmsTradeFeeTemplateSnaps;
+import com.pbs.ams.web.model.*;
 import com.pbs.ams.web.service.AmsTradeFeeTemplateService;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -87,19 +85,31 @@ public class AmsTradeFeeTemplateServiceImpl  implements AmsTradeFeeTemplateServi
         return null;
     }
 
-
     @Override
     public int updateByPrimaryKeySelective(AmsTradeFeeTemplate amsTradeFeeTemplate) {
-        try {
-            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-            return amsTradeFeeTemplateMapper.updateByPrimaryKeySelective(amsTradeFeeTemplate);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (null != amsTradeFeeTemplate) {
+            //先做查询再去更新原表数据和插入快照
+            AmsTradeFeeTemplate oldAmsTradeFeeTemplate = amsTradeFeeTemplateMapper.selectByPrimaryKey(amsTradeFeeTemplate.getFeeTemplateteId());
+            if (null != oldAmsTradeFeeTemplate) {
+                AmsTradeFeeTemplateSnaps snapshot = new AmsTradeFeeTemplateSnaps();
+                try {
+                    PropertyUtils.copyProperties(snapshot, oldAmsTradeFeeTemplate);
+                    //向快照表插入数据
+                    int snapshotResult = amsTradeFeeTemplateMapper.insertIntoAmsTradeFeeTemplateSnaps(snapshot);
+                    if (snapshotResult > 0) {//当插入成功后再更新原数据
+                        return amsTradeFeeTemplateMapper.updateByPrimaryKeySelective(amsTradeFeeTemplate);
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        DynamicDataSource.clearDataSource();
         return 0;
     }
-
 
     @Override
     public int updateByPrimaryKey(AmsTradeFeeTemplate amsTradeFeeTemplate) {
