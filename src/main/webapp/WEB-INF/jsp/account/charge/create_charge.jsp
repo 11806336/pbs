@@ -169,7 +169,7 @@
                 }
             },
             error: function () {
-                alert("error");
+                alert("保存失败");
             }
         });
     });
