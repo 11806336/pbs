@@ -22,6 +22,7 @@
     <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
     <script src="${basePath}/resources/plugins/select2/js/select2.min.js"></script>
     <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
+    <style>.control-label {width:140px;}</style>
 </head>
 <body>
 <div id="main">
