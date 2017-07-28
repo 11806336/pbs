@@ -113,7 +113,7 @@
         return [
             "<a class='selected' href='javascript:;' onclick=dialog('/account/edit','编辑'," + row.trade_account_id + ") data-toggle='tooltip' title='编辑'><i class='glyphicon glyphicon-edit'></i></a>",
             "<a class='update' style='padding:0 6px;' href='javascript:;' onclick=dialog('/account/details','详情'," + row.trade_account_id + ") data-toggle='tooltip' title='查看账号详情'><i class='glyphicon glyphicon-eye-open'></i></a>",
-            "<a class='delete' href='javascript:;' onclick=deleteAction(row,'/account/delete','trade_account_id') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
+            "<a class='delete' href='javascript:;' onclick=deleteSingle('/account/delete/" + row.trade_account_id + "') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
     //格式化设置开关按钮
@@ -173,104 +173,6 @@
             },
             error: function () {
                 alert("error")
-            }
-        });
-    }
-    var deleteDialog;
-    function deleteAction(rows,url,idField) {
-        var ids = new Array();
-        //"判断单个删除还是批量删除
-            if (rows.length == 0) {
-                $.confirm({
-                    title: false,
-                    content: '请至少选择一条记录！',
-                    autoClose: 'cancel|3000',
-                    backgroundDismiss: true,
-                    buttons: {
-                        cancel: {
-                            text: '取消',
-                            btnClass: 'waves-effect waves-button'
-                        }
-                    }
-                });
-                return false;
-            }
-            for (var i in rows) {
-                ids.push(rows[i][idField]);
-            }
-        deleteDialog = $.confirm({
-            type: 'red',
-            animationSpeed: 300,
-            title: false,
-            content: '确认删除吗？',
-            buttons: {
-                confirm: {
-                    text: '确认',
-                    btnClass: 'waves-effect waves-button',
-                    action: function () {
-                        $.ajax({
-                            type: 'get',
-                            url:url+"/" + ids.join("-"),
-                            success: function (result) {
-                                if (result.code != 1) {
-                                    if (result.data instanceof Array) {
-                                        $.each(result.data, function (index, value) {
-                                            $.confirm({
-                                                theme: 'dark',
-                                                animation: 'rotateX',
-                                                closeAnimation: 'rotateX',
-                                                title: false,
-                                                content: value.errorMsg,
-                                                buttons: {
-                                                    confirm: {
-                                                        text: '确认',
-                                                        btnClass: 'waves-effect waves-button waves-light'
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    } else {
-                                        $.confirm({
-                                            theme: 'dark',
-                                            animation: 'rotateX',
-                                            closeAnimation: 'rotateX',
-                                            title: false,
-                                            content: result.message,
-                                            buttons: {
-                                                confirm: {
-                                                    text: '确认',
-                                                    btnClass: 'waves-effect waves-button waves-light'
-                                                }
-                                            }
-                                        });
-                                    }
-                                } else {
-                                    deleteDialog.close();
-                                    $table.bootstrapTable('refresh');
-                                }
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                $.confirm({
-                                    theme: 'dark',
-                                    animation: 'rotateX',
-                                    closeAnimation: 'rotateX',
-                                    title: false,
-                                    content: textStatus,
-                                    buttons: {
-                                        confirm: {
-                                            text: '确认',
-                                            btnClass: 'waves-effect waves-button waves-light'
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-                },
-                cancel: {
-                    text: '取消',
-                    btnClass: 'waves-effect waves-button'
-                }
             }
         });
     }
