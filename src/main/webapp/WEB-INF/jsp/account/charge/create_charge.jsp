@@ -142,6 +142,33 @@
             type: 'POST',
             url: '${basePath}/feeTemplate/save',
             data: $('#addForm').serialize(),
+            beforeSend: function() {
+                if ($('#commissionRate').val() == '') {
+                    $('#commissionRate').focus();
+                    return false;
+                }
+                if ($('#minimumCommission').val() == '') {
+                    $('#minimumCommission').focus();
+                    return false;
+                }
+                if ($('#transferFeeRate').val() == '') {
+                    $('#transferFeeRate').focus();
+                    return false;
+                }
+                if ($('#minimumChargeCount').val() == '') {
+                    $('#minimumChargeCount').focus();
+                    return false;
+                }
+                if ($('#buyStampDutyRate').val() == '') {
+                    $('#buyStampDutyRate').focus();
+                    return false;
+                }
+                if ($('#sellStampDutyRate').val() == '') {
+                    $('#sellStampDutyRate').focus();
+                    return false;
+                }
+            },
+
             success: function (data) {
                 console.info(data);
                 console.log(data.message);

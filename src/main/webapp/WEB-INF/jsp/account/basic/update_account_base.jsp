@@ -113,7 +113,7 @@
                     parent.layer.close(index);
                     window.parent.refresh();
                 }
-            } ,
+            },
             error: function () {
             }
         });
