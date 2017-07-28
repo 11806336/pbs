@@ -27,7 +27,7 @@ public class AmsBrokerSnaps implements Serializable {
      *
      * @mbg.generated
      */
-    private Long platformId;
+    private Integer finInstrType;
 
     /**
      * 缩写名称
@@ -127,12 +127,12 @@ public class AmsBrokerSnaps implements Serializable {
         this.brokerType = brokerType;
     }
 
-    public Long getPlatformId() {
-        return platformId;
+    public Integer getFinInstrType() {
+        return finInstrType;
     }
 
-    public void setPlatformId(Long platformId) {
-        this.platformId = platformId;
+    public void setFinInstrType(Integer finInstrType) {
+        this.finInstrType = finInstrType;
     }
 
     public String getBrokerAbbrName() {
