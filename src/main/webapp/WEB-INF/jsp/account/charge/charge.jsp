@@ -65,6 +65,22 @@
             "<a class='delete' href='javascript:;' onclick=deleteAction(this,'/feeTemplate/delete','feeTemplateteId') data-toggle='tooltip' title='删除'><i class='glyphicon glyphicon-remove'></i></a>",
         ].join('');
     }
+    //编辑后刷新
+    function refresh() {
+        $.confirm({
+            title: false,
+            content: '操作成功！',
+            autoClose: 'cancel|3000',
+            backgroundDismiss: true,
+            buttons: {
+                cancel: {
+                    text: '取消',
+                    btnClass: 'waves-effect waves-button'
+                }
+            }
+        });
+        $("#table").bootstrapTable('refresh');
+    }
 </script>
 </body>
 </html>
