@@ -96,7 +96,7 @@
     </form>
 </div>
 <script>
-    $("#platformId").select2({
+    $("select").select2({
         minimumResultsForSearch: -1
     });
     //下拉框选择
