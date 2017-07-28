@@ -5,16 +5,20 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.google.common.collect.Maps;
 import com.pbs.ams.common.annotation.Log;
+import com.pbs.ams.common.constant.Constants;
 import com.pbs.ams.common.constant.ResultSet;
 import com.pbs.ams.common.constant.StatusCode;
+import com.pbs.ams.common.constant.UpmsConstant;
 import com.pbs.ams.common.util.CheckUtil;
 import com.pbs.ams.common.util.DateUtil;
 import com.pbs.ams.common.util.IdGeneratorUtil;
 import com.pbs.ams.common.validator.LengthValidator;
 import com.pbs.ams.web.controller.BaseController;
 import com.pbs.ams.web.model.AmsBroker;
+import com.pbs.ams.web.model.SysGlobalConstData;
 import com.pbs.ams.web.service.AmsBrokerService;
 import com.pbs.ams.web.service.AmsPlatformService;
+import com.pbs.ams.web.service.SysGlobalConstDataService;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -36,14 +40,16 @@ public class AmsBrokerController extends BaseController {
     @Autowired
     private AmsBrokerService amsBrokerService;
     @Autowired
-    private AmsPlatformService amsPlatformService;
+    private SysGlobalConstDataService sysGlobalConstDataService;
 
     @Log(value = "经纪公司")
     @RequiresPermissions("ams:broker:read")
     @RequestMapping(value= "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request) {
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
+        //查询金融工具类型（平台）
+        params.put("globalConstCode", UpmsConstant.FIN_INSTR_TYPE);
+        List<SysGlobalConstData> amsPlatforms = sysGlobalConstDataService.selectDataByCode(params);
         request.setAttribute("amsPlatforms",amsPlatforms);
         return "/broker/index.jsp";
     }
@@ -62,7 +68,7 @@ public class AmsBrokerController extends BaseController {
             params.put("offset", offset);
             params.put("limit", limit);
             params.put("search", search);
-            params.put("platformId", platformId);
+            params.put("finInstrType", platformId);
             List<Map> rows = amsBrokerService.selectBrokerWithDetail(params);
             long total = amsBrokerService.selectBrokerWithDetailCount(params);
             Map<String, Object> result = Maps.newHashMap();
@@ -75,7 +81,9 @@ public class AmsBrokerController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(HttpServletRequest request) {
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsPlatforms = amsPlatformService.selectPlatformWithDetail(params);
+        //查询金融工具类型（平台）
+        params.put("globalConstCode", UpmsConstant.FIN_INSTR_TYPE);
+        List<SysGlobalConstData> amsPlatforms = sysGlobalConstDataService.selectDataByCode(params);
         request.setAttribute("amsPlatforms", amsPlatforms);
         return "/broker/create_broker.jsp";
     }
@@ -131,12 +139,13 @@ public class AmsBrokerController extends BaseController {
     @Log(value = "编辑券商")
     @RequiresPermissions("ams:broker:edit")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
-    public String update(@PathVariable("id") String id, ModelMap modelMap, HttpServletRequest request) {
+    public String update(@PathVariable("id") String id, ModelMap modelMap) {
         AmsBroker amsBroker=amsBrokerService.selectByPrimaryKey(Long.parseLong(id));
         modelMap.put("amsBrokers",amsBroker);
         Map<String, Object> params = Maps.newHashMap();
-        List<Map> amsPlatforms =amsPlatformService.selectPlatformWithDetail(params);
-        request.setAttribute("amsPlatforms", amsPlatforms);
+        //查询金融工具类型（平台）
+        params.put("globalConstCode", UpmsConstant.FIN_INSTR_TYPE);
+        List<SysGlobalConstData> amsPlatforms = sysGlobalConstDataService.selectDataByCode(params);
         modelMap.put("amsPlatforms", amsPlatforms);
         return "/broker/update_broker.jsp";
     }
