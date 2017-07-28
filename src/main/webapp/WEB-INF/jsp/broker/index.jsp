@@ -23,7 +23,7 @@
                     <select id="tradePlatformSearch" name="tradePlatformSearch" onchange="selectByPlatformId()" style="width:160px;">
                         <option value=""> -- 全部平台 -- </option>
                         <c:forEach var="platform" items="${amsPlatforms}">
-                            <option value="${platform.platform_id}">${platform.platform_name}</option>
+                            <option value="${platform.globalConstDataValue}">${platform.globalConstDataName}</option>
                         </c:forEach>
                     </select>
                     <shiro:hasPermission name="upms:company:create">
@@ -67,7 +67,7 @@
         {field: 'ck', checkbox: true},
         {field: 'broker_id', title: '券商ID'},
         {field: 'broker_name', title: '券商名称'},
-        {field: 'platform_name', title: '交易平台'},
+        {field: 'global_const_data_name', title: '交易平台'},
         {field: 'broker_abbr_name', title: '缩写名称'},
         {   field: 'day_begin',
             title: '日盘开始时间',

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pbs.ams.web.mappers.SysGlobalConstDataMapper">
+  <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.SysGlobalConstData">
+    <id column="global_const_data_id" jdbcType="BIGINT" property="globalConstDataId" />
+    <id column="global_const_data_value" jdbcType="VARCHAR" property="globalConstDataValue" />
+    <result column="global_const_code" jdbcType="VARCHAR" property="globalConstCode" />
+    <result column="global_const_data_name" jdbcType="VARCHAR" property="globalConstDataName" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="parent_global_data_id" jdbcType="BIGINT" property="parentGlobalDataId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    global_const_data_id, global_const_data_value, global_const_code, global_const_data_name, 
+    is_delete, parent_global_data_id
+  </sql>
+  <select id="selectDataByCode" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    global_const_data_id, global_const_data_value, s.global_const_code, global_const_data_name,
+    is_delete, parent_global_data_id
+    FROM sys_global_const_data sd join sys_global_const s on s.global_const_code = sd.global_const_code where s.global_const_code = #{globalConstCode, jdbcType=VARCHAR}
+  </select>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

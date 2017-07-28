@@ -29,11 +29,11 @@
         <div class="control-group">
             <label for="platformId" class="control-label"><em class="rqd">*</em>交易平台：</label>
             <div class="controls">
-                <select name="platformId" id="platformId">
+                <select name="finInstrType" id="platformId">
                     <c:forEach var="platform" items="${amsPlatforms}">
-                        <option value="${platform.platform_id}" <c:if
-                                test='${amsBrokers.platformId == platform.platform_id}'> selected='selected' </c:if>>
-                                ${platform.platform_name}
+                        <option value="${platform.globalConstDataValue}" <c:if
+                                test='${amsBrokers.finInstrType == platform.globalConstDataValue}'> selected='selected' </c:if>>
+                                ${platform.globalConstDataName}
                         </option>
                     </c:forEach>
                 </select>
