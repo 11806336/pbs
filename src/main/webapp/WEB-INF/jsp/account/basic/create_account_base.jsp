@@ -17,6 +17,11 @@
     <link href="${basePath}/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/plugins/select2/theme/select2-bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="${basePath}/resources/css/common.css">
+
+    <link rel="stylesheet" href="${basePath}/resources/css/common.css">
+    <script src="${basePath}/resources/plugins/jquery.1.12.4.min.js"></script>
+    <script src="${basePath}/resources/plugins/select2/js/select2.min.js"></script>
+    <script src="${basePath}/resources/plugins/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <div id="main">
@@ -97,6 +102,7 @@
     <input type="button" class="btn btn-info" id="saveBrokerBtn" value=" 提 交 ">
     </form>
 </div>
+<jsp:include page="/resources/inc/foot.jsp" flush="true"/>
 <script>
     //下拉框选择
     $("select").select2({
