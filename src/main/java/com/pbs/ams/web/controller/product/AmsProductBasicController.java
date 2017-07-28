@@ -92,6 +92,7 @@ public class AmsProductBasicController extends BaseController {
             Map<String,Object> map = Maps.newHashMap();
             map.put("offset",offset);
             map.put("limit",limit);
+
             if (!StringUtils.isBlank(search)) {
                 map.put("search",search);
             }

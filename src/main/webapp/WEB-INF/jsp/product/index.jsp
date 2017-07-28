@@ -15,7 +15,7 @@
             <div class="form-group">
                 <div class="btn-panel" style="float:left;">
                     <shiro:hasPermission name="upms:company:refresh">
-                        <a class="waves-effect waves-button btnRefresh" href="#"><i class="zmdi zmdi-refresh"></i>&nbsp;立即更新</a>
+                        <a class="waves-effect waves-button btnRefresh" href="#"  onclick="location=location" ><i class="zmdi zmdi-refresh"></i>&nbsp;立即更新</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="upms:company:create">
                         <a class="waves-effect waves-button btnCreate" href="#" onclick="dialog('${basePath}/product/createProduct','新建产品','')"><i class="zmdi zmdi-plus"></i>&nbsp;新建产品</a>
@@ -36,6 +36,10 @@
 </div>
 
 <jsp:include page="/resources/inc/foot.jsp" flush="true"/>
+<script src="${basePath}/resources/js/public.js"></script>
+<script src="${basePath}/resources/js/Timer.js"></script>
+<script src="${basePath}/resources/js/Loader.js"></script>
+<script src="${basePath}/resources/js/timer2.js"></script>
 
 <script language=javascript>
     function expot() {
@@ -251,8 +255,6 @@
         });
         $("#table").bootstrapTable('refresh');
     }
-
-
 </script>
 </body>
 </html>

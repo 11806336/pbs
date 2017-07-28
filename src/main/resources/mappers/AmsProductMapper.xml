@@ -53,7 +53,7 @@
     JOIN upms_user uu ON ap.operator_id = uu.user_id
     <where>
       <if test="search != null">
-        ap.product_name LIKE %#{search}%
+        ap.product_name  LIKE CONCAT('%','${search}','%' )
       </if>
       <if test="companyIds != null">
         and ap.company_id in
@@ -79,7 +79,7 @@
     LEFT JOIN ams_product_detail apd ON ap.product_id = apd.product_id
     <where>
       <if test="search != null">
-        ap.product_name LIKE %#{search}%
+        ap.product_name LIKE CONCAT('%','${search}','%' )
       </if>
       <if test="companyIds != null">
         and ap.company_id in

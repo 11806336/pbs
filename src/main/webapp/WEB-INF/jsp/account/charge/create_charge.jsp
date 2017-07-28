@@ -159,7 +159,6 @@
                         return false;
                 }
             },
-
             success: function (data) {
                 console.info(data);
                 console.log(data.message);

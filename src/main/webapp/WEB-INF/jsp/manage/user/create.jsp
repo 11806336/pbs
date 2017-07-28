@@ -32,11 +32,15 @@
 		</div>
 		<div class="form-group">
 			<label for="username">帐号</label>
-			<input id="username" type="text" class="form-control" name="username" maxlength="20">
+			<input id="username" type="text" class="form-control" name="username" onfocus="importName1(this)"
+				   onblur="importName2(this)"  maxlength="20">
+			<span class="tipsError">请输入账号</span>
 		</div>
 		<div class="form-group">
 			<label for="password">密码</label>
-			<input id="password" type="text" class="form-control" name="password" maxlength="32">
+			<input id="password" type="text" class="form-control" name="password" onfocus="importName1(this)"
+				   onblur="importName3(this)"  maxlength="20">
+			<span class="tipsError">密码不能小于5个字符</span>
 		</div>
 		<div class="form-group">
 			<label for="realname">姓名</label>
@@ -85,11 +89,13 @@ function createSubmit() {
         url: '${basePath}/manage/user/create',
         data: $('#createForm').serialize(),
         beforeSend: function() {
-            if ($('#username').val() == '') {
+            if ($('#username').val() == ''
+				&& $('#password').val() == '') {
                 $('#username').focus();
+                $('#password').focus();
                 return false;
             }
-            if ($('#password').val() == '' || $('#password').val().length < 5) {
+            if ($('#password').val().length < 5) {
                 $('#password').focus();
                 return false;
             }
@@ -148,5 +154,20 @@ function createSubmit() {
 			});
         }
     });
+}
+function importName1(obj) {
+    if (!$(obj).val()) {
+        $(obj).next().show();
+    }
+}
+function importName2(obj) {
+    if ($(obj).val()) {
+        $(obj).next().hide();
+    }
+}
+function importName3(obj) {
+    if ($(obj).val().length > 5) {
+        $(obj).next().hide();
+    }
 }
 </script>
