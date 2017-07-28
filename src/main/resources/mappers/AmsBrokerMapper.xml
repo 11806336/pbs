@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.pbs.ams.web.model.AmsBroker">
     <id column="broker_id" jdbcType="BIGINT" property="brokerId" />
     <result column="broker_type" jdbcType="INTEGER" property="brokerType" />
-    <result column="platform_id" jdbcType="BIGINT" property="platformId" />
+    <result column="fin_instr_type" jdbcType="BIT" property="finInstrType" />
     <result column="broker_abbr_name" jdbcType="VARCHAR" property="brokerAbbrName" />
     <result column="broker_logo" jdbcType="VARCHAR" property="brokerLogo" />
     <result column="broker_name" jdbcType="VARCHAR" property="brokerName" />
@@ -16,7 +16,7 @@
     <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    broker_id, broker_type, platform_id, broker_abbr_name, broker_logo, broker_name,
+    broker_id, broker_type, fin_instr_type, broker_abbr_name, broker_logo, broker_name,
     creditable, day_begin, day_end, create_time, update_time, operator_id
   </sql>
   <!--根据ID查询券商-->
@@ -28,11 +28,11 @@
   </select>
   <!--ams_broker and ams_platform 关联查询-->
   <select id="selectBrokerWithDetail" resultType="java.util.Map" parameterType="java.lang.Object">
-    SELECT ab.broker_id,ab.broker_type,ab.platform_id, ab.broker_abbr_name,ab.broker_logo,ab.broker_name,
-    ab.creditable,ab.day_begin,ab.day_end,ab.create_time,ab.update_time, ab.operator_id,ap.platform_name
-    FROM ams_broker ab LEFT JOIN ams_platform ap ON ab.platform_id = ap.platform_id where 1 = 1
-    <if test="platformId!=null">
-      and ab.platform_id = #{platformId,jdbcType=BIGINT}
+    SELECT ab.broker_id,ab.broker_type,ab.fin_instr_type, ab.broker_abbr_name,ab.broker_logo,ab.broker_name,
+    ab.creditable,ab.day_begin,ab.day_end,ab.create_time,ab.update_time, ab.operator_id,ap.global_const_data_name
+    FROM ams_broker ab JOIN sys_global_const_data ap ON ab.fin_instr_type = ap.global_const_data_value where ap.global_const_code = "fin_instr_type"
+    <if test="finInstrType!=null">
+      and ab.fin_instr_type = #{finInstrType,jdbcType=BIT}
     </if>
     <if test="search!=null">
        and ab.broker_name LIKE CONCAT('%','${search}','%' )
@@ -79,8 +79,8 @@
       <if test="brokerType != null">
         broker_type,
       </if>
-      <if test="platformId != null">
-        platform_id,
+      <if test="finInstrType != null">
+        fin_instr_type,
       </if>
       <if test="brokerAbbrName != null">
         broker_abbr_name,
@@ -113,8 +113,8 @@
       <if test="brokerType != null">
         #{brokerType,jdbcType=INTEGER},
       </if>
-      <if test="platformId != null">
-        #{platformId,jdbcType=BIGINT},
+      <if test="finInstrType != null">
+        #{finInstrType,jdbcType=BIT},
       </if>
       <if test="brokerAbbrName != null">
         #{brokerAbbrName,jdbcType=VARCHAR},
@@ -149,8 +149,8 @@
       <if test="brokerType != null">
         broker_type = #{brokerType,jdbcType=INTEGER},
       </if>
-      <if test="platformId != null">
-        platform_id = #{platformId,jdbcType=BIGINT},
+      <if test="finInstrType != null">
+        fin_instr_type = #{finInstrType,jdbcType=BIT},
       </if>
       <if test="brokerAbbrName != null">
         broker_abbr_name = #{brokerAbbrName,jdbcType=VARCHAR},
@@ -184,12 +184,12 @@
 
 <!--插入快照-->
   <insert id="insertToAmsBrokerSnaps" parameterType="com.pbs.ams.web.model.AmsBrokerSnaps">
-     insert into ams_broker_snaps (broker_id, broker_type, platform_id,
+     insert into ams_broker_snaps (broker_id, broker_type, fin_instr_type,
       broker_abbr_name, broker_logo, broker_name,
       creditable, day_begin, day_end,
       create_time, update_time, operator_id,snaps_time
       )
-    values (#{brokerId,jdbcType=BIGINT}, #{brokerType,jdbcType=INTEGER}, #{platformId,jdbcType=BIGINT},
+    values (#{brokerId,jdbcType=BIGINT}, #{brokerType,jdbcType=INTEGER}, #{finInstrType,jdbcType=BIT},
       #{brokerAbbrName,jdbcType=VARCHAR}, #{brokerLogo,jdbcType=VARCHAR}, #{brokerName,jdbcType=VARCHAR},
       #{creditable,jdbcType=BIT}, #{dayBegin,jdbcType=BIGINT}, #{dayEnd,jdbcType=BIGINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{operatorId,jdbcType=BIGINT},
